@@ -1,0 +1,28 @@
+type: Duct
+name: Jynsteel Duct
+size: 1
+health: 18
+speed: 3
+//displayedSpeed: 20
+itemCapacity: 2
+requirements: [
+    jynsteel/2
+]
+bridgeReplacement: jyn-ductbridge
+//flashColor: FFB570
+category: distribution
+solid: false
+underBullets: true
+alwaysUnlocked: false
+researchCostMultiplier: 0
+research: {
+    parent: pioneers
+    objectives: [
+        {
+            type: OnSector
+            preset: 不容拒绝
+        }
+    ]
+}
+shownPlanets: [ mx1 ]
+// databaseTag: tran
