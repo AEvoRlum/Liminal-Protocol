@@ -1,0 +1,214 @@
+type: GenericCrafter
+name: Trans Chimeric Foundry
+size: 4
+health: 314
+requirements: [
+    litelnlay/85
+    massisteel/66
+    jynsteel/64
+    crystalite/32
+]
+itemCapacity: 32
+liquidCapacity: 0
+craftTime: 160
+consumes: {
+    power: 2.8
+    items: [
+        litelnlay/6
+        massisteel/4
+    ]
+}
+outputItem: transchimericsteel/4
+ambientSound: loopPressureGenerator
+ambientSoundVolume: 0.1
+drawer: {
+    type: DrawMulti
+    drawers: [
+        DrawDefault
+        {
+            type: DrawGlowRegion
+            suffix: -glow
+            color: FFB570
+            glowIntensity: 0.8
+        }
+        {
+            type: DrawGlowRegion
+            suffix: -glow0
+            // pulse: 0.2
+            // pulseScl: 12
+            color: FFB570
+            glowScale: 12
+            glowIntensity: 1.2
+        }
+        {
+            type: DrawGlowRegion
+            suffix: -glow1
+            // pulse: 0.4
+            // pulseScl: 12
+            color: FFB570
+            glowScale: 14
+            glowIntensity: 1.6
+        }
+        {
+            type: DrawFlame
+            flameColor: E8EBFFFF
+            lightRadius: 40
+            flameRadius: 4.5
+            flameRadiusIn: 4
+            flameRadiusScl: 4
+            flameRadiusMag: 3
+            flameRadiusInMag: 0.5
+        }
+        {
+            type: DrawBlockParts
+            parts: [
+                // {
+                    // type: RegionPart
+                    // x: 0
+                    // y: 0
+                    // suffix: trans-chimeric-foundry-glow0
+                    // outline: false
+                    // under: false
+                    // blending: additive
+                    // color: EB564B00
+                    // colorTo: FFB570
+                    // layer: 110
+                    // progress: {
+                        // type: warmup
+                        // op: compress
+                        // start: 0
+                        // end: 0.5
+                    // }
+                // }
+                // {
+                    // type: RegionPart
+                    // x: 0
+                    // y: 0
+                    // suffix: trans-chimeric-foundry-glow1
+                    // outline: false
+                    // under: false
+                    // blending: additive
+                    // color: EB564B00
+                    // colorTo: FFB570
+                    // layer: 110
+                    // progress: {
+                        // type: warmup
+                        // op: compress
+                        // start: 0.5
+                        // end: 1
+                    // }
+                // }
+                {
+                    type: ShapePart
+                    x: 0
+                    y: 0
+                    circle: false
+                    hollow: true
+                    color: FFB570
+                    colorTo: E8EBFFFF
+                    sides: 4
+                    radius: 0
+                    radiusTo: 16
+                    stroke: 0
+                    strokeTo: 2
+                    rotation: 0
+                    rotateSpeed: 0
+                    layer: 110
+                    progress: {
+                        type: warmup
+                        op: curve
+                        interp: circleIn
+                        sizeInterp: pow10Out
+                    }
+                }
+                {
+                    type: ShapePart
+                    x: 0
+                    y: 0
+                    circle: false
+                    hollow: true
+                    color: E8EBFFFF
+                    colorTo: E8EBFF00
+                    sides: 4
+                    radius: 12
+                    radiusTo: 16
+                    stroke: 0
+                    strokeTo: 1
+                    rotation: 0
+                    rotateSpeed: 0
+                    layer: 110
+                    progress: {
+                        type: reload
+                        ops: [
+                            {
+                                op: curve
+                                interp: pow10Out
+                                sizeInterp: pow10Out
+                            }
+                            // {
+                                // op: loop
+                                // time: 30
+                            // }
+                        ]
+                    }
+                }
+                {
+                    type: ShapePart
+                    x: 0
+                    y: 0
+                    circle: false
+                    hollow: true
+                    color: E8EBFFFF
+                    colorTo: E8EBFF00
+                    sides: 4
+                    radius: 22
+                    radiusTo: 16
+                    stroke: 0
+                    strokeTo: 1
+                    rotation: 0
+                    rotateSpeed: 0
+                    layer: 110
+                    progress: {
+                        type: reload
+                        ops: [
+                            {
+                                op: curve
+                                interp: pow10Out
+                                sizeInterp: pow10Out
+                            }
+                            // {
+                                // op: loop
+                                // time: 30
+                            // }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
+craftEffect: {
+    particles: 1
+    region: lp-prismatic
+    length: 0
+    baseLength: 0
+    lifetime: 30
+    useRotation: false
+    interp: circleOut
+    sizeFrom: 0
+    sizeTo: 0
+    colorFrom: FFEF6D00
+    colorTo: FFB57000
+}
+canOverdrive: true
+alwaysUnlocked: false
+researchCostMultiplier: 0.4
+category: crafting
+research: {
+    parent: erocrys-extractory
+    objectives: [
+        // impact-drill0
+        lit-unloader
+    ]
+}
+shownPlanets: [ mx1 ]

@@ -1,0 +1,138 @@
+type: GenericCrafter
+name: High-Speed Transchimeric Foundry
+size: 5
+health: 513
+requirements: [
+    transchimericsteel/180
+    massisteel/112
+    jynsteel/142
+    crystalite/40
+]
+itemCapacity: 128
+liquidCapacity: 0
+craftTime: 300
+consumes: {
+    power: 5
+    items: [
+        litelnlay/45
+        massisteel/30
+    ]
+}
+outputItem: transchimericsteel/30
+ambientSound: loopRegen
+ambientSoundVolume: 0.2
+drawer: {
+    type: DrawMulti
+    drawers: [
+        DrawDefault
+        {
+            type: DrawFlame
+            flameColor: E8EBFF
+            lightRadius: 56
+            flameRadius: 3.5
+            flameRadiusIn: 3.5
+            flameRadiusScl: 8
+            flameRadiusMag: 7
+            flameRadiusInMag: 2
+        }
+        {
+            type: DrawBlockParts
+            parts: [
+                {
+                    type: RegionPart
+                    outline: false
+                    mirror: false
+                    x: 0
+                    y: 0
+                    color: FFFFFF00
+                    colorTo: FFFFFF00
+                    xScl: 0
+                    yScl: 0
+                    layer: 110
+                    progress: {
+                        type: reload
+                        op: curve
+                        interp: pow10Out
+                    }
+                    moveRot: 90
+                    children: [
+                        {
+                            type: ShapePart
+                            x: 0
+                            y: 0
+                            circle: false
+                            hollow: true
+                            color: E8EBFF00
+                            colorTo: E8EBFF
+                            sides: 4
+                            radius: 0
+                            radiusTo: 18
+                            stroke: 0
+                            strokeTo: 2.5
+                            rotation: 0
+                            layer: 110
+                            progress: {
+                                type: warmup
+                                op: curve
+                                interp: circleIn
+                                sizeInterp: pow10Out
+                            }
+                        }
+                    ]
+                }   
+            ]
+        }
+    ]
+}
+updateEffect: {
+    particles: 1
+    region: lp-square
+    lifetime: 30
+    length: 0
+    baseLength: 0
+    baseRotation: 0
+    randLength: false
+    interp: pow4Out
+    sizeInterp: pow2In
+    sizeFrom: 2
+    sizeTo: 0
+    colorFrom: E8EBFF
+    colorTo: E8EBFF
+}
+craftEffect: [
+    {
+        type: WaveEffect
+        lifetime: 30
+        sides: 4
+        interp: pow4Out
+        sizeFrom: 40
+        sizeTo: 0
+        strokeFrom: 2
+        strokeTo: 0
+        colorFrom: E8EBFF
+        colorTo: E8EBFF
+    }
+    {
+        type: WaveEffect
+        lifetime: 30
+        sides: 4
+        interp: pow3Out
+        sizeFrom: 50
+        sizeTo: 0
+        strokeFrom: 2
+        strokeTo: 0
+        colorFrom: E8EBFF
+        colorTo: E8EBFF
+    }
+]
+canOverdrive: true
+alwaysUnlocked: false
+researchCostMultiplier: 0.1
+category: crafting
+research: {
+    parent: trans-chimeric-foundry
+    objectives: [
+        ionopolymer-crucible-large
+    ]
+}
+shownPlanets: [ mx1 ]
