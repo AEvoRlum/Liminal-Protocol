@@ -1,5 +1,5 @@
 # Mindustry Json/Java Mod
-A Json/Java Mindustry mod that works on Android and PC. The Kotlin version of this mod can be seen [here](https://github.com/Anuken/MindustryKotlinModTemplate).
+A Json/Java Mindustry mod that works on Android and PC.
 
 ## Building for Desktop Testing
 
