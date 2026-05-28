@@ -1,0 +1,70 @@
+type: CoreBlock
+name: Pioneers
+size: 3
+health: 732
+armor: 5
+itemCapacity: 2000
+requirements: [
+    jynsteel/1000
+    erocrys/800
+]
+unitCapModifier: 16
+unitType: pioneers-unit
+destroySound: blockExplodeFlammable
+destroySoundVolume: 4
+destroyEffect: {
+    type: MultiEffect
+    effects: [
+        {
+            particles: 15
+            line: true
+            length: 80
+            baseLength: 2
+            lifetime: 40
+            interp: pow5Out
+            sizeInterp: pow2In
+            lenFrom: 68
+            lenTo: 0
+            strokeFrom: 2
+            strokeTo: 0
+            colorFrom: FFB570
+            colorTo: EB564B
+        }
+        {
+            particles: 12
+            length: 120
+            baseLength: 5
+            lifetime: 40
+            interp: pow3Out
+            sizeInterp: pow2In
+            sizeFrom: 5
+            sizeTo: 0
+            colorFrom: FFB570
+            colorTo: 54545400
+        }
+        {
+            type: WaveEffect
+            lifetime: 40
+            sizeFrom: 0
+            sizeTo: 240
+            strokeFrom: 3
+            strokeTo: 0
+            colorFrom: FFB570
+            colorTo: EB564B
+        }
+    ]
+}
+priority: 10
+alwaysUnlocked: true
+canOverdrive: false
+isFirstTier: true
+requiresCoreZone: false
+researchCostMultiplier: 0
+category: effect
+research: {
+    root: true
+    planet: mx1
+    name: MXrd-01
+}
+shownPlanets: [ mx1 ]
+databaseTag: core
