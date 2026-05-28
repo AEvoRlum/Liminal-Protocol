@@ -1,0 +1,215 @@
+type: missile
+databaseTag: 9
+name: ravager.spawn
+lifetime: 1
+template: MissileUnitType
+health: 1
+armor: 0
+speed: 0
+rotateSpeed: 0
+accel: 10000
+drag: 10000
+engineSize: 0
+fogRadius: 0
+range: 0
+buildSpeed: 0
+itemCapacity: 0
+ammoCapacity: 325
+dpsEstimate: 799325
+flying: true
+lowAltitude: true
+targetable: false
+isEnemy: false
+canDrown: false
+alwaysUnlocked: false
+physics: false
+wobble: false
+hittable: false
+drawCell: false
+drawBody: false
+drawSoftShadow: false
+drawShields: false
+drawMinimap: false
+useUnitCap: false
+playerControllable: false
+logicControllable: true
+hidden: true
+shadowElevation: 325325
+shownPlanets: [ mx1 ]
+deathSound: none
+deathExplosionEffect: none
+weapons: [
+    {
+        alwaysShooting: true
+        shootOnDeath: true
+        mirror: false
+        display: false
+        x: 0
+        y: 0
+        reload: 1
+        recoil: 0
+        recoilTime: 0
+        shootSound: none
+        shootY: 0
+        shootX: 0
+        bullet: {
+            type: BasicBulletType
+            shootEffect: none
+            smokeEffect: none
+            hitEffect: none
+            hitSound: none
+            despawnEffect: none
+            killShooter: true
+            collides: false
+            absorbable: false
+            hittable: false
+            keepVelocity: false
+            width: 0
+            height: 0
+            shrinkX: 0
+            shrinkY: 0
+            speed: 0
+            lifetime: 0
+            damage: 0
+            fragBullets: 1
+            fragVelocityMin: 1
+            fragVelocityMax: 1
+            fragLifeMin: 1
+            fragLifeMax: 1
+            fragBullet: {
+                type: MultiBulletType
+                bullets: [
+                    {
+                        type: BasicBulletType
+                        angleOffset: 0
+                        hitEffect: {
+                            particles: 1
+                            region: lp-prismatic
+                            length: 0
+                            baseLength: 0
+                            randLength: false
+                            baseRotation: 0
+                            interp: circleOut
+                            sizeInterp: pow2In
+                            sizeFrom: 32
+                            sizeTo: 24
+                            colorFrom: F3E6E6
+                            colorTo: F3E6E600
+                        }
+                        hitSound: laser2
+                        hitSoundVolume: 3
+                        despawnEffect: none
+                        collides: false
+                        absorbable: false
+                        hittable: false
+                        ignoreSpawnAngle: true
+                        keepVelocity: false
+                        width: 0
+                        height: 0
+                        shrinkY: 0
+                        speed: 0
+                        lifetime: 90
+                        damage: 0
+                        parts: [
+                            {
+                                type: ShapePart
+                                x: 0
+                                y: 0
+                                circle: false
+                                hollow: true
+                                color: F3E6E6
+                                colorTo: F3E6E6
+                                sides: 4
+                                radius: 0
+                                radiusTo: 32
+                                stroke: 0
+                                strokeTo: 3
+                                rotation: 0
+                                layer: 110
+                                progress: {
+                                    type: life
+                                    ops: [
+                                        {
+                                            op: mul
+                                            amount: 0
+                                        }
+                                        {
+                                            op: sin
+                                            scl: 1
+                                            mag: 0.2
+                                        }
+                                        {
+                                            op: add
+                                            amount: 0.9
+                                        }
+                                        {
+                                            op: mul
+                                            other: {
+                                                type: life
+                                                op: curve
+                                                interp: circleIn
+                                                sizeInterp: circleOut
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                            {
+                                type: FlarePart
+                                x: 0
+                                y: 0
+                                color1: F3E6E6
+                                color2: F3E6E6
+                                followRotation: false
+                                rotation: 45
+                                sides: 4
+                                radius: 0
+                                radiusTo: 80
+                                stroke: 6
+                                spinSpeed: 0
+                                layer: 110
+                                progress: {
+                                    type: life
+                                    ops: [
+                                        {
+                                            op: mul
+                                            amount: 0
+                                        }
+                                        {
+                                            op: sin
+                                            scl: 1
+                                            mag: 0.2
+                                        }
+                                        {
+                                            op: add
+                                            amount: 0.9
+                                        }
+                                        {
+                                            op: mul
+                                            other: {
+                                                type: life
+                                                op: curve
+                                                interp: circleIn
+                                                sizeInterp: circleOut
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                        despawnUnit: ravager
+                        despawnUnitRadius: 0
+                        fragBullets: 5
+                        fragBullet: {
+                            type: LightningBulletType
+                            damage: 15
+                            lightningLength: 12
+                            lightningLengthRand: 12
+                            lightningColor: F3E6E6
+                        }
+                    }
+                ]
+            }
+        }
+    }
+]

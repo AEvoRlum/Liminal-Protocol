@@ -1,0 +1,117 @@
+type: flying
+controller: BuilderAI
+name: Pioneers
+databaseTag: core-unit
+health: 255
+armor: 2
+hitSize: 8
+rotateSpeed: 8
+speed: 4.2
+accel: 0.2
+drag: 0.1
+engineSize: 2
+engineOffset: 6.5
+engineLayer: 109.9
+engineColor: FFB570
+trailColor: FFB570
+trailLength: 10
+fogRadius: 40
+lightRadius: 80
+buildSpeed: 1
+buildRange: 200
+itemCapacity: 60
+ammoCapacity: 325
+mineRange: 200
+mineSpeed: 1.6
+mineTier: 2
+outlineColor: 262720
+//flashColor: FFB570
+range: 200
+dpsEstimate: 0
+// ammoType: {
+    // type: PowerAmmoType
+// }
+flying: true
+faceTarget: true
+lowAltitude: false
+targetable: false
+useUnitCap: false
+drawBuildBeam: true
+logicControllable: false
+isEnemy: false
+alwaysUnlocked: true
+coreUnitDock: true
+researchCostMultiplier: 0
+research: pioneers
+shownPlanets: [ mx1 ]
+parts: [
+    {
+        type: FlarePart 
+        x: 0
+        y: -6.5
+        followRotation: false
+        color1: FFB570FF
+        color2: FFB570
+        sides: 2
+        radius: 15
+        radiusTo: 15
+        spinSpeed: 0
+        stroke: 0.5
+        layer: 110
+        progress: warmup
+    }
+]
+weapons: [
+    // {
+        // mirror: false
+        // x: 0
+        // y: 0
+        // shootY: 0
+        // shootCone: 0
+        // minWarmup: 2
+        // shootWarmupSpeed: 0.2
+        // bullet: {
+            // rangeOverride: 200
+        // }
+    // }
+    {
+        type: RepairBeamWeapon
+        reload: 20
+        shootCone: 30
+        x: 0
+        y: 1.5
+        shootY: 0
+        shootX: 0
+        mirror: false
+        rotate: false
+        controllable: true
+        alternate: false
+        widthSinMag: 0.15
+        repairSpeed: 5
+        beamWidth: 0.5
+        fractionRepairSpeed: 1
+        laserColor: FFB570
+        healColor: 76D081FF
+        targetBuildings: true
+        autoTarget: false
+        bullet: {
+            maxRange: 200
+        }
+    }
+    {
+        type: BuildWeapon
+        rotate: false
+        top: false
+        x: 0
+        y: 1.5
+        shootX: 0
+        shootY: 0
+    }
+    {
+        type: MineWeapon
+        x: 0
+        y: 1.5
+        shootY: 0
+        shootX: 0
+    }
+]

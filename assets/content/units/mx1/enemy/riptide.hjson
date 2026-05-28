@@ -1,0 +1,277 @@
+type: hover
+name: Riptide
+databaseTag: enemy
+health: 540
+armor: 3
+hitSize: 24
+rotateSpeed: 6
+speed: 3
+accel: 0.02
+drag: 0.02
+engineSize: 0
+fogRadius: 110
+buildSpeed: 0
+itemCapacity: 40
+ammoCapacity: 325
+outlineColor: 262720
+range: 110
+maxRange: 110
+shadowElevation: 0.1
+drownTimeMultiplier: 799325
+lowAltitude: true
+hovering: true
+flying: false
+canDrown: false
+alwaysUnlocked: false
+useUnitCap: false
+shownPlanets: [ mx1 ]
+researchCostMultiplier: 0
+research: {
+    parent: 325
+    objectives: [
+        {
+            //type: SectorPresets
+            preset: 不容拒绝
+        }
+    ]
+}
+loopSound: loopHover
+loopSoundVolume: 0.5
+// ammoType: jynsteel
+parts: [
+    {
+        type: ShapePart
+        x: 0
+        y: 9
+        circle: false
+        hollow: true
+        color: F3E6E6
+        colorTo: F3E6E6
+        sides: 4
+        radius: 5.5
+        radiusTo: 5.5
+        stroke: 1.5
+        strokeTo: 1.5
+        rotation: 0
+        layer: 110
+    }
+    {
+        type: HoverPart
+        x: 10
+        y: 7
+        mirror: true
+        color: FFB570
+        sides: 4
+        circles: 3
+        radius: 10
+        phase: 60
+        stroke: 1
+        layerOffset: -0.001
+    }
+    {
+        type: HoverPart
+        x: 11
+        y: -8
+        mirror: true
+        color: FFB570
+        sides: 4
+        circles: 3
+        radius: 10
+        phase: 60
+        stroke: 1
+        layerOffset: -0.001
+    }
+]
+weapons: [
+    {
+        name: riptide-b
+        x: 4.7
+        y: 0
+        mirror: true
+        rotate: false
+        top: true
+        shootY: 2.5
+        shootCone: 5
+        shootSound: shootNavanax
+        shake: 2
+        reload: 30
+        recoil: 2
+        recoilTime: 20
+        bullet: {
+            type: MultiBulletType
+            damage: 30
+            armorMultiplier: 1.5
+            ammoMultiplier: 1
+            shieldDamageMultiplier: 1.45
+            homingRange: 110
+            homingDelay: 4
+            homingPower: 1
+            maxRange: 110
+            rangeOverride: 110
+            shootEffect: {
+                particles: 4
+                lifetime: 25
+                length: 14
+                baseLength: 2
+                interp: pow5Out
+                sizeInterp: pow2In
+                cone: 3
+                sizeFrom: 1.6
+                sizeTo: 0
+                colorFrom: FEB380
+                colorTo: FEB380
+            }
+            smokeEffect: none
+            bullets: [
+                {
+                    type: BasicBulletType
+                    angleOffset: -1
+                    sprite: circle-bullet
+                    width: 2
+                    height: 2
+                    shrinkX: 0
+                    shrinkY: 0
+                    lightColor: FEB380
+                    frontColor: FEB380
+                    backColor: FEB380
+                    trailColor: FEB380
+                    trailWidth: 1.1
+                    trailLength: 4
+                    weaveScale: 2
+                    weaveMag: 4
+                    weaveRandom: false
+                    armorMultiplier: 1.5
+                    ammoMultiplier: 1
+                    shieldDamageMultiplier: 1.45
+                    rangeOverride: 110
+                    homingRange: 110
+                    homingDelay: 4
+                    homingPower: 1
+                    damage: 20
+                    speed: 5
+                    lifetime: 22
+                    hitSound: explosionCleroi
+                    hitShake: 3
+                    hitEffect: {
+                        type: MultiEffect
+                        effects: [
+                            {
+                                particles: 3
+                                region: lp-triangle
+                                lifetime: 30
+                                length: 20
+                                baseLength: 2
+                                interp: pow3Out
+                                sizeInterp: pow2In
+                                spin: 3
+                                sizeFrom: 4
+                                sizeTo: 0
+                                colorFrom: FEB380
+                                colorTo: FEB380
+                            }
+                            {
+                                particles: 2
+                                line: true
+                                lifetime: 30
+                                length: 22
+                                baseLength: 1
+                                interp: pow10Out
+                                sizeInterp: pow2In
+                                lenFrom: 11
+                                lenTo: 0
+                                strokeFrom: 1.6
+                                strokeTo: 0
+                                colorFrom: FEB380
+                                colorTo: FEB380
+                            }
+                        ]
+                    }
+                    despawnEffect: {
+                        type: WaveEffect
+                        lifetime: 15
+                        sizeFrom: 0
+                        sizeTo: 6
+                        strokeFrom: 1
+                        strokeTo: 0
+                        colorFrom: FFFFFF
+                        colorTo: FEB380
+                    }
+                }
+                {
+                    type: BasicBulletType
+                    angleOffset: 1
+                    sprite: circle-bullet
+                    width: 2
+                    height: 2
+                    shrinkX: 0
+                    shrinkY: 0
+                    lightColor: FEB380
+                    frontColor: FEB380
+                    backColor: FEB380
+                    trailColor: FEB380
+                    trailWidth: 1.1
+                    trailLength: 4
+                    weaveRandom: false
+                    weaveScale: 2
+                    weaveMag: -4
+                    armorMultiplier: 1.5
+                    ammoMultiplier: 1
+                    shieldDamageMultiplier: 1.45
+                    rangeOverride: 110
+                    homingRange: 110
+                    homingDelay: 4
+                    homingPower: 1
+                    damage: 20
+                    speed: 5
+                    lifetime: 22
+                    hitSound: explosionCleroi
+                    hitShake: 3
+                    hitEffect: {
+                        type: MultiEffect
+                        effects: [
+                            {
+                                particles: 3
+                                region: lp-triangle
+                                lifetime: 30
+                                length: 20
+                                baseLength: 2
+                                interp: pow3Out
+                                sizeInterp: pow2In
+                                spin: -3
+                                sizeFrom: 4
+                                sizeTo: 0
+                                colorFrom: FEB380
+                                colorTo: FEB380
+                            }
+                            {
+                                particles: 2
+                                line: true
+                                lifetime: 30
+                                length: 22
+                                baseLength: 1
+                                interp: pow10Out
+                                sizeInterp: pow2In
+                                lenFrom: 11
+                                lenTo: 0
+                                strokeFrom: 1.6
+                                strokeTo: 0
+                                colorFrom: FEB380
+                                colorTo: FEB380
+                            }
+                        ]
+                    }
+                    despawnEffect: {
+                        type: WaveEffect
+                        lifetime: 15
+                        sizeFrom: 0
+                        sizeTo: 6
+                        strokeFrom: 1
+                        strokeTo: 0
+                        colorFrom: FFFFFF
+                        colorTo: FEB380
+                    }
+                }
+            ]
+        }
+    }
+]

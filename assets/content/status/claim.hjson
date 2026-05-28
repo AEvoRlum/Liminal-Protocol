@@ -1,0 +1,21 @@
+name: Claim
+databaseTag: amplify
+color: FFFFFF
+speedMultiplier: 2
+dragMultiplier: 0.8
+effectChance: 0.08
+effect: {
+    particles: 1
+    region: lp-triangle
+    lifetime: 20
+    length: 0
+    baseLength: 0
+    baseRotation: 0
+    randLength: false
+    interp: fastSlow
+    sizeInterp: pow3In
+    sizeFrom: 3
+    sizeTo: 0
+    colorFrom: FFFFFF
+    colorTo: FFFFFF
+}

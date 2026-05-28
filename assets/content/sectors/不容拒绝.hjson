@@ -1,0 +1,16 @@
+// const 不容拒绝 = new SectorPreset("不容拒绝", mx1, 74);
+// 不容拒绝.alwaysUnlocked = true;
+// 不容拒绝.localizedName = "不容拒绝";
+// 不容拒绝.captureWave = 3;
+// 不容拒绝.difficulty = 1;
+// exports.不容拒绝 = 不容拒绝;
+// lib.addToResearch(不容拒绝, {
+    // parent: "pioneers",
+// });
+localizedName: "[red]不容拒绝"
+planet: mx1
+sector: 74
+alwaysUnlocked: true
+captureWave: 3
+difficulty: 1
+research: pioneers

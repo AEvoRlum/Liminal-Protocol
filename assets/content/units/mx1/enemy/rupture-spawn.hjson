@@ -1,0 +1,733 @@
+type: flying
+name: rupture.spawn
+databaseTag: 9
+health: 1
+armor: 0
+speed: 0
+rotateSpeed: 0
+accel: 10000
+drag: 10000
+hitSize: 0
+engineSize: 0
+fogRadius: 0
+lightRadius: 0
+range: 0
+buildSpeed: 0
+itemCapacity: 0
+ammoCapacity: 0
+dpsEstimate: 0
+flying: true
+lowAltitude: true
+targetable: false
+isEnemy: false
+canDrown: false
+alwaysUnlocked: false
+physics: false
+wobble: false
+hittable: false
+hoverable: false
+bounded: false
+drawCell: false
+drawBody: false
+drawSoftShadow: false
+drawShields: false
+drawMinimap: false
+useUnitCap: false
+playerControllable: false
+logicControllable: true
+hidden: true
+createWreck: false
+createScorch: false
+allowedInPayloads: false
+shadowElevation: 325325
+shownPlanets: [ mx1 ]
+deathShake: 0
+deathSound: none
+deathExplosionEffect: none
+weapons: [
+    {
+        alwaysShooting: true
+        shootOnDeath: true
+        mirror: false
+        display: false
+        x: 0
+        y: 0
+        shootX: 0
+        shootY: 0
+        reload: 92
+        recoil: 0
+        shootSound: none
+        shoot: {
+            firstShotDelay: 90
+        }
+        bullet: {
+            type: BasicBulletType
+            width: 0
+            height: 0
+            shrinkY: 0
+            killShooter: true
+            ignoreSpawnAngle: true
+            collides: false
+            absorbable: false
+            hittable: false
+            keepVelocity: false
+            speed: 0
+            lifetime: 48
+            damage: 0
+            hitSound: none
+            hitEffect: none
+            despawnEffect: none
+            shootEffect: none
+            smokeEffect: none
+            parts: [
+                {
+                    type: ShapePart
+                    x: 0
+                    y: 0
+                    circle: false
+                    hollow: true
+                    color: F3E6E6
+                    colorTo: F3E6E600
+                    sides: 4
+                    radius: 30
+                    radiusTo: 40
+                    stroke: 2.8
+                    strokeTo: 4
+                    rotation: 0
+                    layer: 110
+                    progress: {
+                        type: life
+                        op: curve
+                        interp: pow3Out
+                        sizeInterp: circleOut
+                    }
+                }
+                {
+                    type: ShapePart
+                    x: 0
+                    y: 0
+                    circle: false
+                    hollow: true
+                    color: F3E6E6
+                    colorTo: F3E6E600
+                    sides: 4
+                    radius: 30
+                    radiusTo: 40
+                    stroke: 2.8
+                    strokeTo: 4
+                    rotation: 0
+                    layer: 110
+                    progress: {
+                        type: life
+                        op: curve
+                        interp: pow4Out
+                        sizeInterp: circleOut
+                    }
+                }
+                {
+                    type: ShapePart
+                    x: 0
+                    y: 0
+                    circle: false
+                    hollow: true
+                    color: F3E6E6
+                    colorTo: F3E6E600
+                    sides: 4
+                    radius: 30
+                    radiusTo: 40
+                    stroke: 2.8
+                    strokeTo: 4
+                    rotation: 0
+                    layer: 110
+                    progress: {
+                        type: life
+                        op: curve
+                        interp: pow5Out
+                        sizeInterp: circleOut
+                    }
+                }
+                {
+                    type: FlarePart 
+                    x: 0
+                    y: 0
+                    followRotation: false
+                    color1: F3E6E6
+                    color2: F3E6E6
+                    sides: 2
+                    radius: 60
+                    radiusTo: 0
+                    spinSpeed: 8
+                    stroke: 1
+                    layer: 110
+                    progress: {
+                        type: life
+                        op: curve
+                        interp: circleOut
+                        sizeInterp: circleOut
+                    }
+                }
+                {
+                    type: FlarePart 
+                    x: 0
+                    y: 0
+                    followRotation: false
+                    color1: F3E6E6
+                    color2: F3E6E6
+                    sides: 2
+                    radius: 48
+                    radiusTo: 0
+                    spinSpeed: -9
+                    stroke: 1
+                    layer: 110
+                    progress: {
+                        type: life
+                        op: curve
+                        interp: circleOut
+                        sizeInterp: circleOut
+                    }
+                }
+            ]
+        }
+    }
+    {
+        alwaysShooting: true
+        mirror: false
+        display: false
+        x: 0
+        y: 0
+        shootX: 0
+        shootY: 0
+        reload: 92
+        recoil: 0
+        shootSound: none
+        bullet: {
+            type: MultiBulletType
+            shootEffect: none
+            smokeEffect: none
+            bullets: [
+                {
+                    type: BasicBulletType
+                    width: 0
+                    height: 0
+                    shrinkY: 0
+                    ignoreSpawnAngle: true
+                    collides: false
+                    absorbable: false
+                    hittable: false
+                    keepVelocity: false
+                    speed: 0
+                    lifetime: 90
+                    damage: 0
+                    hitSound: plasmaShot2
+                    hitEffect: none
+                    despawnEffect: none
+                    despawnUnit: rupture
+                    despawnUnitRadius: 0
+                    parts: [
+                        {
+                            type: ShapePart
+                            x: 0
+                            y: 0
+                            circle: false
+                            hollow: true
+                            color: F3E6E600
+                            colorTo: F3E6E6
+                            sides: 4
+                            radius: 0
+                            radiusTo: 30
+                            stroke: 0
+                            strokeTo: 2.8
+                            rotation: 0
+                            layer: 110
+                            progress: {
+                                type: life
+                                op: curve
+                                interp: pow2Out
+                                sizeInterp: circleOut
+                            }
+                        }
+                        {
+                            type: ShapePart
+                            x: 0
+                            y: 0
+                            circle: false
+                            hollow: true
+                            color: F3E6E600
+                            colorTo: F3E6E6
+                            sides: 4
+                            radius: 0
+                            radiusTo: 30
+                            stroke: 0
+                            strokeTo: 2.8
+                            rotation: 0
+                            layer: 110
+                            progress: {
+                                type: life
+                                ops: [
+                                    {
+                                        op: compress
+                                        start: 0.7
+                                        end: 1
+                                    }
+                                    {
+                                        op: curve
+                                        interp: circleOut
+                                    }
+                                ]
+                            }
+                        }
+                        {
+                            type: ShapePart
+                            x: 0
+                            y: 0
+                            circle: false
+                            hollow: true
+                            color: F3E6E600
+                            colorTo: F3E6E6
+                            sides: 4
+                            radius: 0
+                            radiusTo: 30
+                            stroke: 0
+                            strokeTo: 2.8
+                            rotation: 0
+                            layer: 110
+                            progress: {
+                                type: life
+                                ops: [
+                                    {
+                                        op: compress
+                                        start: 0.75
+                                        end: 1
+                                    }
+                                    {
+                                        op: curve
+                                        interp: circleOut
+                                    }
+                                ]
+                            }
+                        }
+                        {
+                            type: ShapePart
+                            x: 0
+                            y: 0
+                            circle: false
+                            hollow: true
+                            color: F3E6E600
+                            colorTo: F3E6E6
+                            sides: 4
+                            radius: 0
+                            radiusTo: 30
+                            stroke: 0
+                            strokeTo: 2.8
+                            rotation: 0
+                            layer: 110
+                            progress: {
+                                type: life
+                                ops: [
+                                    {
+                                        op: compress
+                                        start: 0.8
+                                        end: 1
+                                    }
+                                    {
+                                        op: curve
+                                        interp: circleOut
+                                    }
+                                ]
+                            }
+                        }
+                        {
+                            type: ShapePart
+                            x: 0
+                            y: 0
+                            circle: false
+                            hollow: true
+                            color: F3E6E600
+                            colorTo: F3E6E6
+                            sides: 4
+                            radius: 0
+                            radiusTo: 30
+                            stroke: 0
+                            strokeTo: 2.8
+                            rotation: 0
+                            layer: 110
+                            progress: {
+                                type: life
+                                ops: [
+                                    {
+                                        op: compress
+                                        start: 0.85
+                                        end: 1
+                                    }
+                                    {
+                                        op: curve
+                                        interp: circleOut
+                                    }
+                                ]
+                            }
+                        }
+                        {
+                            type: ShapePart
+                            x: 0
+                            y: 0
+                            circle: false
+                            hollow: true
+                            color: F3E6E600
+                            colorTo: F3E6E6
+                            sides: 4
+                            radius: 0
+                            radiusTo: 30
+                            stroke: 0
+                            strokeTo: 2.8
+                            rotation: 0
+                            layer: 110
+                            progress: {
+                                type: life
+                                ops: [
+                                    {
+                                        op: compress
+                                        start: 0.9
+                                        end: 1
+                                    }
+                                    {
+                                        op: curve
+                                        interp: circleOut
+                                    }
+                                ]
+                            }
+                        }
+                        {
+                            type: ShapePart
+                            x: 0
+                            y: 0
+                            circle: false
+                            hollow: true
+                            color: F3E6E600
+                            colorTo: F3E6E6
+                            sides: 4
+                            radius: 0
+                            radiusTo: 30
+                            stroke: 0
+                            strokeTo: 2.8
+                            rotation: 0
+                            layer: 110
+                            progress: {
+                                type: life
+                                ops: [
+                                    {
+                                        op: compress
+                                        start: 0.95
+                                        end: 1
+                                    }
+                                    {
+                                        op: curve
+                                        interp: circleOut
+                                    }
+                                ]
+                            }
+                        }
+                        {
+                            type: FlarePart 
+                            x: 0
+                            y: 0
+                            followRotation: false
+                            color1: F3E6E6
+                            color2: F3E6E6
+                            sides: 2
+                            radius: 0
+                            radiusTo: 70
+                            spinSpeed: 0
+                            stroke: 1
+                            layer: 110
+                            progress: {
+                                type: life
+                                op: curve
+                                interp: pow2In
+                            }
+                        }
+                        {
+                            type: FlarePart 
+                            x: 0
+                            y: 0
+                            followRotation: false
+                            color1: F3E6E6
+                            color2: F3E6E6
+                            sides: 2
+                            radius: 0
+                            radiusTo: 60
+                            spinSpeed: 8
+                            stroke: 1
+                            layer: 110
+                            progress: {
+                                type: life
+                                ops: [
+                                    {
+                                        op: compress
+                                        start: 0.7
+                                        end: 1
+                                    }
+                                    {
+                                        op: curve
+                                        interp: circleOut
+                                    }
+                                ]
+                            }
+                        }
+                        {
+                            type: FlarePart 
+                            x: 0
+                            y: 0
+                            followRotation: false
+                            color1: F3E6E6
+                            color2: F3E6E6
+                            sides: 2
+                            radius: 0
+                            radiusTo: 48
+                            spinSpeed: -9
+                            stroke: 1
+                            layer: 110
+                            progress: {
+                                type: life
+                                ops: [
+                                    {
+                                        op: compress
+                                        start: 0.7
+                                        end: 1
+                                    }
+                                    {
+                                        op: curve
+                                        interp: circleOut
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                    fragBullet: {
+                        type: MultiBulletType
+                    }
+                }
+                {
+                    type: BulletType
+                    lifetime: 0
+                    speed: 0
+                    damage: 0
+                    instantDisappear: true
+                    spawnBulletRandomSpread: 360
+                    hitSound: none
+                    hitEffect: none
+                    despawnEffect: none
+                    spawnBullets: [
+                        {
+                            type: BasicBulletType
+                            sprite: lp-plasma
+                            width: 6
+                            height: 6
+                            shrinkY: 0
+                            lightColor: F3E6E6
+                            frontColor: F3E6E6
+                            backColor: F3E6E6
+                            trailColor: F3E6E6
+                            trailWidth: 3
+                            trailLength: 9
+                            collides: false
+                            absorbable: false
+                            hittable: false
+                            keepVelocity: false
+                            circleShooter: true
+                            circleShooterRadius: 40
+                            circleShooterRadiusSmooth: 4
+                            circleShooterRotateSpeed: 1
+                            speed: 5
+                            lifetime: 90
+                            damage: 0
+                            hitSound: none
+                            hitEffect: none
+                            despawnEffect: none
+                        }
+                        {
+                            type: BasicBulletType
+                            sprite: lp-plasma
+                            width: 6
+                            height: 6
+                            shrinkY: 0
+                            lightColor: F3E6E6
+                            frontColor: F3E6E6
+                            backColor: F3E6E6
+                            trailColor: F3E6E6
+                            trailWidth: 3
+                            trailLength: 9
+                            collides: false
+                            absorbable: false
+                            hittable: false
+                            keepVelocity: false
+                            circleShooter: true
+                            circleShooterRadius: 48
+                            circleShooterRadiusSmooth: 4
+                            circleShooterRotateSpeed: 1
+                            speed: 5
+                            lifetime: 90
+                            damage: 0
+                            hitSound: none
+                            hitEffect: none
+                            despawnEffect: none
+                        }
+                    ]
+                }
+                // {
+                    // type: BasicBulletType
+                    // width: 0
+                    // height: 0
+                    // shrinkY: 0
+                    // collides: false
+                    // absorbable: false
+                    // hittable: false
+                    // keepVelocity: false
+                    // lifetime: 30
+                    // speed: 0
+                    // damage: 0
+                    // hitSound: none
+                    // hitEffect: none
+                    // despawnEffect: none
+                    // fragBullets: 1
+                    // fragVelocityMin: 0
+                    // fragVelocityMax: 0
+                    // fragOffsetMin: 0
+                    // fragOffsetMax: 0
+                    // fragLifeMin: 1
+                    // fragLifeMax: 1
+                    // fragBullet: {
+                        // type: BasicBulletType
+                        // width: 0
+                        // height: 0
+                        // shrinkY: 0
+                        // collides: false
+                        // absorbable: false
+                        // hittable: false
+                        // keepVelocity: false
+                        // lifetime: 60
+                        // speed: 0
+                        // damage: 0
+                        // hitSound: none
+                        // hitEffect: none
+                        // despawnEffect: none
+                        // bulletInterval: 6
+                        // intervalBullets: 1
+                        // intervalBullet: {
+                            // type: MultiBulletType
+                            // bullets: [
+                                // {
+                                    // type: BasicBulletType
+                                    // angleOffset: 0
+                                    // width: 0
+                                    // height: 0
+                                    // shrinkY: 0
+                                    // ignoreSpawnAngle: true
+                                    // collides: false
+                                    // absorbable: false
+                                    // hittable: false
+                                    // keepVelocity: false
+                                    // speed: 0
+                                    // lifetime: 10
+                                    // damage: 0
+                                    // hitSound: none
+                                    // hitEffect: none
+                                    // despawnEffect: none
+                                    // parts: [
+                                        // {
+                                            // type: ShapePart
+                                            // x: 0
+                                            // y: 0
+                                            // moveX: 40
+                                            // circle: false
+                                            // hollow: true
+                                            // color: F3E6E6
+                                            // colorTo: F3E6E6
+                                            // sides: 4
+                                            // radius: 8
+                                            // radiusTo: 16
+                                            // stroke: 1.5
+                                            // strokeTo: 2
+                                            // rotation: 0
+                                            // layer: 110
+                                            // progress: {
+                                                // type: life
+                                                // op: curve
+                                                // interp: pow2Out
+                                            // }
+                                        // }
+                                        // {
+                                            // type: ShapePart
+                                            // x: 0
+                                            // y: 0
+                                            // moveX: -40
+                                            // circle: false
+                                            // hollow: true
+                                            // color: F3E6E6
+                                            // colorTo: F3E6E6
+                                            // sides: 4
+                                            // radius: 8
+                                            // radiusTo: 16
+                                            // stroke: 1.5
+                                            // strokeTo: 2
+                                            // rotation: 0
+                                            // layer: 110
+                                            // progress: {
+                                                // type: life
+                                                // op: curve
+                                                // interp: pow2Out
+                                            // }
+                                        // }
+                                        // {
+                                            // type: ShapePart
+                                            // x: 0
+                                            // y: 0
+                                            // moveY: 40
+                                            // circle: false
+                                            // hollow: true
+                                            // color: F3E6E6
+                                            // colorTo: F3E6E6
+                                            // sides: 4
+                                            // radius: 8
+                                            // radiusTo: 16
+                                            // stroke: 1.5
+                                            // strokeTo: 2
+                                            // rotation: 0
+                                            // layer: 110
+                                            // progress: {
+                                                // type: life
+                                                // op: curve
+                                                // interp: pow2Out
+                                            // }
+                                        // }
+                                        // {
+                                            // type: ShapePart
+                                            // x: 0
+                                            // y: 0
+                                            // moveY: -40
+                                            // circle: false
+                                            // hollow: true
+                                            // color: F3E6E6
+                                            // colorTo: F3E6E6
+                                            // sides: 4
+                                            // radius: 8
+                                            // radiusTo: 16
+                                            // stroke: 1.5
+                                            // strokeTo: 2
+                                            // rotation: 0
+                                            // layer: 110
+                                            // progress: {
+                                                // type: life
+                                                // op: curve
+                                                // interp: pow2Out
+                                            // }
+                                        // }
+                                    // ]
+                                // }
+                            // ]   
+                        // }
+                    // }
+                // }
+            ]
+        }
+    }
+]

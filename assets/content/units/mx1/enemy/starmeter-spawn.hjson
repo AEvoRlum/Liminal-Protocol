@@ -1,0 +1,485 @@
+type: flying
+name: starmeter.spawn
+databaseTag: 9
+health: 1
+armor: 0
+speed: 0
+rotateSpeed: 0
+accel: 10000
+drag: 10000
+hitSize: 0
+engineSize: 0
+fogRadius: 0
+lightRadius: 0
+range: 0
+buildSpeed: 0
+itemCapacity: 0
+ammoCapacity: 0
+dpsEstimate: 0
+flying: true
+lowAltitude: true
+targetable: false
+isEnemy: false
+canDrown: false
+alwaysUnlocked: false
+physics: false
+wobble: false
+hittable: false
+hoverable: false
+bounded: false
+drawCell: false
+drawBody: false
+drawSoftShadow: false
+drawShields: false
+drawMinimap: false
+useUnitCap: false
+playerControllable: false
+logicControllable: true
+hidden: true
+createWreck: false
+createScorch: false
+allowedInPayloads: false
+shadowElevation: 325325
+shownPlanets: [ mx1 ]
+deathShake: 0
+deathSound: none
+deathExplosionEffect: none
+weapons: [
+    {
+        alwaysShooting: true
+        shootOnDeath: true
+        mirror: false
+        display: false
+        x: 0
+        y: 0
+        shootX: 0
+        shootY: 0
+        reload: 2
+        recoil: 0
+        shootSound: none
+        bullet: {
+            type: BasicBulletType
+            width: 0
+            height: 0
+            shrinkY: 0
+            killShooter: true
+            ignoreSpawnAngle: true
+            collides: false
+            absorbable: false
+            hittable: false
+            keepVelocity: false
+            speed: 0
+            lifetime: 40
+            damage: 0
+            hitSound: none
+            hitEffect: none
+            despawnEffect: none
+            shootEffect: none
+            smokeEffect: none
+            parts: [
+                {
+                    type: ShapePart
+                    x: 0
+                    y: 0
+                    circle: false
+                    hollow: true
+                    color: F3E6E600
+                    colorTo: F3E6E6
+                    sides: 4
+                    radius: 0
+                    radiusTo: 48
+                    stroke: 0
+                    strokeTo: 4
+                    rotation: 0
+                    layer: 110
+                    progress: {
+                        type: life
+                        op: curve
+                        interp: pow3Out
+                        sizeInterp: circleOut
+                    }
+                }
+                {
+                    type: ShapePart
+                    x: 0
+                    y: 0
+                    circle: true
+                    hollow: true
+                    color: F3E6E600
+                    colorTo: F3E6E6
+                    // sides: 4
+                    radius: 0
+                    radiusTo: 56
+                    stroke: 0
+                    strokeTo: 2
+                    rotation: 0
+                    layer: 110
+                    progress: {
+                        type: life
+                        op: curve
+                        interp: pow2Out
+                        sizeInterp: circleOut
+                    }
+                }
+                {
+                    type: ShapePart
+                    x: 0
+                    y: 0
+                    circle: true
+                    hollow: true
+                    color: F3E6E600
+                    colorTo: F3E6E6
+                    // sides: 4
+                    radius: 0
+                    radiusTo: 56
+                    stroke: 0
+                    strokeTo: 2
+                    rotation: 0
+                    layer: 110
+                    progress: {
+                        type: life
+                        ops: [
+                            {
+                                op: compress
+                                start: 0.5
+                                end: 1
+                            }
+                            {
+                                op: curve
+                                interp: pow2Out
+                            }
+                        ]
+                    }
+                }
+                {
+                    type: ShapePart
+                    x: 0
+                    y: 0
+                    circle: true
+                    hollow: true
+                    color: F3E6E600
+                    colorTo: F3E6E6
+                    // sides: 4
+                    radius: 0
+                    radiusTo: 56
+                    stroke: 0
+                    strokeTo: 2
+                    rotation: 0
+                    layer: 110
+                    progress: {
+                        type: life
+                        ops: [
+                            {
+                                op: compress
+                                start: 0.6
+                                end: 1
+                            }
+                            {
+                                op: curve
+                                interp: pow2Out
+                            }
+                        ]
+                    }
+                }
+                {
+                    type: ShapePart
+                    x: 0
+                    y: 0
+                    circle: true
+                    hollow: true
+                    color: F3E6E600
+                    colorTo: F3E6E6
+                    // sides: 4
+                    radius: 0
+                    radiusTo: 56
+                    stroke: 0
+                    strokeTo: 2
+                    rotation: 0
+                    layer: 110
+                    progress: {
+                        type: life
+                        ops: [
+                            {
+                                op: compress
+                                start: 0.7
+                                end: 1
+                            }
+                            {
+                                op: curve
+                                interp: pow2Out
+                            }
+                        ]
+                    }
+                }
+                {
+                    type: ShapePart
+                    x: 0
+                    y: 0
+                    circle: true
+                    hollow: true
+                    color: F3E6E600
+                    colorTo: F3E6E6
+                    // sides: 4
+                    radius: 0
+                    radiusTo: 56
+                    stroke: 0
+                    strokeTo: 2
+                    rotation: 0
+                    layer: 110
+                    progress: {
+                        type: life
+                        ops: [
+                            {
+                                op: compress
+                                start: 0.8
+                                end: 1
+                            }
+                            {
+                                op: curve
+                                interp: pow2Out
+                            }
+                        ]
+                    }
+                }
+                {
+                    type: ShapePart
+                    x: 0
+                    y: 0
+                    circle: true
+                    hollow: true
+                    color: F3E6E600
+                    colorTo: F3E6E6
+                    // sides: 4
+                    radius: 0
+                    radiusTo: 56
+                    stroke: 0
+                    strokeTo: 2
+                    rotation: 0
+                    layer: 110
+                    progress: {
+                        type: life
+                        ops: [
+                            {
+                                op: compress
+                                start: 0.9
+                                end: 1
+                            }
+                            {
+                                op: curve
+                                interp: pow2Out
+                            }
+                        ]
+                    }
+                }
+            ]
+            fragBullets: 1
+            fragVelocityMin: 0
+            fragVelocityMax: 0
+            fragOffsetMin: 0
+            fragOffsetMax: 0
+            fragLifeMin: 1
+            fragLifeMax: 1
+            fragBullet: {
+                type: BasicBulletType
+                width: 0
+                height: 0
+                shrinkY: 0
+                ignoreSpawnAngle: true
+                collides: false
+                absorbable: false
+                hittable: false
+                keepVelocity: false
+                speed: 0
+                lifetime: 30
+                damage: 0
+                hitSound: champbump
+                hitSoundVolume: 1.1
+                hitShake: 15
+                hitEffect: none
+                despawnEffect: none
+                shootEffect: none
+                smokeEffect: none
+                despawnUnit: starmeter
+                despawnUnitRadius: 0
+                parts: [
+                    {
+                        type: ShapePart
+                        x: 0
+                        y: 0
+                        circle: false
+                        hollow: true
+                        color: F3E6E6
+                        colorTo: F3E6E6
+                        sides: 4
+                        radius: 48
+                        radiusTo: 0
+                        stroke: 4
+                        strokeTo: 0
+                        rotation: 0
+                        layer: 110
+                        progress: {
+                            type: life
+                            op: curve
+                            interp: pow4In
+                            sizeInterp: circleOut
+                        }
+                    }
+                    {
+                        type: ShapePart
+                        x: 0
+                        y: 0
+                        circle: true
+                        hollow: true
+                        color: F3E6E6
+                        colorTo: F3E6E6
+                        // sides: 4
+                        radius: 56
+                        radiusTo: 0
+                        stroke: 2
+                        strokeTo: 0
+                        rotation: 0
+                        layer: 110
+                        progress: {
+                            type: life
+                            op: curve
+                            interp: pow3In
+                            sizeInterp: circleOut
+                        }
+                    }
+                    {
+                        type: FlarePart 
+                        x: 0
+                        y: 0
+                        followRotation: false
+                        color1: F3E6E6
+                        color2: F3E6E6
+                        sides: 2
+                        radius: 0
+                        radiusTo: 80
+                        spinSpeed: 0
+                        stroke: 1
+                        layer: 110
+                        progress: {
+                            type: life
+                            op: curve
+                            interp: pow5In
+                            sizeInterp: circleOut
+                        }
+                    }
+                    {
+                        type: FlarePart 
+                        x: 0
+                        y: 0
+                        followRotation: false
+                        color1: F3E6E6
+                        color2: F3E6E6
+                        sides: 2
+                        radius: 0
+                        radiusTo: 60
+                        spinSpeed: 0
+                        stroke: 1
+                        rotation: 90
+                        layer: 110
+                        progress: {
+                            type: life
+                            op: curve
+                            interp: pow5In
+                            sizeInterp: circleOut
+                        }
+                    }
+                ]
+                fragBullets: 1
+                fragVelocityMin: 0
+                fragVelocityMax: 0
+                fragOffsetMin: 0
+                fragOffsetMax: 0
+                fragLifeMin: 1
+                fragLifeMax: 1
+                fragBullet: {
+                    type: BasicBulletType
+                    width: 0
+                    height: 0
+                    shrinkY: 0
+                    ignoreSpawnAngle: true
+                    collides: false
+                    absorbable: false
+                    hittable: false
+                    keepVelocity: false
+                    speed: 0
+                    lifetime: 30
+                    damage: 0
+                    hitSound: none
+                    hitEffect: none
+                    despawnEffect: none
+                    shootEffect: none
+                    smokeEffect: none
+                    parts: [
+                        {
+                            type: FlarePart 
+                            x: 0
+                            y: 0
+                            followRotation: false
+                            color1: F3E6E6
+                            color2: F3E6E6
+                            sides: 2
+                            radius: 80
+                            radiusTo: 0
+                            spinSpeed: 0
+                            stroke: 1
+                            layer: 110
+                            progress: {
+                                type: life
+                                op: curve
+                                interp: pow3Out
+                                sizeInterp: circleOut
+                            }
+                        }
+                        {
+                            type: FlarePart 
+                            x: 0
+                            y: 0
+                            followRotation: false
+                            color1: F3E6E6
+                            color2: F3E6E6
+                            sides: 2
+                            radius: 60
+                            radiusTo: 0
+                            spinSpeed: 0
+                            stroke: 1
+                            rotation: 90
+                            layer: 110
+                            progress: {
+                                type: life
+                                op: curve
+                                interp: pow3Out
+                                sizeInterp: circleOut
+                            }
+                        }
+                        {
+                            type: ShapePart
+                            x: 0
+                            y: 0
+                            circle: false
+                            hollow: true
+                            color: F3E6E6
+                            colorTo: F3E6E600
+                            sides: 4
+                            radius: 48
+                            radiusTo: 56
+                            stroke: 4
+                            strokeTo: 6
+                            rotation: 0
+                            layer: 110
+                            progress: {
+                                type: life
+                                op: curve
+                                interp: circleOut
+                                sizeInterp: circleOut
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    }
+]

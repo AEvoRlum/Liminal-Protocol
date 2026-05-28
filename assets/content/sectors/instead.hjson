@@ -1,0 +1,13 @@
+planet: mx1
+sector: 86
+alwaysUnlocked: false
+difficulty: 4
+captureWave: 20
+research: {
+    parent: repulse
+    objectives: [
+        process3
+        process2
+        process1
+    ]
+}

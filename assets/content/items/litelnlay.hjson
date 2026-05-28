@@ -1,0 +1,24 @@
+name: LiteInlay
+color: E8EBFF
+hardness: 1.75
+radioactivity: 0
+explosiveness: 0
+flammability: 0
+charge: 0
+cost: 0.35
+healthScaling: 1.05
+frames: 0
+buildable: true
+alwaysUnlocked: false
+shownPlanets: [ mx1 ]
+research: {
+    parent: massisteel
+    objectives: [
+        crystalite
+        {
+            type: SectorComplete
+            preset: instead
+        }
+    ]
+}
+databaseTag: build-mat

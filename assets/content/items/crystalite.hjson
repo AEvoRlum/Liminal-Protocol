@@ -1,0 +1,15 @@
+name: Crystalite
+color: EDA76E
+hardness: 0.5
+radioactivity: 0.2
+explosiveness: 0
+flammability: 0
+charge: 0
+cost: 0.7
+healthScaling: 0.1
+frames: 0
+buildable: true
+alwaysUnlocked: false
+shownPlanets: [ mx1 ]
+research: erocrys
+databaseTag: chip-mat
