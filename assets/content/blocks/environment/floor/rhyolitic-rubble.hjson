@@ -1,0 +1,5 @@
+type: Floor
+name: Rhyolitic rubble
+blendGroup: rhyolitic-rubble
+wall: rhyolitic-limestone-wall
+variants: 3

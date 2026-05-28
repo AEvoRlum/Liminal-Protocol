@@ -1,0 +1,42 @@
+// slag = new Floor("molten-slag"){{
+    // drownTime = 230f;
+    // status = StatusEffects.melting;
+    // statusDuration = 240f;
+    // speedMultiplier = 0.19f;
+    // variants = 0;
+    // liquidDrop = Liquids.slag;
+    // isLiquid = true;
+    // cacheLayer = CacheLayer.slag;
+    // attributes.set(Attribute.heat, 0.85f);
+
+    // emitLight = true;
+    // lightRadius = 40f;
+    // lightColor = Color.orange.cpy().a(0.38f);
+    // obstructsLight = true;
+    // forceDrawLight = true;
+// }};
+type: Floor
+drownTime: 180
+status: melting
+statusDuration: 240
+speedMultiplier: 0.11
+albedo: 0.9
+variants: 0
+//animationFrames: 240
+//temperature: 1
+//viscosity: 0.6
+//coolant: false
+//moveThroughBlocks: true
+//color: CD9D3C
+//liquidDrop: slag
+isLiquid: true
+cacheLayer: water
+attributes: {
+    heat: 1
+}
+emitLight: true
+lightRadius: 32
+lightColor: FF9D3C
+forceDrawLight: true
+obstructsLight: true
+supportsOverlay: true

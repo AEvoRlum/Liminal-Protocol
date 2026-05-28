@@ -1,0 +1,10 @@
+type: Floor
+name: Core floor
+blendGroup: core-floor
+variants: 0
+//allowCorePlacement: true
+drawEdgeIn: false
+drawEdgeOut: false
+// attributes: {
+    // water: -1
+// }

@@ -1,0 +1,6 @@
+type: Floor
+name: Relicfloor2
+blendGroup: relicfloor-2
+variants: 0
+drawEdgeIn: true
+drawEdgeOut: true

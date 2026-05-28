@@ -1,0 +1,6 @@
+type: OreBlock
+itemDrop: litelnlay
+variants: 4
+mapColor: E8EBFF
+useColor: true
+wallOre: false
