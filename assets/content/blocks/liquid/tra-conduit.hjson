@@ -1,0 +1,29 @@
+type: ArmoredConduit
+name: Transchimericsteel Conduit
+size: 1
+health: 28
+requirements: [
+    transchimericsteel/2
+    crystalite/1
+]
+liquidCapacity: 16
+liquidPressure: 1.2
+botColor: 333940
+junctionReplacement: mas-liquid-junction
+rotBridgeReplacement: tra-bridge-conduit
+bridgeReplacement: tra-bridge-conduit
+solid: false
+alwaysUnlocked: false
+researchCostMultiplier: 0.1
+category: liquid
+research: {
+    parent: mas-conduit
+    objectives: [
+        process4
+        // {
+            // type: 
+            // preset: 
+        // }
+    ]
+}
+shownPlanets: [ mx1 ]

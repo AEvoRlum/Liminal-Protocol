@@ -1,0 +1,14 @@
+type: LiquidJunction
+name: Massisteel Liquid Junction
+size: 1
+health: 28
+requirements: [
+    massisteel/5
+]
+liquidCapacity: 15
+alwaysUnlocked: false
+researchCostMultiplier: 0.4
+category: liquid
+research: mas-conduit
+shownPlanets: [ mx1 ]
+// databaseTag: tran

@@ -1,0 +1,39 @@
+type: HeatConductor
+name: Massisteel Heat Router
+size: 2
+health: 36
+visualMaxHeat: 16
+requirements: [
+    massisteel/17
+    erocrys/6
+]
+rotateDraw: false
+canOverdrive: true
+splitHeat: true
+drawer: {
+    type: DrawMulti
+    drawers: [
+        DrawDefault
+        {
+            type: DrawHeatOutput
+            rotOffset: -1
+            drawGlow: false
+        }
+        DrawHeatOutput
+        {
+            type: DrawHeatOutput
+            rotOffset: 1
+            drawGlow: false
+        }
+        {
+            type: DrawHeatInput
+            suffix: -heat
+        }
+    ]
+}
+alwaysUnlocked: false
+researchCostMultiplier: 0.4
+category: crafting
+research: mas-heat-redirector
+shownPlanets: [ mx1 ]
+// databaseTag: tran

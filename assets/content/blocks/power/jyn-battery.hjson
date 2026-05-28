@@ -1,0 +1,28 @@
+type: Battery
+name: Jynsteel Battery
+size: 3
+health: 112
+requirements: [
+    jynsteel/54
+    crystalite/54
+    erocrys/24
+]
+emptyLightColor: EB564B
+fullLightColor: D99F6B
+consumes: {
+    power: {
+        buffered: true
+        capacity: 6120
+    }
+}
+conductivePower: true
+solid: true
+hasPower: true
+priority: -1
+alwaysUnlocked: false
+researchCostMultiplier: 0.4
+category: power
+research: {
+    parent: jyn-power-node
+}
+shownPlanets: [ mx1 ]

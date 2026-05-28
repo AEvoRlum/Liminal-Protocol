@@ -1,0 +1,116 @@
+type: BurstDrill
+name: Impact Drill
+size: 4
+health: 224
+requirements: [
+    transchimericsteel/92
+    jynsteel/32
+    erocrys/24
+]
+tier: 3
+drillTime: 120
+invertedTime: 60
+itemCapacity: 48
+liquidCapacity: 36
+shake: 2
+arrows: 2
+arrowSpacing: 3
+arrowOffset: -2.5
+arrowColor: FFB570
+baseArrowColor: 828A94
+glowColor: FFB570
+fogRadius: 4
+drillEffect: {
+    type: MultiEffect
+    effects: [
+        // mineImpact
+        {
+            type: WrapEffect
+            effect: dynamicSpikes
+            color: FFB570
+            rotation: 28
+        }
+        {
+            type: ParticleEffect
+            particles: 10
+            line: true
+            lifetime: 35
+            length: 42
+            baseLength: 4
+            interp: pow2Out
+            sizeInterp: pow3In
+            lenFrom: 8
+            lenTo: 0
+            strokeFrom: 1
+            strokeTo: 0
+            colorFrom: FFB570
+            colorTo: FFB570
+        }
+        {
+            type: ParticleEffect
+            particles: 4
+            line: true
+            lifetime: 35
+            length: 42
+            baseLength: 4
+            interp: pow2Out
+            sizeInterp: pow3In
+            lenFrom: 12
+            lenTo: 0
+            strokeFrom: 1
+            strokeTo: 0
+            colorFrom: FFB570
+            colorTo: FFB570
+        }
+        {
+            particles: 9
+            region: lp-square
+            lifetime: 45
+            length: 32
+            baseLength: 2
+            interp: pow3Out
+            sizeInterp: pow4In
+            sizeFrom: 5
+            sizeTo: 0
+            colorFrom: FFB570
+            colorTo: FFB570
+        }
+        {
+            type: SoundEffect
+            effect: drillSteam
+            sound: shootBang
+            minVolume: 0.6
+            maxVolume: 0.6
+            maxPitch: 0.5
+            minPitch: 0.5
+        }
+    ]
+}
+blockedItems: [
+    copper, lead, thorium, titanium, sand, scrap, beryllium, tungsten, coal
+]
+drillSound: shootBang
+drillMultipliers: {
+    jynsteel: 1.4
+    erocrys: 1.5
+    massisteel: 1.4
+    litelnlay: 1.45
+}
+consumes: {
+    power: 0.7
+}
+liquidBoostIntensity: 1.1
+outlineColor: 262720
+hasPower: true
+squareSprite: true
+alwaysUnlocked: false
+researchCostMultiplier: 0.1
+category: production
+research: {
+    parent: shear-drill
+    objectives: [
+        process4
+        lit-conveyor
+    ]
+}
+shownPlanets: [ mx1 ]

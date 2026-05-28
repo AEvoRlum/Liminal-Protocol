@@ -1,0 +1,356 @@
+type: ItemTurret
+name: Lucenser
+size: 2
+health: 147
+armor: 4
+requirements: [
+    jynsteel/73
+    erocrys/26
+]
+rotateSpeed: 4
+reload: 60
+range: 160
+recoil: 1.4
+recoilTime: 40
+shake: 2
+shootCone: 1
+cooldownTime: 90
+heatColor: FF4040
+outlineColor: 262720
+shootSound: shootArtillerySapBig
+maxAmmo: 20
+consumes: {
+}
+alwaysUnlocked: false
+//targetUnit: false
+//targetAir: false
+//targetGuard: false
+researchCostMultiplier: 0
+buildTime: 120
+category: turret
+databaseTag: cj
+research: {
+    parent: pioneers
+    objectives: [
+        {
+            type: OnSector
+            preset: 不容拒绝
+        }
+    ]
+}
+shownPlanets: [ mx1 ]
+//flashColor: FFB570
+destroySound: blockExplode2Alt
+destroyEffect: {
+    type: MultiEffect
+    effects: [
+        {
+            particles: 9
+            line: true
+            length: 8
+            baseLength: 2
+            lifetime: 40
+            interp: pow5Out
+            sizeInterp: pow2In
+            lenFrom: 33
+            lenTo: 0
+            strokeFrom: 1.5
+            strokeTo: 0
+            colorFrom: FFB570
+            colorTo: EB564B
+        }
+        {
+            type: WaveEffect
+            lifetime: 40
+            interp: pow5Out
+            sizeFrom: 0
+            sizeTo: 30
+            strokeFrom: 1
+            strokeTo: 0
+            colorFrom: FFB570
+            colorTo: EB564B
+        }
+    ]
+}
+shootY: 4
+ammoTypes: {
+    jynsteel: {
+        type: BasicBulletType
+        sprite: lp-pierce
+        width: 4
+        height: 4
+        shrinkX: 0
+        shrinkY: 0
+        lightColor: FFF589
+        frontColor: FFF589
+        backColor: FFF589
+        trailColor: FFF589
+        trailWidth: 1
+        trailLength: 6
+        ammoMultiplier: 1
+        armorMultiplier: 0.65
+        damage: 54
+        speed: 8
+        lifetime: 20
+        rangeOverride: 160
+        shootEffect: {
+            type: MultiEffect
+            effects: [
+                {
+                    particles: 4
+                    length: 12
+                    baseLength: 1
+                    lifetime: 40
+                    cone: 3
+                    interp: pow3Out
+                    sizeInterp: pow2In
+                    sizeFrom: 2
+                    sizeTo: 0
+                    colorFrom: FFF589
+                    colorTo: D89F6B70
+                }
+                {
+                    particles: 5
+                    line: true
+                    length: 18
+                    baseLength: 2
+                    lifetime: 30
+                    cone: 30
+                    interp: pow5Out
+                    sizeInterp: pow2In
+                    lenFrom: 15
+                    lenTo: 0
+                    strokeFrom: 1
+                    strokeTo: 0
+                    colorFrom: FFF589
+                    colorTo: D89F6B
+                }
+            ]
+        }
+        hitSound: explosionCrawler
+        hitShake: 3
+        hitEffect: {
+            type: MultiEffect
+            effects: [
+                {
+                    particles: 5
+                    line: true
+                    length: 18
+                    baseLength: 2
+                    baseRotation: 180
+                    lifetime: 24
+                    cone: 30
+                    interp: pow5Out
+                    sizeInterp: pow2In
+                    lenFrom: 18
+                    lenTo: 0
+                    strokeFrom: 1
+                    strokeTo: 0
+                    colorFrom: FFF589
+                    colorTo: D89F6B
+                }
+                {
+                    particles: 4
+                    line: true
+                    length: 24
+                    baseLength: 2
+                    baseRotation: 180
+                    lifetime: 24
+                    cone: 30
+                    interp: pow5Out
+                    sizeInterp: pow2In
+                    lenFrom: 10
+                    lenTo: 0
+                    strokeFrom: 1
+                    strokeTo: 0
+                    colorFrom: FFF589
+                    colorTo: D89F6B
+                }
+            ]
+        }
+        despawnEffect: {
+            type: MultiEffect
+            effects: [
+                {
+                    particles: 7
+                    line: true
+                    length: 18
+                    baseLength: 2
+                    lifetime: 28
+                    interp: pow5Out
+                    sizeInterp: pow2In
+                    lenFrom: 24
+                    lenTo: 0
+                    strokeFrom: 1
+                    strokeTo: 0
+                    colorFrom: FFF589
+                    colorTo: D89F6B
+                }
+                {
+                    type: WaveEffect
+                    lifetime: 30
+                    sizeFrom: 0
+                    sizeTo: 20
+                    strokeFrom: 2
+                    strokeTo: 0
+                    colorFrom: FFF589
+                    colorTo: D89F6B
+                }
+            ]
+        }
+    }
+    erocrys: {
+        type: BasicBulletType
+        sprite: lp-crystal
+        width: 4
+        height: 4
+        shrinkX: 0
+        shrinkY: 0
+        lightColor: FFB570
+        frontColor: FFB570
+        backColor: FFB570
+        trailColor: FFB570
+        trailWidth: 1
+        trailLength: 6
+        ammoMultiplier: 1
+        armorMultiplier: 0.8
+        damage: 34
+        speed: 8
+        lifetime: 20
+        rangeOverride: 160
+        // lightning: 2
+        // lightningColor: FFB570FF
+        // lightningDamage: 6
+        // lightningLength: 4
+        // lightningLengthRand: 6
+        despawnHit: false
+        fragOnHit: true
+        fragOnDespawn: false
+        fragBullets: 2
+        fragBullet: {
+            type: LightningBulletType
+            lightningColor: FFB570FF
+            damage: 8
+            lightningLength: 4
+            lightningLengthRand: 6
+            despawnEffect: none
+            hitColor: FFB570
+            hitColor: FFB570
+            hitEffect: {
+                particles: 5
+                line: true
+                length: 4
+                baseLength: 2
+                lifetime: 30
+                interp: pow5Out
+                sizeInterp: pow2In
+                lenFrom: 3
+                lenTo: 0
+                strokeFrom: 1
+                strokeTo: 0
+                colorFrom: FFB570
+                colorTo: EB564B
+            }
+            status: none
+        }
+        shootEffect: {
+            type: MultiEffect
+            effects: [
+                {
+                    particles: 5
+                    length: 12
+                    baseLength: 1
+                    lifetime: 40
+                    cone: 3
+                    interp: pow3Out
+                    sizeInterp: pow2In
+                    sizeFrom: 2
+                    sizeTo: 0
+                    colorFrom: FFB570
+                    colorTo: EB564B70
+                }
+                {
+                    particles: 5
+                    line: true
+                    length: 18
+                    baseLength: 2
+                    lifetime: 30
+                    cone: 30
+                    interp: pow5Out
+                    sizeInterp: pow2In
+                    lenFrom: 15
+                    lenTo: 0
+                    strokeFrom: 1
+                    strokeTo: 0
+                    colorFrom: FFB570
+                    colorTo: EB564B
+                }
+            ]
+        }
+        hitSound: acceleratorLightning1
+        hitShake: 3
+        hitEffect: {
+            type: MultiEffect
+            effects: [
+                {
+                    particles: 3
+                    region: lp-triangle
+                    length: 24
+                    baseLength: 1
+                    lifetime: 40
+                    spin: 2
+                    interp: pow5Out
+                    sizeInterp: pow2In
+                    sizeFrom: 4
+                    sizeTo: 0
+                    colorFrom: FFB570
+                    colorTo: EB564B
+                }
+                {
+                    particles: 4
+                    region: lp-triangle
+                    length: 24
+                    baseLength: 1
+                    lifetime: 40
+                    spin: 3
+                    interp: pow5Out
+                    sizeInterp: pow2In
+                    sizeFrom: 3
+                    sizeTo: 0
+                    colorFrom: FFB570
+                    colorTo: EB564B
+                }
+            ]
+        }
+        despawnEffect: {
+            type: MultiEffect
+            effects: [
+                {
+                    particles: 7
+                    line: true
+                    length: 18
+                    baseLength: 2
+                    lifetime: 28
+                    interp: pow5Out
+                    sizeInterp: pow2In
+                    lenFrom: 24
+                    lenTo: 0
+                    strokeFrom: 1
+                    strokeTo: 0
+                    colorFrom: FFB570
+                    colorTo: EB564B
+                }
+                {
+                    type: WaveEffect
+                    lifetime: 30
+                    sizeFrom: 0
+                    sizeTo: 20
+                    strokeFrom: 2
+                    strokeTo: 0
+                    colorFrom: FFB570
+                    colorTo: EB564B
+                }
+            ]
+        }
+    }
+}

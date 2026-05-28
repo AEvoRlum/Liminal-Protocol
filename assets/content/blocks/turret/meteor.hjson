@@ -1,0 +1,620 @@
+type: ItemTurret
+name: Meteor
+size: 4
+health: 471
+armor: 6
+requirements: [
+    massisteel/252
+    jynsteel/131
+    erocrys/124
+]
+rotateSpeed: 3.8
+reload: 30
+range: 360
+recoil: 2
+recoilTime: 60
+shake: 6
+shootCone: 3
+inaccuracy: 3
+outlineColor: 262720
+shootSound: cannonLargeShot
+shootSoundVolume: 1.12
+maxAmmo: 24
+ammoPerShot: 3
+minWarmup: 0.99
+warmupMaintainTime: 10
+shootWarmupSpeed: 0.25
+targetGround: false
+targetAir: true
+consumes: {
+    power: 6
+}
+alwaysUnlocked: false
+researchCostMultiplier: 0.01
+buildTime: 120
+category: turret
+databaseTag: ps
+research: {
+    parent: lucenser
+    objectives: [
+        // radiance
+        repulstar
+        process2
+        {
+            type: OnSector
+            preset: repulse
+        }
+    ]
+}
+destroySound: blockExplode3
+destroyEffect: {
+    type: MultiEffect
+    effects: [
+        {
+            particles: 12
+            line: true
+            length: 12
+            baseLength: 2
+            lifetime: 30
+            interp: pow10Out
+            sizeInterp: pow2In
+            lenFrom: 40
+            lenTo: 0
+            strokeFrom: 1.5
+            strokeTo: 0
+            colorFrom: FFB570
+            colorTo: EB564B
+        }
+        {
+            particles: 16
+            line: true
+            length: 40
+            baseLength: 2
+            lifetime: 30
+            interp: pow5Out
+            sizeInterp: pow2In
+            lenFrom: 24
+            lenTo: 0
+            strokeFrom: 1.5
+            strokeTo: 0
+            colorFrom: FFB570
+            colorTo: EB564B
+        }
+        {
+            particles: 12
+            length: 32
+            baseLength: 2
+            lifetime: 30
+            interp: pow4Out
+            sizeInterp: pow5In
+            sizeFrom: 8
+            sizeTo: 0
+            colorFrom: 45454570
+            colorTo: 47474700
+        }
+        {
+            type: WaveEffect
+            lifetime: 30
+            interp: pow5Out
+            sizeFrom: 0
+            sizeTo: 80
+            strokeFrom: 1.5
+            strokeTo: 0
+            colorFrom: FFB570
+            colorTo: EB564B
+        }
+    ]
+}
+drawer: {
+    type: DrawTurret
+    parts: [
+        {
+            type: RegionPart
+            x: 0
+            y: 0
+            suffix: -barrel
+            heatColor: FF4040
+            heatProgress: recoil
+            progress: recoil
+            under: false
+            mirror: false
+            moveY: -3
+        }
+        {
+            type: RegionPart
+            x: 0
+            y: 0
+            suffix: -side1
+            heatColor: FF4040
+            heatProgress: warmup
+            progress: warmup
+            under: false
+            mirror: true
+            moveX: 1.2
+        }
+        {
+            type: RegionPart
+            x: 0
+            y: 0
+            suffix: -side2
+            heatColor: FF4040
+            heatProgress: warmup
+            progress: warmup
+            under: false
+            mirror: true
+            moveX: 2.2
+            moveY: -0.5
+        }
+    ]
+}
+shootY: 9
+shoot: {
+    // type: ShootMulti
+    // source: {
+        // type: ShootAlternate
+        // barrel: 3
+        // shots: 1
+    // }
+    // dest: [
+        // {
+            // type: ShootHelix
+            // scl: 3
+            // mag: 2
+        // }
+    // ]
+    type: ShootAlternate
+    shots: 3
+}
+ammoTypes: {
+    erocrys: {
+        type: BasicBulletType
+        sprite: lp-plasma
+        width: 9
+        height: 9
+        shrinkY: 1
+        shrinkX: 1
+        frontColor: EB564B
+        backColor: EB564B
+        lightColor: EB564B
+        hitColor: EB564B
+        trailColor: EB564B
+        trailWidth: 2.5
+        trailLength: 6
+        trailChance: -1
+        trailInterval: 2.8
+        trailRotation: true
+        trailEffect: {
+            type: MultiEffect
+            effects: [  
+                colorSpark
+                disperseTrail
+            ]
+        }
+        parts: [
+            {
+                type: FlarePart
+                x: 0
+                y: 0
+                followRotation: false
+                color1: EB564B
+                color2: EB564B
+                sides: 4
+                radius: 12
+                radiusTo: 12
+                spinSpeed: 4
+                stroke: 3
+                layer: 110
+                progress: {
+                    type: life
+                    ops: [
+                        {
+                            op: mul
+                            other: {
+                                type: life
+                                ops: [
+                                    {
+                                        op: mul
+                                        amount: 0.8
+                                    }
+                                    {
+                                        op: add
+                                        amount: 1
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.65
+                                        mag: 1
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+        speed: 8
+        lifetime: 45
+        rangeOverride: 360
+        damage: 54
+        ammoMultiplier: 1
+        reloadMultiplier: 1
+        armorMultiplier: 1.8
+        shieldDamageMultiplier: 2
+        status: emp-II
+        statusDuration: 60
+        collidesAir: true
+        scaleLife: true
+        // collidesTiles: false
+        collidesGround: false
+        shootEffect: {
+            particles: 7
+            line: true
+            lifetime: 30
+            length: 16
+            baseLength: 2
+            cone: 32
+            interp: pow3Out
+            sizeInterp: pow2In
+            lenFrom: 8
+            lenTo: 0
+            strokeFrom: 1.5
+            strokeTo: 0
+            colorFrom: EB564B
+            colorTo: EB564B
+        }
+        smokeEffect: {
+            particles: 2
+            line: true
+            lifetime: 30
+            length: 12
+            baseLength: 2
+            cone: 30
+            interp: pow2Out
+            sizeInterp: pow3In
+            lenFrom: 12
+            lenTo: 0
+            strokeFrom: 1.5
+            strokeTo: 0
+            colorFrom: FFB570
+            colorTo: EB564B
+        }
+        hitSound: airCrushMedium3
+        hitSoundVolume: 1.22
+        hitShake: 7
+        hitEffect: {
+            type: MultiEffect
+            effects: [
+                {
+                    particles: 6
+                    line: true
+                    lifetime: 30
+                    length: 32
+                    baseLength: 2
+                    interp: pow5Out
+                    sizeInterp: pow3In
+                    lenFrom: 24
+                    lenTo: 0
+                    strokeFrom: 1.5
+                    strokeTo: 0
+                    colorFrom: EB564B
+                    colorTo: EB564B
+                }
+                {
+                    particles: 5
+                    region: lp-square
+                    lifetime: 30
+                    length: 32
+                    baseLength: 2
+                    interp: pow5Out
+                    sizeInterp: pow3In
+                    sizeFrom: 3
+                    sizeTo: 0
+                    colorFrom: EB564B
+                    colorTo: EB564B
+                }
+                {
+                    type: WaveEffect
+                    lifetime: 30
+                    interp: pow3Out
+                    sizeFrom: 0
+                    sizeTo: 32
+                    strokeFrom: 3
+                    strokeTo: 0
+                    colorFrom: EB564B
+                    colorTo: EB564B
+                }
+            ]
+        }
+        despawnEffect: none
+        // despawnHit: true
+        fragOnHit: true
+        fragOnDespawn: true
+        fragBullets: 1
+        fragVelocityMin: 1
+        fragVelocityMax: 1
+        fragLifeMin: 1
+        fragLifeMax: 1
+        fragBullet: {
+            type: MultiBulletType
+            damage: 0
+            splashDamage: 6
+            splashDamageRadius: 16
+            keepVelocity: false
+            bullets: [
+                {
+                    type: BasicBulletType
+                    angleOffset: 0
+                    shootEffect: none
+                    smokeEffect: none
+                    hitEffect: none
+                    hitSound: none
+                    despawnEffect: none
+                    collides: false
+                    absorbable: false
+                    hittable: false
+                    ignoreSpawnAngle: true
+                    keepVelocity: false
+                    width: 0
+                    height: 0
+                    shrinkX: 0
+                    shrinkY: 0
+                    speed: 0
+                    lifetime: 30
+                    damage: 0
+                    parts: [
+                        {
+                            type: HaloPart
+                            x: 0
+                            y: 0
+                            tri: true
+                            hollow: false
+                            color: EB564B
+                            colorTo: EB564B
+                            sides: 3
+                            shapes: 4
+                            radius: 4
+                            radiusTo: 0
+                            triLength: 32
+                            triLengthTo: 16
+                            rotateSpeed: 0
+                            shapeRotation: 0
+                            haloRadius: 0
+                            haloRadiusTo: 0
+                            haloRotation: 0
+                            haloRotateSpeed: 0
+                            layer: 110
+                            progress: {
+                                type: life
+                                ops: [
+                                    {
+                                        op: curve
+                                        interp: pow3In
+                                        sizeInterp: pow3Out
+                                    }
+                                    /*{
+                                        op: inv
+                                    }
+                                    {
+                                        op: mul
+                                        amount: 0
+                                    }
+                                    {
+                                        op: add
+                                        amount: 1
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.15
+                                        mag: 1
+                                    }*/
+                                ]
+                            }
+                        }
+                    ]
+                }
+                {
+                    type: BasicBulletType
+                    angleOffset: 0
+                    shootEffect: none
+                    smokeEffect: none
+                    hitEffect: none
+                    hitSound: none
+                    despawnEffect: none
+                    collidesAir: false
+                    // absorbable: false
+                    hittable: false
+                    keepVelocity: false
+                    width: 0
+                    height: 0
+                    shrinkX: 0
+                    shrinkY: 0
+                    speed: 0
+                    lifetime: 0
+                    damage: 0
+                    splashDamage: 6
+                    splashDamageRadius: 16
+                    fragBullets: 1
+                    fragBullet: {
+                        type: MultiBulletType
+                    }
+                }
+            ]
+        }
+    }
+    jynsteel: {
+        type: BasicBulletType
+        sprite: lp-plasma
+        width: 9
+        height: 9
+        shrinkY: 1
+        shrinkX: 1
+        frontColor: FFF589
+        backColor: FFF589
+        lightColor: FFF589
+        hitColor: FFF589
+        trailColor: FFF589
+        trailWidth: 2.5
+        trailLength: 6
+        trailChance: -1
+        trailInterval: 2
+        trailRotation: true
+        trailEffect: {
+            particles: 3
+            region: lp-square
+            lifetime: 20
+            length: 8
+            baseLength: 2
+            interp: pow3Out
+            sizeInterp: pow4In
+            sizeFrom: 2
+            sizeTo: 0
+            colorFrom: FFF589
+            colorTo: FFF589
+        }
+        parts: [
+            {
+                type: FlarePart
+                x: 0
+                y: 0
+                followRotation: false
+                color1: FFF589
+                color2: FFF589
+                sides: 4
+                radius: 12
+                radiusTo: 12
+                spinSpeed: 0
+                stroke: 3
+                layer: 110
+                progress: life
+            }
+        ]
+        speed: 8
+        lifetime: 45
+        rangeOverride: 360
+        damage: 34
+        ammoMultiplier: 1
+        reloadMultiplier: 1.2
+        armorMultiplier: 0.2
+        collidesAir: true
+        scaleLife: true
+        collidesGround: false
+        shootEffect: {
+            particles: 7
+            line: true
+            lifetime: 30
+            length: 16
+            baseLength: 2
+            cone: 32
+            interp: pow3Out
+            sizeInterp: pow2In
+            lenFrom: 4
+            lenTo: 0
+            strokeFrom: 1.5
+            strokeTo: 0
+            colorFrom: FFF589
+            colorTo: FFF589
+        }
+        smokeEffect: {
+            particles: 2
+            line: true
+            lifetime: 30
+            length: 12
+            baseLength: 2
+            cone: 30
+            interp: pow2Out
+            sizeInterp: pow3In
+            lenFrom: 8
+            lenTo: 0
+            strokeFrom: 1.5
+            strokeTo: 0
+            colorFrom: FFF589
+            colorTo: FFF589
+        }
+        hitSound: cannonLargeHit
+        hitSoundVolume: 1.2
+        hitShake: 7
+        hitEffect: {
+            type: MultiEffect
+            effects: [
+                {
+                    type: WrapEffect
+                    effect: dynamicSpikes
+                    color: FFF589
+                    rotation: 38
+                }
+                {
+                    particles: 8
+                    region: lp-square
+                    lifetime: 50
+                    length: 16
+                    baseLength: 2
+                    interp: pow4Out
+                    sizeInterp: pow3In
+                    sizeFrom: 4
+                    sizeTo: 0
+                    colorFrom: FFF589
+                    colorTo: FFF589
+                }
+                {
+                    particles: 4
+                    line: true
+                    length: 36
+                    baseLength: 2
+                    baseRotation: 180
+                    lifetime: 50
+                    cone: 40
+                    interp: pow5Out
+                    sizeInterp: pow2In
+                    lenFrom: 30
+                    lenTo: 0
+                    strokeFrom: 1.5
+                    strokeTo: 0
+                    colorFrom: FFF589
+                    colorTo: FFF589
+                }
+            ]
+        }
+        despawnEffect: {
+            type: MultiEffect
+            effects: [
+                {
+                    type: WrapEffect
+                    effect: dynamicSpikes
+                    color: FFF589
+                    rotation: 38
+                }
+                {
+                    particles: 4
+                    region: lp-square
+                    lifetime: 50
+                    length: 16
+                    baseLength: 2
+                    interp: pow4Out
+                    sizeInterp: pow3In
+                    sizeFrom: 4
+                    sizeTo: 0
+                    colorFrom: FFF589
+                    colorTo: FFF589
+                }
+                {
+                    particles: 3
+                    line: true
+                    length: 36
+                    baseLength: 2
+                    lifetime: 50
+                    cone: 40
+                    interp: pow5Out
+                    sizeInterp: pow2In
+                    lenFrom: 12
+                    lenTo: 0
+                    strokeFrom: 1.5
+                    strokeTo: 0
+                    colorFrom: FFF589
+                    colorTo: FFF589
+                }
+            ]
+        }
+        // despawnHit: true
+        despawnSound: artilleryHeavyShot
+    }
+}

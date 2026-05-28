@@ -1,0 +1,72 @@
+type: Wall
+name: Large Jynsteel Wall
+size: 2
+health: 704
+armor: 3
+flashHit: true
+chanceDeflect: 0.04
+flashColor: FFB570
+destroySound: blockExplode2
+destroySoundVolume: 2
+destroyEffect: {
+    type: MultiEffect
+    effects: [
+        {
+            particles: 8
+            line: true
+            length: 16
+            baseLength: 2
+            lifetime: 40
+            interp: pow5Out
+            sizeInterp: pow2In
+            lenFrom: 12
+            lenTo: 0
+            strokeFrom: 1.2
+            strokeTo: 0
+            colorFrom: FFB570
+            colorTo: EB564B
+        }
+        {
+            particles: 12
+            length: 36
+            baseLength: 2
+            lifetime: 30
+            interp: pow3Out
+            sizeInterp: pow5In
+            sizeFrom: 7
+            sizeTo: 0
+            colorFrom: 45454570
+            colorTo: 47474700
+        }
+        {
+            type: WaveEffect
+            lifetime: 40
+            interp: circleOut
+            sizeFrom: 0
+            sizeTo: 30
+            strokeFrom: 1
+            strokeTo: 0
+            colorFrom: FFB570
+            colorTo: EB564B
+        }
+    ]
+}
+requirements: [
+    jynsteel/36
+]
+priority: 2
+buildCostMultiplier: 0.8
+researchCostMultiplier: 0
+category: defense
+alwaysUnlocked: false
+research: {
+    parent: jyn-wall
+    objectives: [
+        {
+            type: OnSector
+            preset: 不容拒绝
+        }
+    ]
+}
+shownPlanets: [ mx1 ]
+// databaseTag: wall

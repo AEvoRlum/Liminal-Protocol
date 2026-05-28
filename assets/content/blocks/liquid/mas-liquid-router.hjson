@@ -1,0 +1,15 @@
+type: LiquidRouter
+name: Massisteel Liquid Router
+size: 1
+health: 25
+requirements: [
+    massisteel/5
+]
+liquidCapacity: 15
+liquidPadding: 3
+alwaysUnlocked: false
+researchCostMultiplier: 0.4
+category: liquid
+research: mas-conduit
+shownPlanets: [ mx1 ]
+// databaseTag: tran

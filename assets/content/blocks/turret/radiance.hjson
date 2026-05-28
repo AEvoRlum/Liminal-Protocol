@@ -1,0 +1,309 @@
+type: PowerTurret
+name: Radiance
+size: 4
+health: 448
+armor: 7
+requirements: [
+    jynsteel/245
+    massisteel/121
+    erocrys/62
+]
+rotateSpeed: 3.5
+reload: 160
+range: 320
+recoil: 4
+recoilTime: 60
+shake: 5
+cooldownTime: 160
+heatColor: FF4040
+targetAir: false
+shootSound: antiMaterialRifleShot
+shootSoundVolume: 0.85
+category: turret
+databaseTag: gr
+alwaysUnlocked: false
+researchCostMultiplier: 0.4
+buildTime: 120
+category: turret
+research: {
+    parent: disflux
+    objectives: [
+        process2
+        {
+            type: SectorComplete
+            preset: why
+        }
+        {
+            type: OnSector
+            preset: repulse
+        }
+    ]
+}
+shownPlanets: [ mx1 ]
+consumes: {
+    power: 4.5
+}
+outlineColor: 262720
+destroySound: blockExplodeExplosiveAlt
+destroyEffect: {
+    type: MultiEffect
+    effects: [
+        {
+            particles: 12
+            line: true
+            length: 45
+            baseLength: 2
+            lifetime: 40
+            interp: pow5Out
+            sizeInterp: pow2In
+            lenFrom: 55
+            lenTo: 0
+            strokeFrom: 2
+            strokeTo: 0
+            colorFrom: FFB570
+            colorTo: EB564B
+        }
+        {
+            particles: 12
+            length: 90
+            baseLength: 5
+            lifetime: 40
+            interp: pow3Out
+            sizeInterp: pow4In
+            sizeFrom: 7
+            sizeTo: 0
+            colorFrom: FFB570
+            colorTo: 54545400
+        }
+        {
+            particles: 12
+            length: 32
+            baseLength: 2
+            lifetime: 45
+            interp: pow10Out
+            sizeInterp: pow5In
+            sizeFrom: 8
+            sizeTo: 0
+            colorFrom: 45454570
+            colorTo: 47474700
+        }
+        {
+            type: WaveEffect
+            lifetime: 40
+            interp: pow5Out
+            sizeFrom: 0
+            sizeTo: 80
+            strokeFrom: 2
+            strokeTo: 0
+            colorFrom: FFB570
+            colorTo: EB564B
+        }
+    ]
+}
+drawer: {
+    type: DrawTurret
+    parts: [
+        {
+            type: RegionPart
+            under: false
+            outline: false
+            mirror: false
+            suffix: -glow
+            blending: additive
+            color: FFB57000
+            colorTo: FFB570
+            progress: {
+                type: reload
+                ops: [
+                    {
+                        op: inv
+                    }
+                    {
+                        op: add
+                        other: recoil
+                    }
+                    {
+                        op: clamp
+                    }
+                    {
+                        op: mul
+                        amount: 0.5
+                    }
+                    {
+                        op: add
+                        amount: -0.5
+                    }
+                    {
+                        op: sin
+                        mag: 0.45
+                        scl: 7
+                        offset: 0
+                    }
+                ]
+            }
+        }  
+    ]
+}
+shootY: 4
+shootType: {
+    type: ArtilleryBulletType
+    sprite: lp-plasma
+    width: 9
+    height: 9
+    // shrinkX: 
+    shrinkY: 0
+    frontColor: EB564B
+    backColor: FFB570
+    trailColor: FFB570
+    trailWidth: 3
+    trailLength: 3
+    trailInterval: 0.4
+    trailEffect: {
+        type: MultiEffect
+        effects: [
+            {
+                particles: 1
+                region: lp-triangle
+                lifetime: 20
+                length: 6
+                baseLength: 1
+                // baseRotation: 180
+                interp: pow10Out
+                sizeInterp: pow2In
+                spin: 7
+                sizeFrom: 5
+                sizeTo: 0
+                // strokeFrom: 1
+                // strokeTo: 0
+                colorFrom: FFB570
+                colorTo: FFB570
+            }
+            {
+                particles: 1
+                region: lp-triangle
+                lifetime: 20
+                length: 6
+                baseLength: 1
+                interp: pow10Out
+                sizeInterp: pow2In
+                spin: -7
+                sizeFrom: 5
+                sizeTo: 0
+                colorFrom: FFB570
+                colorTo: FFB570
+            }
+        ]
+    }
+    speed: 16
+    lifetime: 20
+    rangeOverride: 320
+    damage: 0
+    splashDamage: 116
+    splashDamageRadius: 64
+    ammoMultiplier: 1
+    armorMultiplier: 1.55
+    buildingDamageMultiplier: 0.8
+    status: stall
+    statusDuration: 30
+    hitColor: FFB570
+    hitSoundVolume: 3.5
+    hitSound: shootBlaster3
+    hitShake: 8
+    hitEffect: {
+        type: MultiEffect
+        effects: [
+            {
+                type: WrapEffect
+                effect: instBomb
+                color: FFB570
+                rotation: 1
+            }
+            {
+                particles: 24
+                line: true
+                lifetime: 15
+                length: 48
+                baseLength: 2
+                interp: pow4Out
+                sizeInterp: pow2In
+                lenFrom: 28
+                lenTo: 0
+                strokeFrom: 1.5
+                strokeTo: 0
+                colorFrom: FFB570
+                colorTo: FFB570
+            }
+            {
+                particles: 8
+                region: lp-square
+                lifetime: 15
+                length: 48
+                baseLength: 2
+                interp: pow2Out
+                sizeInterp: pow3In
+                sizeFrom: 7
+                sizeTo: 0
+                colorFrom: FFB570
+                colorTo: FFB570
+            }
+            {
+                type: WaveEffect
+                lifetime: 15
+                interp: circleOut
+                sizeFrom: 0
+                sizeTo: 72
+                strokeFrom: 2
+                strokeTo: 0
+                colorFrom: FFB570
+                colorTo: FFB570
+            }
+        ]
+    }
+    shootEffect: {
+        type: MultiEffect
+        effects: [
+            {
+                particles: 8
+                line: true
+                lifetime: 30
+                length: 28
+                baseLength: 2
+                cone: 30
+                interp: pow4Out
+                sizeInterp: pow3In
+                lenFrom: 18
+                lenTo: 0
+                strokeFrom: 1.5
+                strokeTo: 0
+                colorFrom: FFB570
+                colorTo: FFB570
+            }
+            {
+                particles: 5
+                region: lp-triangle
+                lifetime: 20
+                length: 28
+                baseLength: 2
+                cone: 30
+                interp: pow5Out
+                sizeInterp: pow4In
+                sizeFrom: 6
+                sizeTo: 0
+                colorFrom: FFB570
+                colorTo: FFB570
+            }
+        ]
+    }
+    smokeEffect: {
+        particles: 8
+        lifetime: 35
+        length: 18
+        baseLength: 2
+        interp: pow5Out
+        sizeInterp: pow10In
+        sizeFrom: 5
+        sizeTo: 0
+        colorFrom: 45454570
+        colorTo: 47474700
+    }
+}

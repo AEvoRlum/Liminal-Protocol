@@ -1,0 +1,16 @@
+type: MessageBlock
+name: Process4
+alwaysUnlocked: false
+placeablePlayer: false
+displayFlow: false
+shownPlanets: [ mx1 ]
+research: {
+    parent: process3
+    objectives: [
+        erocrys-extractory
+        crystalite
+        jyn-battery
+        cloudpiercer
+    ]
+}
+databaseTag: proc

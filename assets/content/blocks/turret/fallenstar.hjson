@@ -1,0 +1,452 @@
+type: ItemTurret
+name: Fallenstar
+size: 5
+health: 844
+armor: 10
+requirements: [
+    transchimericsteel/296
+    jynsteel/217
+    crystalite/83
+    erocrys/68
+]
+rotateSpeed: 4
+reload: 160
+range: 440
+trackingRange: 600
+recoil: 3
+recoilTime: 60
+shake: 6
+shootCone: 2
+inaccuracy: 2
+outlineColor: 262720
+shootSound: shootPulse2
+shootSoundVolume: 1.4
+maxAmmo: 64
+ammoPerShot: 12
+// minWarmup: 0.99
+// warmupMaintainTime: 10
+// shootWarmupSpeed: 0.25
+targetGround: false
+targetAir: true
+consumes: {
+    power: 7.5
+}
+priority: -1
+alwaysUnlocked: false
+researchCostMultiplier: 0.1
+buildTime: 180
+category: turret
+databaseTag: ps
+research: {
+    parent: meteor
+    objectives: [
+        process4
+        trans-chimeric-foundry
+        tra-wall-large
+    ]
+}
+destroySound: blockExplode3
+destroySoundVolume: 1.1
+destroyEffect: {
+    type: MultiEffect
+    effects: [
+        {
+            particles: 10
+            line: true
+            length: 60
+            baseLength: 2
+            lifetime: 40
+            interp: pow5Out
+            sizeInterp: pow2In
+            lenFrom: 55
+            lenTo: 0
+            strokeFrom: 2
+            strokeTo: 0
+            colorFrom: FFB570
+            colorTo: EB564B
+        }
+        {
+            particles: 12
+            line: true
+            length: 54
+            baseLength: 2
+            lifetime: 40
+            interp: pow3Out
+            sizeInterp: pow2In
+            lenFrom: 24
+            lenTo: 0
+            strokeFrom: 2
+            strokeTo: 0
+            colorFrom: FFB570
+            colorTo: EB564B
+        }
+        {
+            particles: 14
+            region: lp-square
+            length: 90
+            baseLength: 5
+            lifetime: 40
+            interp: pow3Out
+            sizeInterp: pow2In
+            sizeFrom: 5
+            sizeTo: 0
+            colorFrom: FFB570
+            colorTo: 54545400
+        }
+        {
+            particles: 12
+            length: 54
+            baseLength: 2
+            lifetime: 45
+            interp: pow4Out
+            sizeInterp: pow5In
+            sizeFrom: 12
+            sizeTo: 0
+            colorFrom: 454545
+            colorTo: 47474700
+        }
+        {
+            type: WaveEffect
+            lifetime: 40
+            interp: circleOut
+            sizeFrom: 0
+            sizeTo: 120
+            strokeFrom: 2
+            strokeTo: 0
+            colorFrom: FFB570
+            colorTo: EB564B
+        }
+    ]
+}
+// drawer: {
+    // type: DrawTurret
+    // parts: [
+        // {
+            // type: RegionPart
+            // x: 28
+            // y: 28
+            // under: false
+            // outline: false
+            // mirror: false
+            // suffix: -side
+            // blending: additive
+            // color: FCF287
+            // colorTo: FCF287
+            // rotation: -45
+            // layer: 110
+            // progress: reload
+        // }
+        // {
+            // type: RegionPart
+            // x: -28
+            // y: 28
+            // under: false
+            // outline: false
+            // mirror: false
+            // suffix: -side
+            // blending: additive
+            // color: FCF287
+            // colorTo: FCF287
+            // rotation: 45
+            // layer: 110
+            // progress: reload
+        // }
+        // {
+            // type: RegionPart
+            // x: -28
+            // y: -28
+            // under: false
+            // outline: false
+            // mirror: false
+            // suffix: -side
+            // blending: additive
+            // color: FCF287
+            // colorTo: FCF287
+            // rotation: 135
+            // layer: 110
+            // progress: reload
+        // }
+        // {
+            // type: RegionPart
+            // x: 28
+            // y: -28
+            // under: false
+            // outline: false
+            // mirror: false
+            // suffix: -side
+            // blending: additive
+            // color: FCF287
+            // colorTo: FCF287
+            // rotation: -135
+            // layer: 110
+            // progress: reload
+        // }
+    // ]
+// }
+shoot: {
+    type: ShootBarrel
+    barrels: [
+        3, 4, 0
+        -3, 4, 0
+    ]
+    shots: 12
+    shotDelay: 5
+    // type: ShootMulti
+    // source: {
+        // type: ShootBarrel
+        // barrels: [
+            // 3, 4, 0
+            // -3, 4, 0
+        // ]
+        // shots: 0
+        // shotDelay: 0
+    // }
+    // dest: [
+        // {
+            // type: ShootBarrel
+            // barrels: [
+                // 3, 4, 0
+                // -3, 4, 0
+            // ]
+            // shots: 2
+            // shotDelay: 5
+            // firstShotDelay: 10
+        // }
+        // {
+            // type: ShootBarrel
+            // barrels: [
+                // 3, 4, 0
+                // -3, 4, 0
+            // ]
+            // shots: 2
+            // shotDelay: 10
+            // firstShotDelay: 15
+        // }
+        // // {
+            // // type: ShootBarrel
+            // // barrels: [
+                // // 3, 4, 0
+                // // -3, 4, 0
+            // // ]
+            // // shots: 2
+            // // shotDelay: 10
+            // // firstShotDelay: 20
+        // // }
+    // ]
+    // shots: 6
+    // shotDelay: 10
+    // type: ShootAlternate
+    // barrels: 2
+    // spread: 0
+    // barrelOffset: 6
+    // shots: 6
+    // shotDelay: 10
+    // mirror: true
+}
+shootY: 6
+// shootX: 3
+ammoTypes: {
+    transchimericsteel: {
+        type: MultiBulletType
+        damage: 60
+        armorMultiplier: 0.55
+        ammoMultiplier: 1
+        speed: 8
+        lifetime: 54
+        scaleLife: true
+        maxRange: 440
+        rangeOverride: 440
+        // homingRange: 440
+        // homingDelay: 8
+        // homingPower: 1
+        shootEffect: {
+            type: MultiEffect
+            effects: [
+                // {
+                    // type: WrapEffect
+                    // effect: colorSparkBig
+                    // color: FCF287
+                    // baseRotation: 180
+                // }
+                {
+                    particles: 5
+                    line: true
+                    lifetime: 30
+                    length: 40
+                    baseLength: 2
+                    cone: 5
+                    interp: pow3Out
+                    sizeInterp: pow2In
+                    lenFrom: 8
+                    lenTo: 0
+                    strokeFrom: 1.5
+                    strokeTo: 0
+                    colorFrom: FCF287
+                    colorTo: FCF287
+                }
+                {
+                    particles: 4
+                    line: true
+                    lifetime: 30
+                    length: 40
+                    baseLength: 2
+                    cone: 8
+                    interp: pow3Out
+                    sizeInterp: pow2In
+                    lenFrom: 12
+                    lenTo: 0
+                    strokeFrom: 1.5
+                    strokeTo: 0
+                    colorFrom: FCF287
+                    colorTo: FCF287
+                }
+            ]
+        }
+        smokeEffect: {
+            particles: 5
+            lifetime: 40
+            length: 32
+            baseLength: 2
+            cone: 5
+            interp: pow4Out
+            sizeInterp: pow5In
+            sizeFrom: 3
+            sizeTo: 0
+            colorFrom: 676767
+            colorTo: 45454500
+        }
+        bullets: [
+            {
+                type: BasicBulletType
+                sprite: lp-pointy-bullet
+                width: 6
+                height: 8
+                shrinkY: 0
+                frontColor: FCF287
+                backColor: FCF287
+                lightColor: FCF287
+                trailColor: FCF287
+                trailWidth: 2
+                trailLength: 9
+                damage: 60
+                armorMultiplier: 0.55
+                ammoMultiplier: 1
+                speed: 8
+                lifetime: 54
+                scaleLife: true
+                collidesGround: false
+                absorbable: false
+                maxRange: 440
+                rangeOverride: 440
+                homingRange: 80
+                homingDelay: 16
+                homingPower: 0.4
+                hitSound: shootBlaster2
+                hitSoundVolume: 1.2
+                hitShake: 7
+                hitEffect: {
+                    particles: 5
+                    region: lp-square
+                    lifetime: 30
+                    length: 32
+                    baseLength: 2
+                    interp: pow4Out
+                    sizeInterp: pow2In
+                    sizeFrom: 4
+                    sizeTo: 0
+                    colorFrom: FCF287
+                    colorTo: FCF287
+                }
+                fragBullets: 1
+                fragVelocityMin: 0
+                fragVelocityMax: 0
+                fragOffsetMin: 0
+                fragOffsetMax: 0
+                fragLifeMin: 1
+                fragLifeMax: 1
+                fragBullet: {
+                    type: BulletType
+                    lifetime: 0
+                    speed: 0
+                    damage: 0
+                    instantDisappear: true
+                    spawnBulletRandomSpread: 360
+                    spawnBullets: [
+                        {
+                            type: BasicBulletType
+                            shootEffect: none
+                            smokeEffect: none
+                            hitEffect: none
+                            hitSound: none
+                            despawnEffect: none
+                            collides: false
+                            absorbable: false
+                            hittable: false
+                            keepVelocity: false
+                            ignoreSpawnAngle: true
+                            width: 0
+                            height: 0
+                            shrinkX: 0
+                            shrinkY: 0
+                            speed: 0
+                            lifetime: 30
+                            damage: 0
+                            parts: [
+                                {
+                                    type: HaloPart
+                                    x: 0
+                                    y: 0
+                                    tri: true
+                                    hollow: false
+                                    color: FCF287
+                                    colorTo: FCF287
+                                    sides: 3
+                                    shapes: 4
+                                    radius: 5
+                                    radiusTo: 0
+                                    triLength: 48
+                                    triLengthTo: 0
+                                    rotateSpeed: 0
+                                    shapeRotation: 0
+                                    haloRadius: 0
+                                    haloRadiusTo: 0
+                                    haloRotation: 0
+                                    haloRotateSpeed: 0
+                                    layer: 110
+                                    progress: {
+                                        type: life
+                                        op: curve
+                                        interp: circleOut
+                                        sizeInterp: pow3In
+                                    }
+                                }
+                                {
+                                    type: ShapePart
+                                    x: 0
+                                    y: 0
+                                    circle: true
+                                    hollow: true
+                                    color: FCF287
+                                    colorTo: FCF287
+                                    // sides: 4
+                                    radius: 0
+                                    radiusTo: 32
+                                    stroke: 2
+                                    strokeTo: 0
+                                    rotation: 0
+                                    layer: 110
+                                    progress: {
+                                        type: life
+                                        op: curve
+                                        interp: circleOut
+                                        sizeInterp: circleOut
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

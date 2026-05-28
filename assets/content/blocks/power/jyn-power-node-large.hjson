@@ -1,0 +1,19 @@
+type: PowerNode
+name: Large Jynsteel Power Node
+size: 2
+health: 33
+requirements: [
+    jynsteel/16
+    erocrys/6
+]
+laserRange: 18
+maxNodes: 10
+laserColor1: FFB570
+laserColor2: EB564B
+category: power
+priority: -1
+alwaysUnlocked: false
+researchCostMultiplier: 0.4
+research: jyn-power-node
+shownPlanets: [ mx1 ]
+// databaseTag: powr

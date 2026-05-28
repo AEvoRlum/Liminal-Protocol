@@ -1,0 +1,1483 @@
+type: LaserTurret
+name: Infernoblade
+size: 5
+health: 868
+armor: 11
+requirements: [
+    transchimericsteel/302
+    massisteel/287
+    jynsteel/95
+    crystalite/82
+]
+rotateSpeed: 2.4
+reload: 240
+range: 192
+trackingRange: 288
+recoil: 4
+recoilTime: 60
+shake: 3
+cooldownTime: 90
+heatColor: FF4040
+minWarmup: 0.999
+shootWarmupSpeed: 0.2
+warmupMaintainTime: 360
+firingMoveFract: 0.3
+shootCone: 80
+shootDuration: 320
+// scaleDamageEfficiency: true
+canOverdrive: false
+targetAir: false
+category: turret
+databaseTag: jg
+alwaysUnlocked: false
+researchCostMultiplier: 0.1
+buildTime: 180
+research: {
+    parent: disflux
+    objectives: [
+        crimsondwarf
+    ]
+}
+shownPlanets: [ mx1 ]
+shootSound: largeBeam
+shootSoundVolume: 0
+loopSound: largeBeam
+loopSoundVolume: 6
+destroySound: blockExplodeExplosiveAlt
+destroySoundVolume: 2.2
+destroyEffect: {
+    type: MultiEffect
+    effects: [
+        {
+            particles: 10
+            line: true
+            length: 48
+            baseLength: 2
+            lifetime: 40
+            interp: pow5Out
+            sizeInterp: pow2In
+            lenFrom: 55
+            lenTo: 0
+            strokeFrom: 2
+            strokeTo: 0
+            colorFrom: FFB570
+            colorTo: EB564B
+        }
+        {
+            particles: 12
+            line: true
+            length: 48
+            baseLength: 2
+            lifetime: 40
+            interp: pow3Out
+            sizeInterp: pow2In
+            lenFrom: 24
+            lenTo: 0
+            strokeFrom: 2
+            strokeTo: 0
+            colorFrom: FFB570
+            colorTo: EB564B
+        }
+        {
+            particles: 12
+            length: 90
+            baseLength: 5
+            lifetime: 40
+            interp: pow3Out
+            sizeInterp: pow2In
+            sizeFrom: 5
+            sizeTo: 0
+            colorFrom: FFB570
+            colorTo: 54545400
+        }
+        {
+            particles: 12
+            length: 54
+            baseLength: 2
+            lifetime: 45
+            interp: pow4Out
+            sizeInterp: pow5In
+            sizeFrom: 12
+            sizeTo: 0
+            colorFrom: 454545
+            colorTo: 47474700
+        }
+        {
+            type: WaveEffect
+            lifetime: 40
+            interp: pow3Out
+            sizeFrom: 0
+            sizeTo: 120
+            strokeFrom: 2
+            strokeTo: 0
+            colorFrom: FFB570
+            colorTo: EB564B
+        }
+    ]
+}
+consumes: {
+    power: 16
+}
+outlineColor: 262720
+shootY: 20
+drawer: {
+    type: DrawTurret
+    parts: [
+        {
+            type: RegionPart
+            x: 0
+            y: 0
+            suffix: -barrel
+            heatColor: FF4040
+            heatProgress: heat
+            progress: {
+                type: warmup
+                // ops: [
+                    // {
+                        // op: mul
+                        // other: {
+                            // type: smoothReload
+                            // ops: [
+                                // {
+                                    // op: add
+                                    // amount: 0
+                                // }
+                                // {
+                                    // op: mul
+                                    // other: {
+                                        // type: smoothReload
+                                        // op: add
+                                        // amount: 1
+                                    // }
+                                // }
+                                // {
+                                    // op: mul
+                                    // amount: 1
+                                // }
+                                // {
+                                    // op: clamp
+                                // }
+                            // ]
+                        // }
+                    // }
+                // ]
+            }
+            // top: true
+            under: false
+            mirror: false
+            outline: true
+            replaceOutline: true
+            moveY: -4
+            // layerOffset: 0.01
+        }
+        {
+            type: RegionPart
+            x: 0
+            y: 0
+            suffix: -bottom
+            heatColor: FF4040
+            heatProgress: heat
+            progress: {
+                type: warmup
+                // ops: [
+                    // {
+                        // op: mul
+                        // other: {
+                            // type: smoothReload
+                            // ops: [
+                                // {
+                                    // op: add
+                                    // amount: 0
+                                // }
+                                // {
+                                    // op: mul
+                                    // other: {
+                                        // type: smoothReload
+                                        // op: add
+                                        // amount: 1
+                                    // }
+                                // }
+                                // {
+                                    // op: mul
+                                    // amount: 1
+                                // }
+                                // {
+                                    // op: clamp
+                                // }
+                            // ]
+                        // }
+                    // }
+                // ]
+            }
+            // top: true
+            under: true
+            mirror: true
+            outline: true
+            moveY: 8
+            moveX: 2
+            moveRot: 12
+            layerOffset: -0.01
+        }
+        {
+            type: RegionPart
+            x: 0
+            y: 0
+            suffix: -side
+            heatColor: FF4040
+            heatProgress: heat
+            progress: {
+                type: warmup
+                // ops: [
+                    // {
+                        // op: mul
+                        // other: {
+                            // type: smoothReload
+                            // ops: [
+                                // {
+                                    // op: add
+                                    // amount: 0
+                                // }
+                                // {
+                                    // op: mul
+                                    // other: {
+                                        // type: smoothReload
+                                        // op: add
+                                        // amount: 1
+                                    // }
+                                // }
+                                // {
+                                    // op: mul
+                                    // amount: 1
+                                // }
+                                // {
+                                    // op: clamp
+                                // }
+                            // ]
+                        // }
+                    // }
+                // ]
+            }
+            // top: true
+            under: true
+            mirror: true
+            outline: true
+            moveY: 0
+            moveX: 12
+            moveRot: -45
+            layerOffset: -0.011
+        }
+        {
+            type: HaloPart
+            x: 0
+            y: 20
+            moveX: 4
+            tri: true
+            hollow: false
+            color: FCF287
+            colorTo: FFF589
+            sides: 3
+            shapes: 1
+            radius: 0
+            radiusTo: 1.2
+            triLength: 0
+            triLengthTo: 180
+            rotateSpeed: 0
+            shapeRotation: 0
+            haloRadius: 0
+            haloRadiusTo: 0
+            haloRotation: 0
+            haloRotateSpeed: 0
+            layer: 110
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.8
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                        sizeInterp: pow3In
+                    }
+                ]
+            }
+        }
+        {
+            type: HaloPart
+            x: 0
+            y: 20
+            moveX: -4
+            tri: true
+            hollow: false
+            color: FCF287
+            colorTo: FFF589
+            sides: 3
+            shapes: 1
+            radius: 0
+            radiusTo: 1.2
+            triLength: 0
+            triLengthTo: 180
+            rotateSpeed: 0
+            shapeRotation: 0
+            haloRadius: 0
+            haloRadiusTo: 0
+            haloRotation: 0
+            haloRotateSpeed: 0
+            layer: 110
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.8
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                        sizeInterp: pow3In
+                    }
+                ]
+            }
+        }
+        {
+            type: HaloPart
+            x: 0
+            y: 20
+            moveX: 3.5
+            tri: true
+            hollow: false
+            color: FCF287
+            colorTo: FFF589
+            sides: 3
+            shapes: 1
+            radius: 0
+            radiusTo: 1.2
+            triLength: 0
+            triLengthTo: 160
+            rotateSpeed: 0
+            shapeRotation: 0
+            haloRadius: 0
+            haloRadiusTo: 0
+            haloRotation: 0
+            haloRotateSpeed: 0
+            layer: 110
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.8
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                        sizeInterp: pow3In
+                    }
+                ]
+            }
+        }
+        {
+            type: HaloPart
+            x: 0
+            y: 20
+            moveX: -3.5
+            tri: true
+            hollow: false
+            color: FCF287
+            colorTo: FFF589
+            sides: 3
+            shapes: 1
+            radius: 0
+            radiusTo: 1.2
+            triLength: 0
+            triLengthTo: 160
+            rotateSpeed: 0
+            shapeRotation: 0
+            haloRadius: 0
+            haloRadiusTo: 0
+            haloRotation: 0
+            haloRotateSpeed: 0
+            layer: 110
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.8
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                        sizeInterp: pow3In
+                    }
+                ]
+            }
+        }
+        {
+            type: HaloPart
+            x: 0
+            y: 20
+            moveX: 3
+            tri: true
+            hollow: false
+            color: FCF287
+            colorTo: FFF589
+            sides: 3
+            shapes: 1
+            radius: 0
+            radiusTo: 1.2
+            triLength: 0
+            triLengthTo: 140
+            rotateSpeed: 0
+            shapeRotation: 0
+            haloRadius: 0
+            haloRadiusTo: 0
+            haloRotation: 0
+            haloRotateSpeed: 0
+            layer: 110
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.8
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                        sizeInterp: pow3In
+                    }
+                ]
+            }
+        }
+        {
+            type: HaloPart
+            x: 0
+            y: 20
+            moveX: -3
+            tri: true
+            hollow: false
+            color: FCF287
+            colorTo: FFF589
+            sides: 3
+            shapes: 1
+            radius: 0
+            radiusTo: 1.2
+            triLength: 0
+            triLengthTo: 140
+            rotateSpeed: 0
+            shapeRotation: 0
+            haloRadius: 0
+            haloRadiusTo: 0
+            haloRotation: 0
+            haloRotateSpeed: 0
+            layer: 110
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.8
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                        sizeInterp: pow3In
+                    }
+                ]
+            }
+        }
+        {
+            type: HaloPart
+            x: 0
+            y: 20
+            tri: false
+            hollow: false
+            color: FCF287
+            colorTo: FFF589
+            sides: 256
+            shapes: 1
+            radius: 0
+            radiusTo: 5.5
+            triLength: 0
+            triLengthTo: 5.5
+            rotateSpeed: 0
+            shapeRotation: 0
+            haloRadius: 0
+            haloRadiusTo: 0
+            haloRotation: 0
+            haloRotateSpeed: 0
+            layer: 110
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.8
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                        sizeInterp: pow3In
+                    }
+                // ]
+                // ops: [
+                    // {
+                        // op: mul
+                        // amount: 0
+                    // }
+                    // {
+                        // op: sin
+                        // scl: 0.5
+                        // mag: 0.01
+                    // }
+                    // {
+                        // op: add
+                        // amount: 1
+                    // }
+                    // {
+                        // op: compress
+                        // start: 0
+                        // end: 0.85
+                    // }
+                    // {
+                        // op: mul
+                        // other: { 
+                            // type: reload
+                            // op: curve
+                            // interp: pow2In
+                            // sizeInterp: pow2In
+                        // }
+                    // }
+                    // {
+                        // op: loop
+                        // time: 30
+                    // }
+                    // {
+                        // op: mul
+                        // amount: 0.6
+                    // }
+                    // {
+                        // op: add
+                        // amount: 1
+                    // }
+                    // {
+                        // op: curve
+                        // interp: circleIn
+                    // }
+                    // {
+                        // op: compress
+                        // start: 0
+                        // end: 0.85
+                    // }
+                ]
+            }
+        }
+        {
+            type: ShapePart
+            x: 0
+            y: 20
+            circle: true
+            hollow: true
+            color: FCF287
+            colorTo: FFF589
+            // sides: 4
+            radius: 0
+            radiusTo: 8
+            stroke: 0
+            strokeTo: 1
+            rotation: 0
+            layer: 110
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.8
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                        sizeInterp: pow3In
+                    }
+                ]
+            }
+        }
+        {
+            type: HaloPart
+            x: 0
+            y: 20
+            tri: true
+            hollow: false
+            color: FCF287
+            colorTo: FFF589
+            sides: 3
+            shapes: 2
+            radius: 0
+            radiusTo: 3
+            triLength: 0
+            triLengthTo: 18
+            rotateSpeed: 0
+            shapeRotation: 0
+            haloRadius: 0
+            haloRadiusTo: 4
+            haloRotation: 0
+            haloRotateSpeed: 0.45
+            layer: 110
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.8
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                        sizeInterp: pow3In
+                    }
+                ]
+            }
+        }
+        {
+            type: HaloPart
+            x: 0
+            y: 20
+            tri: true
+            hollow: false
+            color: FCF287
+            colorTo: FFF589
+            sides: 3
+            shapes: 2
+            radius: 0
+            radiusTo: 3
+            triLength: 0
+            triLengthTo: 30
+            rotateSpeed: 0
+            shapeRotation: 0
+            haloRadius: 0
+            haloRadiusTo: 4
+            haloRotation: 0
+            haloRotateSpeed: -0.3
+            layer: 110
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.8
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                        sizeInterp: pow3In
+                    }
+                ]
+            }
+        }
+        {
+            type: EffectSpawnerPart
+            x: 0
+            y: 20
+            // moveY: 12
+            effect: {
+                type: ParticleEffect
+                line: true
+                particles: 2
+                length: 26
+                baseLength: 8
+                // randLength: false
+                interp: pow2Out
+                sizeInterp: circleIn
+                lifetime: 30
+                lenFrom: 8
+                lenTo: 0
+                strokeFrom: 1
+                strokeTo: 1
+                colorFrom: FCF287
+                colorTo: D89F6B
+                layer: 110
+            }
+            effectChance: 0.3
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.7
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                    }
+                ]
+            }
+        }
+        {
+            type: EffectSpawnerPart
+            x: 0
+            y: 20
+            // moveY: 12
+            effect: {
+                type: ParticleEffect
+                line: true
+                particles: 1
+                length: 28
+                baseLength: 8
+                // randLength: false
+                interp: pow2Out
+                sizeInterp: circleIn
+                lifetime: 30
+                lenFrom: 10
+                lenTo: 0
+                strokeFrom: 1
+                strokeTo: 1
+                colorFrom: FCF287
+                colorTo: D89F6B
+                layer: 110
+            }
+            effectChance: 0.3
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.7
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                    }
+                ]
+            }
+        }
+        {
+            type: EffectSpawnerPart
+            x: 3
+            y: 20
+            // moveY: 12
+            effect: {
+                type: ParticleEffect
+                line: true
+                particles: 2
+                length: 184
+                baseLength: 8
+                // randLength: false
+                cone: 2
+                interp: pow3Out
+                sizeInterp: circleIn
+                lifetime: 7
+                lenFrom: 12
+                lenTo: 8
+                strokeFrom: 1
+                strokeTo: 0
+                colorFrom: FCF287
+                colorTo: FFF589
+                layer: 110
+            }
+            effectChance: 0.8
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.7
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                    }
+                ]
+            }
+        }
+        {
+            type: EffectSpawnerPart
+            x: -3
+            y: 20
+            // moveY: 12
+            effect: {
+                type: ParticleEffect
+                line: true
+                particles: 2
+                length: 184
+                baseLength: 8
+                // randLength: false
+                cone: 2
+                interp: pow3Out
+                sizeInterp: circleIn
+                lifetime: 4
+                lenFrom: 12
+                lenTo: 8
+                strokeFrom: 1
+                strokeTo: 0
+                colorFrom: FCF287
+                colorTo: FFF589
+                layer: 110
+            }
+            effectChance: 0.8
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.7
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                    }
+                ]
+            }
+        }
+        {
+            type: EffectSpawnerPart
+            x: 0
+            y: 20
+            // moveY: 12
+            effect: {
+                type: ParticleEffect
+                line: true
+                particles: 2
+                length: 184
+                baseLength: 8
+                // randLength: false
+                cone: 3
+                interp: pow3Out
+                sizeInterp: circleIn
+                lifetime: 4
+                lenFrom: 12
+                lenTo: 8
+                strokeFrom: 1
+                strokeTo: 0
+                colorFrom: FCF287
+                colorTo: FFF589
+                layer: 110
+            }
+            effectChance: 0.6
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.7
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                    }
+                ]
+            }
+        }
+        {
+            type: EffectSpawnerPart
+            x: 0
+            y: 24
+            // moveY: 12
+            effect: {
+                type: ParticleEffect
+                line: true
+                particles: 2
+                length: 80
+                baseLength: 24
+                // randLength: false
+                cone: 6
+                interp: pow3Out
+                sizeInterp: circleIn
+                lifetime: 4
+                lenFrom: 16
+                lenTo: 8
+                strokeFrom: 1
+                strokeTo: 0
+                colorFrom: FCF287
+                colorTo: FFF589
+                layer: 110
+            }
+            effectChance: 0.6
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.7
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                    }
+                ]
+            }
+        }
+        {
+            type: EffectSpawnerPart
+            x: 0
+            y: 48
+            // moveY: 12
+            effect: {
+                type: ParticleEffect
+                line: true
+                particles: 2
+                length: 80
+                baseLength: 24
+                // randLength: false
+                cone: 4
+                interp: pow3Out
+                sizeInterp: circleIn
+                lifetime: 4
+                lenFrom: 16
+                lenTo: 8
+                strokeFrom: 1
+                strokeTo: 0
+                colorFrom: FCF287
+                colorTo: FFF589
+                layer: 110
+            }
+            effectChance: 0.3
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.7
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                    }
+                ]
+            }
+        }
+        {
+            type: EffectSpawnerPart
+            x: 1
+            y: 44
+            // moveY: 12
+            effect: {
+                type: ParticleEffect
+                line: true
+                particles: 2
+                length: 182
+                baseLength: 8
+                // randLength: false
+                cone: 1
+                interp: pow3Out
+                sizeInterp: circleIn
+                lifetime: 4
+                lenFrom: 18
+                lenTo: 8
+                strokeFrom: 1
+                strokeTo: 0
+                colorFrom: FCF287
+                colorTo: FFF589
+                layer: 110
+            }
+            effectChance: 0.1
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.7
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                    }
+                ]
+            }
+        }
+        {
+            type: EffectSpawnerPart
+            x: 2
+            y: 40
+            // moveY: 12
+            effect: {
+                type: ParticleEffect
+                line: true
+                particles: 2
+                length: 182
+                baseLength: 8
+                // randLength: false
+                cone: 1
+                interp: pow3Out
+                sizeInterp: circleIn
+                lifetime: 4
+                lenFrom: 18
+                lenTo: 8
+                strokeFrom: 1
+                strokeTo: 0
+                colorFrom: FCF287
+                colorTo: FFF589
+                layer: 110
+            }
+            effectChance: 0.1
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.7
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                    }
+                ]
+            }
+        }
+        {
+            type: EffectSpawnerPart
+            x: 3
+            y: 36
+            // moveY: 12
+            effect: {
+                type: ParticleEffect
+                line: true
+                particles: 2
+                length: 182
+                baseLength: 8
+                // randLength: false
+                cone: 1
+                interp: pow3Out
+                sizeInterp: circleIn
+                lifetime: 4
+                lenFrom: 18
+                lenTo: 8
+                strokeFrom: 1
+                strokeTo: 0
+                colorFrom: FCF287
+                colorTo: FFF589
+                layer: 110
+            }
+            effectChance: 0.1
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.7
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                    }
+                ]
+            }
+        }
+        {
+            type: EffectSpawnerPart
+            x: 4
+            y: 32
+            // moveY: 12
+            effect: {
+                type: ParticleEffect
+                line: true
+                particles: 2
+                length: 182
+                baseLength: 8
+                // randLength: false
+                cone: 1
+                interp: pow3Out
+                sizeInterp: circleIn
+                lifetime: 4
+                lenFrom: 18
+                lenTo: 8
+                strokeFrom: 1
+                strokeTo: 0
+                colorFrom: FCF287
+                colorTo: FFF589
+                layer: 110
+            }
+            effectChance: 0.1
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.7
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                    }
+                ]
+            }
+        }
+        {
+            type: EffectSpawnerPart
+            x: -1
+            y: 44
+            // moveY: 12
+            effect: {
+                type: ParticleEffect
+                line: true
+                particles: 2
+                length: 182
+                baseLength: 8
+                // randLength: false
+                cone: 1
+                interp: pow3Out
+                sizeInterp: circleIn
+                lifetime: 4
+                lenFrom: 18
+                lenTo: 8
+                strokeFrom: 1
+                strokeTo: 0
+                colorFrom: FCF287
+                colorTo: FFF589
+                layer: 110
+            }
+            effectChance: 0.1
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.7
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                    }
+                ]
+            }
+        }
+        {
+            type: EffectSpawnerPart
+            x: -2
+            y: 40
+            // moveY: 12
+            effect: {
+                type: ParticleEffect
+                line: true
+                particles: 2
+                length: 182
+                baseLength: 8
+                // randLength: false
+                cone: 1
+                interp: pow3Out
+                sizeInterp: circleIn
+                lifetime: 4
+                lenFrom: 18
+                lenTo: 8
+                strokeFrom: 1
+                strokeTo: 0
+                colorFrom: FCF287
+                colorTo: FFF589
+                layer: 110
+            }
+            effectChance: 0.1
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.7
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                    }
+                ]
+            }
+        }
+        {
+            type: EffectSpawnerPart
+            x: -3
+            y: 36
+            // moveY: 12
+            effect: {
+                type: ParticleEffect
+                line: true
+                particles: 2
+                length: 182
+                baseLength: 8
+                // randLength: false
+                cone: 1
+                interp: pow3Out
+                sizeInterp: circleIn
+                lifetime: 4
+                lenFrom: 18
+                lenTo: 8
+                strokeFrom: 1
+                strokeTo: 0
+                colorFrom: FCF287
+                colorTo: FFF589
+                layer: 110
+            }
+            effectChance: 0.1
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.7
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                    }
+                ]
+            }
+        }
+        {
+            type: EffectSpawnerPart
+            x: -4
+            y: 32
+            // moveY: 12
+            effect: {
+                type: ParticleEffect
+                line: true
+                particles: 2
+                length: 182
+                baseLength: 8
+                // randLength: false
+                cone: 1
+                interp: pow3Out
+                sizeInterp: circleIn
+                lifetime: 4
+                lenFrom: 18
+                lenTo: 8
+                strokeFrom: 1
+                strokeTo: 0
+                colorFrom: FCF287
+                colorTo: FFF589
+                layer: 110
+            }
+            effectChance: 0.1
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.7
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                    }
+                ]
+            }
+        }
+        {
+            type: EffectSpawnerPart
+            x: 3
+            y: 20
+            // moveY: 12
+            effect: {
+                type: ParticleEffect
+                line: true
+                particles: 4
+                length: 182
+                baseLength: 8
+                // randLength: false
+                cone: 8
+                interp: pow3Out
+                sizeInterp: circleIn
+                lifetime: 3
+                lenFrom: 18
+                lenTo: 8
+                strokeFrom: 1
+                strokeTo: 0
+                colorFrom: FCF287
+                colorTo: FFF589
+                layer: 110
+            }
+            effectChance: 0.2
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.7
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                    }
+                ]
+            }
+        }
+        {
+            type: EffectSpawnerPart
+            x: -3
+            y: 20
+            // moveY: 12
+            effect: {
+                type: ParticleEffect
+                line: true
+                particles: 4
+                length: 182
+                baseLength: 8
+                // randLength: false
+                cone: 8
+                interp: pow3Out
+                sizeInterp: circleIn
+                lifetime: 3
+                lenFrom: 18
+                lenTo: 8
+                strokeFrom: 1
+                strokeTo: 0
+                colorFrom: FCF287
+                colorTo: FFF589
+                layer: 110
+            }
+            effectChance: 0.2
+            progress: {
+                type: recoil
+                ops: [
+                    {
+                        op: compress
+                        start: 0
+                        end: 0.7
+                    }
+                    {
+                        op: curve
+                        interp: circleIn
+                    }
+                ]
+            }
+        }
+    ]
+}
+shootType: {
+    type: ContinuousLaserBulletType
+    fadeTime: 10
+    colors: [
+        FCF287
+        FFF589
+        E8D074
+        D89F6B
+    ]
+    // strokeFrom: 0
+    // strokeTo: 0
+    // pointyScaling: 0
+    // backLength: 0
+    // frontLength: 0
+    width: 0
+    oscScl: 0
+    oscMag: 0
+    length: 172
+    drawSize: 0
+    hitSize: 128
+    incendChance: 0
+    incendSpread: 4
+    incendAmount: 1
+    lightColor: FFF589
+    timescaleDamage: true
+    makeFire: false
+    collidesAir: false
+    largeHit: true
+    pierce: true
+    pierceBuilding: true
+    pierceCap: 128
+    maxRange: 192
+    // rangeOverride: 192
+    damage: 160
+    armorMultiplier: 1.24
+    shieldDamageMultiplier: 3
+    buildingDamageMultiplier: 0.45
+    ammoMultiplier: 1
+    hitShake: 2
+    shootEffect: {
+        type: MultiEffect
+        effects: [
+            {
+                particles: 18
+                line: true
+                lifetime: 30
+                length: 42
+                baseLength: 3
+                cone: 60
+                interp: circleOut
+                sizeInterp: pow2In
+                lenFrom: 8
+                lenTo: 0
+                strokeFrom: 1
+                strokeTo: 0
+                colorFrom: FFF589
+                colorTo: E8D074
+            }
+            {
+                particles: 8
+                line: true
+                lifetime: 30
+                length: 42
+                baseLength: 3
+                cone: 30
+                interp: circleOut
+                sizeInterp: pow2In
+                lenFrom: 16
+                lenTo: 0
+                strokeFrom: 1
+                strokeTo: 0
+                colorFrom: FFF589
+                colorTo: E8D074
+            }
+        ]
+    }
+    hitEffect: {
+        particles: 4
+        line: true
+        lifetime: 30
+        length: 40
+        baseLength: 8
+        cone: 60
+        interp: pow3Out
+        sizeInterp: pow2In
+        lenFrom: 16
+        lenTo: 0
+        strokeFrom: 0.7
+        strokeTo: 0
+        colorFrom: FFF589
+        colorTo: E8D074
+    }
+}
+// shootType = new ContinuousLaserBulletType(78){{
+                // length = 200f;
+                // hitEffect = Fx.hitMeltdown;
+                // hitColor = Pal.meltdownHit;
+                // status = StatusEffects.melting;
+                // drawSize = 420f;
+                // timescaleDamage = true;
+
+                // incendChance = 0.4f;
+                // incendSpread = 5f;
+                // incendAmount = 1;
+                // ammoMultiplier = 1f;
+            // }};
+
+            // scaledHealth = 200;
+            // liquidCapacity = 60f;
+            // coolant = consumeCoolant(0.5f);
+            // consumePower(17f);
+        // }};
+// shootType: {
+    // type: PointLaserBulletType
+// }

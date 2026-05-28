@@ -1,0 +1,46 @@
+type: LiquidBridge
+name: Transchimericsteel Bridge Conduit
+size: 1
+health: 64
+requirements: [
+    transchimericsteel/14
+    crystalite/4
+]
+range: 12
+liquidCapacity: 32
+arrowPeriod: 0.7
+arrowTimeScl: 3
+floating: true
+hasPower: true
+canOverdrive: false
+pulse: true
+consumes: {
+    power: 0.016666666666666666666
+}
+alwaysUnlocked: false
+researchCostMultiplier: 0.1
+category: liquid
+research: {
+    parent: tra-conduit
+    // objectives: [
+        // {
+            // type: 
+            // preset: 
+        // }
+    // ]
+}
+shownPlanets: [ mx1 ]
+
+/*phaseConduit = new LiquidBridge("phase-conduit"){{
+            requirements(Category.liquid, with(Items.phaseFabric, 5, Items.silicon, 7, Items.metaglass, 20, Items.titanium, 10));
+            floating = true;
+            range = 12;
+            arrowPeriod = 0.9f;
+            arrowTimeScl = 2.75f;
+            hasPower = true;
+            canOverdrive = false;
+            pulse = true;
+            explosivenessScale = flammabilityScale = 20f/100f;
+            liquidCapacity = 100f;
+            consumePower(0.30f);
+        }};*/
