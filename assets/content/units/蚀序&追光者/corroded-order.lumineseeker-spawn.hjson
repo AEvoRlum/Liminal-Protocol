@@ -1,0 +1,772 @@
+type: missile
+databaseTag: 9
+lifetime: 10
+template: MissileUnitType
+name: corroded.order.lumineseeker.spawn
+health: 325000
+armor: 325000
+speed: 0
+rotateSpeed: 80
+hitSize: 0
+accel: 0
+drag: 0
+engineSize: 0
+range: 3200
+buildSpeed: 0
+itemCapacity: 0
+ammoCapacity: 325
+dpsEstimate: 799325
+fogRadius: 0
+hidden: true
+targetable: false
+isEnemy: false
+canDrown: false
+alwaysUnlocked: false
+physics: false
+wobble: false
+hittable: false
+drawCell: false
+drawBody: false
+drawSoftShadow: false
+drawShields: false
+useUnitCap: false
+shadowElevation: 325325
+shownPlanets: [ mx1 ]
+deathSound: none
+deathSoundVolume: 0
+deathExplosionEffect: none
+weapons: [
+    {
+        alwaysShooting: true
+        rotate: true
+        mirror: false
+        display: false
+        alternate: false
+        shootOnDeath: true
+        rotateSpeed: 0
+        reload: 1
+        shootSound: none
+        x: 0
+        y: 0
+        /*shoot: {
+            firstShotDelay: 
+        }*/
+        bullet: {
+            maxRange: 0
+            rangeOverride: 0
+            type: BasicBulletType
+            shootEffect: none
+            smokeEffect: none
+            hitEffect: none
+            hitSound: antiMaterialRifleCharge
+            despawnEffect: none
+            killShooter: true
+            collides: false
+            absorbable: false
+            hittable: false
+            width: 0
+            height: 0
+            shrinkX: 0
+            shrinkY: 0
+            speed: 0
+            lifetime: 0
+            damage: 0
+            fragBullets: 1
+            fragVelocityMin: 1
+            fragLifeMin: 1
+            fragSpread: 0
+            fragRandomSpread: 0
+            fragAngle: 0
+            fragBullet: {
+                type: MultiBulletType
+                bullets: [
+                    {
+                        type: BasicBulletType
+                        angleOffset: 0
+                        hitEffect: none
+                        hitSound: none
+                        despawnEffect: none
+                        collides: false
+                        absorbable: false
+                        hittable: false
+                        ignoreSpawnAngle: true
+                        width: 0
+                        height: 0
+                        shrinkX: 0
+                        shrinkY: 0
+                        speed: 0
+                        lifetime: 10
+                        damage: 0
+                        parts: [
+                            {
+                                type: ShapePart
+                                x: 0
+                                y: 0
+                                circle: false
+                                hollow: true
+                                color: F3E6E600
+                                colorTo: F3E6E6
+                                sides: 4
+                                radius: 0
+                                radiusTo: 40
+                                stroke: 8
+                                strokeTo: 9
+                                rotateSpeed: 0
+                                rotation: 90
+                                layer: 110
+                                progress: {
+                                    type: life
+                                    op: curve
+                                    interp: circleOut
+                                    sizeInterp: circleIn
+                                }
+                            }
+                        ]
+                    }
+                    {
+                        type: BasicBulletType
+                        angleOffset: 0
+                        hitEffect: none
+                        hitSound: none
+                        despawnEffect: none
+                        collides: false
+                        absorbable: false
+                        hittable: false
+                        ignoreSpawnAngle: true
+                        width: 0
+                        height: 0
+                        shrinkX: 0
+                        shrinkY: 0
+                        speed: 0
+                        lifetime: 10
+                        damage: 0
+                        fragBullets: 1
+                        fragVelocityMin: 1
+                        fragVelocityMax: 1
+                        fragLifeMin: 1
+                        fragLifeMax: 1
+                        fragBullet: {
+                            type: BasicBulletType
+                            angleOffset: 0
+                            hitEffect: none
+                            hitSound: none
+                            despawnEffect: none
+                            collides: false
+                            absorbable: false
+                            hittable: false
+                            ignoreSpawnAngle: true
+                            width: 0
+                            height: 0
+                            shrinkX: 0
+                            shrinkY: 0
+                            speed: 0
+                            lifetime: 10
+                            damage: 0
+                            parts: [
+                                {
+                                    type: ShapePart
+                                    x: 0
+                                    y: 0
+                                    circle: false
+                                    hollow: true
+                                    color: F3E6E600
+                                    colorTo: F3E6E6
+                                    sides: 4
+                                    radius: 40
+                                    radiusTo: 80
+                                    stroke: 9
+                                    strokeTo: 10
+                                    rotateSpeed: 0
+                                    rotation: 90
+                                    layer: 110
+                                    progress: {
+                                        type: life
+                                        op: curve
+                                        interp: circleOut
+                                        sizeInterp: circleIn
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                    {
+                        type: BasicBulletType
+                        angleOffset: 0
+                        hitEffect: none
+                        hitSound: none
+                        despawnEffect: none
+                        collides: false
+                        absorbable: false
+                        hittable: false
+                        ignoreSpawnAngle: true
+                        width: 0
+                        height: 0
+                        shrinkX: 0
+                        shrinkY: 0
+                        speed: 0
+                        lifetime: 20
+                        damage: 0
+                        fragBullets: 1
+                        fragVelocityMin: 1
+                        fragVelocityMax: 1
+                        fragLifeMin: 1
+                        fragLifeMax: 1
+                        fragBullet: {
+                            type: BasicBulletType
+                            angleOffset: 0
+                            hitEffect: none
+                            hitSound: none
+                            despawnEffect: none
+                            collides: false
+                            absorbable: false
+                            hittable: false
+                            ignoreSpawnAngle: true
+                            width: 0
+                            height: 0
+                            shrinkX: 0
+                            shrinkY: 0
+                            speed: 0
+                            lifetime: 10
+                            damage: 0
+                            parts: [
+                                {
+                                    type: ShapePart
+                                    x: 0
+                                    y: 0
+                                    circle: false
+                                    hollow: true
+                                    color: F3E6E600
+                                    colorTo: F3E6E6
+                                    sides: 4
+                                    radius: 80
+                                    radiusTo: 160
+                                    stroke: 10
+                                    strokeTo: 11
+                                    rotateSpeed: 0
+                                    rotation: 90
+                                    layer: 110
+                                    progress: {
+                                        type: life
+                                        op: curve
+                                        interp: circleOut
+                                        sizeInterp: circleIn
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                    {
+                        type: BasicBulletType
+                        angleOffset: 0
+                        hitEffect: none
+                        hitSound: none
+                        despawnEffect: none
+                        collides: false
+                        absorbable: false
+                        hittable: false
+                        ignoreSpawnAngle: true
+                        width: 0
+                        height: 0
+                        shrinkX: 0
+                        shrinkY: 0
+                        speed: 0
+                        lifetime: 30
+                        damage: 0
+                        fragBullets: 1
+                        fragVelocityMin: 1
+                        fragVelocityMax: 1
+                        fragLifeMin: 1
+                        fragLifeMax: 1
+                        fragBullet: {
+                            type: BasicBulletType
+                            angleOffset: 0
+                            hitEffect: none
+                            hitSound: none
+                            despawnEffect: none
+                            collides: false
+                            absorbable: false
+                            hittable: false
+                            ignoreSpawnAngle: true
+                            width: 0
+                            height: 0
+                            shrinkX: 0
+                            shrinkY: 0
+                            speed: 0
+                            lifetime: 30
+                            damage: 0
+                            parts: [
+                                {
+                                    type: ShapePart
+                                    x: 0
+                                    y: 0
+                                    circle: false
+                                    hollow: true
+                                    color: F3E6E600
+                                    colorTo: F3E6E6
+                                    sides: 4
+                                    radius: 160
+                                    radiusTo: 340
+                                    stroke: 11
+                                    strokeTo: 12
+                                    rotateSpeed: 0
+                                    rotation: 90
+                                    layer: 110
+                                    progress: {
+                                        type: life
+                                        op: curve
+                                        interp: circleOut
+                                        sizeInterp: circleIn
+                                    }
+                                }
+                                {
+                                    type: HaloPart
+                                    x: 0
+                                    y: 0
+                                    tri: true
+                                    hollow: false
+                                    color: F3E6E600
+                                    colorTo: F3E6E6
+                                    sides: 3
+                                    shapes: 4
+                                    radius: 32
+                                    radiusTo: 12
+                                    triLength: 60
+                                    triLengthTo: 300
+                                    rotateSpeed: 0
+                                    shapeRotation: 180
+                                    haloRadius: 160
+                                    haloRadiusTo: 340
+                                    haloRotation: 0
+                                    haloRotateSpeed: 0
+                                    layer: 110
+                                    progress: {
+                                        type: life
+                                        op: curve
+                                        interp: circleOut
+                                        sizeInterp: circleIn
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                    {
+                        type: BasicBulletType
+                        angleOffset: 0
+                        hitEffect: none
+                        hitSound: none
+                        despawnEffect: none
+                        collides: false
+                        absorbable: false
+                        hittable: false
+                        ignoreSpawnAngle: true
+                        width: 0
+                        height: 0
+                        shrinkX: 0
+                        shrinkY: 0
+                        speed: 0
+                        lifetime: 60
+                        damage: 0
+                        fragBullets: 1
+                        fragVelocityMin: 1
+                        fragVelocityMax: 1
+                        fragLifeMin: 1
+                        fragLifeMax: 1
+                        fragBullet: {
+                            type: BasicBulletType
+                            angleOffset: 0
+                            hitEffect: none
+                            hitSound: none
+                            despawnEffect: none
+                            collides: false
+                            absorbable: false
+                            hittable: false
+                            ignoreSpawnAngle: true
+                            width: 0
+                            height: 0
+                            shrinkX: 0
+                            shrinkY: 0
+                            speed: 0
+                            lifetime: 20
+                            damage: 0
+                            parts: [
+                                {
+                                    type: ShapePart
+                                    x: 0
+                                    y: 0
+                                    circle: false
+                                    hollow: true
+                                    color: F3E6E6
+                                    colorTo: F3E6E6
+                                    sides: 4
+                                    radius: 340
+                                    radiusTo: 340
+                                    stroke: 12
+                                    strokeTo: 12
+                                    rotateSpeed: 0
+                                    rotation: 90
+                                    layer: 110
+                                    progress: {
+                                        type: life
+                                        op: curve
+                                        interp: circleOut
+                                        sizeInterp: circleIn
+                                    }
+                                }
+                                {
+                                    type: HaloPart
+                                    x: 0
+                                    y: 0
+                                    tri: true
+                                    hollow: false
+                                    color: F3E6E6
+                                    colorTo: F3E6E6
+                                    sides: 3
+                                    shapes: 4
+                                    radius: 12
+                                    radiusTo: 12
+                                    triLength: 300
+                                    triLengthTo: 0
+                                    rotateSpeed: 0
+                                    shapeRotation: 180
+                                    haloRadius: 340
+                                    haloRadiusTo: 340
+                                    haloRotation: 0
+                                    haloRotateSpeed: 0
+                                    layer: 110
+                                    progress: {
+                                        type: life
+                                        op: curve
+                                        interp: circleOut
+                                        sizeInterp: circleIn
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                    {
+                        type: BasicBulletType
+                        angleOffset: 0
+                        hitEffect: {
+                            particles: 44
+                            line: true
+                            lifetime: 60
+                            length: -660
+                            baseLength: 660
+                            interp: circleOut
+                            sizeInterp: circleIn
+                            lenFrom: 60
+                            lenTo: 24
+                            strokeFrom: 0
+                            strokeTo: 4
+                            colorFrom: F3E6E6
+                            colorTo: F3E6E6
+                        }
+                        hitSound: none
+                        despawnEffect: none
+                        collides: false
+                        absorbable: false
+                        hittable: false
+                        ignoreSpawnAngle: true
+                        width: 0
+                        height: 0
+                        shrinkX: 0
+                        shrinkY: 0
+                        speed: 0
+                        lifetime: 80
+                        damage: 0
+                        fragBullets: 1
+                        fragVelocityMin: 1
+                        fragVelocityMax: 1
+                        fragLifeMin: 1
+                        fragLifeMax: 1
+                        fragBullet: {
+                            type: BasicBulletType
+                            angleOffset: 0
+                            hitEffect: none
+                            hitSound: none
+                            despawnEffect: none
+                            collides: false
+                            absorbable: false
+                            hittable: false
+                            ignoreSpawnAngle: true
+                            width: 0
+                            height: 0
+                            shrinkX: 0
+                            shrinkY: 0
+                            speed: 0
+                            lifetime: 60
+                            damage: 0
+                            parts: [
+                                {
+                                    type: ShapePart
+                                    x: 0
+                                    y: 0
+                                    circle: false
+                                    hollow: true
+                                    color: F3E6E6
+                                    colorTo: F3E6E600
+                                    sides: 4
+                                    radius: 340
+                                    radiusTo: 0
+                                    stroke: 12
+                                    strokeTo: 12
+                                    rotateSpeed: 2
+                                    rotation: 90
+                                    layer: 110
+                                    progress: {
+                                        type: life
+                                        op: curve
+                                        interp: circleOut
+                                        sizeInterp: circleIn
+                                    }
+                                }
+                                {
+                                    type: ShapePart
+                                    x: 0
+                                    y: 0
+                                    circle: false
+                                    hollow: true
+                                    color: F3E6E6
+                                    colorTo: F3E6E600
+                                    sides: 4
+                                    radius: 340
+                                    radiusTo: 30
+                                    stroke: 12
+                                    strokeTo: 12
+                                    rotateSpeed: 2
+                                    rotation: 90
+                                    layer: 110
+                                    progress: {
+                                        type: life
+                                        op: curve
+                                        interp: circleOut
+                                        sizeInterp: circleIn
+                                    }
+                                }
+                                {
+                                    type: ShapePart
+                                    x: 0
+                                    y: 0
+                                    circle: false
+                                    hollow: true
+                                    color: F3E6E6
+                                    colorTo: F3E6E600
+                                    sides: 4
+                                    radius: 340
+                                    radiusTo: 60
+                                    stroke: 12
+                                    strokeTo: 12
+                                    rotateSpeed: 2
+                                    rotation: 90
+                                    layer: 110
+                                    progress: {
+                                        type: life
+                                        op: curve
+                                        interp: circleOut
+                                        sizeInterp: circleIn
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                    {
+                        type: BasicBulletType
+                        angleOffset: 0
+                        hitEffect: {
+                            particles: 1
+                            region: lp-prismatic
+                            lifetime: 30
+                            length: 0
+                            baseLength: 0
+                            randLength: false
+                            interp: circleOut
+                            sizeInterp: circleIn
+                            sizeFrom: 0
+                            sizeTo: 350
+                            colorFrom: F3E6E600
+                            colorTo: F3E6E6
+                        }
+                        hitSound: plasmaShoot
+                        despawnEffect: none
+                        collides: false
+                        absorbable: false
+                        hittable: false
+                        width: 0
+                        height: 0
+                        shrinkX: 0
+                        shrinkY: 0
+                        speed: 0
+                        homingRange: 8000
+                        homingDelay: 0
+                        homingPower: 8000
+                        lifetime: 110
+                        damage: 0
+                        fragBullets: 1
+                        fragVelocityMin: 1
+                        fragVelocityMax: 1
+                        fragLifeMin: 1
+                        fragLifeMax: 1
+                        fragBullet: {
+                            type: BasicBulletType
+                            ignoreSpawnAngle: true
+                            hitEffect: none
+                            hitSound: none
+                            despawnEffect: {
+                                particles: 1
+                                region: lp-prismatic
+                                lifetime: 10
+                                length: 0
+                                baseLength: 0
+                                randLength: false
+                                interp: circleOut
+                                sizeInterp: circleIn
+                                sizeFrom: 350
+                                sizeTo: 0
+                                colorFrom: F3E6E6
+                                colorTo: F3E6E600
+                            }
+                            collides: false
+                            absorbable: false
+                            hittable: false
+                            homingRange: 8000
+                            homingDelay: 0
+                            homingPower: 8000
+                            width: 0
+                            height: 0
+                            shrinkX: 0
+                            shrinkY: 0
+                            speed: 0
+                            lifetime: 30
+                            damage: 0
+                            despawnUnit: corroded-order
+                            despawnUnitRadius: 0
+                        }
+                    }
+                    {
+                        type: BasicBulletType
+                        angleOffset: 0
+                        hitEffect: none
+                        hitSound: none
+                        despawnEffect: none
+                        collides: false
+                        absorbable: false
+                        hittable: false
+                        ignoreSpawnAngle: true
+                        width: 0
+                        height: 0
+                        shrinkX: 0
+                        shrinkY: 0
+                        speed: 2.5
+                        lifetime: 110
+                        damage: 0
+                        homingRange: 8000
+                        homingDelay: 8
+                        homingPower: 1
+                        fragBullets: 1
+                        fragVelocityMin: 1
+                        fragVelocityMax: 1
+                        fragLifeMin: 1
+                        fragLifeMax: 1
+                        fragBullet: {
+                            type: BasicBulletType
+                            ignoreSpawnAngle: true
+                            hitEffect: none
+                            hitSound: none
+                            despawnEffect: {
+                                particles: 1
+                                region: lp-prismatic
+                                lifetime: 10
+                                length: 0
+                                baseLength: 0
+                                randLength: false
+                                interp: circleOut
+                                sizeInterp: circleIn
+                                sizeFrom: 160
+                                sizeTo: 0
+                                colorFrom: F3E6E6
+                                colorTo: F3E6E600
+                            }
+                            collides: false
+                            absorbable: false
+                            hittable: false
+                            width: 0
+                            height: 0
+                            shrinkX: 0
+                            shrinkY: 0
+                            speed: 0
+                            lifetime: 30
+                            damage: 0
+                            despawnUnit: lumineseeker
+                            despawnUnitRadius: 0
+                        }
+                    }
+                    {
+                        type: BasicBulletType
+                        angleOffset: 0
+                        hitEffect: none
+                        hitSound: none
+                        despawnEffect: none
+                        collides: false
+                        absorbable: false
+                        hittable: false
+                        ignoreSpawnAngle: true
+                        width: 0
+                        height: 0
+                        shrinkX: 0
+                        shrinkY: 0
+                        speed: 0
+                        lifetime: 132
+                        damage: 0
+                        bulletInterval: 4
+                        intervalBullets: 3
+                        intervalBullet: {
+                            type: BasicBulletType
+                            hitEffect: none
+                            hitSound: none
+                            despawnEffect: none
+                            collides: false
+                            absorbable: false
+                            hittable: false
+                            width: 0
+                            height: 0
+                            shrinkX: 0
+                            shrinkY: 0
+                            speed: 0
+                            lifetime: 0
+                            damage: 0
+                            fragBullets: 1
+                            fragVelocityMin: 0.1
+                            fragVelocityMax: 1
+                            fragLifeMin: 0.1
+                            fragLifeMax: 1
+                            fragBullet: {
+                                type: BasicBulletType
+                                hitEffect: none
+                                hitSound: none
+                                despawnEffect: none
+                                collides: false
+                                absorbable: false
+                                hittable: false
+                                width: 0
+                                height: 0
+                                shrinkX: 0
+                                shrinkY: 0
+                                speed: 15
+                                lifetime: 30
+                                damage: 0
+                                fragBullets: 1
+                                fragBullet: {
+                                    type: LightningBulletType
+                                    damage: 60
+                                    lightningLength: 40
+                                    lightningLengthRand: 40
+                                    lightningColor: F3E6E6
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }
+]

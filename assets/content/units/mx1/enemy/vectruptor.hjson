@@ -1,0 +1,2211 @@
+type: flying
+name: Vectruptor
+databaseTag: enemy
+health: 400
+armor: 12
+hitSize: 32
+rotateSpeed: 0
+speed: 2
+accel: 0.08
+drag: 0.08
+engineSize: 0
+buildSpeed: 0
+itemCapacity: 0
+ammoCapacity: 0
+outlineColor: 262720
+fogRadius: 160
+range: 160
+maxRange: 160
+flyingLayer: 100
+drownTimeMultiplier: -1
+wreckHealthMultiplier: 0
+loopSound: axisFlashlight
+deathSound: none
+deathExplosionEffect: none
+drawCell: false
+flying: true
+lowAltitude: false
+alwaysUnlocked: false
+faceTarget: false
+canDrown: false
+wobble: false
+drawBody: false
+circleTarget: true
+circleTargetRadius: 120
+createScorch: false
+createWreck: false
+useUnitCap: false
+shownPlanets: [ mx1 ]
+researchCostMultiplier: 0
+research: {
+    parent: rusher
+    objectives: [
+        {
+            type: SectorComplete
+            preset: Rift
+        }
+    ]
+}
+// ammoType: crystalite
+targetFlags: [
+    turret
+]
+abilities: [
+    {
+        type: UnitSpawnAbility
+        unit: vectruptor
+        spawnTime: 1500
+        spawnX: 0
+        spawnY: 0
+        spawnEffect: {
+            type: WaveEffect
+            lifetime: 40
+            interp: circleOut
+            sides: 4
+            sizeFrom: 0
+            sizeTo: 120
+            strokeFrom: 3
+            strokeTo: 0
+            colorFrom: F3E6E6
+            colorTo: F3E6E6
+        }
+        parentizeEffects: true
+        timer: 60
+    }
+    {
+        type: SpawnDeathAbility
+        unit: vectruptor-death
+        amount: 1
+        spread: 0
+        faceOutwards: false
+        display: false
+    }
+]
+weapons: [
+    {
+        name: vectruptor
+        ignoreRotation: true
+        controllable: false
+        autoTarget: false
+        mirror: false
+        display: false
+        rotate: false
+        x: 0
+        y: 0
+        reload: 1
+        minWarmup: 10
+        baseRotation: 90
+    }
+    {
+        alwaysShooting: true
+        controllable: false
+        autoTarget: false
+        mirror: false
+        display: false
+        rotate: false
+        x: 0
+        y: 0
+        reload: 1200
+        recoil: 0
+        recoilTime: 0
+        shootSound: none
+        shoot: {
+            firstShotDelay: 1200
+        }
+        bullet: {
+            maxRange: 0
+            rangeOverride: 0
+            type: BulletType
+            lifetime: 0
+            speed: 0
+            damage: 0
+            instantDisappear: true
+            shootEffect: none
+            smokeEffect: none
+            hitEffect: none
+            despawnEffect: none
+        }
+        parts: [
+            {
+                type: ShapePart
+                x: 0
+                y: 0
+                circle: false
+                hollow: true
+                clampProgress: false
+                color: F3E6E6
+                colorTo: F3E6E6
+                sides: 4
+                radius: 8
+                radiusTo: 10
+                stroke: 1.5
+                strokeTo: 1.5
+                rotation: 0
+                layer: 110
+                progress: {
+                    type: charge
+                    op: sin
+                    scl: 0.1
+                    mag: 1
+                }
+            }
+            // {
+                // type: ShapePart
+                // x: 0
+                // y: 0
+                // circle: false
+                // hollow: true
+                // clampProgress: false
+                // color: F3E6E6
+                // colorTo: F3E6E6
+                // sides: 4
+                // radius: 18
+                // radiusTo: 18
+                // stroke: 3
+                // strokeTo: 3
+                // rotation: 0
+                // layer: 110
+                // progress: {
+                    // type: life
+                    // // op: sin
+                    // // scl: 0.1
+                    // // mag: 1
+                // }
+            // }
+            {
+                type: HaloPart
+                x: 0
+                y: 0
+                moveX: 0.25
+                moveY: 0.25
+                // shapeMoveRot: 180
+                tri: true
+                hollow: false
+                color: F3E6E6
+                colorTo: F3E6E6
+                sides: 3
+                shapes: 3
+                radius: 4
+                radiusTo: 4
+                triLength: 24
+                triLengthTo: 24
+                rotateSpeed: 0
+                shapeRotation: 0
+                haloRadius: 0
+                haloRadius: 36
+                haloRotation: 0
+                haloRotateSpeed: 0.5
+                layer: 110
+                progress: {
+                    type: reload
+                    ops: [
+                        // {
+                            // op: compress
+                            // start: 0.5
+                            // end: 1
+                        // }
+                        {
+                            op: mul
+                            other: {
+                                type: time
+                                ops: [
+                                    {
+                                        op: mul
+                                        amount: 0
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.325
+                                        mag: 1.555
+                                        offset: 10
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.245
+                                        mag: 1.635
+                                        offset: 20
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.166
+                                        mag: 3.958
+                                        offset: 30
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.111
+                                        mag: 1.456
+                                        offset: 40
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.568
+                                        mag: 1.976
+                                        offset: 50
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.264
+                                        mag: 3.767
+                                        offset: 60
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.325
+                                        mag: 1.555
+                                        offset: 70
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.245
+                                        mag: 1.635
+                                        offset: 80
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.166
+                                        mag: 3.958
+                                        offset: 90
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.111
+                                        mag: 1.456
+                                        offset: 100
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.568
+                                        mag: 1.976
+                                        offset: 110
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.264
+                                        mag: 3.767
+                                        offset: 120
+                                    }
+                                ]
+                            }
+                        }
+                        {
+                            op: curve
+                            interp: sine
+                        }
+                    ]
+                }
+            }
+            {
+                type: HaloPart
+                x: 0
+                y: 0
+                moveX: -0.25
+                moveY: -0.25
+                // shapeMoveRot: 180
+                tri: true
+                hollow: false
+                color: F3E6E6
+                colorTo: F3E6E6
+                sides: 3
+                shapes: 3
+                radius: 4
+                radiusTo: 4
+                triLength: 8
+                triLengthTo: 8
+                rotateSpeed: 0
+                shapeRotation: 180
+                haloRadius: 0
+                haloRadius: 36
+                haloRotation: 0
+                haloRotateSpeed: 0.5
+                layer: 110
+                progress: {
+                    type: reload
+                    ops: [
+                        // {
+                            // op: compress
+                            // start: 0.5
+                            // end: 1
+                        // }
+                        {
+                            op: mul
+                            other: {
+                                type: time
+                                ops: [
+                                    {
+                                        op: mul
+                                        amount: 0
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.325
+                                        mag: 1.555
+                                        offset: 10
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.245
+                                        mag: 1.635
+                                        offset: 20
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.166
+                                        mag: 3.958
+                                        offset: 30
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.111
+                                        mag: 1.456
+                                        offset: 40
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.568
+                                        mag: 1.976
+                                        offset: 50
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.264
+                                        mag: 3.767
+                                        offset: 60
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.325
+                                        mag: 1.555
+                                        offset: 70
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.245
+                                        mag: 1.635
+                                        offset: 80
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.166
+                                        mag: 3.958
+                                        offset: 90
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.111
+                                        mag: 1.456
+                                        offset: 100
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.568
+                                        mag: 1.976
+                                        offset: 110
+                                    }
+                                    {
+                                        op: sin
+                                        scl: 0.264
+                                        mag: 3.767
+                                        offset: 120
+                                    }
+                                ]
+                            }
+                        }
+                        {
+                            op: curve
+                            interp: sine
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+    {
+        mirror: false
+        top: false
+        rotate: true
+        x: 0
+        y: 0
+        shootY: 0
+        reload: 100
+        rotateSpeed: 6
+        shootSound: shootFlak3
+        shootSoundVolume: 4
+        shake: 5
+        bullet: {
+            type: MultiBulletType
+            maxRange: 160
+            rangeOverride: 160
+            damage: 180
+            ammoMultiplier: 1
+            armorMultiplier: 1.75
+            shieldDamageMultiplier: 1.6
+            speed: 8
+            lifetime: 20
+            shootEffect: none
+            smokeEffect: none
+            bullets: [
+                {
+                    type: BasicBulletType
+                    sprite: lp-pointy-bullet
+                    width: 6.5
+                    height: 8
+                    shrinkY: 0
+                    lightColor: F3E6E6
+                    frontColor: F3E6E6
+                    backColor: F3E6E6
+                    trailColor: F3E6E6
+                    trailWidth: 2
+                    trailLength: 12
+                    speed: 8
+                    lifetime: 20
+                    damage: 180
+                    armorMultiplier: 1.75
+                    shieldDamageMultiplier: 1.6
+                    hitSound: strawberrydeath
+                    hitShake: 6
+                    hitEffect: none
+                    despawnEffect: none
+                    fragBullets: 1
+                    fragVelocityMin: 0
+                    fragVelocityMax: 0
+                    fragOffsetMin: 0
+                    fragOffsetMax: 0
+                    fragLifeMin: 1
+                    fragLifeMax: 1
+                    fragBullet: {
+                        type: BulletType
+                        lifetime: 0
+                        speed: 0
+                        damage: 0
+                        instantDisappear: true
+                        spawnBulletRandomSpread: 360
+                        spawnBullets: [
+                            {
+                                type: BasicBulletType
+                                lightColor: F3E6E6
+                                lightRadius: 4
+                                // angleOffset: 0
+                                shootEffect: none
+                                smokeEffect: none
+                                hitEffect: none
+                                hitSound: none
+                                despawnEffect: none
+                                collides: false
+                                absorbable: false
+                                hittable: false
+                                // ignoreSpawnAngle: true
+                                keepVelocity: false
+                                width: 0
+                                height: 0
+                                shrinkX: 0
+                                shrinkY: 0
+                                speed: 0
+                                lifetime: 60
+                                damage: 0
+                                parts: [
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 16
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 0
+                                        haloRadius: 0
+                                        haloRadiusTo: 40
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 8
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 180
+                                        haloRadius: 0
+                                        haloRadiusTo: 40
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                ]
+                            }
+                            {
+                                type: BasicBulletType
+                                lightColor: F3E6E6
+                                lightRadius: 4
+                                // angleOffset: 0
+                                shootEffect: none
+                                smokeEffect: none
+                                hitEffect: none
+                                hitSound: none
+                                despawnEffect: none
+                                collides: false
+                                absorbable: false
+                                hittable: false
+                                // ignoreSpawnAngle: true
+                                keepVelocity: false
+                                width: 0
+                                height: 0
+                                shrinkX: 0
+                                shrinkY: 0
+                                speed: 0
+                                lifetime: 60
+                                damage: 0
+                                parts: [
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 16
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 0
+                                        haloRadius: 0
+                                        haloRadiusTo: 5
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 8
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 180
+                                        haloRadius: 0
+                                        haloRadiusTo: 5
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                ]
+                            }
+                            {
+                                type: BasicBulletType
+                                lightColor: F3E6E6
+                                lightRadius: 4
+                                // angleOffset: 0
+                                shootEffect: none
+                                smokeEffect: none
+                                hitEffect: none
+                                hitSound: none
+                                despawnEffect: none
+                                collides: false
+                                absorbable: false
+                                hittable: false
+                                // ignoreSpawnAngle: true
+                                keepVelocity: false
+                                width: 0
+                                height: 0
+                                shrinkX: 0
+                                shrinkY: 0
+                                speed: 0
+                                lifetime: 60
+                                damage: 0
+                                parts: [
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 16
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 0
+                                        haloRadius: 0
+                                        haloRadiusTo: 12
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 8
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 180
+                                        haloRadius: 0
+                                        haloRadiusTo: 12
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                ]
+                            }
+                            {
+                                type: BasicBulletType
+                                lightColor: F3E6E6
+                                lightRadius: 4
+                                // angleOffset: 0
+                                shootEffect: none
+                                smokeEffect: none
+                                hitEffect: none
+                                hitSound: none
+                                despawnEffect: none
+                                collides: false
+                                absorbable: false
+                                hittable: false
+                                // ignoreSpawnAngle: true
+                                keepVelocity: false
+                                width: 0
+                                height: 0
+                                shrinkX: 0
+                                shrinkY: 0
+                                speed: 0
+                                lifetime: 60
+                                damage: 0
+                                parts: [
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 16
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 0
+                                        haloRadius: 0
+                                        haloRadiusTo: 18
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 8
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 180
+                                        haloRadius: 0
+                                        haloRadiusTo: 18
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                ]
+                            }
+                            {
+                                type: BasicBulletType
+                                lightColor: F3E6E6
+                                lightRadius: 4
+                                // angleOffset: 0
+                                shootEffect: none
+                                smokeEffect: none
+                                hitEffect: none
+                                hitSound: none
+                                despawnEffect: none
+                                collides: false
+                                absorbable: false
+                                hittable: false
+                                // ignoreSpawnAngle: true
+                                keepVelocity: false
+                                width: 0
+                                height: 0
+                                shrinkX: 0
+                                shrinkY: 0
+                                speed: 0
+                                lifetime: 60
+                                damage: 0
+                                parts: [
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 16
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 0
+                                        haloRadius: 0
+                                        haloRadiusTo: 23
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 8
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 180
+                                        haloRadius: 0
+                                        haloRadiusTo: 23
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                ]
+                            }
+                            {
+                                type: BasicBulletType
+                                lightColor: F3E6E6
+                                lightRadius: 4
+                                // angleOffset: 0
+                                shootEffect: none
+                                smokeEffect: none
+                                hitEffect: none
+                                hitSound: none
+                                despawnEffect: none
+                                collides: false
+                                absorbable: false
+                                hittable: false
+                                // ignoreSpawnAngle: true
+                                keepVelocity: false
+                                width: 0
+                                height: 0
+                                shrinkX: 0
+                                shrinkY: 0
+                                speed: 0
+                                lifetime: 60
+                                damage: 0
+                                parts: [
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 16
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 0
+                                        haloRadius: 0
+                                        haloRadiusTo: 27
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 8
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 180
+                                        haloRadius: 0
+                                        haloRadiusTo: 27
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                ]
+                            }
+                            {
+                                type: BasicBulletType
+                                lightColor: F3E6E6
+                                lightRadius: 4
+                                // angleOffset: 0
+                                shootEffect: none
+                                smokeEffect: none
+                                hitEffect: none
+                                hitSound: none
+                                despawnEffect: none
+                                collides: false
+                                absorbable: false
+                                hittable: false
+                                // ignoreSpawnAngle: true
+                                keepVelocity: false
+                                width: 0
+                                height: 0
+                                shrinkX: 0
+                                shrinkY: 0
+                                speed: 0
+                                lifetime: 60
+                                damage: 0
+                                parts: [
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 16
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 0
+                                        haloRadius: 0
+                                        haloRadiusTo: 31
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 8
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 180
+                                        haloRadius: 0
+                                        haloRadiusTo: 31
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                ]
+                            }
+                            {
+                                type: BasicBulletType
+                                lightColor: F3E6E6
+                                lightRadius: 4
+                                // angleOffset: 0
+                                shootEffect: none
+                                smokeEffect: none
+                                hitEffect: none
+                                hitSound: none
+                                despawnEffect: none
+                                collides: false
+                                absorbable: false
+                                hittable: false
+                                // ignoreSpawnAngle: true
+                                keepVelocity: false
+                                width: 0
+                                height: 0
+                                shrinkX: 0
+                                shrinkY: 0
+                                speed: 0
+                                lifetime: 60
+                                damage: 0
+                                parts: [
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 16
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 0
+                                        haloRadius: 0
+                                        haloRadiusTo: 34
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 8
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 180
+                                        haloRadius: 0
+                                        haloRadiusTo: 34
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                ]
+                            }
+                            {
+                                type: BasicBulletType
+                                lightColor: F3E6E6
+                                lightRadius: 4
+                                // angleOffset: 0
+                                shootEffect: none
+                                smokeEffect: none
+                                hitEffect: none
+                                hitSound: none
+                                despawnEffect: none
+                                collides: false
+                                absorbable: false
+                                hittable: false
+                                // ignoreSpawnAngle: true
+                                keepVelocity: false
+                                width: 0
+                                height: 0
+                                shrinkX: 0
+                                shrinkY: 0
+                                speed: 0
+                                lifetime: 60
+                                damage: 0
+                                parts: [
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 16
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 0
+                                        haloRadius: 0
+                                        haloRadiusTo: 36
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 8
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 180
+                                        haloRadius: 0
+                                        haloRadiusTo: 36
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                ]
+                            }
+                            {
+                                type: BasicBulletType
+                                lightColor: F3E6E6
+                                lightRadius: 4
+                                // angleOffset: 0
+                                shootEffect: none
+                                smokeEffect: none
+                                hitEffect: none
+                                hitSound: none
+                                despawnEffect: none
+                                collides: false
+                                absorbable: false
+                                hittable: false
+                                // ignoreSpawnAngle: true
+                                keepVelocity: false
+                                width: 0
+                                height: 0
+                                shrinkX: 0
+                                shrinkY: 0
+                                speed: 0
+                                lifetime: 60
+                                damage: 0
+                                parts: [
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 16
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 0
+                                        haloRadius: 0
+                                        haloRadiusTo: 38
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 8
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 180
+                                        haloRadius: 0
+                                        haloRadiusTo: 38
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                ]
+                            }
+                            {
+                                type: BasicBulletType
+                                lightColor: F3E6E6
+                                lightRadius: 4
+                                // angleOffset: 0
+                                shootEffect: none
+                                smokeEffect: none
+                                hitEffect: none
+                                hitSound: none
+                                despawnEffect: none
+                                collides: false
+                                absorbable: false
+                                hittable: false
+                                // ignoreSpawnAngle: true
+                                keepVelocity: false
+                                width: 0
+                                height: 0
+                                shrinkX: 0
+                                shrinkY: 0
+                                speed: 0
+                                lifetime: 60
+                                damage: 0
+                                parts: [
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 16
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 0
+                                        haloRadius: 0
+                                        haloRadiusTo: 40
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 8
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 180
+                                        haloRadius: 0
+                                        haloRadiusTo: 40
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                ]
+                            }
+                            {
+                                type: BasicBulletType
+                                lightColor: F3E6E6
+                                lightRadius: 4
+                                // angleOffset: 0
+                                shootEffect: none
+                                smokeEffect: none
+                                hitEffect: none
+                                hitSound: none
+                                despawnEffect: none
+                                collides: false
+                                absorbable: false
+                                hittable: false
+                                // ignoreSpawnAngle: true
+                                keepVelocity: false
+                                width: 0
+                                height: 0
+                                shrinkX: 0
+                                shrinkY: 0
+                                speed: 0
+                                lifetime: 60
+                                damage: 0
+                                parts: [
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 16
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 0
+                                        haloRadius: 0
+                                        haloRadiusTo: 17
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 8
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 180
+                                        haloRadius: 0
+                                        haloRadiusTo: 17
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                ]
+                            }
+                            {
+                                type: BasicBulletType
+                                lightColor: F3E6E6
+                                lightRadius: 4
+                                // angleOffset: 0
+                                shootEffect: none
+                                smokeEffect: none
+                                hitEffect: none
+                                hitSound: none
+                                despawnEffect: none
+                                collides: false
+                                absorbable: false
+                                hittable: false
+                                // ignoreSpawnAngle: true
+                                keepVelocity: false
+                                width: 0
+                                height: 0
+                                shrinkX: 0
+                                shrinkY: 0
+                                speed: 0
+                                lifetime: 60
+                                damage: 0
+                                parts: [
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 16
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 0
+                                        haloRadius: 0
+                                        haloRadiusTo: 8
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 8
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 180
+                                        haloRadius: 0
+                                        haloRadiusTo: 8
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                ]
+                            }
+                            {
+                                type: BasicBulletType
+                                lightColor: F3E6E6
+                                lightRadius: 4
+                                // angleOffset: 0
+                                shootEffect: none
+                                smokeEffect: none
+                                hitEffect: none
+                                hitSound: none
+                                despawnEffect: none
+                                collides: false
+                                absorbable: false
+                                hittable: false
+                                // ignoreSpawnAngle: true
+                                keepVelocity: false
+                                width: 0
+                                height: 0
+                                shrinkX: 0
+                                shrinkY: 0
+                                speed: 0
+                                lifetime: 60
+                                damage: 0
+                                parts: [
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 16
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 0
+                                        haloRadius: 0
+                                        haloRadiusTo: 15
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 8
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 180
+                                        haloRadius: 0
+                                        haloRadiusTo: 15
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                ]
+                            }
+                            {
+                                type: BasicBulletType
+                                lightColor: F3E6E6
+                                lightRadius: 4
+                                // angleOffset: 0
+                                shootEffect: none
+                                smokeEffect: none
+                                hitEffect: none
+                                hitSound: none
+                                despawnEffect: none
+                                collides: false
+                                absorbable: false
+                                hittable: false
+                                // ignoreSpawnAngle: true
+                                keepVelocity: false
+                                width: 0
+                                height: 0
+                                shrinkX: 0
+                                shrinkY: 0
+                                speed: 0
+                                lifetime: 60
+                                damage: 0
+                                parts: [
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 16
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 0
+                                        haloRadius: 0
+                                        haloRadiusTo: 20
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 8
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 180
+                                        haloRadius: 0
+                                        haloRadiusTo: 20
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                ]
+                            }
+                            {
+                                type: BasicBulletType
+                                lightColor: F3E6E6
+                                lightRadius: 4
+                                // angleOffset: 0
+                                shootEffect: none
+                                smokeEffect: none
+                                hitEffect: none
+                                hitSound: none
+                                despawnEffect: none
+                                collides: false
+                                absorbable: false
+                                hittable: false
+                                // ignoreSpawnAngle: true
+                                keepVelocity: false
+                                width: 0
+                                height: 0
+                                shrinkX: 0
+                                shrinkY: 0
+                                speed: 0
+                                lifetime: 60
+                                damage: 0
+                                parts: [
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 16
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 0
+                                        haloRadius: 0
+                                        haloRadiusTo: 24
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 8
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 180
+                                        haloRadius: 0
+                                        haloRadiusTo: 24
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                ]
+                            }
+                            {
+                                type: BasicBulletType
+                                lightColor: F3E6E6
+                                lightRadius: 4
+                                // angleOffset: 0
+                                shootEffect: none
+                                smokeEffect: none
+                                hitEffect: none
+                                hitSound: none
+                                despawnEffect: none
+                                collides: false
+                                absorbable: false
+                                hittable: false
+                                // ignoreSpawnAngle: true
+                                keepVelocity: false
+                                width: 0
+                                height: 0
+                                shrinkX: 0
+                                shrinkY: 0
+                                speed: 0
+                                lifetime: 60
+                                damage: 0
+                                parts: [
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 16
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 0
+                                        haloRadius: 0
+                                        haloRadiusTo: 40
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 8
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 180
+                                        haloRadius: 0
+                                        haloRadiusTo: 40
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                ]
+                            }
+                            {
+                                type: BasicBulletType
+                                lightColor: F3E6E6
+                                lightRadius: 4
+                                // angleOffset: 0
+                                shootEffect: none
+                                smokeEffect: none
+                                hitEffect: none
+                                hitSound: none
+                                despawnEffect: none
+                                collides: false
+                                absorbable: false
+                                hittable: false
+                                // ignoreSpawnAngle: true
+                                keepVelocity: false
+                                width: 0
+                                height: 0
+                                shrinkX: 0
+                                shrinkY: 0
+                                speed: 0
+                                lifetime: 60
+                                damage: 0
+                                parts: [
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 16
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 0
+                                        haloRadius: 0
+                                        haloRadiusTo: 40
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 8
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 180
+                                        haloRadius: 0
+                                        haloRadiusTo: 40
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                ]
+                            }
+                            {
+                                type: BasicBulletType
+                                lightColor: F3E6E6
+                                lightRadius: 4
+                                // angleOffset: 0
+                                shootEffect: none
+                                smokeEffect: none
+                                hitEffect: none
+                                hitSound: none
+                                despawnEffect: none
+                                collides: false
+                                absorbable: false
+                                hittable: false
+                                // ignoreSpawnAngle: true
+                                keepVelocity: false
+                                width: 0
+                                height: 0
+                                shrinkX: 0
+                                shrinkY: 0
+                                speed: 0
+                                lifetime: 60
+                                damage: 0
+                                parts: [
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 16
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 0
+                                        haloRadius: 0
+                                        haloRadiusTo: 38
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                    {
+                                        type: HaloPart
+                                        x: 0
+                                        y: 0
+                                        tri: true
+                                        hollow: false
+                                        color: F3E6E6
+                                        colorTo: F3E6E6
+                                        sides: 3
+                                        shapes: 1
+                                        radius: 8
+                                        radiusTo: 0
+                                        triLength: 8
+                                        triLengthTo: 0
+                                        rotateSpeed: 0
+                                        shapeRotation: 180
+                                        haloRadius: 0
+                                        haloRadiusTo: 38
+                                        haloRotation: 0
+                                        haloRotateSpeed: 0
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleOut
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                ]
+                            }
+                            {
+                                type: BasicBulletType
+                                lightColor: F3E6E6
+                                lightRadius: 4
+                                // angleOffset: 0
+                                shootEffect: none
+                                smokeEffect: none
+                                hitEffect: none
+                                hitSound: none
+                                despawnEffect: none
+                                collides: false
+                                absorbable: false
+                                hittable: false
+                                // ignoreSpawnAngle: true
+                                keepVelocity: false
+                                width: 0
+                                height: 0
+                                shrinkX: 0
+                                shrinkY: 0
+                                speed: 0
+                                lifetime: 60
+                                damage: 0
+                                parts: [
+                                    {
+                                        type: FlarePart 
+                                        x: 0
+                                        y: 0
+                                        followRotation: false
+                                        color1: F3E6E6
+                                        color2: F3E6E6CC
+                                        sides: 4
+                                        radius: 48
+                                        radiusTo: 0
+                                        spinSpeed: 0
+                                        stroke: 1.8
+                                        rotation: 36
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleIn
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                    {
+                                        type: FlarePart 
+                                        x: 0
+                                        y: 0
+                                        followRotation: false
+                                        color1: FFFFFF
+                                        color2: FFFFFFCC
+                                        sides: 4
+                                        radius: 34
+                                        radiusTo: 0
+                                        spinSpeed: 0
+                                        stroke: 2
+                                        rotation: 36
+                                        layer: 110
+                                        progress: {
+                                            type: life
+                                            op: curve
+                                            interp: circleIn
+                                            sizeInterp: circleIn
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+    // {
+        // shootOnDeath: true
+        // top: false
+        // mirror: false
+        // controllable: false
+        // // autoTarget: false
+        // x: 0
+        // y: 0
+        // shootY: 0
+        // reload: 0
+        // recoil: 0
+        // shootSound: none
+        // bullet: {
+            // type: MultiBulletType
+            // maxRange: 120
+            // rangeOverride: 120
+            // damage: 0
+            // splashDamage: 1000
+            // splashDamageRadius: 120
+            // armorMultiplier: 0.7
+            // shootEffect: none
+            // smokeEffect: none
+            // bullets: [
+                // {
+                    // type: BasicBulletType
+                    // width: 0
+                    // height: 0
+                    // shrinkY: 0
+                    // speed: 0
+                    // lifetime: 0
+                    // damage: 0
+                    // splashDamage: 1000
+                    // splashDamageRadius: 120
+                    // armorMultiplier: 0.7
+                    // hitSound: blastShockwave
+                    // hitSoundVolume: 2
+                    // despawnSound: blastShockwave
+                    // hitShake: 6
+                    // hitEffect: none
+                    // despawnEffect: none
+                    // fragBullets: 1
+                    // fragVelocityMin: 0
+                    // fragVelocityMax: 0
+                    // fragOffsetMin: 0
+                    // fragOffsetMax: 0
+                    // fragLifeMin: 1
+                    // fragLifeMax: 1
+                    // fragBullet: {
+                        // type: BulletType
+                        // lifetime: 0
+                        // speed: 0
+                        // damage: 0
+                        // instantDisappear: true
+                        // spawnBulletRandomSpread: 360
+                        // // spawnBullets: [
+                            // // {
+                                
+                            // // }
+                        // // ]
+                    // }
+                // }
+            // ]
+        // }
+    // }
+    // {
+        // alwaysShooting: true
+        // top: false
+        // mirror: false
+        // rotate: true
+        // // controllable: false
+        // // autoTarget: false
+        // // display: false
+        // rotateSpeed: 60
+        // x: 0
+        // y: 0
+        // shootY: 0
+        // reload: 90
+        // shoot: {
+            // firstShotDelay: 90
+        // }
+        // shootSound: none
+        // shake: 0
+        // bullet: {
+            // type: PointBulletType
+            // trailSpacing: 16
+            // trailEffect: {
+                // particles: 1
+                // region: lp-sharp-traill
+                // lifetime: 18
+                // length: 0
+                // baseLength: 0
+                // randLength: false
+                // interp: circleIn
+                // sizeFrom: 8
+                // sizeTo: 0
+                // colorFrom: F3E6E6
+                // colorTo: F3E6E6
+            // }
+            // maxRange: 80
+            // rangeOverride: 80
+            // speed: 80
+            // lifetime: 1
+            // damage: 0
+            // shootEffect: none
+            // smokeEffect: none
+            // hitEffect: none
+            // hitSound: blockExplodeElectric
+            // hitShake: 6
+            // despawnUnit: vectruptor
+            // despawnUnitRadius: 0
+            // fragBullet: {
+                // type: MultiBulletType
+            // }
+        // }
+    // }
+]

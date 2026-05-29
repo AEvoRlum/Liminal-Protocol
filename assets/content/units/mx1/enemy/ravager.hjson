@@ -1,0 +1,385 @@
+type: legs
+name: Ravager
+databaseTag: enemy
+health: 550
+armor: 8
+hitSize: 32
+rotateSpeed: 3.5
+speed: 0.75
+accel: 0.05
+drag: 0.05
+engineSize: 0
+buildSpeed: 0
+itemCapacity: 0
+ammoCapacity: 325
+outlineColor: 262720
+fogRadius: 200
+range: 200
+maxRange: 200
+stepShake: 1.5
+stepSound: mechStepHeavy
+stepSoundVolume: 0.6
+stepSoundPitch: 0.8
+legCount: 6
+legLength: 28
+legMaxLength: 1.2
+legMinLength: 0.6
+legLengthScl: 1
+legForwardScl: 1.5
+legBaseOffset: 1
+// legExtension: -6
+legStraightness: 0.4
+legSplashRange: 16
+legSplashDamage: 4
+rippleScale: 0.2
+legMoveSpace: 0.5
+alwaysUnlocked: false
+drawCell: false
+useUnitCap: false
+// deathSound: none
+// deathSoundVolume: 0
+// deathExplosionEffect: none
+research: {
+    parent: crystalburst
+    objectives: [
+        {
+            type: SectorComplete
+            preset: instead
+        }
+    ]
+}
+// ammoType: {
+    // type: PowerAmmoType
+// }
+targetFlags: [
+    turret
+]
+parts: [
+    {
+        type: ShapePart
+        x: 0
+        y: 12
+        circle: false
+        hollow: true
+        color: F3E6E6
+        colorTo: F3E6E6
+        sides: 4
+        radius: 12
+        radiusTo: 12
+        stroke: 2.5
+        strokeTo: 2.5
+        rotation: 0
+        layer: 110
+    }
+]
+abilities: [
+    {
+        type: ForceFieldAbility
+        radius: 80
+        regen: 2
+        max: 800
+        cooldown: 240
+        sides: 4
+        rotation: 0
+        breakSound: shootElectric
+        hitSound: shootEmp
+        hitSoundVolume: 0.4
+    }
+]
+weapons: [
+    {
+        name: ravager-1
+        top: false
+        mirror: false
+        rotate: false
+        x: 0
+        y: 0
+        shootY: 12
+        shootCone: 45
+        shootSound: shootPlasma
+        shake: 3
+        inaccuracy: 30
+        reload: 20
+        recoil: 0
+        cooldownTime: 90
+        heatColor: FF4040
+        parentizeEffects: true
+        layerOffset: 1
+        bullet: {
+            type: BasicBulletType
+            sprite: lp-stardart
+            width: 24
+            height: 24
+            shrinkY: 0
+            lightColor: FEB380
+            frontColor: FEB380
+            backColor: FEB380
+            trailColor: FEB380
+            trailWidth: 3
+            trailLength: 12
+            spin: 4
+            weaveMag: 2.5
+            weaveScale: 4
+            speed: 5
+            lifetime: 24
+            drag: -0.04
+            maxRange: 200
+            rangeOverride: 200
+            homingDelay: 4
+            homingPower: 0.08
+            homingRange: 200
+            damage: 70
+            shieldDamageMultiplier: 1.65
+            armorMultiplier: 1.5
+            hitSound: shootSupernova
+            hitSoundVolume: 0.85
+            hitShake: 4
+            hitEffect: {
+                particles: 8
+                region: lp-triangle
+                length: 40
+                baseLength: 4
+                useRotation: false
+                interp: pow5Out
+                sizeInterp: pow3In
+                sizeFrom: 5
+                sizeTo: 0
+                colorFrom: FEB380
+                colorTo: FEB380
+            }
+            shootEffect: {
+                type: MultiEffect
+                effects: [
+                    {
+                        particles: 6
+                        line: true
+                        lifetime: 20
+                        length: 30
+                        baseLength: 2
+                        interp: pow4Out
+                        sizeInterp: pow2In
+                        cone: 40
+                        lenFrom: 12
+                        lenTo: 0
+                        strokeFrom: 1.5
+                        strokeTo: 0
+                        colorFrom: F3E6E6
+                        colorTo: F3E6E6
+                    }
+                    {
+                        particles: 4
+                        line: true
+                        lifetime: 20
+                        length: 32
+                        baseLength: 2
+                        interp: pow5Out
+                        sizeInterp: pow2In
+                        cone: 30
+                        lenFrom: 16
+                        lenTo: 0
+                        strokeFrom: 1.5
+                        strokeTo: 0
+                        colorFrom: F3E6E6
+                        colorTo: F3E6E6
+                    }
+                ]
+            }
+            smokeEffect: {
+                particles: 6
+                region: lp-triangle
+                lifetime: 15
+                length: 24
+                baseLength: 24
+                interp: pow5Out
+                sizeInterp: pow3In
+                sizeFrom: 4
+                sizeTo: 0
+                colorFrom: F3E6E6
+                colorTo: F3E6E6
+            }
+            fragBullets: 1
+            fragVelocityMin: 0
+            fragVelocityMax: 0
+            fragLifeMin: 1
+            fragLifeMax: 1
+            fragBullet: {
+                type: MultiBulletType
+                damage: 0
+                status: emp-II
+                statusDuration: 120
+                bullets: [
+                    {
+                        type: BasicBulletType
+                        angleOffset: 0
+                        hitEffect: none
+                        hitSound: none
+                        despawnEffect: none
+                        collides: false
+                        absorbable: false
+                        hittable: false
+                        ignoreSpawnAngle: true
+                        keepVelocity: false
+                        width: 0
+                        height: 0
+                        shrinkY: 0
+                        speed: 0
+                        lifetime: 120
+                        damage: 0
+                        parts: [
+                            {
+                                type: FlarePart
+                                x: 0
+                                y: 0
+                                color1: FEB380
+                                color2: FEB380
+                                followRotation: false
+                                sides: 4
+                                radius: 60
+                                radiusTo: 0
+                                stroke: 6
+                                spinSpeed: 0
+                                layer: 110
+                                progress: {
+                                    type: life
+                                    ops: [
+                                        {
+                                            op: mul
+                                            amount: 0
+                                        }
+                                        {
+                                            op: sin
+                                            scl: 1
+                                            mag: 0.2
+                                        }
+                                        {
+                                            op: add
+                                            amount: 0.9
+                                        }
+                                        {
+                                            op: mul
+                                            other: {
+                                                type: life
+                                                op: curve
+                                                interp: pow3Out
+                                                sizeInterp: circleOut
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                            {
+                                type: HaloPart
+                                x: 0
+                                y: 0
+                                tri: true
+                                hollow: false
+                                color: FEB380
+                                colorTo: FEB380
+                                sides: 3
+                                shapes: 4
+                                radius: 8
+                                radiusTo: 0
+                                triLength: 40
+                                triLengthTo: 0
+                                rotateSpeed: 0
+                                shapeRotation: 0
+                                haloRadius: 0
+                                haloRadiusTo: 0
+                                haloRotation: 45
+                                haloRotateSpeed: 0
+                                layer: 110
+                                progress: {
+                                    type: life
+                                    op: curve
+                                    interp: pow5Out
+                                    sizeInterp: circleIn
+                                }
+                            }
+                        ]
+                    }
+                    {
+                        type: BasicBulletType
+                        angleOffset: 0
+                        hitEffect: none
+                        hitSound: none
+                        despawnEffect: none
+                        collides: false
+                        absorbable: false
+                        hittable: false
+                        ignoreSpawnAngle: true
+                        keepVelocity: false
+                        width: 0
+                        height: 0
+                        shrinkY: 0
+                        speed: 0
+                        lifetime: 120
+                        damage: 0
+                        parts: [
+                            {
+                                type: ShapePart
+                                x: 0
+                                y: 0
+                                circle: true
+                                hollow: true
+                                color: FEB380
+                                colorTo: FEB380
+                                // sides: 4
+                                radius: 0
+                                radiusTo: 44
+                                stroke: 3
+                                strokeTo: 0
+                                rotation: 0
+                                layer: 110
+                                progress: {
+                                    type: life
+                                    op: curve
+                                    interp: pow10In
+                                    sizeInterp: circleOut
+                                }
+                            }
+                        ]
+                    }
+                    {
+                        type: BasicBulletType
+                        angleOffset: 0
+                        hitEffect: none
+                        hitSound: none
+                        despawnEffect: none
+                        collides: false
+                        absorbable: false
+                        hittable: false
+                        ignoreSpawnAngle: true
+                        keepVelocity: false
+                        width: 0
+                        height: 0
+                        shrinkY: 0
+                        speed: 0
+                        lifetime: 120
+                        damage: 0
+                        bulletInterval: 1
+                        intervalBullets: 1
+                        intervalBullet: {
+                            type: BasicBulletType
+                            hitEffect: none
+                            hitSound: none
+                            despawnEffect: none
+                            absorbable: false
+                            hittable: false
+                            // ignoreSpawnAngle: true
+                            keepVelocity: false
+                            width: 0
+                            height: 0
+                            shrinkY: 0
+                            hitSize: 32
+                            speed: 0
+                            lifetime: 1
+                            damage: 0
+                            status: emp-II
+                            statusDuration: 1
+                        }
+                    }
+                ]
+            }
+        }
+    }
+]

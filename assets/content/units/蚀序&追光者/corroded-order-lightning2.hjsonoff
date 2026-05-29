@@ -1,0 +1,117 @@
+type: flying
+/*template: MissileUnitType*/
+name: corroded.order.lightning2
+health: 1
+armor: 0
+speed: 0
+rotateSpeed: 0
+hitSize: 0
+accel: 10000
+drag: 10000
+engineSize: 0
+fogRadius: 0
+range: 120
+buildSpeed: 0
+itemCapacity: 0
+ammoCapacity: 325
+dpsEstimate: 799325
+hidden: true
+flying: false
+targetable: false
+isEnemy: false
+canDrown: false
+alwaysUnlocked: false
+physics: false
+wobble: false
+hittable: false
+drawCell: false
+drawBody: false
+drawSoftShadow: false
+drawShields: false
+createWreck: false
+createScorch: false
+useUnitCap: false
+shadowElevation: 325325
+shownPlanets: [ mx1 ]
+deathSound: none
+deathExplosionEffect: none
+maxRange: 120
+abilities: [
+    {
+        type: EnergyFieldAbility
+        x: 0
+        y: 0
+        reload: 10
+        damage: 10
+        range: 120
+        color: FFF589
+        effectRadius: 0
+        sectorRad: 0
+        rotateSpeed: 0
+        healPercent: 0
+        healEffect: none
+        hitEffect: {
+            particles: 4
+            line: true
+            lifetime: 20
+            length: 8
+            baseLength: 2
+            interp: pow3Out
+            sizeInterp: pow2In
+            lenFrom: 6
+            lenTo: 0
+            strokeFrom: 0.8
+            strokeTo: 0
+            colorFrom: FFF589
+            colorTo: FFF589
+        }
+        shootSound: acceleratorLightning1
+        damageEffect: chainLightning
+        status: none
+        statusDuration: 0
+        displayHeal: false
+        targetGround: true
+        targetAir: true
+        hitBuildings: true
+        hitUnits: true
+        maxTargets: 128
+        layer: 0
+    }
+]
+weapons: [
+    {
+        alwaysShooting: true
+        controllable: false
+        rotate: false
+        mirror: false
+        display: false
+        alternate: false
+        reload: 1
+        shootSound: none
+        x: 0
+        y: 0
+        shoot: {
+            firstShotDelay: 40.1
+        }
+        bullet: {
+            type: BasicBulletType
+            shootEffect: none
+            smokeEffect: none
+            hitEffect: none
+            maxRange: 120
+            hitSound: none
+            despawnEffect: none
+            killShooter: true
+            collides: false
+            absorbable: false
+            hittable: false
+            width: 0
+            height: 0
+            shrinkX: 0
+            shrinkY: 0
+            speed: 0
+            lifetime: 0
+            damage: 0
+        }
+    }
+]
