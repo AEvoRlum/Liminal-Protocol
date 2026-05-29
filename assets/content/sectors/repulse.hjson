@@ -1,0 +1,12 @@
+planet: mx1
+sector: 82
+alwaysUnlocked: false
+difficulty: 3
+captureWave: 16
+research: {
+    parent: why
+    objectives: [
+        process2
+        process1
+    ]
+}

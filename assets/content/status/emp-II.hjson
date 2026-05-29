@@ -1,0 +1,32 @@
+name: EMP II
+databaseTag: slow
+color: 9F54E4
+reloadMultiplier: 0.7
+speedMultiplier: 0.35
+buildSpeedMultiplier: 0.2
+effectChance: 0.04
+effect: {
+    type: MultiEffect
+    effects: [
+        {
+            type: ParticleEffect
+            particles: 2
+            lifetime: 30
+            offset: 60
+            cone: 360
+            line: true
+            useRotation: false
+            length: -20
+            baseLength: 25
+            baseRotation: 90
+            interp: circleOut
+            lenFrom: 0
+            lenTo: 10
+            strokeFrom: 1.5
+            strokeTo: 0.5
+            colorFrom: 9F54E4
+            colorTo: 9F54E4
+            layer: 110
+        }
+    ]
+}

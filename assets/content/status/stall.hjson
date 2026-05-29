@@ -1,0 +1,24 @@
+name: Stall
+color: 737373
+databaseTag: slow
+dragMultiplier: 325000
+speedMultiplier: 0
+reloadMultiplier: 0
+buildSpeedMultiplier: 0
+effectChance: 0.8
+effect: {
+    particles: 1
+    line: true
+    lifetime: 30
+    length: -40
+    baseLength: 42
+    baseRotation: 90
+    offset: 180
+    cone: 0
+    lenFrom: 0
+    lenTo: 24
+    strokeFrom: 0
+    strokeTo: 1.5
+    colorFrom: E5E5E5
+    colorTo: E5E5E5
+}

@@ -1,0 +1,11 @@
+planet: mx1
+sector: 20
+alwaysUnlocked: false
+difficulty: 2
+captureWave: 12
+research: {
+    parent: 不容拒绝
+    objectives: [
+        process1
+    ]
+}
