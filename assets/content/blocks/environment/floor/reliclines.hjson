@@ -1,6 +1,0 @@
-type: Floor
-name: Reliclines1
-blendGroup: reliclines
-variants: 15
-drawEdgeIn: true
-drawEdgeOut: true

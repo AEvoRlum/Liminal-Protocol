@@ -1,6 +1,0 @@
-type: Floor
-name: Relicfloor4
-blendGroup: relicfloor-4
-variants: 0
-drawEdgeIn: true
-drawEdgeOut: true

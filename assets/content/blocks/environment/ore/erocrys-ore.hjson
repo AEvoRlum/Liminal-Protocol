@@ -1,7 +1,0 @@
-type: OreBlock
-//name: 蚀晶矿
-itemDrop: erocrys
-variants: 3
-mapColor: FFB570
-useColor: true
-wallOre: false
