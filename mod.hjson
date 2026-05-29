@@ -5,12 +5,12 @@ subtitle: "[white]阈限协议！启动！"//来自彼方
 description: '''
 [red[]]俺寻思之力
 '''
-version: "V.test.0.0.37.826.05.28"
+version: "V.test.0.0.37.926.05.29"
 minGameVersion: 157
 dependencies: []
 //hidden: true
 // java: true
 // //来自MultiCrafter Lib/Liplum&Jojo
 // main: net.liplum.MultiCrafterMod
-// java: true
-// main: aevorlum.LiminalProtocol
+java: true
+main: "LP.LPMod"
