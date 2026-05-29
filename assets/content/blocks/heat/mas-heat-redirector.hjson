@@ -1,0 +1,36 @@
+type: HeatConductor
+name: Massisteel Heat Redirector
+size: 2
+health: 28
+visualMaxHeat: 12
+requirements: [
+    massisteel/12
+    erocrys/4
+]
+rotateDraw: false
+canOverdrive: true
+drawer: {
+    type: DrawMulti
+    drawers: [
+        DrawDefault
+        DrawHeatOutput
+        {
+            type: DrawHeatInput
+            suffix: -heat
+        }
+    ]
+}
+alwaysUnlocked: false
+researchCostMultiplier: 0.4
+category: crafting
+research: {
+    parent: pioneers
+    objectives: [
+        {
+            type: OnSector
+            preset: why
+        }
+    ]
+}
+shownPlanets: [ mx1 ]
+// databaseTag: tran

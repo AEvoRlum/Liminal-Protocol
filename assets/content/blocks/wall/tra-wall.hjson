@@ -1,0 +1,69 @@
+type: Wall
+name: Transchimericsteel Wall
+size: 1
+health: 325
+armor: 4
+requirements: [
+    transchimericsteel/16
+]
+flashHit: true
+flashColor: FF4040
+crushDamageMultiplier: 0.8
+destroySound: blockExplode2Alt
+destroySoundVolume: 1.2
+destroyEffect: {
+    type: MultiEffect
+    effects: [
+        {
+            particles: 8
+            line: true
+            length: 8
+            baseLength: 2
+            lifetime: 30
+            interp: pow5Out
+            sizeInterp: pow2In
+            lenFrom: 14
+            lenTo: 0
+            strokeFrom: 1
+            strokeTo: 0
+            colorFrom: FFF589
+            colorTo: FFF589
+        }
+        {
+            particles: 12
+            length: 32
+            baseLength: 2
+            lifetime: 30
+            interp: pow3Out
+            sizeInterp: pow5In
+            sizeFrom: 6
+            sizeTo: 0
+            colorFrom: 45454570
+            colorTo: 47474700
+        }
+        {
+            type: WaveEffect
+            lifetime: 30
+            interp: circleOut
+            sizeFrom: 0
+            sizeTo: 16
+            strokeFrom: 1
+            strokeTo: 0
+            colorFrom: FFF589
+            colorTo: FFF589
+        }
+    ]
+}
+priority: 2
+alwaysUnlocked: false
+buildCostMultiplier: 0.8
+researchCostMultiplier: 0.1
+category: defense
+research: {
+    parent: jyn-wall
+    objectives: [
+        mas-wall
+        lit-conveyor
+    ]
+}
+shownPlanets: [ mx1 ]

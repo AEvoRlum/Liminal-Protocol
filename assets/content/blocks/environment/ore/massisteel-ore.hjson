@@ -1,0 +1,6 @@
+type: OreBlock
+itemDrop: massisteel
+variants: 4
+mapColor: 7B7B7B
+useColor: true
+wallOre: false

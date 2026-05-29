@@ -1,0 +1,380 @@
+type: ConsumeGenerator
+name: Heavy Ion Chamber
+size: 5
+health: 342
+requirements: [
+    jynsteel/240
+    massisteel/160
+    erocrys/160
+]
+powerProduction: 28
+itemDuration: 240
+itemCapacity: 24
+hasLiquids: false
+hasItems: true
+consumes: {
+    // power: 2
+    // powerBuffered: 20
+    items: [
+        ionopolymer/4
+    ]
+}
+generateEffect: none
+ambientSound: loopThoriumReactor
+ambientSoundVolume: 0.8
+baseLightRadius: 80
+drawer: {
+    type: DrawMulti
+    drawers: [
+        {
+            type: DrawDefault
+        }
+        {
+            type: DrawGlowRegion
+            glowScale: 6
+            alpha: 1
+            color: FFB570FF
+        }
+        {
+            type: DrawBlockParts
+            parts: [
+                {
+                    type: ShapePart
+                    x: 0
+                    y: 0
+                    circle: false
+                    hollow: true
+                    color: E8D174
+                    colorTo: E8D174
+                    sides: 4
+                    radius: 18
+                    radiusTo: 18
+                    stroke: 0
+                    strokeTo: 2.5
+                    rotation: 0
+                    layer: 110
+                    progress: {
+                        type: warmup
+                        ops: [
+                            {
+                                op: curve
+                                interp: circleIn
+                                sizeInterp: pow10Out
+                            }
+                            /*{
+                                op: mul
+                                other: {
+                                    type: life
+                                    ops: [
+                                        {
+                                            op: mul
+                                            amount: 1
+                                        }
+                                        {
+                                            op: add
+                                            amount: 1
+                                        }
+                                        {
+                                            op: sin
+                                            scl: 1.5
+                                            mag: 2
+                                        }
+                                    ]
+                                }
+                            }*/
+                        ]
+                    }
+                }
+                {
+                    type: ShapePart
+                    x: 0
+                    y: 0
+                    circle: false
+                    hollow: true
+                    color: E8D174
+                    colorTo: E8D174
+                    sides: 4
+                    radius: 9.3
+                    radiusTo: 9.3
+                    stroke: 0
+                    strokeTo: 1.5
+                    rotation: 0
+                    layer: 110
+                    progress: {
+                        type: warmup
+                        op: curve
+                        interp: circleIn
+                        sizeInterp: pow10Out
+                    }
+                }
+                {
+                    type: HaloPart
+                    x: 0
+                    y: 0
+                    tri: true
+                    hollow: false
+                    color: E8D174
+                    colorTo: E8D174
+                    sides: 3
+                    shapes: 2
+                    radius: 0
+                    radiusTo: 3
+                    triLength: 12
+                    triLengthTo: 24
+                    rotateSpeed: 0
+                    shapeRotation: 0
+                    haloRadius: 0
+                    haloRadiusTo: 0
+                    haloRotation: 0
+                    haloRotateSpeed: 0.2
+                    layer: 110
+                    progress: {
+                        type: warmup
+                        ops: [
+                            {
+                                op: curve
+                                interp: circleIn
+                                sizeInterp: pow10Out
+                            }
+                            /*{
+                                op: mul
+                                other: {
+                                    type: life
+                                    ops: [
+                                        {
+                                            op: mul
+                                            amount: 10000
+                                        }
+                                        {
+                                            op: add
+                                            amount: 1
+                                        }
+                                        {
+                                            op: sin
+                                            scl: 1
+                                            mag: 2
+                                        }
+                                    ]
+                                }
+                            }*/
+                        ]
+                    }
+                }
+                {
+                    type: HaloPart
+                    x: 0
+                    y: 0
+                    tri: true
+                    hollow: false
+                    color: E8D174
+                    colorTo: E8D174
+                    sides: 3
+                    shapes: 2
+                    radius: 0
+                    radiusTo: 3
+                    triLength: 5
+                    triLengthTo: 10
+                    rotateSpeed: 0
+                    shapeRotation: 0
+                    haloRadius: 0
+                    haloRadiusTo: 0
+                    haloRotation: 0
+                    haloRotateSpeed: -0.3
+                    layer: 110
+                    progress: {
+                        type: warmup
+                        ops: [
+                            {
+                                op: curve
+                                interp: circleIn
+                                sizeInterp: pow10Out
+                            }
+                            /*{
+                                op: mul
+                                other: {
+                                    type: life
+                                    ops: [
+                                        {
+                                            op: mul
+                                            amount: 10000
+                                        }
+                                        {
+                                            op: add
+                                            amount: 10000
+                                        }
+                                        {
+                                            op: sin
+                                            scl: 1
+                                            mag: 2
+                                        }
+                                    ]
+                                }
+                            }*/
+                        ]
+                    }
+                }
+                // {
+                    // type: FlarePart 
+                    // x: 0
+                    // y: 0
+                    // followRotation: false
+                    // color1: E8D174FF
+                    // color2: E8D174FF
+                    // sides: 2
+                    // radius: 0
+                    // radiusTo: 32
+                    // spinSpeed: 0
+                    // stroke: 1.5
+                    // layer: 110
+                    // progress: warmup
+                // }
+                {
+                    type: HaloPart
+                    x: 0
+                    y: 0
+                    tri: true
+                    hollow: false
+                    color: E8D17400
+                    colorTo: E8D174
+                    sides: 3
+                    shapes: 2
+                    radius: 0.5
+                    radiusTo: 0.5
+                    triLength: 20
+                    triLengthTo: 40
+                    rotateSpeed: 0
+                    shapeRotation: 0
+                    haloRadius: 0
+                    haloRadiusTo: 0
+                    haloRotation: 0
+                    haloRotateSpeed: 0
+                    layer: 110
+                    progress: {
+                        type: warmup
+                        ops: [
+                            {
+                                op: curve
+                                interp: circleIn
+                                sizeInterp: circleOut
+                            }
+                            /*{
+                                op: mul
+                                other: {
+                                    type: life
+                                    ops: [
+                                        {
+                                            op: mul
+                                            amount: 1
+                                        }
+                                        {
+                                            op: add
+                                            amount: 0.8
+                                        }
+                                        {
+                                            op: sin
+                                            scl: 4
+                                            mag: 1
+                                        }
+                                    ]
+                                }
+                            }*/
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
+// effectChance: 0.05
+consumeEffect: {
+    type: MultiEffect
+    effects: [
+        {
+            particles: 3
+            region: lp-square
+            length: 32
+            baseLength: 2
+            baseRotation: 0
+            lifetime: 40
+            spin: -2
+            interp: pow5Out
+            sizeInterp: pow2In
+            sizeFrom: 3
+            sizeTo: 0
+            colorFrom: FFB570
+            colorTo: E8D174
+        }
+        {
+            particles: 3
+            region: lp-square
+            length: 32
+            baseLength: 2
+            baseRotation: 0
+            lifetime: 40
+            spin: 2
+            interp: pow5Out
+            sizeInterp: pow2In
+            sizeFrom: 3
+            sizeTo: 0
+            colorFrom: FFB570
+            colorTo: E8D174
+        }
+        {
+            particles: 2
+            region: lp-triangle
+            length: 28
+            baseLength: 2
+            baseRotation: 0
+            lifetime: 40
+            spin: -2
+            interp: pow5Out
+            sizeInterp: pow2In
+            sizeFrom: 3
+            sizeTo: 0
+            colorFrom: FFB570
+            colorTo: E8D174
+        }
+        {
+            particles: 2
+            region: lp-triangle
+            length: 28
+            baseLength: 2
+            baseRotation: 0
+            lifetime: 40
+            spin: 2
+            interp: pow5Out
+            sizeInterp: pow2In
+            sizeFrom: 3
+            sizeTo: 0
+            colorFrom: FFB570
+            colorTo: E8D174
+        }
+        {
+            particles: 1
+            region: lp-decrementCircle
+            length: 0
+            baseLength: 0
+            randLength: false
+            lifetime: 120
+            useRotation: 0
+            interp: linear
+            sizeInterp: pow3Out
+            sizeFrom: 0
+            sizeTo: 24
+            colorFrom: FFB570
+            colorTo: E8D17400
+            layer: 109.9
+        }
+    ]
+}
+alwaysUnlocked: false
+researchCostMultiplier: 0.4
+category: power
+research: {
+    parent: jyn-power-node
+    /*objectives: [
+        ionopolymer
+    ]*/
+}
+shownPlanets: [ mx1 ]
+// databaseTag: powr

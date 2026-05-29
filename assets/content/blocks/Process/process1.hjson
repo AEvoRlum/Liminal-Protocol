@@ -1,0 +1,15 @@
+type: MessageBlock
+name: Process1
+alwaysUnlocked: false
+placeablePlayer: false
+displayFlow: false
+shownPlanets: [ mx1 ]
+research: {
+    parent: 不容拒绝
+    objectives: [
+        jyn-power-node-large
+        riptide
+        shear-drill
+    ]
+}
+databaseTag: proc

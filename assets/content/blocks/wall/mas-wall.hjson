@@ -1,0 +1,63 @@
+type: Wall
+name: Massisteel Wall
+size: 1
+health: 285
+armor: 3
+requirements: [
+    massisteel/16
+]
+flashHit: true
+flashColor: FFF589
+destroySound: blockExplode1Alt
+destroySoundVolume: 1.2
+destroyEffect: {
+    type: MultiEffect
+    effects: [
+        {
+            particles: 8
+            line: true
+            length: 8
+            baseLength: 2
+            lifetime: 30
+            interp: pow5Out
+            sizeInterp: pow2In
+            lenFrom: 14
+            lenTo: 0
+            strokeFrom: 1
+            strokeTo: 0
+            colorFrom: FFF589
+            colorTo: FFF589
+        }
+        {
+            particles: 12
+            length: 32
+            baseLength: 2
+            lifetime: 30
+            interp: pow3Out
+            sizeInterp: pow5In
+            sizeFrom: 6
+            sizeTo: 0
+            colorFrom: 45454570
+            colorTo: 47474700
+        }
+        {
+            type: WaveEffect
+            lifetime: 30
+            interp: circleOut
+            sizeFrom: 0
+            sizeTo: 16
+            strokeFrom: 1
+            strokeTo: 0
+            colorFrom: FFF589
+            colorTo: FFF589
+        }
+    ]
+}
+priority: 2
+alwaysUnlocked: false
+buildCostMultiplier: 0.8
+researchCostMultiplier: 0.4
+category: defense
+research: jyn-wall
+shownPlanets: [ mx1 ]
+// databaseTag: wall

@@ -1,0 +1,9 @@
+type: Floor
+name: Darkstone
+blendGroup: darkstone
+wall: darkstone-wall
+variants: 3
+//drawEdgeIn: false
+// attributes: {
+    // water: -1
+// }

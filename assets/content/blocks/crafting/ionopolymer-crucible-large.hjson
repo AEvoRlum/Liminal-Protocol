@@ -1,0 +1,328 @@
+type: HeatCrafter
+name: Large Ionopolymer Crucible
+size: 5
+health: 555
+requirements: [
+    transchimericsteel/220
+    massisteel/216
+    jynsteel/48
+    crystalite/44
+]
+itemCapacity: 96
+liquidCapacity: 0
+heatRequirement: 48
+maxEfficiency: 1
+craftTime: 240
+consumes: {
+    power: 3.5
+    items: [
+        jynsteel/48
+        erocrys/24
+        massisteel/12
+    ]
+}
+outputItem: ionopolymer/12
+ambientSound: loopDifferential
+ambientSoundVolume: 0.2
+drawer: {
+    type: DrawMulti
+    drawers: [
+        DrawDefault
+        DrawHeatInput
+        {
+            type: DrawHeatRegion
+            suffix: -glow
+        }
+        // {
+            // type: DrawBlockParts
+            // parts: [
+                // {
+                    // type: ShapePart
+                    // x: 0
+                    // y: 0
+                    // circle: false
+                    // hollow: true
+                    // color: FFEF6D
+                    // colorTo: FFEF6D
+                    // sides: 4
+                    // radius: 12
+                    // radiusTo: 0
+                    // stroke: 1.5
+                    // strokeTo: 0
+                    // rotation: 0
+                    // rotateSpeed: 3
+                    // layer: 110
+                    // progress: {
+                        // type: warmup
+                        // ops: [
+                            // {
+                                // op: inv
+                            // }
+                            // {
+                                // op: mul
+                                // other: {
+                                    // type: warmup
+                                    // ops: [
+                                        // {
+                                            // op: add
+                                            // amount: -0.01
+                                        // }
+                                        // {
+                                            // op: mul
+                                            // other: warmup
+                                            // op: add
+                                            // amount: -0.99
+                                        // }
+                                        // {
+                                            // op: mul
+                                            // amount: -10000
+                                        // }
+                                        // {
+                                            // op: clamp
+                                        // }
+                                    // ]
+                                // }
+                            // }
+                            // {
+                                // op: add
+                                // other: {
+                                    // type: reload
+                                    // ops: [
+                                        // {
+                                            // op: inv
+                                        // }
+                                        // {
+                                            // op: add
+                                            // amount: -0.5
+                                        // }
+                                        // {
+                                            // op: mul
+                                            // amount: 1.2
+                                        // }
+                                        // {
+                                            // op: inv
+                                        // }
+                                        // {
+                                            // op: mul
+                                            // other: {
+                                                // type: reload
+                                                // ops: [
+                                                    // {
+                                                        // op: inv
+                                                    // }
+                                                    // {
+                                                        // op: add
+                                                        // amount: -0.5
+                                                    // }
+                                                    // {
+                                                        // op: mul
+                                                        // other: {
+                                                            // type: reload
+                                                            // ops: [
+                                                                // {
+                                                                    // op: inv
+                                                                // }
+                                                                // {
+                                                                    // op: add
+                                                                    // amount: -0.8
+                                                                // }
+                                                            // ]
+                                                        // }
+                                                    // }
+                                                    // {
+                                                        // op: mul
+                                                        // amount: -10000
+                                                    // }
+                                                    // {
+                                                        // op: clamp
+                                                    // }
+                                                // ]
+                                            // }
+                                        // }
+                                        // {
+                                            // op: curve
+                                            // interp: pow2In
+                                        // }
+                                    // ]
+                                // }
+                            // }
+                        // ]
+                    // }
+                // }
+            // ]
+        // }
+        {
+            type: DrawFlame
+            flameColor: FFEF6D
+            lightRadius: 64
+            flameRadius: 7
+            flameRadiusIn: 6
+            flameRadiusScl: 3
+            flameRadiusMag: 3
+            flameRadiusInMag: 0.5
+            // layer: 110
+        }
+        {
+            type: DrawBlockParts
+            parts: [
+                {
+                    type: ShapePart
+                    x: 0
+                    y: 0
+                    circle: false
+                    hollow: true
+                    color: FFEF6D00
+                    colorTo: FFEF6D
+                    sides: 4
+                    radius: 0
+                    radiusTo: 18
+                    stroke: 0
+                    strokeTo: 2.5
+                    rotation: 0
+                    layer: 110
+                    progress: {
+                        type: warmup
+                        op: curve
+                        interp: circleIn
+                        sizeInterp: pow10Out
+                    }
+                }
+                {
+                    type: ShapePart
+                    x: 0
+                    y: 0
+                    circle: false
+                    hollow: true
+                    color: FFEF6D
+                    colorTo: FFEF6D00
+                    sides: 4
+                    radius: 12
+                    radiusTo: 18
+                    stroke: 0
+                    strokeTo: 1.5
+                    rotation: 0
+                    layer: 110
+                    progress: {
+                        type: reload
+                        op: curve
+                        interp: pow10Out
+                        sizeInterp: pow10Out
+                    }
+                }
+                {
+                    type: ShapePart
+                    x: 0
+                    y: 0
+                    circle: false
+                    hollow: true
+                    color: FFEF6D
+                    colorTo: FFEF6D00
+                    sides: 4
+                    radius: 24
+                    radiusTo: 18
+                    stroke: 0
+                    strokeTo: 1.5
+                    rotation: 0
+                    layer: 110
+                    progress: {
+                        type: reload
+                        op: curve
+                        interp: pow10Out
+                        sizeInterp: pow10Out
+                    }
+                }
+                {
+                    type: ShapePart
+                    x: 0
+                    y: 0
+                    circle: false
+                    hollow: true
+                    color: FFEF6D00
+                    colorTo: FFEF6D
+                    sides: 4
+                    radius: 0
+                    radiusTo: 12
+                    stroke: 0
+                    strokeTo: 1.5
+                    rotation: 0
+                    // rotateSpeed: 0.4
+                    layer: 110
+                    progress: {
+                        type: warmup
+                        ops: [
+                            // {
+                                // op: curve
+                                // interp: slope
+                                // sizeInterp: circleOut
+                            // }
+                            // {
+                                // op: inv
+                            // }
+                            {
+                                op: curve
+                                interp: linear
+                                sizeInterp: circleOut
+                            }
+                            {
+                                op: sin
+                                scl: 0.1
+                                mag: 0.4
+                            }
+                            // {
+                                // op: clamp
+                            // }
+                            {
+                                op: mul
+                                other: {
+                                    type: warmup
+                                    ops: [
+                                        {
+                                            op: add
+                                            amount: 0
+                                        }
+                                        {
+                                            op: mul
+                                            amount: 10000
+                                        }
+                                        {
+                                            op: clamp
+                                        }
+                                        {
+                                            op: curve
+                                            interp: circleIn
+                                            sizeInterp: pow10Out
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
+craftEffect: {
+    particles: 1
+    region: lp-prismatic
+    length: 0
+    baseLength: 0
+    lifetime: 30
+    useRotation: false
+    interp: circleOut
+    sizeFrom: 0
+    sizeTo: 0
+    colorFrom: FFEF6D00
+    colorTo: FFB57000
+}
+canOverdrive: false
+alwaysUnlocked: false
+researchCostMultiplier: 0.1
+category: crafting
+research: {
+    parent: ionopolymer-crucible
+    objectives: [
+        impact-drill0
+    ]
+}
+shownPlanets: [ mx1 ]

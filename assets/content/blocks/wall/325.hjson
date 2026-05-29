@@ -1,0 +1,11 @@
+type: Wall
+name: 325
+size: 3
+health: 325
+alwaysUnlocked: true
+researchCostMultiplier: 0.4
+buildVisibility: sandboxOnly
+category: defense
+research: pioneers
+shownPlanets: [ mx1 ]
+databaseTag: proc

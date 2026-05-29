@@ -1,0 +1,11 @@
+type: Floor
+name: Reliclines Tiles
+// blendGroup: reliclines1
+// variants: 0
+drawEdgeIn: false
+drawEdgeOut: false
+autotile: true
+autotileVariants: 1
+emitLight: true
+lightRadius: 8
+lightColor: F2D3D3FF

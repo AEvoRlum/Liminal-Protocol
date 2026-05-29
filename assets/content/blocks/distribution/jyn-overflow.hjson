@@ -1,0 +1,22 @@
+type: OverflowGate
+name: Jynsteel Overflow
+size: 1
+health: 23
+requirements: [
+    jynsteel/5
+]
+invert: false
+alwaysUnlocked: false
+researchCostMultiplier: 0
+category: distribution
+research: {
+    parent: jyn-duct
+    objectives: [
+        {
+            type: OnSector
+            preset: 不容拒绝
+        }
+    ]
+}
+shownPlanets: [ mx1 ]
+// databaseTag: tran

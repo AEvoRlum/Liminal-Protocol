@@ -1,0 +1,5 @@
+type: Floor
+name: Darkstone rubble
+blendGroup: darkstone-rubble
+wall: darkstone-wall
+variants: 4

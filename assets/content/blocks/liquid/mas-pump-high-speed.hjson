@@ -1,0 +1,225 @@
+type: Pump
+name: High-Speed Massisteel Pump
+size: 4
+health: 187
+requirements: [
+    massisteel/120
+    jynsteel/36
+    crystalite/27
+]
+pumpAmount: 0.1
+warmupSpeed: 0.5
+liquidCapacity: 124
+hasPower: true
+floating: true
+placeableLiquid: true
+squareSprite: true
+consumes: {
+    power: 1.6
+}
+drawer: {
+    type: DrawMulti
+    drawers: [
+        DrawDefault
+        DrawPumpLiquid
+        // {
+            // type: DrawArcSmelt
+            // flameRadiusScl: 
+            // flameRad: 0.8
+            // circleStroke: 1
+            // flameColor: FFF589
+            // midColor: FCF287
+            // particles: 16
+            // particleLife: 24
+            // particleLen: 6
+        // }
+        {
+			type: DrawCircles
+			color: FCF287A8
+			amount: 6
+			sides: 4
+	    	strokeMax: 1.2
+			strokeMin: 0.6
+			radius: 15
+			strokeInterp: circleOut
+		}
+        {
+            type: DrawRegion
+            suffix: -top
+        }
+        {
+            type: DrawBlockParts
+            parts: [
+                {
+                    type: ShapePart
+                    x: 0
+                    y: 0
+                    circle: false
+                    hollow: true
+                    color: FFF589
+                    colorTo: FFF589
+                    sides: 4
+                    radius: 14.8
+                    radiusTo: 14.8
+                    stroke: 0
+                    strokeTo: 2
+                    rotation: 0
+                    layer: 110
+                    progress: {
+                        type: warmup
+                        op: curve
+                        interp: circleIn
+                        sizeInterp: pow10Out
+                    }
+                }
+                // {
+                    // type: ShapePart
+                    // x: 0
+                    // y: 0
+                    // circle: false
+                    // hollow: true
+                    // color: FFF589
+                    // colorTo: FFF589
+                    // sides: 4
+                    // radius: 14.8
+                    // radiusTo: 14.8
+                    // stroke: 2
+                    // strokeTo: 0
+                    // rotation: 0
+                    // layer: 110
+                    // progress: {
+                        // type: reload
+                        // op: curve
+                        // interp: circleIn
+                        // sizeInterp: pow10Out
+                    // }
+                // }
+                {
+                    type: HaloPart
+                    x: 0
+                    y: 0
+                    tri: true
+                    hollow: false
+                    color: FFF589
+                    colorTo: FFF589
+                    sides: 3
+                    shapes: 2
+                    radius: 0
+                    radiusTo: 3
+                    triLength: 16
+                    triLengthTo: 16
+                    rotateSpeed: 0
+                    shapeRotation: 0
+                    haloRadius: 18.5
+                    haloRadiusTo: 18.5
+                    haloRotation: 0
+                    haloRotateSpeed: 0.3
+                    layer: 110
+                    progress: {
+                        type: warmup
+                        op: curve
+                        interp: circleIn
+                        sizeInterp: pow10In
+                    }
+                }
+                {
+                    type: HaloPart
+                    x: 0
+                    y: 0
+                    tri: true
+                    hollow: false
+                    color: FFF589
+                    colorTo: FFF589
+                    sides: 3
+                    shapes: 2
+                    radius: 0
+                    radiusTo: 3
+                    triLength: 3
+                    triLengthTo: 3
+                    rotateSpeed: 0
+                    shapeRotation: 180
+                    haloRadius: 18.5
+                    haloRadiusTo: 18.5
+                    haloRotation: 0
+                    haloRotateSpeed: 0.3
+                    layer: 110
+                    progress: {
+                        type: warmup
+                        op: curve
+                        interp: circleIn
+                        sizeInterp: pow10In
+                    }
+                }
+                {
+                    type: HaloPart
+                    x: 0
+                    y: 0
+                    tri: true
+                    hollow: false
+                    color: FFF589
+                    colorTo: FFF589
+                    sides: 3
+                    shapes: 2
+                    radius: 0
+                    radiusTo: 3
+                    triLength: 10
+                    triLengthTo: 10
+                    rotateSpeed: 0
+                    shapeRotation: 0
+                    haloRadius: 18.5
+                    haloRadiusTo: 18.5
+                    haloRotation: 90
+                    haloRotateSpeed: -0.5
+                    layer: 110
+                    progress: {
+                        type: warmup
+                        op: curve
+                        interp: circleIn
+                        sizeInterp: pow10In
+                    }
+                }
+                {
+                    type: HaloPart
+                    x: 0
+                    y: 0
+                    tri: true
+                    hollow: false
+                    color: FFF589
+                    colorTo: FFF589
+                    sides: 3
+                    shapes: 2
+                    radius: 0
+                    radiusTo: 3
+                    triLength: 3
+                    triLengthTo: 3
+                    rotateSpeed: 0
+                    shapeRotation: 180
+                    haloRadius: 18.5
+                    haloRadiusTo: 18.5
+                    haloRotation: 90
+                    haloRotateSpeed: -0.5
+                    layer: 110
+                    progress: {
+                        type: warmup
+                        op: curve
+                        interp: circleIn
+                        sizeInterp: pow10In
+                    }
+                }
+            ]
+        }
+    ]
+}
+alwaysUnlocked: false
+researchCostMultiplier: 0.4
+category: liquid
+research: {
+    parent: mas-pump
+    objectives: [
+        {
+            type: SectorComplete
+            preset: instead
+        }
+    ]
+}
+shownPlanets: [ mx1 ]

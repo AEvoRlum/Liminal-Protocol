@@ -1,0 +1,63 @@
+type: Wall
+name: Large Massisteel Wall
+size: 2
+health: 812
+armor: 5
+requirements: [
+    massisteel/36
+]
+flashHit: true
+flashColor: FFF589
+destroySound: blockExplode1Alt
+destroySoundVolume: 1.2
+destroyEffect: {
+    type: MultiEffect
+    effects: [
+        {
+            particles: 12
+            line: true
+            length: 12
+            baseLength: 2
+            lifetime: 30
+            interp: pow5Out
+            sizeInterp: pow2In
+            lenFrom: 12
+            lenTo: 0
+            strokeFrom: 1.2
+            strokeTo: 0
+            colorFrom: FFF589
+            colorTo: FFF589
+        }
+        {
+            particles: 16
+            length: 36
+            baseLength: 2
+            lifetime: 30
+            interp: pow3Out
+            sizeInterp: pow5In
+            sizeFrom: 7
+            sizeTo: 0
+            colorFrom: 45454570
+            colorTo: 47474700
+        }
+        {
+            type: WaveEffect
+            lifetime: 30
+            interp: circleOut
+            sizeFrom: 0
+            sizeTo: 32
+            strokeFrom: 1
+            strokeTo: 0
+            colorFrom: FFF589
+            colorTo: FFF589
+        }
+    ]
+}
+priority: 2
+alwaysUnlocked: false
+buildCostMultiplier: 0.8
+researchCostMultiplier: 0.4
+category: defense
+research: mas-wall
+shownPlanets: [ mx1 ]
+// databaseTag: wall

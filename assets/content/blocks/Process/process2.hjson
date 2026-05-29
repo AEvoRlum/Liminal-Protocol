@@ -1,0 +1,15 @@
+type: MessageBlock
+name: Process2
+alwaysUnlocked: false
+placeablePlayer: false
+displayFlow: false
+shownPlanets: [ mx1 ]
+research: {
+    parent: process1
+    objectives: [
+        heavy-ion-chamber
+        mas-wall-large
+        rusher
+    ]
+}
+databaseTag: proc
