@@ -9,15 +9,16 @@ import mindustry.ui.dialogs.*;
 
 public class LPMod extends Mod {
     public LPMod() {
+        super();
     }
     public static String ModName = "lp";
     public static String name(String add){
         return ModName + "-" + add;
     }
-    @Override
+    /**
     public void init() {
     }
-
+    */
     @Override
     public void loadContent() {
         LPSounds.load();
