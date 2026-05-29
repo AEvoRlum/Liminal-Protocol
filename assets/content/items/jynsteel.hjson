@@ -1,0 +1,16 @@
+name: Jynsteel
+color: 5F6372
+hardness: 2
+radioactivity: 0
+explosiveness: 0
+flammability: 0
+charge: 0
+cost: 0.4
+healthScaling: 1.12
+frames: 0
+buildable: true
+alwaysUnlocked: false
+shownPlanets: [ mx1 ]
+//在[星球]显示
+research: pioneers
+databaseTag: build-mat
