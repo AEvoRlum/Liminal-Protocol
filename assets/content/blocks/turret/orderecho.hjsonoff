@@ -1,0 +1,221 @@
+type: PowerTurret
+name: OrderEcho
+size: 8
+health: 18856
+rotateSpeed: 1
+reload: 600
+range: 3200
+recoil: 6
+recoilTime: 60
+minWarmup: 0.99
+shootWarmupSpeed: 0.01
+shootSound: acceleratorLaunch
+category: turret
+requirements: [
+]
+drawer: {
+    type: DrawTurret
+    parts: [
+        {
+            type: EffectSpawnerPart
+            x: 0
+            y: 24
+            effect: {
+                type: ParticleEffect
+                region: lp-triangle
+                particles: 1
+                length: -70
+                baseLength: 70
+                randLength: false
+                interp: circleIn
+                lifetime: 26
+                spin: 2
+                sizeFrom: 8
+                sizeTo: 0
+                colorFrom: FFFFFF20
+                colorTo: FF6464
+                layer: 110
+            }
+            effectChance: 0.55
+            progress: {
+                type: reload
+                ops: [
+                    {
+                        op: add
+                        other: warmup
+                    }
+                    {
+                        op: sin
+                        mag: 0.1
+                        scl: 6
+                        offset: 6
+                    }
+                ]
+            }
+        }
+        {
+            type: HaloPart
+            x: 0
+            y: 24
+            hollow: false
+            tri: false
+            shapes: 1
+            sides: 256
+            radius: 10
+            radiusTo: 3
+            triLength: 10
+            triLengthTo: 3
+            haloRadius: 0
+            haloRadiusTo: 0
+            haloRotateSpeed: 0
+            shapeRotation: 0
+            color: 000000
+            colorTo: 000000
+            layer: 111
+            progress: {
+                type: reload
+                ops: [
+                    {
+                        op: sin
+                        mag: 0
+                        scl: 10
+                        offset: 160
+                    }
+                ]
+            }
+        }
+        {
+            type: HaloPart
+            x: 0
+            y: 24
+            hollow: false
+            tri: false
+            shapes: 1
+            sides: 256
+            radius: 12
+            radiusTo: 4
+            triLength: 12
+            triLengthTo: 4
+            haloRadius: 0
+            haloRadiusTo: 0
+            haloRotateSpeed: 0
+            shapeRotation: 0
+            color: FF6464
+            colorTo: FF6464
+            layer: 110
+            progress: {
+                type: reload
+                ops: [
+                    {
+                        op: sin
+                        mag: 0
+                        scl: 10
+                        offset: 160
+                    }
+                ]
+            }
+        }
+        {
+            type: HaloPart
+            x: 0
+            y: 24
+            hollow: false
+            tri: true
+            shapes: 3
+            sides: 3
+            radius: 0
+            radiusTo: 4
+            triLength: 0
+            triLengthTo: 38
+            haloRadius: 0
+            haloRadiusTo: 0
+            haloRotateSpeed: 2
+            shapeRotation: 0
+            color: 000000
+            colorTo: 000000
+            layer: 111
+            progress: {
+                type: reload
+                ops: [
+                    {
+                        op: sin
+                        mag: 1
+                        scl: 30
+                        offset: -0
+                    }
+                    {
+                        op: add
+                        other: warmup
+                    }
+                    // {
+                        // op: loop
+                        // time: 120
+                    // }
+                    {
+                        op: clamp
+                    }
+                    {
+                        op: add
+                        amount: 0.2
+                    }
+                    {
+                        op: mul
+                        amount: 0.8
+                    }
+                ]
+            }
+        }
+        {
+            type: HaloPart
+            x: 0
+            y: 24
+            hollow: false
+            tri: true
+            shapes: 3
+            sides: 3
+            radius: 0
+            radiusTo: 6
+            triLength: 0
+            triLengthTo: 54
+            haloRadius: 0
+            haloRadiusTo: 0
+            haloRotateSpeed: 2
+            shapeRotation: 0
+            color: FF6464
+            colorTo: FF6464
+            layer: 110
+            progress: {
+                type: reload
+                ops: [
+                    {
+                        op: sin
+                        mag: 1
+                        scl: 30
+                        offset: -0
+                    }
+                    {
+                        op: add
+                        other: warmup
+                    }
+                    // {
+                        // op: loop
+                        // time: 120
+                    // }
+                    {
+                        op: clamp
+                    }
+                    {
+                        op: add
+                        amount: 0.2
+                    }
+                    {
+                        op: mul
+                        amount: 0.8
+                    }
+                ]
+            }
+        }
+    ]
+}
+shootType: {
+}
