@@ -44,7 +44,7 @@ hovering: true
 useUnitCap: false
 alwaysUnlocked: false
 drawCell: false
-deathSound: tank-destroyed
+deathSound: tankDestroyed2
 deathSoundVolume: 1.2
 shownPlanets: [ mx1 ]
 researchCostMultiplier: 0
