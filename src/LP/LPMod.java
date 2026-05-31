@@ -1,6 +1,6 @@
 package LP;
 
-import LP.content.LPSounds;
+import LP.content.*;
 import arc.*;
 import arc.util.*;
 import mindustry.game.EventType;
@@ -15,12 +15,14 @@ public class LPMod extends Mod {
     public static String name(String add){
         return ModName + "-" + add;
     }
-    /**
-    public void init() {
-    }
-    */
+
     @Override
     public void loadContent() {
+        super.loadContent();
+        LPStatusEffect.load();
+        LPContent.loadPriority();
+        LPItems.load();
+        LPPlanets.load();
         LPSounds.load();
     }
 }
