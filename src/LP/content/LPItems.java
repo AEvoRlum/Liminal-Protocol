@@ -5,7 +5,7 @@ import arc.struct.Seq;
 import mindustry.content.Items;
 import mindustry.graphics.Pal;
 import mindustry.type.Item;
-import LP.content.graphics.LPPal;
+import LP.graphics.LPPal;
 
 public class LPItems {
     public static Item crystalite, erocrys, ionopolymer, jynsteel, litelnlay, massisteel, transchimericsteel;
@@ -16,7 +16,7 @@ public class LPItems {
     }
     
     private static void load(){
-        crystalite = new Item("Crystalite", Color.valueOf("EDA76E")){{
+        crystalite = new Item("Crystalite", LPPal.orangeDark){{
             hardness = 0.5;
             radioactivity = 0.2;
             explosiveness = 0;
@@ -30,7 +30,7 @@ public class LPItems {
             databaseTag = "chip-mat";
         }};
         
-        erocrys = new Item("Eerocrys", Color.valueOf("FFB570")){{
+        erocrys = new Item("Eerocrys", LPPal.orange){{
             hardness = 0;
             radioactivity = 0;
             explosiveness = 0;
