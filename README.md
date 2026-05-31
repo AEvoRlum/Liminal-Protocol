@@ -26,7 +26,7 @@
 + **[128OTEML](https://github.com/128OTEML): Technical guidance**
 + **[Martian238](https://github.com/Martian238): JSON content inspiration**
 + **[laomoze](https://github.com/laomoze/WarHammer): Sprite and effect inspiration**
-+ **......And all my supporters, players... and those I have not remembered...**
++ **......And all supporters, players... and those I have not remembered...**
 
 --- 
 
@@ -56,7 +56,7 @@
 + **[128OTEML](https://github.com/128OTEML): 技术指导**
 + **[Martian238](https://github.com/Martian238): Json内容启发**
 + **[laomoze](https://github.com/laomoze/WarHammer): 贴图及特效启发**
-+ **......以及我所有的支持者,游玩者...还有我没想起来的...**
++ **......以及所有的支持者,游玩者...还有我没想起来的...**
 
 --- 
 
