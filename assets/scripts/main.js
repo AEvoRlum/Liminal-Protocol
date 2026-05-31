@@ -11,7 +11,7 @@ Team.blue.name = "矩阵";
 Team.crux.name = "愿景";
 Team.crux.hasPalette = true;
 //Team.crux.ignoreUnitCap = true;
-require("planet");
+//require("planet");
 //require("item");
 require("notice");
 //require("multicCrafterlib");
