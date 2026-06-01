@@ -25,5 +25,6 @@ public class LPMod extends Mod {
         LPPlanets.load();
         LPSounds.load();
         LPBlocks.load();
+        LPUnits.load();
     }
 }
