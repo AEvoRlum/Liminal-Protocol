@@ -1,6 +1,7 @@
 package LP.content;
 
 import arc.func.Cons;
+import arc.func.Func;
 import arc.func.Prov;
 import arc.graphics.Blending;
 import arc.graphics.Color;
@@ -35,6 +36,7 @@ import mindustry.entities.pattern.*;
 import mindustry.entities.units.WeaponMount;
 import mindustry.game.Team;
 import mindustry.gen.*;
+import mindustry.entities.units.UnitController;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
@@ -44,15 +46,17 @@ import mindustry.type.Weapon;
 import mindustry.type.weapons.*;
 import mindustry.world.meta.BlockFlag;
 import mindustry.world.meta.Env;
+import mindustry.entities.bullet.*;
 
 import LP.graphics.LPPal;
-import mindustry.entities.bullet.BulletType;
 
 public class LPUnits {
     public static UnitType pioneersUnit;
 
     public static void load() {
         pioneersUnit = new UnitType("pioneers-unit"){{
+            constructor = UnitEntity::create;
+            controller = u -> u.team.isAI() ? new BuilderAI(true, 200f) : new CommandAI();
             health = 255;
             armor = 2;
             hitSize = 8f;
@@ -62,12 +66,13 @@ public class LPUnits {
             drag = 0.1f;
             engineSize = 2f;
             engineOffset = 6.5f;
-            engineLayer = Layer.flyingUnit + 9.9f;
+            engineLayer = 110f;
             engineColor = LPPal.orange;
+            flyingLayer = 110 + 50f;
             trailColor = LPPal.orange;
             trailLength = 10;
             fogRadius = 40;
-            lightRadius = 80;
+            lightRadius = 100;
             buildSpeed = 1f;
             buildRange = 200f;
             itemCapacity = 60;
@@ -84,7 +89,6 @@ public class LPUnits {
             lowAltitude = false;
             targetable = false;
             useUnitCap = false;
-            drawBuildBeam = true;
             logicControllable = false;
             isEnemy = false;
             alwaysUnlocked = true;
@@ -111,34 +115,34 @@ public class LPUnits {
             radiusTo = 15f;
             spinSpeed = 0f;
             stroke = 0.5f;
-            layer = Layer.flyingUnit + 10;
+            layer = 110f;
         }};
     }
     
     private static RepairBeamWeapon pioneersRepairWeapon() {
-        return new RepairBeamWeapon(){{
-            reload = 20f;
-            shootCone = 30f;
-            x = 0f;
-            y = 1.5f;
-            shootY = 0f;
-            shootX = 0f;
-            mirror = false;
-            rotate = false;
-            controllable = true;
-            alternate = false;
-            widthSinMag = 0.15f;
-            repairSpeed = 5f;
-            beamWidth = 0.5f;
-            fractionRepairSpeed = 1f;
-            laserColor = LPPal.orange;
-            healColor = mindustry.graphics.Pal.heal;
-            targetBuildings = true;
-            autoTarget = false;
-            bullet = new BulletType(){{
-                maxRange = 200f;
-            }};
-        }};
+        RepairBeamWeapon repair = new RepairBeamWeapon();
+        repair.reload = 20f;
+        repair.shootCone = 30f;
+        repair.x = 0f;
+        repair.y = 1.5f;
+        repair.shootY = 0f;
+        repair.shootX = 0f;
+        repair.mirror = false;
+        repair.rotate = false;
+        repair.controllable = true;
+        repair.alternate = false;
+        repair.widthSinMag = 0.15f;
+        repair.repairSpeed = 5f;
+        repair.beamWidth = 0.5f;
+        repair.fractionRepairSpeed = 1f;
+        repair.laserColor = LPPal.orange;
+        repair.healColor = Pal.heal;
+        repair.targetBuildings = true;
+        repair.autoTarget = false;
+        BulletType bullet = new BulletType();
+        bullet.maxRange = 200f;
+        repair.bullet = bullet;
+        return repair;
     }
 
     private static BuildWeapon pioneersBuildWeapon() {
