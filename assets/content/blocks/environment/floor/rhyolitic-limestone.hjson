@@ -1,9 +1,0 @@
-type: Floor
-name: Rhyolitic limestone
-blendGroup: rhyolitic-limestone
-wall: rhyolitic-limestone-wall
-variants: 4
-//drawEdgeIn: false
-// attributes: {
-    // water: -1
-// }

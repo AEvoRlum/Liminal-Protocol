@@ -1,6 +1,0 @@
-type: Floor
-name: Relictiles1
-blendGroup: relictiles
-variants: 25
-drawEdgeIn: false
-drawEdgeOut: false

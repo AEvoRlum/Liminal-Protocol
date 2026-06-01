@@ -1,7 +1,0 @@
-type: OreBlock
-//name: 精钢矿
-itemDrop: jynsteel
-variants: 3
-mapColor: 5F6372
-useColor: true
-wallOre: false
