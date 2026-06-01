@@ -25,7 +25,6 @@ import static arc.graphics.g2d.Draw.color;
 import static arc.graphics.g2d.Lines.lineAngle;
 import static arc.graphics.g2d.Lines.stroke;
 import static arc.math.Angles.randLenVectors;
-import static LP.content.LPFx.*;
 
 public class LPStatusEffect{
     
