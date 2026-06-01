@@ -41,7 +41,7 @@ public class LPStatusEffect{
     }
 
     public static void load(){
-        claim = new StatusEffect("Claim"){{
+        claim = new StatusEffect("claim"){{
             databaseTag = "amplify";
             color = Color.white;
             speedMultiplier = 2;
@@ -50,7 +50,7 @@ public class LPStatusEffect{
             effect = LPFx.claimEffect;
         }};
 
-        disarray = new StatusEffect("Disarray"){{
+        disarray = new StatusEffect("disarray"){{
             databaseTag = "slow";
             color = Color.valueOf("E5E5E5");
             reloadMultiplier = 0;
@@ -60,7 +60,7 @@ public class LPStatusEffect{
             effect = LPFx.disarrayEffect;
         }};
 
-        empI = new StatusEffect("Emp I"){{
+        empI = new StatusEffect("emp-I"){{
             databaseTag = "slow";
             color = Color.valueOf("9F54E4");
             reloadMultiplier = 0.8;
@@ -70,7 +70,7 @@ public class LPStatusEffect{
             effect = LPFx.empIEffect;
         }};
 
-        empII = new StatusEffect("Emp II"){{
+        empII = new StatusEffect("emp-II"){{
             databaseTag = "slow";
             color = Color.valueOf("9F54E4");
             reloadMultiplier = 0.7;
@@ -80,7 +80,7 @@ public class LPStatusEffect{
             effect = LPFx.empIIEffect;
         }};
 
-        empIII = new StatusEffect("Emp III"){{
+        empIII = new StatusEffect("emp-III"){{
             databaseTag = "slow";
             color = Color.valueOf("9F54E4");
             reloadMultiplier = 0.5;
@@ -90,7 +90,7 @@ public class LPStatusEffect{
             effect = LPFx.empIIIEffect;
         }};
 
-        flicker = new StatusEffect("Flicker"){{
+        flicker = new StatusEffect("flicker"){{
             databaseTag = "damage";
             color = Color.valueOf("FF6464");
             healthMultiplier = 0.85f;
@@ -99,7 +99,7 @@ public class LPStatusEffect{
             effect = LPFx.flickerEffect;
         }};
 
-        stall = new StatusEffect("Stall"){{
+        stall = new StatusEffect("stall"){{
             databaseTag = "slow";
             color = Color.valueOf("737373");
             dragMultiplier = 325000f;
@@ -110,7 +110,7 @@ public class LPStatusEffect{
             effect = LPFx.stallEffect;
         }};
 
-        stop = new StatusEffect("Stop"){{
+        stop = new StatusEffect("stop"){{
             databaseTag = "slow";
             color = Color.white;
             reloadMultiplier = 0f;

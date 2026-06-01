@@ -16,7 +16,7 @@ public class LPItems {
     }
     
     private static void load(){
-        crystalite = new Item("Crystalite", LPPal.orangeDark){{
+        crystalite = new Item("crystalite", LPPal.orangeDark){{
             hardness = 0.5;
             radioactivity = 0.2;
             explosiveness = 0;
@@ -30,7 +30,7 @@ public class LPItems {
             databaseTag = "chip-mat";
         }};
         
-        erocrys = new Item("Eerocrys", LPPal.orange){{
+        erocrys = new Item("erocrys", LPPal.orange){{
             hardness = 0;
             radioactivity = 0;
             explosiveness = 0;
@@ -44,7 +44,7 @@ public class LPItems {
             databaseTag = "chip-mat";
         }};
 
-        ionopolymer = new Item("Ionopolymer", Color.valueOf("E8D174")){{
+        ionopolymer = new Item("ionopolymer", Color.valueOf("E8D174")){{
             hardness = 2;
             radioactivity = 0.1;
             explosiveness = 0.3;
@@ -58,7 +58,7 @@ public class LPItems {
             databaseTag = "cons-mat";
         }};
 
-        jynsteel = new Item("Jynsteel", Color.valueOf("5F6372")){{
+        jynsteel = new Item("jynsteel", Color.valueOf("5F6372")){{
             hardness = 2;
             radioactivity = 0;
             explosiveness = 0;
@@ -72,7 +72,7 @@ public class LPItems {
             databaseTag = "build-mat";
         }};
 
-        litelnlay = new Item("Litelnlay", Color.valueOf("E8EBFF")){{
+        litelnlay = new Item("litelnlay", Color.valueOf("E8EBFF")){{
             hardness = 1.75;
             radioactivity = 0;
             explosiveness = 0;
@@ -86,7 +86,7 @@ public class LPItems {
             databaseTag = "build-mat";
         }};
 
-        massisteel = new Item("Massisteel", Color.valueOf("545F66")){{
+        massisteel = new Item("massisteel", Color.valueOf("545F66")){{
             hardness = 3;
             radioactivity = 0;
             explosiveness = 0;
@@ -100,7 +100,7 @@ public class LPItems {
             databaseTag = "build-mat";
         }};
 
-        transchimericsteel = new Item("Transchimericsteel", Color.valueOf("AAACB5")){{
+        transchimericsteel = new Item("transchimericsteel", Color.valueOf("AAACB5")){{
             hardness = 3;
             radioactivity = 0;
             explosiveness = 0;
