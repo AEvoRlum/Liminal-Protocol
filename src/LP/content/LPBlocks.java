@@ -43,16 +43,19 @@ import static mindustry.gen.Sounds.*;
 
 
 public class LPBlocks {
+    //storage
     public static Block pioneers;
+
     
     public static void load(){
+        //storage
         pioneers = new CoreBlock("pioneers") {{
             size = 3;
             health = 732;
             armor = 5;
             itemCapacity = 2000;
             unitCapModifier = 16;
-            unitType = UnitTypes.alpha;
+            unitType = LPUnits.pioneersUnit;
             priority = 10;
             alwaysUnlocked = true;
             canOverdrive = false;
