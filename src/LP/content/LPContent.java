@@ -1,4 +1,4 @@
-﻿package LP.content;
+package LP.content;
 
 import arc.Core;
 import arc.graphics.g2d.TextureRegion;
@@ -8,8 +8,6 @@ import mindustry.ctype.ContentType;
 import mindustry.graphics.Layer;
 import LP.LPMod;
 
-import static LP.LPMod.name;
-
 public class LPContent extends Content{
     private static final TextureRegion emptyRegion = new TextureRegion();
 
@@ -17,56 +15,93 @@ public class LPContent extends Content{
     pointerRegion,
     strafeRegion, missileRegion, bombRegion, annihilateArrow,
     bombard, fleet, objective, airborne,
+    artillery, suppress, disruption,
+    laser, missile, ballistic, plasma,
+    shieldGenerator, shieldProjector,
+    drill, pump, conveyor, router,
+    fabricator, assembler, mixer,
+    powerNode, powerSource, powerConduit,
+    wall, gate, turret,
+    core, storage,
+    repair, healing,
+    radar, sensor,
+    unitFactory, unitAssembler,
+    liquidTank, liquidPump,
+    heatSink, coolant,
+    processor, quantumProcessor,
+    phaseWeaver, surgeSmelter;
 
-    dropPod, dropPodTeam, dropPodSide1, dropPodSideTeam1, dropPodSide2, dropPodSideTeam2;
-
-    public static final float HEXAGONAL_SHIELD = Layer.shields + 12f;
-    public static final float VOID_SHIELD = Layer.shields + 9f;
-    public static final float POWER_AREA = Layer.power + 3f;
-    public static final float POWER_DYNAMIC = Layer.power + 4f;
+    public LPContent(){
+        super();
+    }
 
     @Override
     public ContentType getContentType(){
         return ContentType.error;
     }
 
-    public static TextureRegion safeRegion(TextureRegion region) {
-        return region == null ? emptyRegion : region;
+    @Override
+    public void load(){
+        arrowRegion = Core.atlas.find(LPMod.ModName + "-arrow", emptyRegion);
+        pointerRegion = Core.atlas.find(LPMod.ModName + "-pointer", emptyRegion);
+        strafeRegion = Core.atlas.find(LPMod.ModName + "-strafe", emptyRegion);
+        missileRegion = Core.atlas.find(LPMod.ModName + "-missile", emptyRegion);
+        bombRegion = Core.atlas.find(LPMod.ModName + "-bomb", emptyRegion);
+        annihilateArrow = Core.atlas.find(LPMod.ModName + "-annihilate-arrow", emptyRegion);
+        bombard = Core.atlas.find(LPMod.ModName + "-bombard", emptyRegion);
+        fleet = Core.atlas.find(LPMod.ModName + "-fleet", emptyRegion);
+        objective = Core.atlas.find(LPMod.ModName + "-objective", emptyRegion);
+        airborne = Core.atlas.find(LPMod.ModName + "-airborne", emptyRegion);
+        artillery = Core.atlas.find(LPMod.ModName + "-artillery", emptyRegion);
+        suppress = Core.atlas.find(LPMod.ModName + "-suppress", emptyRegion);
+        disruption = Core.atlas.find(LPMod.ModName + "-disruption", emptyRegion);
+        laser = Core.atlas.find(LPMod.ModName + "-laser", emptyRegion);
+        missile = Core.atlas.find(LPMod.ModName + "-missile-icon", emptyRegion);
+        ballistic = Core.atlas.find(LPMod.ModName + "-ballistic", emptyRegion);
+        plasma = Core.atlas.find(LPMod.ModName + "-plasma", emptyRegion);
+        shieldGenerator = Core.atlas.find(LPMod.ModName + "-shield-generator", emptyRegion);
+        shieldProjector = Core.atlas.find(LPMod.ModName + "-shield-projector", emptyRegion);
+        drill = Core.atlas.find(LPMod.ModName + "-drill", emptyRegion);
+        pump = Core.atlas.find(LPMod.ModName + "-pump", emptyRegion);
+        conveyor = Core.atlas.find(LPMod.ModName + "-conveyor", emptyRegion);
+        router = Core.atlas.find(LPMod.ModName + "-router", emptyRegion);
+        fabricator = Core.atlas.find(LPMod.ModName + "-fabricator", emptyRegion);
+        assembler = Core.atlas.find(LPMod.ModName + "-assembler", emptyRegion);
+        mixer = Core.atlas.find(LPMod.ModName + "-mixer", emptyRegion);
+        powerNode = Core.atlas.find(LPMod.ModName + "-power-node", emptyRegion);
+        powerSource = Core.atlas.find(LPMod.ModName + "-power-source", emptyRegion);
+        powerConduit = Core.atlas.find(LPMod.ModName + "-power-conduit", emptyRegion);
+        wall = Core.atlas.find(LPMod.ModName + "-wall", emptyRegion);
+        gate = Core.atlas.find(LPMod.ModName + "-gate", emptyRegion);
+        turret = Core.atlas.find(LPMod.ModName + "-turret", emptyRegion);
+        core = Core.atlas.find(LPMod.ModName + "-core", emptyRegion);
+        storage = Core.atlas.find(LPMod.ModName + "-storage", emptyRegion);
+        repair = Core.atlas.find(LPMod.ModName + "-repair", emptyRegion);
+        healing = Core.atlas.find(LPMod.ModName + "-healing", emptyRegion);
+        radar = Core.atlas.find(LPMod.ModName + "-radar", emptyRegion);
+        sensor = Core.atlas.find(LPMod.ModName + "-sensor", emptyRegion);
+        unitFactory = Core.atlas.find(LPMod.ModName + "-unit-factory", emptyRegion);
+        unitAssembler = Core.atlas.find(LPMod.ModName + "-unit-assembler", emptyRegion);
+        liquidTank = Core.atlas.find(LPMod.ModName + "-liquid-tank", emptyRegion);
+        liquidPump = Core.atlas.find(LPMod.ModName + "-liquid-pump", emptyRegion);
+        heatSink = Core.atlas.find(LPMod.ModName + "-heat-sink", emptyRegion);
+        coolant = Core.atlas.find(LPMod.ModName + "-coolant", emptyRegion);
+        processor = Core.atlas.find(LPMod.ModName + "-processor", emptyRegion);
+        quantumProcessor = Core.atlas.find(LPMod.ModName + "-quantum-processor", emptyRegion);
+        phaseWeaver = Core.atlas.find(LPMod.ModName + "-phase-weaver", emptyRegion);
+        surgeSmelter = Core.atlas.find(LPMod.ModName + "-surge-smelter", emptyRegion);
     }
 
-    public static boolean hasRegion(TextureRegion region) {
-        return region != null && region.width > 0f && region.height > 0f;
+    public void update(){
+    }
+
+    public void removed(){
+    }
+
+    public void init(){
+        super.init();
     }
 
     public static void loadPriority(){
-        if (Vars.headless) return;
-        if (Core.atlas == null) {
-            return;
-        }
-        new LPContent().load();
-    }
-
-    public void load(){
-        if (Core.atlas == null) return;
-
-        arrowRegion = Core.atlas.find(LPMod.name("jump-gate-arrow"));
-        pointerRegion = Core.atlas.find(LPMod.name("jump-gate-pointer"));
-        strafeRegion = Core.atlas.find(LPMod.name("strafe-mode"));
-        missileRegion = Core.atlas.find(LPMod.name("missile-mode"));
-        bombRegion = Core.atlas.find(LPMod.name("bomb-mode"));
-        annihilateArrow = Core.atlas.find(LPMod.name("Annihilate-arrow"));
-        bombard = Core.atlas.find(LPMod.name("bombard"));
-        fleet = Core.atlas.find(LPMod.name("fleet"));
-        objective = Core.atlas.find(LPMod.name("objective"));
-        airborne = Core.atlas.find(LPMod.name("airborne"));
-
-        String dp = "space-marine-drop-pod";
-        dropPod = Core.atlas.find(name(dp));
-        dropPodTeam = Core.atlas.find(name(dp + "-team"));
-        dropPodSide1 = Core.atlas.find(name(dp + "-side1"));
-        dropPodSideTeam1 = Core.atlas.find(name(dp + "-side1-team"));
-        dropPodSide2 = Core.atlas.find(name(dp + "-side2"));
-        dropPodSideTeam2 = Core.atlas.find(name(dp + "-side2-team"));
     }
 }
-

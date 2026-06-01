@@ -44,49 +44,49 @@ public class LPStatusEffect{
         claim = new StatusEffect("claim"){{
             databaseTag = "amplify";
             color = Color.white;
-            speedMultiplier = 2;
-            dragMultiplier = 0.8;
-            effectChance = 0.08;
+            speedMultiplier = 2f;
+            dragMultiplier = 0.8f;
+            effectChance = 0.08f;
             effect = LPFx.claimEffect;
         }};
 
         disarray = new StatusEffect("disarray"){{
             databaseTag = "slow";
             color = Color.valueOf("E5E5E5");
-            reloadMultiplier = 0;
-            speedMultiplier = 0;
-            buildSpeedMultiplier = 0;
-            effectChance = 0.02;
+            reloadMultiplier = 0f;
+            speedMultiplier = 0f;
+            buildSpeedMultiplier = 0f;
+            effectChance = 0.02f;
             effect = LPFx.disarrayEffect;
         }};
 
         empI = new StatusEffect("emp-I"){{
             databaseTag = "slow";
             color = Color.valueOf("9F54E4");
-            reloadMultiplier = 0.8;
-            speedMultiplier = 0.5;
-            buildSpeedMultiplier = 0.4;
-            effectChance = 0.02;
+            reloadMultiplier = 0.8f;
+            speedMultiplier = 0.5f;
+            buildSpeedMultiplier = 0.4f;
+            effectChance = 0.02f;
             effect = LPFx.empIEffect;
         }};
 
         empII = new StatusEffect("emp-II"){{
             databaseTag = "slow";
             color = Color.valueOf("9F54E4");
-            reloadMultiplier = 0.7;
-            speedMultiplier = 0.35;
-            buildSpeedMultiplier = 0.2;
-            effectChance = 0.04;
+            reloadMultiplier = 0.7f;
+            speedMultiplier = 0.35f;
+            buildSpeedMultiplier = 0.2f;
+            effectChance = 0.04f;
             effect = LPFx.empIIEffect;
         }};
 
         empIII = new StatusEffect("emp-III"){{
             databaseTag = "slow";
             color = Color.valueOf("9F54E4");
-            reloadMultiplier = 0.5;
-            speedMultiplier = -0.5;
-            buildSpeedMultiplier = 0;
-            effectChance = 0.05;
+            reloadMultiplier = 0.5f;
+            speedMultiplier = -0.5f;
+            buildSpeedMultiplier = 0f;
+            effectChance = 0.05f;
             effect = LPFx.empIIIEffect;
         }};
 

@@ -9,6 +9,7 @@ import arc.struct.*;
 import arc.util.*;
 import mindustry.entities.*;
 import mindustry.entities.abilities.*;
+import mindustry.content.Fx;
 import mindustry.entities.effect.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
@@ -26,10 +27,9 @@ import static mindustry.graphics.Pal.*;
 import static LP.graphics.LPPal.*;
 
 
-public class LPFx extends Fx {
-
-    private LPFx() {
-    }
+public class LPFx {
+    private LPFx() {}
+    
     //Status Effects
     public static final ParticleEffect claimEffect = new ParticleEffect() {{
         particles = 1;

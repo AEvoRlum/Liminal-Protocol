@@ -15,15 +15,15 @@ public class LPItems {
         
     }
     
-    private static void load(){
+    public static void load(){
         crystalite = new Item("crystalite", LPPal.orangeDark){{
-            hardness = 0.5;
-            radioactivity = 0.2;
-            explosiveness = 0;
-            flammability = 0;
-            charge = 0;
-            cost = 0.7;
-            healthScaling = 0.1;
+            hardness = 1;
+            radioactivity = 0.2f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0f;
+            cost = 0.7f;
+            healthScaling = 0.1f;
             frames = 0;
             buildable = true;
             alwaysUnlocked = false;
@@ -32,12 +32,12 @@ public class LPItems {
         
         erocrys = new Item("erocrys", LPPal.orange){{
             hardness = 0;
-            radioactivity = 0;
-            explosiveness = 0;
-            flammability = 0;
-            charge = 0.2;
-            cost = 0.5;
-            healthScaling = 0.98;
+            radioactivity = 0f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0.2f;
+            cost = 0.5f;
+            healthScaling = 0.98f;
             frames = 0;
             buildable = true;
             alwaysUnlocked = false;
@@ -46,12 +46,12 @@ public class LPItems {
 
         ionopolymer = new Item("ionopolymer", Color.valueOf("E8D174")){{
             hardness = 2;
-            radioactivity = 0.1;
-            explosiveness = 0.3;
-            flammability = 0;
-            charge = 1;
-            cost = 1;
-            healthScaling = 0;
+            radioactivity = 0.1f;
+            explosiveness = 0.3f;
+            flammability = 0f;
+            charge = 1f;
+            cost = 1f;
+            healthScaling = 0f;
             frames = 0;
             buildable = false;
             alwaysUnlocked = false;
@@ -60,12 +60,12 @@ public class LPItems {
 
         jynsteel = new Item("jynsteel", Color.valueOf("5F6372")){{
             hardness = 2;
-            radioactivity = 0;
-            explosiveness = 0;
-            flammability = 0;
-            charge = 0;
-            cost = 0.4;
-            healthScaling = 1.12;
+            radioactivity = 0f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0f;
+            cost = 0.4f;
+            healthScaling = 1.12f;
             frames = 0;
             buildable = true;
             alwaysUnlocked = false;
@@ -73,13 +73,13 @@ public class LPItems {
         }};
 
         litelnlay = new Item("litelnlay", Color.valueOf("E8EBFF")){{
-            hardness = 1.75;
-            radioactivity = 0;
-            explosiveness = 0;
-            flammability = 0;
-            charge = 0;
-            cost = 0.35;
-            healthScaling = 1.05;
+            hardness = 2;
+            radioactivity = 0f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0f;
+            cost = 0.35f;
+            healthScaling = 1.05f;
             frames = 0;
             buildable = true;
             alwaysUnlocked = false;
@@ -88,12 +88,12 @@ public class LPItems {
 
         massisteel = new Item("massisteel", Color.valueOf("545F66")){{
             hardness = 3;
-            radioactivity = 0;
-            explosiveness = 0;
-            flammability = 0;
-            charge = 0.2;
-            cost = 0.8;
-            healthScaling = 1.2;
+            radioactivity = 0f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0.2f;
+            cost = 0.8f;
+            healthScaling = 1.2f;
             frames = 0;
             buildable = true;
             alwaysUnlocked = false;
@@ -102,12 +102,12 @@ public class LPItems {
 
         transchimericsteel = new Item("transchimericsteel", Color.valueOf("AAACB5")){{
             hardness = 3;
-            radioactivity = 0;
-            explosiveness = 0;
-            flammability = 0;
-            charge = 0;
-            cost = 0.85;
-            healthScaling = 1.5;
+            radioactivity = 0f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0f;
+            cost = 0.85f;
+            healthScaling = 1.5f;
             frames = 0;
             buildable = true;
             alwaysUnlocked = false;
