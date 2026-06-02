@@ -42,30 +42,399 @@ import static mindustry.type.ItemStack.*;
 
 import LP.graphics.LPPal;
 
-import static mindustry.gen.Sounds.*;
-
 public class LPBlocks {
     //turret
     //production
     //distribution
+    public static Block jynDuct, jynDuctbridge, jynSorter, jynInvertedSorter, jynOverflow, jynUnderflow, jynUnloader;
+    public static Block litConveyor, litBridgeConveyor, litJunction, litUnloader;
+
     //liquid
+    public static Block masConduit, masLiquidBridgeConduit, masLiquidJunction, masLiquidRouter, traConduit, traBridgeConduit;
+    public static Block masPump, masPumpHighSpeed;
+    public static Block massisteelLiquidStorage , massisteelLiquidStorageLarge;
+
     //power
     //wall
-    public static Block jynWall;
-    public static Block jynWallLarge;
-    public static Block masWall;
-    public static Block masWallLarge;
-    public static Block traWall;
-    public static Block traWallLarge;
-    public static Block ttfWall;
+    public static Block jynWall, jynWallLarge, masWall, masWallLarge, traWall, traWallLarge, ttfWall;
+
     //craft
     //unit
     //storage
-    public static Block pioneers;
-    public static Block jynVault;
+    public static Block pioneers, jynVault;
+
     //logic
-    
+    //environment
+
     public static void load(){
+
+        //distribution
+        jynDuctbridge = new DuctBridge("jyn-ductbridge"){{
+            size = 1;
+            health = 34;
+            range = 8;
+            speed = 4f;
+            itemCapacity = 12;
+            solid = false;
+            underBullets = true;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0f;
+            requirements(Category.distribution, with(LPItems.jynsteel, 12, LPItems.erocrys, 4));
+        }};
+
+        jynDuct = new Duct("jyn-duct"){{
+            size = 1;
+            health = 18;
+            speed = 3f;
+            itemCapacity = 2;
+            bridgeReplacement = jynDuctbridge;
+            solid = false;
+            underBullets = true;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0f;
+            requirements(Category.distribution, with(LPItems.jynsteel, 2));
+        }};
+
+        jynSorter = new  Sorter("jyn-sorter"){{
+            size = 1;
+            health = 28;
+            invert = false;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0f;
+            requirements(Category.distribution, with(LPItems.jynsteel, 6));
+        }};
+
+        jynInvertedSorter = new Sorter("jyn-inverted-sorter"){{
+            size = 1;
+            health = 30;
+            invert = true;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0f;
+            requirements(Category.distribution, with(LPItems.jynsteel, 6, LPItems.erocrys, 3));
+        }};
+
+        jynOverflow = new OverflowGate("jyn-overflow"){{
+            size = 1;
+            health = 23;
+            invert = false;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0f;
+            requirements(Category.distribution, with(LPItems.jynsteel, 5));
+        }};
+
+        jynUnderflow = new OverflowGate("jyn-underflow"){{
+            size = 1;
+            health = 25;
+            invert = true;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0f;
+            requirements(Category.distribution, with(LPItems.jynsteel, 5, LPItems.erocrys, 2));
+        }};
+
+        jynUnloader = new Unloader("jyn-unloader"){{
+            size = 1;
+            health = 42;
+            speed = 2.5f;
+            group = BlockGroup.transportation;
+            update = true;
+            canOverdrive = true;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0f;
+            requirements(Category.distribution, with(LPItems.jynsteel, 12, LPItems.erocrys, 4));
+        }};
+
+        litJunction = new Junction("lit-junction"){{
+            size = 1;
+            health = 24;
+            speed = 12f;
+            displayedSpeed = 28f;
+            solid = false;
+            underBullets = true;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.distribution, with(LPItems.litelnlay, 4));
+        }};
+
+         litBridgeConveyor = new BufferedItemBridge("lit-bridge-conveyor"){{
+            size = 1;
+            health = 30;
+            range = 12;
+            speed = 18f;
+            displayedSpeed = 14f;
+            solid = false;
+            underBullets = true;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.distribution, with(LPItems.litelnlay, 14));
+        }};
+
+        litConveyor = new Conveyor("lit-conveyor"){{
+            size = 1;
+            health = 14;
+            speed = 0.2f;
+            displayedSpeed = 25f;
+            itemCapacity = 3;
+            junctionReplacement = litJunction;
+            bridgeReplacement = litBridgeConveyor;
+            solid = false;
+            underBullets = true;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.distribution, with(LPItems.litelnlay, 2));
+        }};
+
+        litUnloader = new Unloader("lit-unloader"){{
+            size = 1;
+            health = 56;
+            speed = 2f;
+            group = BlockGroup.transportation;
+            update = true;
+            canOverdrive = true;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.distribution, with(LPItems.litelnlay, 16, LPItems.crystalite, 4));
+        }};
+
+        //liquid
+        masLiquidJunction = new LiquidJunction("mas-liquid-junction"){{
+            health = 28;
+            liquidCapacity = 15f;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.liquid, with(LPItems.massisteel, 5));
+        }};
+
+        masLiquidBridgeConduit = new DirectionLiquidBridge("mas-liquid-bridge-conduit"){{
+            health = 46;
+            range = 8;
+            liquidCapacity = 20f;
+            hasPower = false;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.liquid, with(LPItems.massisteel, 12, LPItems.erocrys, 5));
+        }};
+
+        masConduit = new Conduit("mas-conduit"){{
+            health = 20;
+            liquidCapacity = 10f;
+            liquidPressure = 1f;
+            botColor = Color.valueOf("2F3036");
+            junctionReplacement = masLiquidJunction;
+            rotBridgeReplacement = masLiquidBridgeConduit;
+            bridgeReplacement = masLiquidBridgeConduit;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.liquid, with(LPItems.massisteel, 2));
+        }};
+
+        masLiquidRouter = new LiquidRouter("mas-liquid-router"){{
+            health = 25;
+            liquidCapacity = 15f;
+            liquidPadding = 3f;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.liquid, with(LPItems.massisteel, 5));
+        }};
+
+        traBridgeConduit = new LiquidBridge("tra-bridge-conduit"){{
+            health = 64;
+            range = 12;
+            liquidCapacity = 32f;
+            arrowPeriod = 0.7f;
+            arrowTimeScl = 3f;
+            floating = true;
+            hasPower = true;
+            canOverdrive = false;
+            pulse = true;
+            consumePower(1 / 60f);
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.1f;
+            requirements(Category.liquid, with(LPItems.transchimericsteel, 14, LPItems.crystalite, 4));
+        }};
+
+        traConduit = new ArmoredConduit("tra-conduit"){{
+            health = 28;
+            liquidCapacity = 16f;
+            liquidPressure = 1.2f;
+            botColor = Color.valueOf("333940");
+            junctionReplacement = masLiquidJunction;
+            rotBridgeReplacement = traBridgeConduit;
+            bridgeReplacement = traBridgeConduit;
+            solid = false;
+            floating = true;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.1f;
+            requirements(Category.liquid, with(LPItems.transchimericsteel, 2, LPItems.crystalite, 1));
+        }};
+
+        masPump = new Pump("mas-pump"){{
+            size = 2;
+            health = 65;
+            pumpAmount = 0.020835f;
+            warmupSpeed = 0.05f;
+            liquidCapacity = 40f;
+            hasPower = false;
+            floating = true;
+            placeableLiquid = true;
+            squareSprite = true;
+            var parts = new DrawBlockParts();
+            parts.parts.add(new ShapePart(){{
+                circle = false;
+                hollow = true;
+                color = colorTo = LPPal.aureus;
+                sides = 4;
+                radius = radiusTo = 6f;
+                stroke = 0f;
+                strokeTo = 1.5f;
+                layer = 110;
+                progress = PartProgress.warmup.curve(Interp.circleIn);
+            }});
+            parts.parts.add(new HaloPart(){{
+                tri = true;
+                color = colorTo = LPPal.aureus;
+                shapes = 4;
+                radius = 0f;
+                radiusTo = 2f;
+                triLength = 3f;
+                triLengthTo = 3f;
+                haloRadius = 5f;
+                haloRotateSpeed = 0.5f;
+                layer = 110;
+                progress = PartProgress.warmup.curve(Interp.circleIn);
+            }});
+            parts.parts.add(new HaloPart(){{
+                tri = true;
+                color = colorTo = LPPal.aureus;
+                shapes = 4;
+                radius = 0f;
+                radiusTo = 2f;
+                triLength = 3f;
+                triLengthTo = 3f;
+                shapeRotation = 180f;
+                haloRadius = 5f;
+                haloRotateSpeed = 0.5f;
+                layer = 110;
+                progress = PartProgress.warmup.curve(Interp.circleIn);
+            }});
+            drawer = new DrawMulti(new DrawPumpLiquid(), new DrawDefault(), parts);
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.liquid, with(LPItems.massisteel, 26, LPItems.jynsteel, 16));
+        }};
+
+        masPumpHighSpeed = new Pump("mas-pump-high-speed"){{
+            size = 4;
+            health = 187;
+            pumpAmount = 0.1f;
+            warmupSpeed = 0.5f;
+            liquidCapacity = 124f;
+            hasPower = true;
+            floating = true;
+            placeableLiquid = true;
+            squareSprite = true;
+            consumePower(1.6f);
+            var parts = new DrawBlockParts();
+            parts.parts.add(new ShapePart(){{
+                circle = false;
+                hollow = true;
+                color = colorTo = LPPal.aureus;
+                sides = 4;
+                radius = radiusTo = 14.8f;
+                stroke = 0f;
+                strokeTo = 2f;
+                layer = 110;
+                progress = PartProgress.warmup.curve(Interp.circleIn);
+            }});
+            parts.parts.add(new HaloPart(){{
+                tri = true;
+                color = colorTo = LPPal.aureus;
+                shapes = 2;
+                radius = 0f;
+                radiusTo = 3f;
+                triLength = 16f;
+                triLengthTo = 16f;
+                haloRadius = 18.5f;
+                haloRotateSpeed = 0.3f;
+                layer = 110;
+                progress = PartProgress.warmup.curve(Interp.circleIn);
+            }});
+            parts.parts.add(new HaloPart(){{
+                tri = true;
+                color = colorTo = LPPal.aureus;
+                shapes = 2;
+                radius = 0f;
+                radiusTo = 3f;
+                triLength = 3f;
+                triLengthTo = 3f;
+                shapeRotation = 180f;
+                haloRadius = 18.5f;
+                haloRotateSpeed = 0.3f;
+                layer = 110;
+                progress = PartProgress.warmup.curve(Interp.circleIn);
+            }});
+            parts.parts.add(new HaloPart(){{
+                tri = true;
+                color = colorTo = LPPal.aureus;
+                shapes = 2;
+                radius = 0f;
+                radiusTo = 3f;
+                triLength = 10f;
+                triLengthTo = 10f;
+                haloRadius = 18.5f;
+                haloRotation = 90f;
+                haloRotateSpeed = -0.5f;
+                layer = 110;
+                progress = PartProgress.warmup.curve(Interp.circleIn);
+            }});
+            parts.parts.add(new HaloPart(){{
+                tri = true;
+                color = colorTo = LPPal.aureus;
+                shapes = 2;
+                radius = 0f;
+                radiusTo = 3f;
+                triLength = 3f;
+                triLengthTo = 3f;
+                shapeRotation = 180f;
+                haloRadius = 18.5f;
+                haloRotation = 90f;
+                haloRotateSpeed = -0.5f;
+                layer = 110;
+                progress = PartProgress.warmup.curve(Interp.circleIn);
+            }});
+            drawer = new DrawMulti(new DrawDefault(), new DrawPumpLiquid(), new DrawCircles(){{
+                color = Color.valueOf("FCF287A8");
+                amount = 6;
+                sides = 4;
+                strokeMin = 0.6f;
+                strokeMax = 1.2f;
+                radius = 15f;
+                strokeInterp = Interp.circleOut;
+            }}, new DrawRegion("-top"), parts);
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.liquid, with(LPItems.massisteel, 120, LPItems.jynsteel, 36, LPItems.crystalite, 27));
+        }};
+
+        massisteelLiquidStorage = new LiquidRouter("massisteel-liquid-storage"){{
+            size = 2;
+            health = 58;
+            liquidCapacity = 800f;
+            liquidPadding = 5f;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.liquid, with(LPItems.massisteel, 22, LPItems.jynsteel, 8));
+        }};
+
+        massisteelLiquidStorageLarge = new LiquidRouter("massisteel-liquid-storage-large"){{
+            size = 3;
+            health = 67;
+            liquidCapacity = 1600f;
+            liquidPadding = 3f;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.liquid, with(LPItems.massisteel, 30, LPItems.jynsteel, 16));
+        }};
+
         //wall
         jynWall = new Wall("jyn-wall"){{
             size = 1;
@@ -175,7 +544,7 @@ public class LPBlocks {
             researchCostMultiplier = 0.4f;
             buildVisibility = BuildVisibility.sandboxOnly;
         }};
-        
+
         //storage
         pioneers = new CoreBlock("pioneers") {{
             size = 3;
