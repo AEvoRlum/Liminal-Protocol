@@ -8,7 +8,7 @@ import mindustry.type.Item;
 import LP.graphics.LPPal;
 
 public class LPItems {
-    public static Item crystalite, erocrys, ionopolymer, jynsteel, litelnlay, massisteel, transchimericsteel;
+    public static Item jynsteel, massisteel, litelnlay,  transchimericsteel, crystalite, erocrys, ionopolymer;
 
     public static Seq <Item> items = new Seq<>();
     private LPItems(){
