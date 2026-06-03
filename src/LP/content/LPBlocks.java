@@ -5,6 +5,8 @@ import arc.math.*;
 import arc.struct.*;
 import mindustry.*;
 import mindustry.content.UnitTypes;
+import mindustry.content.Fx;
+import mindustry.content.Items;
 import mindustry.entities.*;
 import mindustry.entities.abilities.*;
 import mindustry.entities.effect.*;
@@ -45,6 +47,8 @@ import LP.graphics.LPPal;
 public class LPBlocks {
     //turret
     //production
+    public static Block jynDrill, shearDrill, impactDrill0;
+
     //distribution
     public static Block jynDuct, jynDuctbridge, jynSorter, jynInvertedSorter, jynOverflow, jynUnderflow, jynUnloader;
     public static Block litConveyor, litBridgeConveyor, litJunction, litUnloader;
@@ -55,6 +59,8 @@ public class LPBlocks {
     public static Block massisteelLiquidStorage , massisteelLiquidStorageLarge;
 
     //power
+    public static Block jynPowerNode, jynPowerNodeLarge, jynBattery, heavyIonChamber;
+
     //wall
     public static Block jynWall, jynWallLarge, masWall, masWallLarge, traWall, traWallLarge, ttfWall;
 
@@ -79,6 +85,84 @@ public class LPBlocks {
     public static Block process1, process2, process3, process4;
 
     public static void load(){
+        //production
+        jynDrill = new Drill("jyn-drill"){{
+            size = 3;
+            health = 87;
+            tier = 2;
+            drillTime = 180f;
+            rotateSpeed = -0.4f;
+            warmupSpeed = 0.005f;   
+            hardnessDrillMultiplier = 3f;
+            itemCapacity = 24;
+            liquidCapacity = 16f;
+            liquidBoostIntensity = 1.2f;
+            drawRim = false;
+            canOverdrive = true;
+            outlineColor = LPPal.outline;
+            blockedItems = Seq.with(Items.copper, Items.lead, Items.thorium, Items.titanium, Items.sand, Items.scrap, Items.beryllium, Items.tungsten, Items.coal);
+            drillEffect = LPFx.jynDrillEffect;
+            updateEffect = LPFx.jynDrillUpdateEffect;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0f;
+            requirements(Category.production, with(LPItems.jynsteel, 31));
+        }};
+        
+        shearDrill = new Drill("shear-drill"){{
+            size = 3;
+            health = 95;
+            tier = 3;
+            drillTime = 240f;
+            rotateSpeed = -0.35f;
+            warmupSpeed = 0.002f;
+            hardnessDrillMultiplier = 4f;
+            itemCapacity = 24;
+            liquidCapacity = 24f;
+            liquidBoostIntensity = 1.2f;
+            drawRim = false;
+            canOverdrive = true;
+            outlineColor = LPPal.outline;
+            blockedItems = Seq.with(Items.copper, Items.lead, Items.thorium, Items.titanium, Items.sand, Items.scrap, Items.beryllium, Items.tungsten, Items.coal);
+            drillEffect = LPFx.shearDrillEffect;
+            updateEffect = LPFx.shearDrillUpdateEffect;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.production, with(LPItems.jynsteel, 32, LPItems.erocrys, 18));
+        }};
+        
+        impactDrill0 = new BurstDrill("impact-drill0"){{
+            size = 4;
+            health = 224;
+            tier = 3;
+            drillTime = 120f;
+            invertedTime = 60f;
+            itemCapacity = 48;
+            liquidCapacity = 36f;
+            consumePower(0.7f);
+            shake = 2f;
+            arrows = 2;
+            arrowSpacing = 3f;
+            arrowOffset = -2.5f;
+            arrowColor = LPPal.orange;
+            baseArrowColor = Color.valueOf("828A94");
+            glowColor = LPPal.orange;
+            fogRadius = 4;
+            liquidBoostIntensity = 1.1f;
+            outlineColor = LPPal.outline;
+            hasPower = true;
+            squareSprite = true;
+            drillSound = LPSounds.shootBang;
+            blockedItems = Seq.with(Items.copper, Items.lead, Items.thorium, Items.titanium, Items.sand, Items.scrap, Items.beryllium, Items.tungsten, Items.coal);
+            drillMultipliers = new ObjectFloatMap<>();
+            drillMultipliers.put(LPItems.jynsteel, 1.4f);
+            drillMultipliers.put(LPItems.erocrys, 1.5f);
+            drillMultipliers.put(LPItems.massisteel, 1.4f);
+            drillMultipliers.put(LPItems.litelnlay, 1.45f);
+            drillEffect = LPFx.impactDrillEffect;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.1f;
+            requirements(Category.production, with(LPItems.transchimericsteel, 92, LPItems.jynsteel, 32, LPItems.erocrys, 24));
+        }};
 
         //distribution
         jynDuctbridge = new DuctBridge("jyn-ductbridge"){{
@@ -298,9 +382,10 @@ public class LPBlocks {
                 radius = radiusTo = 6f;
                 stroke = 0f;
                 strokeTo = 1.5f;
-                layer = 110;
+                layer = 110f;
                 progress = PartProgress.warmup.curve(Interp.circleIn);
             }});
+
             parts.parts.add(new HaloPart(){{
                 tri = true;
                 color = colorTo = LPPal.aureus;
@@ -311,9 +396,10 @@ public class LPBlocks {
                 triLengthTo = 3f;
                 haloRadius = 5f;
                 haloRotateSpeed = 0.5f;
-                layer = 110;
+                layer = 110f;
                 progress = PartProgress.warmup.curve(Interp.circleIn);
             }});
+
             parts.parts.add(new HaloPart(){{
                 tri = true;
                 color = colorTo = LPPal.aureus;
@@ -325,7 +411,7 @@ public class LPBlocks {
                 shapeRotation = 180f;
                 haloRadius = 5f;
                 haloRotateSpeed = 0.5f;
-                layer = 110;
+                layer = 110f;
                 progress = PartProgress.warmup.curve(Interp.circleIn);
             }});
             drawer = new DrawMulti(new DrawPumpLiquid(), new DrawDefault(), parts);
@@ -354,9 +440,10 @@ public class LPBlocks {
                 radius = radiusTo = 14.8f;
                 stroke = 0f;
                 strokeTo = 2f;
-                layer = 110;
+                layer = 110f;
                 progress = PartProgress.warmup.curve(Interp.circleIn);
             }});
+
             parts.parts.add(new HaloPart(){{
                 tri = true;
                 color = colorTo = LPPal.aureus;
@@ -367,9 +454,10 @@ public class LPBlocks {
                 triLengthTo = 16f;
                 haloRadius = 18.5f;
                 haloRotateSpeed = 0.3f;
-                layer = 110;
+                layer = 110f;
                 progress = PartProgress.warmup.curve(Interp.circleIn);
             }});
+
             parts.parts.add(new HaloPart(){{
                 tri = true;
                 color = colorTo = LPPal.aureus;
@@ -381,9 +469,10 @@ public class LPBlocks {
                 shapeRotation = 180f;
                 haloRadius = 18.5f;
                 haloRotateSpeed = 0.3f;
-                layer = 110;
+                layer = 110f;
                 progress = PartProgress.warmup.curve(Interp.circleIn);
             }});
+
             parts.parts.add(new HaloPart(){{
                 tri = true;
                 color = colorTo = LPPal.aureus;
@@ -395,9 +484,10 @@ public class LPBlocks {
                 haloRadius = 18.5f;
                 haloRotation = 90f;
                 haloRotateSpeed = -0.5f;
-                layer = 110;
+                layer = 110f;
                 progress = PartProgress.warmup.curve(Interp.circleIn);
             }});
+
             parts.parts.add(new HaloPart(){{
                 tri = true;
                 color = colorTo = LPPal.aureus;
@@ -410,7 +500,7 @@ public class LPBlocks {
                 haloRadius = 18.5f;
                 haloRotation = 90f;
                 haloRotateSpeed = -0.5f;
-                layer = 110;
+                layer = 110f;
                 progress = PartProgress.warmup.curve(Interp.circleIn);
             }});
             drawer = new DrawMulti(new DrawDefault(), new DrawPumpLiquid(), new DrawCircles(){{
@@ -447,6 +537,143 @@ public class LPBlocks {
             requirements(Category.liquid, with(LPItems.massisteel, 30, LPItems.jynsteel, 16));
         }};
 
+        //power
+        jynPowerNode = new PowerNode("jyn-power-node"){{
+            health = 17;
+            laserRange = 8f;
+            maxNodes = 5;
+            laserColor1 = Color.valueOf("FCB570");
+            laserColor2 = Color.valueOf("EB564B");
+            priority = -1f;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.power, with(LPItems.jynsteel, 5, LPItems.erocrys, 2));
+        }};
+        
+        jynPowerNodeLarge = new PowerNode("jyn-power-node-large"){{
+            size = 2;
+            health = 33;
+            laserRange = 18f;
+            maxNodes = 10;
+            laserColor1 = LPPal.orange;
+            laserColor2 = LPPal.orangeDark;
+            priority = -1f;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.power, with(LPItems.jynsteel, 16, LPItems.erocrys, 6));
+        }};
+        
+        jynBattery = new Battery("jyn-battery"){{
+            size = 3;
+            health = 112;
+            emptyLightColor = LPPal.orangeDark;
+            fullLightColor = Color.valueOf("D99F6B");
+            conductivePower = true;
+            solid = true;
+            hasPower = true;
+            consumePowerBuffered(6120f);
+            priority = -1f;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.power, with(LPItems.jynsteel, 54,LPItems.crystalite, 54, LPItems.erocrys, 24));
+        }};
+        
+        heavyIonChamber = new ConsumeGenerator("heavy-ion-chamber"){{
+            size = 5;
+            health = 342;
+            powerProduction = 28f;
+            itemDuration = 240f;
+            itemCapacity = 24;
+            hasLiquids = false;
+            hasItems = true;
+            consumeItem(LPItems.ionopolymer, 4);
+            generateEffect = Fx.none;
+            consumeEffect = LPFx.heavyIonChamberConsumption;
+            ambientSound = LPSounds.loopThoriumReactor;
+            ambientSoundVolume = 0.8f;
+            baseLightRadius = 80f;
+            var parts = new DrawBlockParts();
+            parts.parts = Seq.with(
+                new ShapePart(){{
+                    circle = false;
+                    hollow = true;
+                    color = colorTo = LPPal.orangeMid;
+                    sides = 4;
+                    radius = radiusTo = 18f;
+                    stroke = 0f;
+                    strokeTo = 2.5f;
+                    layer = 110f;
+                    progress = PartProgress.warmup.curve(Interp.circleIn);
+                }},
+
+                new ShapePart(){{
+                    circle = false;
+                    hollow = true;
+                    color = colorTo = LPPal.orangeMid;
+                    sides = 4;
+                    radius = radiusTo = 9.3f;
+                    stroke = 0f;
+                    strokeTo = 1.5f;
+                    layer = 110f;
+                    progress = PartProgress.warmup.curve(Interp.circleIn);
+                }},
+
+                new HaloPart(){{
+                    tri = true;
+                    color = colorTo = LPPal.orangeMid;
+                    shapes = 2;
+                    radius = 0f;
+                    radiusTo = 3f;
+                    triLength = 12f;
+                    triLengthTo = 24f;
+                    haloRadius = 0f;
+                    haloRotation = 0f;
+                    haloRotateSpeed = 0.2f;
+                    layer = 110f;
+                    progress = PartProgress.warmup.curve(Interp.circleIn);
+                }},
+
+                new HaloPart(){{
+                    tri = true;
+                    color = colorTo = LPPal.orangeMid;
+                    shapes = 2;
+                    radius = 0f;
+                    radiusTo = 3f;
+                    triLength = 5f;
+                    triLengthTo = 10f;
+                    haloRadius = 0f;
+                    haloRotation = 0f;
+                    haloRotateSpeed = -0.3f;
+                    layer = 110f;
+                    progress = PartProgress.warmup.curve(Interp.circleIn);
+                }},
+
+                new HaloPart(){{
+                    tri = true;
+                    color = Color.valueOf("E8D17400");
+                    colorTo = LPPal.orangeMid;
+                    shapes = 2;
+                    radius = 0.5f;
+                    radiusTo = 0.5f;
+                    triLength = 20f;
+                    triLengthTo = 40f;
+                    haloRadius = 0f;
+                    haloRotation = 0f;
+                    haloRotateSpeed = 0f;
+                    layer = 110f;
+                    progress = PartProgress.warmup.curve(Interp.circleIn);
+                }}
+            );
+            drawer = new DrawMulti(new DrawDefault(), new DrawGlowRegion("-glow"){{
+                glowScale = 6;
+                alpha = 1f;
+                color = LPPal.orange;
+            }}, parts);
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.power, with(LPItems.jynsteel, 240, LPItems.massisteel, 160, LPItems.erocrys, 160));
+        }};
+
         //wall
         jynWall = new Wall("jyn-wall"){{
             size = 1;
@@ -455,7 +682,7 @@ public class LPBlocks {
             flashHit = true;
             chanceDeflect = 0.02f;
             flashColor = LPPal.orange;
-            priority = 2;
+            priority = 2f;
             buildCostMultiplier = 0.8f;
             researchCostMultiplier = 0f;
             alwaysUnlocked = false;
@@ -472,7 +699,7 @@ public class LPBlocks {
             flashHit = true;
             chanceDeflect = 0.04f;
             flashColor = LPPal.orange;
-            priority = 2;
+            priority = 2f;
             buildCostMultiplier = 0.8f;
             researchCostMultiplier = 0f;
             alwaysUnlocked = false;
@@ -489,7 +716,7 @@ public class LPBlocks {
             flashHit = true;
             chanceDeflect = 0.02f;
             flashColor = LPPal.aureus;
-            priority = 2;
+            priority = 2f;
             buildCostMultiplier = 0.8f;
             researchCostMultiplier = 0f;
             alwaysUnlocked = false;
@@ -505,7 +732,7 @@ public class LPBlocks {
             armor = 5;
             flashHit = true;
             flashColor = LPPal.aureus;
-            priority = 2;
+            priority = 2f;
             buildCostMultiplier = 0.8f;
             researchCostMultiplier = 0.4f;
             alwaysUnlocked = false;
@@ -522,7 +749,7 @@ public class LPBlocks {
             flashHit = true;
             crushDamageMultiplier = 0.8f;
             flashColor = LPPal.redDark;
-            priority = 2;
+            priority = 2f;
             buildCostMultiplier = 0.8f;
             researchCostMultiplier = 0f;
             alwaysUnlocked = false;
@@ -539,7 +766,7 @@ public class LPBlocks {
             flashHit = true;
             crushDamageMultiplier = 0.7f;
             flashColor = LPPal.redDark;
-            priority = 2;
+            priority = 2f;
             buildCostMultiplier = 0.8f;
             researchCostMultiplier = 0.1f;
             alwaysUnlocked = false;
@@ -565,7 +792,7 @@ public class LPBlocks {
             itemCapacity = 2000;
             unitCapModifier = 16;
             unitType = LPUnits.pioneersUnit;
-            priority = 10;
+            priority = 10f;
             alwaysUnlocked = true;
             canOverdrive = false;
             isFirstTier = true;

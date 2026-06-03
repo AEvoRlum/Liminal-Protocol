@@ -15,6 +15,7 @@ import arc.math.Rand;
 import arc.math.geom.Position;
 import arc.math.geom.Rect;
 import arc.math.geom.Vec2;
+import arc.struct.ObjectMap;
 import arc.struct.Seq;
 import arc.util.Nullable;
 import arc.util.Time;
@@ -46,6 +47,9 @@ import mindustry.type.Weapon;
 import mindustry.type.weapons.*;
 import mindustry.world.meta.BlockFlag;
 import mindustry.world.meta.Env;
+import mindustry.world.meta.Stat;
+import mindustry.world.meta.StatUnit;
+import mindustry.world.meta.StatValue;
 import mindustry.entities.bullet.*;
 
 import LP.graphics.LPPal;
@@ -76,7 +80,6 @@ public class LPUnits {
             buildSpeed = 1f;
             buildRange = 200f;
             itemCapacity = 60;
-            ammoCapacity = 325;
             mineRange = 200f;
             mineSpeed = 1.6f;
             mineTier = 2;
@@ -118,31 +121,32 @@ public class LPUnits {
             layer = 110f;
         }};
     }
-    
+
     private static RepairBeamWeapon pioneersRepairWeapon() {
-        RepairBeamWeapon repair = new RepairBeamWeapon();
-        repair.reload = 20f;
-        repair.shootCone = 30f;
-        repair.x = 0f;
-        repair.y = 1.5f;
-        repair.shootY = 0f;
-        repair.shootX = 0f;
-        repair.mirror = false;
-        repair.rotate = false;
-        repair.controllable = true;
-        repair.alternate = false;
-        repair.widthSinMag = 0.15f;
-        repair.repairSpeed = 5f;
-        repair.beamWidth = 0.5f;
-        repair.fractionRepairSpeed = 1f;
-        repair.laserColor = LPPal.orange;
-        repair.healColor = Pal.heal;
-        repair.targetBuildings = true;
-        repair.autoTarget = false;
+        RepairBeamWeapon p = new RepairBeamWeapon();
+        p.reload = 20f;
+        p.shootCone = 30f;
+        p.x = 0f;
+        p.y = 1.5f;
+        p.shootY = 0f;
+        p.shootX = 0f;
+        p.layerOffset = 110 + 51f;
+        p.mirror = false;
+        p.rotate = false;
+        p.controllable = true;
+        p.alternate = false;
+        p.widthSinMag = 0.15f;
+        p.repairSpeed = 5f;
+        p.beamWidth = 0.5f;
+        p.fractionRepairSpeed = 1f;
+        p.laserColor = LPPal.orange;
+        p.healColor = Pal.heal;
+        p.targetBuildings = true;
+        p.autoTarget = false;
         BulletType bullet = new BulletType();
         bullet.maxRange = 200f;
-        repair.bullet = bullet;
-        return repair;
+        p.bullet = bullet;
+        return p;
     }
 
     private static BuildWeapon pioneersBuildWeapon() {
