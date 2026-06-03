@@ -12,6 +12,7 @@ public class LPPal extends Pal {
     public static Color aureusDark;
     public static Color aureusDarkMid;
     public static Color orange;
+    public static Color orangeMid;
     public static Color orangeDark;
     public static Color orangeRed;
     public static Color redDark;
@@ -29,6 +30,7 @@ public class LPPal extends Pal {
         aureusDark = Color.valueOf("F8F0AF");
         aureusDarkMid = Color.valueOf("FCF8D7");
         orange = Color.valueOf("FFB570");
+        orangeMid = Color.valueOf("E8D174");
         orangeDark = Color.valueOf("EB564B");
         orangeRed = Color.valueOf("FF5845");
         redDark = Color.valueOf("FF4040");
