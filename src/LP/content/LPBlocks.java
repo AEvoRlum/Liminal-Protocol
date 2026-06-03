@@ -65,6 +65,18 @@ public class LPBlocks {
 
     //logic
     //environment
+    public static Block jynSteelOre, massisteelOre, erocrysOre, litelnlayOre;
+
+    public static Block coreFloor, darkStone, darkStoneRubble, rhyoliticLimestone, rhyoliticRubble, 
+    relicfloor, relicfloor2, relicfloor3, relicfloor4, relicfloor5, relicfloor6, reliclines, reliclines2, relictiles, relictiles2, 
+    reliclinesLines, reliclinesLinesTra, reliclinesLinesRup, reliclinesLinesRdo, reliclinesLinesLup, reliclinesLinesLdo;
+
+    public static Block darkStoneRock;
+
+    public static Block darkStoneWall, rhyoliticLimestoneWall, relicWall, relicWall2, reliclinesWall, reliclinesWall2, darkStoneCrystal, erocrysCrystal;
+
+    //Process
+    public static Block process1, process2, process3, process4;
 
     public static void load(){
 
@@ -572,6 +584,229 @@ public class LPBlocks {
             alwaysUnlocked = false;
             researchCostMultiplier = 0.4f;
             requirements(Category.effect, with(LPItems.jynsteel, 20, LPItems.erocrys, 8));
+        }};
+
+        //environment
+        coreFloor = new Floor("core-floor"){{
+            variants = 0;
+            drawEdgeIn = false;
+            drawEdgeOut = false;
+        }};
+
+        darkStone = new Floor("darkstone"){{
+            variants = 3;
+        }};
+
+        darkStoneRubble = new Floor("darkstone-rubble"){{
+            variants = 4;
+        }};
+        
+        
+        rhyoliticLimestone = new Floor("rhyolitic-limestone"){{
+            variants = 4;
+        }};
+        
+        rhyoliticRubble = new Floor("rhyolitic-rubble"){{
+            variants = 3;
+        }};
+
+        relicfloor = new Floor("relicfloor"){{
+            variants = 0;
+        }};
+    
+        relicfloor2 = new Floor("relicfloor-2"){{
+            variants = 0;
+        }};
+    
+        relicfloor3 = new Floor("relicfloor-3"){{
+            variants = 0;
+        }};
+    
+        relicfloor4 = new Floor("relicfloor-4"){{
+            variants = 0;
+        }};
+    
+        relicfloor5 = new Floor("relicfloor-5"){{
+            variants = 0;
+        }};
+    
+        relicfloor6 = new Floor("relicfloor-6"){{
+            variants = 0;
+        }};
+    
+        reliclines = new Floor("reliclines"){{
+            variants = 15;
+        }};
+
+        reliclines2 = new Floor("reliclines-2"){{
+            variants = 15;
+        }};
+
+        relictiles = new Floor("relictiles"){{
+            variants = 25;
+            drawEdgeIn = false;
+            drawEdgeOut = false;
+        }};
+
+        relictiles2 = new Floor("relictiles-2"){{
+            variants = 18;
+            drawEdgeIn = false;
+            drawEdgeOut = false;
+        }};
+
+        reliclinesLines = new Floor("reliclines-lines"){{
+            variants = 4;
+            emitLight = true;
+            lightRadius = 12f;
+            lightColor = Color.valueOf("F2D3D3FF");
+            mapColor = Color.valueOf("494949");
+        }};
+
+        reliclinesLinesTra = new Floor("reliclines-lines-tra"){{
+            variants = 4;
+            emitLight = true;
+            lightRadius = 12f;
+            lightColor = Color.valueOf("F2D3D3FF");
+            mapColor = Color.valueOf("494949");
+        }};
+        
+        reliclinesLinesRup = new Floor("reliclines-lines-rup"){{
+            variants = 4;
+            emitLight = true;
+            lightRadius = 12f;
+            lightColor = Color.valueOf("F2D3D3FF");
+            mapColor = Color.valueOf("494949");
+        }};
+        
+        reliclinesLinesRdo = new Floor("reliclines-lines-rdo"){{
+            variants = 4;
+            emitLight = true;
+            lightRadius = 12f;
+            lightColor = Color.valueOf("F2D3D3FF");
+            mapColor = Color.valueOf("494949");
+        }};
+        
+        reliclinesLinesLup = new Floor("reliclines-lines-lup"){{
+            variants = 4;
+            emitLight = true;
+            lightRadius = 12f;
+            lightColor = Color.valueOf("F2D3D3FF");
+            mapColor = Color.valueOf("494949");
+        }};
+        
+        reliclinesLinesLdo = new Floor("reliclines-lines-ldo"){{
+            variants = 4;
+            emitLight = true;
+            lightRadius = 12f;
+            lightColor = Color.valueOf("F2D3D3FF");
+            mapColor = Color.valueOf("494949");
+        }};
+
+        jynSteelOre = new OreBlock("jynsteel-ore"){{
+            variants = 3;
+            itemDrop = LPItems.jynsteel;
+            useColor = true;
+            wallOre = false;
+            mapColor = Color.valueOf("5F6372");
+        }};
+
+        massisteelOre = new OreBlock("massisteel-ore"){{
+            variants = 4;
+            itemDrop = LPItems.massisteel;
+            useColor = true;
+            wallOre = false;
+            mapColor = Color.valueOf("7B7B7B");
+        }};
+
+        erocrysOre = new OreBlock("erocrys-ore"){{
+            variants = 3;
+            itemDrop = LPItems.erocrys;
+            useColor = true;
+            wallOre = false;
+            mapColor = Color.valueOf("FFB570");
+        }};
+
+        litelnlayOre = new OreBlock("litelnlay-ore"){{
+            variants = 4;
+            itemDrop = LPItems.litelnlay;
+            useColor = true;
+            wallOre = false;
+            mapColor = Color.valueOf("E8EBFF");
+        }};
+
+        darkStoneRock = new Prop("darkstone-rock"){{
+            variants = 4;
+        }};
+
+        darkStoneWall = new StaticWall("darkstone-wall"){{
+            variants = 3;
+            darkStone.asFloor().wall = darkStoneRubble.asFloor().wall = this;
+        }};
+        
+        rhyoliticLimestoneWall = new StaticWall("rhyolitic-limestone-wall"){{
+            variants = 3;
+            rhyoliticLimestone.asFloor().wall = rhyoliticRubble.asFloor().wall = this;
+        }};
+        
+        
+        relicWall = new StaticWall("relicwall"){{
+            variants = 50;
+        }};
+        
+        relicWall2 = new StaticWall("relicwall-2"){{
+            variants = 30;
+        }};
+        
+        reliclinesWall = new StaticWall("reliclines-wall"){{
+            variants = 6;
+        }};
+        
+        reliclinesWall2 = new StaticWall("reliclines-wall-2"){{
+            variants = 6;
+        }};
+        
+        darkStoneCrystal = new TallBlock("darkstone-crystal"){{
+            variants = 1;
+            clipSize = 96f;
+            shadowAlpha = 0.5f;
+            shadowOffset = -1.55f;
+        }};
+        
+        erocrysCrystal = new TallBlock("erocrys-crystal"){{
+            variants = 2;
+            clipSize = 96f;
+            shadowAlpha = 0.5f;
+            shadowOffset = -1.55f;
+        }};
+
+        //Process
+
+        process1 = new MessageBlock("process1"){{
+            alwaysUnlocked = false;
+            placeablePlayer = false;
+            displayFlow = false;
+            databaseTag = "proc";
+        }};
+
+        process2 = new MessageBlock("process2"){{
+            alwaysUnlocked = false;
+            placeablePlayer = false;
+            displayFlow = false;
+            databaseTag = "proc";
+        }};
+
+        process3 = new MessageBlock("process3"){{
+            alwaysUnlocked = false;
+            placeablePlayer = false;
+            displayFlow = false;
+            databaseTag = "proc";
+        }};
+        
+        process4 = new MessageBlock("process4"){{
+            alwaysUnlocked = false;
+            placeablePlayer = false;
+            displayFlow = false;
+            databaseTag = "proc";
         }};
     }
 }
