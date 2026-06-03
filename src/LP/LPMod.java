@@ -1,11 +1,12 @@
 package LP;
 
-import LP.content.*;
 import arc.*;
 import arc.util.*;
 import mindustry.game.EventType;
 import mindustry.mod.*;
 import mindustry.ui.dialogs.*;
+
+import LP.content.*;
 
 public class LPMod extends Mod {
     public LPMod() {
@@ -19,11 +20,12 @@ public class LPMod extends Mod {
     @Override
     public void loadContent() {
         super.loadContent();
-        LPStatusEffect.load();
         LPContent.loadPriority();
         LPItems.load();
         LPPlanets.load();
         LPSounds.load();
+        LPFx.loadPriority();
+        LPStatusEffect.load();
         LPUnits.load();
         LPBlocks.load();
     }
