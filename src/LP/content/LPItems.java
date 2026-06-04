@@ -16,6 +16,62 @@ public class LPItems {
     }
     
     public static void load(){
+        jynsteel = new Item("jynsteel", Color.valueOf("5F6372")){{
+            hardness = 2;
+            radioactivity = 0f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0f;
+            cost = 0.4f;
+            healthScaling = 1.12f;
+            frames = 0;
+            buildable = true;
+            alwaysUnlocked = false;
+            databaseTag = "build-mat";
+        }};
+
+        massisteel = new Item("massisteel", Color.valueOf("545F66")){{
+            hardness = 3;
+            radioactivity = 0f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0.2f;
+            cost = 0.8f;
+            healthScaling = 1.2f;
+            frames = 0;
+            buildable = true;
+            alwaysUnlocked = false;
+            databaseTag = "build-mat";
+        }};
+
+        litelnlay = new Item("litelnlay", Color.valueOf("E8EBFF")){{
+            hardness = 2;
+            radioactivity = 0f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0f;
+            cost = 0.35f;
+            healthScaling = 1.05f;
+            frames = 0;
+            buildable = true;
+            alwaysUnlocked = false;
+            databaseTag = "build-mat";
+        }};
+
+        transchimericsteel = new Item("transchimericsteel", Color.valueOf("AAACB5")){{
+            hardness = 3;
+            radioactivity = 0f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0f;
+            cost = 0.85f;
+            healthScaling = 1.5f;
+            frames = 0;
+            buildable = true;
+            alwaysUnlocked = false;
+            databaseTag = "build-mat";
+        }};
+
         crystalite = new Item("crystalite", LPPal.orangeDark){{
             hardness = 1;
             radioactivity = 0.2f;
@@ -56,62 +112,6 @@ public class LPItems {
             buildable = false;
             alwaysUnlocked = false;
             databaseTag = "cons-mat";
-        }};
-
-        jynsteel = new Item("jynsteel", Color.valueOf("5F6372")){{
-            hardness = 2;
-            radioactivity = 0f;
-            explosiveness = 0f;
-            flammability = 0f;
-            charge = 0f;
-            cost = 0.4f;
-            healthScaling = 1.12f;
-            frames = 0;
-            buildable = true;
-            alwaysUnlocked = false;
-            databaseTag = "build-mat";
-        }};
-
-        litelnlay = new Item("litelnlay", Color.valueOf("E8EBFF")){{
-            hardness = 2;
-            radioactivity = 0f;
-            explosiveness = 0f;
-            flammability = 0f;
-            charge = 0f;
-            cost = 0.35f;
-            healthScaling = 1.05f;
-            frames = 0;
-            buildable = true;
-            alwaysUnlocked = false;
-            databaseTag = "build-mat";
-        }};
-
-        massisteel = new Item("massisteel", Color.valueOf("545F66")){{
-            hardness = 3;
-            radioactivity = 0f;
-            explosiveness = 0f;
-            flammability = 0f;
-            charge = 0.2f;
-            cost = 0.8f;
-            healthScaling = 1.2f;
-            frames = 0;
-            buildable = true;
-            alwaysUnlocked = false;
-            databaseTag = "build-mat";
-        }};
-
-        transchimericsteel = new Item("transchimericsteel", Color.valueOf("AAACB5")){{
-            hardness = 3;
-            radioactivity = 0f;
-            explosiveness = 0f;
-            flammability = 0f;
-            charge = 0f;
-            cost = 0.85f;
-            healthScaling = 1.5f;
-            frames = 0;
-            buildable = true;
-            alwaysUnlocked = false;
-            databaseTag = "build-mat";
         }};
     }
 }
