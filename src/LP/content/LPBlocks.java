@@ -161,7 +161,7 @@ public class LPBlocks {
             );
         }};
 
-        disflux = new ChainItemTurret("disflux"){{
+        disflux = new LPItemTurret("disflux"){{
             size = 2;
             health = 154;
             armor = 3;
@@ -232,7 +232,7 @@ public class LPBlocks {
             }});
         }};
 
-        impactor = new ItemTurret("impactor"){{
+        impactor = new LPItemTurret("impactor"){{
             size = 3;
             health = 244;
             armor = 7;
@@ -330,6 +330,75 @@ public class LPBlocks {
                     subTrailWidth = 2f;
                     subTrailLength = 12;
                     subHitEffect = LPFx.impactorHitSmall;
+                }}
+            );
+        }};
+
+        repulstar = new LPItemTurret("repulstar"){{
+            size = 4;
+            health = 456;
+            armor = 7;
+            requirements(Category.turret, with(LPItems.massisteel, 240, LPItems.jynsteel, 126, LPItems.erocrys, 72));
+            rotateSpeed = 3f;
+            reload = 140f;
+            range = 304f;
+            recoil = 4f;
+            recoilTime = 60f;
+            shake = 5f;
+            shootCone = 2f;
+            outlineColor = LPPal.outline;
+            shootSound = LPSounds.blasterShot1;
+            shootSoundVolume = 1.8f;
+            maxAmmo = 20;
+            ammoPerShot = 2;
+            heatRequirement = 4f;
+            maxHeatEfficiency = 1f;
+            consumePower(2f);
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            buildTime = 120f;
+            databaseTag = "zd";
+            destroySound = Sounds.blockExplode3;
+            destroyEffect = LPFx.repulstarDestroy;
+            drawer = new DrawTurret(){{
+                parts = Seq.with(new RegionPart("-barrel"){{
+                    x = y = 0f;
+                    heatColor = LPPal.redDark;
+                    heatProgress = PartProgress.recoil;
+                    progress = PartProgress.recoil;
+                    under = false;
+                    mirror = false;
+                    moveY = -5;
+                }});
+            }};
+            ammo(
+                LPItems.massisteel, new SplashKnockbackBulletType(38f, 8f, 5f){{
+                    sprite = "lp-plasma";
+                    width = 8;
+                    height = 8;
+                    shrinkY = 0f;
+                    hitSize = 64f;
+                    hitColor = lightColor = frontColor = backColor = trailColor = LPPal.aureus;
+                    trailWidth = 3;
+                    trailLength = 2;
+                    rangeOverride = 304f;
+                    knockback = 40f;
+                    splashKnockback = 40f;
+                    splashKnockbackRadius = 96f;
+                    splashDamage = 65f;
+                    splashDamageRadius = 96f;
+                    ammoMultiplier = 1f;
+                    armorMultiplier = 4f;
+                    shieldDamageMultiplier = 1.1f;
+                    buildingDamageMultiplier = 1.05f;
+                    keepVelocity = false;
+                    shootEffect = LPFx.repulstarShoot;
+                    smokeEffect = LPFx.repulstarSmoke;
+                    hitEffect = LPFx.repulstarHit;
+                    hitSound = LPSounds.hitRepelback;
+                    hitSoundVolume = 1.2f;
+                    hitShake = 12;
+                    despawnEffect = Fx.none;
                 }}
             );
         }};
