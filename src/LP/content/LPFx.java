@@ -1187,5 +1187,241 @@ public class LPFx {
             colorFrom = LPPal.aureus;
             colorTo = LPPal.aureus;
         }}
+    ),
+
+    repulstarDestroy = new MultiEffect(
+        new ParticleEffect(){{
+            particles = 12;
+            line = true;
+            lifetime = 30f;
+            length = 12f;
+            baseLength = 2f;
+            interp = Interp.pow10Out;
+            sizeInterp = Interp.pow2In;
+            lenFrom = 40f;
+            lenTo = 0f;
+            strokeFrom = 1.5f;
+            strokeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.orangeDark;
+        }},
+        new ParticleEffect(){{
+            particles = 16;
+            line = true;
+            lifetime = 30f;
+            length = 40f;
+            baseLength = 2f;
+            interp = Interp.pow5Out;
+            sizeInterp = Interp.pow2In;
+            lenFrom = 24f;
+            lenTo = 0f;
+            strokeFrom = 1.5f;
+            strokeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.orangeDark;
+        }},
+        new ParticleEffect(){{
+            particles = 12;
+            lifetime = 30f;
+            length = 32f;
+            baseLength = 2f;
+            interp = Interp.pow4Out;
+            sizeInterp = Interp.pow5In;
+            sizeFrom = 8f;
+            sizeTo = 0f;
+            colorFrom = Color.valueOf("45454570");
+            colorTo = Color.valueOf("47474700");
+        }},
+        new WaveEffect(){{
+            lifetime = 30f;
+            interp = Interp.pow5Out;
+            sizeFrom = 0f;
+            sizeTo = 80f;
+            strokeFrom = 1.5f;
+            strokeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.orangeDark;
+        }}
+    ),
+
+    repulstarShoot = new MultiEffect(
+        new ParticleEffect(){{
+            particles = 1;
+            region = "lp-starenergy-bullet-back";
+            lifetime = 20f;
+            length = 0f;
+            baseLength = 0f;
+            baseRotation = 45f;
+            useRotation = false;
+            interp = Interp.pow5Out;
+            sizeInterp = Interp.pow3In;
+            sizeFrom = 12f;
+            sizeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.aureus;
+        }},
+        
+        new ParticleEffect(){{
+            particles = 9;
+            line = true;
+            lifetime = 25f;
+            length = 40f;
+            baseLength = 2f;
+            interp = Interp.pow3Out;
+            sizeInterp = Interp.pow2In;
+            cone = 50f;
+            lenFrom = 18f;
+            lenTo = 0f;
+            strokeFrom = 1.5f;
+            strokeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.aureus;
+        }},
+
+        new ParticleEffect(){{
+            particles = 6;
+            region = "lp-triangle";
+            lifetime = 20f;
+            length = 28f;
+            baseLength = 2f;
+            interp = Interp.pow3Out;
+            sizeInterp = Interp.pow2In;
+            spin = 3f;
+            cone = 50f;
+            sizeFrom = 3f;
+            sizeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.aureus;
+        }},
+
+        new ParticleEffect(){{
+            particles = 6;
+            region = "lp-triangle";
+            lifetime = 20f;
+            length = 28f;
+            baseLength = 2f;
+            interp = Interp.pow3Out;
+            sizeInterp = Interp.pow2In;
+            spin = -3f;
+            cone = 50f;
+            sizeFrom = 3f;
+            sizeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.aureus;
+        }}
+    ),
+
+    repulstarSmoke = new ParticleEffect(){{
+        particles = 6;
+        lifetime = 30f;
+        length = 16f;
+        baseLength = 1f;
+        interp = Interp.pow10Out;
+        sizeInterp = Interp.pow5In;
+        sizeFrom = 5f;
+        sizeTo = 0f;
+        colorFrom = Color.valueOf("45454570");
+        colorTo = Color.valueOf("48484800");
+    }},
+
+    repulstarHit = new MultiEffect(
+        LPFx.smoothColorCircle(LPPal.aureus, 80f, 25f),
+        LPFx.smoothColorCircle(LPPal.aureus, 60f, 20f),
+
+        new ParticleEffect(){{
+            particles = 1;
+            region = "lp-star";
+            lifetime = 20f;
+            length = 0f;
+            baseLength = 0f;
+            baseRotation = 0f;
+            useRotation = false;
+            interp = Interp.circleIn;
+            sizeInterp = Interp.circleIn;
+            sizeFrom = 80f;
+            sizeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.aureus;
+        }},
+
+        new ParticleEffect(){{
+            startDelay = 20f;
+            particles = 1;
+            region = "lp-star";
+            lifetime = 20f;
+            length = 0f;
+            baseLength = 0f;
+            baseRotation = 0f;
+            useRotation = false;
+            interp = Interp.circleIn;
+            sizeInterp = Interp.circleIn;
+            sizeFrom = 80f;
+            sizeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.aureus;
+            layer = 110;
+        }},
+
+        new ParticleEffect(){{
+            particles = 16;
+            line = true;
+            lifetime = 25f;
+            length = 40f;
+            baseLength = 2f;
+            interp = Interp.circleOut;
+            sizeInterp = Interp.circleIn;
+            lenFrom = 24f;
+            lenTo = 0f;
+            strokeFrom = 1.5f;
+            strokeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.aureus;
+        }},
+        
+        new ParticleEffect(){{
+            particles = 2;
+            region = "lp-triangle";
+            lifetime = 30f;
+            length = 64f;
+            baseLength = -2f;
+            interp = Interp.circleOut;
+            sizeInterp = Interp.pow10In;
+            spin = 7f;
+            sizeFrom = 4f;
+            sizeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.aureus;
+        }},
+
+        new ParticleEffect(){{
+            particles = 2;
+            region = "lp-triangle";
+            lifetime = 30f;
+            length = 64f;
+            baseLength = -2f;
+            interp = Interp.circleOut;
+            sizeInterp = Interp.pow10In;
+            spin = -7f;
+            sizeFrom = 4f;
+            sizeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.aureus;
+        }},
+
+        new ParticleEffect(){{
+            particles = 4;
+            region = "lp-star";
+            lifetime = 60f;
+            length = 64f;
+            baseLength = 2f;
+            baseRotation = 0f;
+            useRotation = false;
+            interp = Interp.circleOut;
+            sizeInterp = Interp.pow10In;
+            sizeFrom = 5f;
+            sizeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.aureus;
+        }}
     );
 }
