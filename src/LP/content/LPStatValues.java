@@ -167,7 +167,7 @@ public class LPStatValues {
                     }
 
                     if(type.buildingDamageMultiplier != 1){
-                        sep(bt, Core.bundle.format("bullet.lp-buildingdamage", ammoStat((int)(type.buildingDamageMultiplier * 100 - 100))));
+                        sep(bt, Core.bundle.format("bullet.buildingdamage", ammoStat((int)(type.buildingDamageMultiplier * 100 - 100))));
                     }
 
                     if(type.rangeChange != 0 && !compact){
@@ -196,7 +196,7 @@ public class LPStatValues {
                     }
 
                     if(type instanceof SplashKnockbackBulletType b && b.splashKnockback > 0){
-                        sep(bt, Core.bundle.format("bullet.splashknockback", b.splashKnockback, Strings.fixed(b.splashKnockbackRadius / tilesize, 1)));
+                        sep(bt, Core.bundle.format("bullet.lp-splashknockback", b.splashKnockback, Strings.fixed(b.splashKnockbackRadius / tilesize, 1)));
                     }
 
                     if(type.healPercent > 0f){
