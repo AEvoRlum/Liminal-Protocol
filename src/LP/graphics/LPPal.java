@@ -1,8 +1,6 @@
 package LP.graphics;
 
 import arc.graphics.Color;
-import mindustry.content.Items;
-import mindustry.game.Team;
 import mindustry.graphics.Pal;
 
 public class LPPal extends Pal {
