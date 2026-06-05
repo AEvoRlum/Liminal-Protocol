@@ -2,10 +2,8 @@ package LP.content;
 
 import arc.Core;
 import arc.graphics.g2d.TextureRegion;
-import mindustry.Vars;
 import mindustry.ctype.Content;
 import mindustry.ctype.ContentType;
-import mindustry.graphics.Layer;
 import LP.LPMod;
 
 public class LPContent extends Content{

@@ -3,49 +3,38 @@ package LP.content;
 import arc.graphics.*;
 import arc.math.*;
 import arc.struct.*;
-import mindustry.*;
-import mindustry.content.UnitTypes;
 import mindustry.content.Fx;
 import mindustry.content.Items;
-import mindustry.entities.*;
-import mindustry.entities.abilities.*;
-import mindustry.entities.effect.*;
-import mindustry.entities.part.DrawPart.*;
+import mindustry.content.StatusEffects;
+import mindustry.content.Liquids;
 import mindustry.entities.part.*;
-import mindustry.entities.pattern.*;
-import mindustry.game.*;
+import mindustry.entities.bullet.*;
 import mindustry.gen.*;
-import mindustry.graphics.*;
 import mindustry.type.*;
-import mindustry.type.unit.*;
 import mindustry.world.*;
-import mindustry.world.blocks.*;
-import mindustry.world.blocks.campaign.*;
 import mindustry.world.blocks.defense.*;
 import mindustry.world.blocks.defense.turrets.*;
 import mindustry.world.blocks.distribution.*;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.blocks.heat.*;
-import mindustry.world.blocks.legacy.*;
 import mindustry.world.blocks.liquid.*;
 import mindustry.world.blocks.logic.*;
-import mindustry.world.blocks.payloads.*;
 import mindustry.world.blocks.power.*;
 import mindustry.world.blocks.production.*;
-import mindustry.world.blocks.sandbox.*;
 import mindustry.world.blocks.storage.*;
-import mindustry.world.blocks.units.*;
-import mindustry.world.consumers.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
-import static mindustry.Vars.*;
 import static mindustry.type.ItemStack.*;
 
 import LP.graphics.LPPal;
+import LP.entities.blocks.*;
+import LP.entities.bullets.*;
 
 public class LPBlocks {
     //turret
+    public static Block lucenser, disflux, impactor, repulstar, radiance, meteor, cloudpiercer;
+
     //production
     public static Block jynDrill, shearDrill, impactDrill0;
 
@@ -65,6 +54,9 @@ public class LPBlocks {
     public static Block jynWall, jynWallLarge, masWall, masWallLarge, traWall, traWallLarge, ttfWall;
 
     //craft
+    public static Block masHeatRedirector, masHeatRedirectorSmall, masHeatRouter, masHeatRouterSmall, masSlagHeater;
+    public static Block ionopolymerCrucible, ionopolymerCrucibleLarge, erocrysExtractory, transChimericFoundry, highSpeedTranschimericFoundry;
+
     //unit
     //storage
     public static Block pioneers, jynVault;
@@ -85,6 +77,263 @@ public class LPBlocks {
     public static Block process1, process2, process3, process4;
 
     public static void load(){
+        //turret
+        lucenser = new ItemTurret("lucenser"){{
+            size = 2;
+            health = 147;
+            armor = 4;
+            requirements(Category.turret, with(LPItems.jynsteel, 73, LPItems.erocrys, 26));
+            rotateSpeed = 4;
+            reload = 60f;
+            range = 160f;
+            recoil = 1.4f;
+            recoilTime = 40f;
+            shake = 2f;
+            shootCone = 1f;
+            cooldownTime = 90f;
+            heatColor = LPPal.redDark;
+            outlineColor = LPPal.outline;
+            shootSound = LPSounds.shootArtillerySapBig;
+            maxAmmo = 20;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0f;
+            buildTime = 120f;
+            databaseTag = "cj";
+            destroySound = LPSounds.blockExplode2Alt;
+            destroyEffect = LPFx.lucenserDestroy;
+            shootY = 4f;
+            ammo(
+                LPItems.jynsteel, new BasicBulletType(){{
+                    sprite = "lp-pierce";
+                    width = 4f;
+                    height = 4f;
+                    shrinkY = 0f;
+                    hitColor = lightColor = frontColor = backColor = trailColor = LPPal.aureus;
+                    trailWidth = 1f;
+                    trailLength = 6;
+                    ammoMultiplier = 1f;
+                    armorMultiplier = 0.65f;
+                    damage = 54f;
+                    speed = 8f;
+                    lifetime = 20f;
+                    rangeOverride = 160f;
+                    shootEffect = LPFx.lucenserJynsteelShoot;
+                    hitSound = LPSounds.explosionCrawler;
+                    hitShake = 3f;
+                    hitEffect = LPFx.lucenserJynsteelHit;
+                    despawnEffect = LPFx.lucenserJynsteelDespawn;
+                }},
+
+                LPItems.erocrys, new BasicBulletType(){{
+                    sprite = "lp-crystal";
+                    width = 4f;
+                    height = 4f;
+                    shrinkY = 0f;
+                    hitColor = lightColor = frontColor = backColor = trailColor = LPPal.orange;
+                    trailWidth = 1f;
+                    trailLength = 6;
+                    ammoMultiplier = 1f;
+                    armorMultiplier = 0.8f;
+                    damage = 34f;
+                    speed = 8f;
+                    lifetime = 20f;
+                    rangeOverride = 160f;
+                    shootEffect = LPFx.lucenserErocrysShoot;
+                    hitSound = LPSounds.acceleratorLightning1;
+                    hitShake = 3f;
+                    hitEffect = LPFx.lucenserErocrysHit;
+                    despawnEffect = LPFx.lucenserErocrysDespawn;
+                    despawnHit = false;
+                    fragOnHit = true;
+                    fragOnDespawn = false;
+                    fragBullets = 2;
+                    fragBullet = new LightningBulletType(){{
+                        lightningColor = LPPal.orange;
+                        damage = 8;
+                        lightningLength = 4;
+                        lightningLengthRand = 6;
+                        despawnEffect = Fx.none;
+                        hitColor = LPPal.orange;
+                        hitEffect = Fx.none;
+                        status = StatusEffects.none;
+                    }};
+                }}
+            );
+        }};
+
+        disflux = new ChainItemTurret("disflux"){{
+            size = 2;
+            health = 154;
+            armor = 3;
+            requirements(Category.turret, with(LPItems.jynsteel, 103));
+            rotateSpeed = 4;
+            reload = 80f;
+            range = 148f;
+            recoil = 1f;
+            recoilTime = 60f;
+            shake = 2f;
+            shootCone = 1f;
+            cooldownTime = 90f;
+            heatColor = LPPal.redDark;
+            outlineColor = LPPal.outline;
+            shootSound = Sounds.shootArc;
+            maxAmmo = 12;
+            ammoPerShot = 4;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0f;
+            buildTime = 120f;
+            databaseTag = "gr";
+            destroySound = LPSounds.blockExplode2;
+            destroyEffect = LPFx.disfluxDestroy;
+            shootY = 3f;
+            ammo(LPItems.erocrys, new ChainBulletType(36f){{
+                maxHit = 2;
+                chainRange = 32f;
+                maxRange = length = 148f;
+                boltWidth = 1.5f;
+                hitColor = lightColor = LPPal.orange;
+                ammoMultiplier = 1f;
+                armorMultiplier = 4f;
+                shieldDamageMultiplier = 3f;
+                buildingDamageMultiplier = 0.45f;
+                status = LPStatusEffect.empI;
+                statusDuration = 120f;
+                hitShake = 2;
+                hitSound = Sounds.shootArc;
+                despawnShake = 2;
+                shootEffect = LPFx.disfluxShoot;
+                hitEffect = LPFx.disfluxHit;
+                smokeEffect = Fx.none;
+                fragBullets = 1;
+                fragOffsetMax = 0f;
+                fragOffsetMin = 0f;
+                fragBullet = new EmpBulletType(){{
+                    hitUnits = true;
+                    instantDisappear = true;
+                    armorMultiplier = 5.5f;
+                    shieldDamageMultiplier = 2f;
+                    radius = 64f;
+                    speed = 0f;
+                    damage = 4; 
+                    status = LPStatusEffect.empI;
+                    statusDuration = 60f;
+                    powerSclDecrease = 0.8f;
+                    powerDamageScl = 0.8f;
+                    unitDamageScl = 0.65f;
+                    timeIncrease = 1;
+                    timeDuration = 0;
+                    hitColor = LPPal.orange;
+                    hitSound = Sounds.shootArc;
+                    despawnEffect = Fx.none;
+                    chainEffect = Fx.chainLightning;
+                    hitPowerEffect = LPFx.disfluxHit;
+                    applyEffect = LPFx.disfluxHit;
+                }};
+            }});
+        }};
+
+        impactor = new ItemTurret("impactor"){{
+            size = 3;
+            health = 244;
+            armor = 7;
+            requirements(Category.turret, with(LPItems.jynsteel, 133, LPItems.massisteel, 76, LPItems.erocrys, 33));
+            reload = 80f;
+            range = 224f;
+            recoil = 2f;    
+            recoilTime = 30f;
+            shake = 3f;
+            shootCone = 1f;
+            cooldownTime = 90f;
+            heatColor = LPPal.redDark;
+            outlineColor = LPPal.outline;
+            shootSound = LPSounds.martianCrash;
+            maxAmmo = 24;
+            ammoPerShot = 3;
+            consumePower(1.5f);
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            buildTime = 120f;
+            databaseTag = "zd";
+            destroySound = LPSounds.blockExplode2Alt;
+            destroyEffect = LPFx.impactorDestroy;
+            shootY = 2.5f;
+            drawer = new DrawTurret(){{
+                parts = Seq.with(
+                    new FlarePart(){{
+                        y = 2.5f;
+                        followRotation = true;
+                        color1 = LPPal.aureus.cpy().a(0.8f);
+                        color2 = LPPal.aureus;
+                        sides = 2;
+                        radius = 0f;
+                        radiusTo = 32f;
+                        stroke = 1.6f;
+                        spinSpeed = 0f;
+                        rotation = 90f;
+                        innerRadScl = 0.4f;
+                        innerScl = 0.5f;
+                        layer = 110f;
+                        progress = PartProgress.recoil;
+                    }},
+
+                    new HaloPart(){{
+                        y = 2.5f;
+                        tri = true;
+                        color = colorTo = LPPal.aureus;
+                        shapes = 1;
+                        radius = 0f;
+                        radiusTo = 5f;
+                        triLength = 32f;
+                        triLengthTo = 32f;
+                        haloRadius = 0f;
+                        layer = 110f;
+                        progress = PartProgress.recoil;
+                    }},
+
+                    new HaloPart(){{
+                        y = 2.5f;
+                        tri = true;
+                        color = colorTo = LPPal.aureus;
+                        shapes = 1;
+                        radius = 0f;
+                        radiusTo = 5f;
+                        triLength = 16f;
+                        triLengthTo = 16f;
+                        shapeRotation = 180f;
+                        haloRadius = 0f;
+                        layer = 110f;
+                        progress = PartProgress.recoil;
+                    }}
+                );
+            }};
+            ammo(
+                LPItems.massisteel, new ImpactBulletType(72f, 12f, 22.4f, 10f, 3f, 2f){{
+                    rangeOverride = 224f;
+                    sprite = "lp-crystal";
+                    width = 12;
+                    height = 18;
+                    shrinkY = 0f;
+                    hitColor = lightColor = frontColor = backColor = trailColor = LPPal.aureus;
+                    trailWidth = 3;
+                    trailLength = 10;
+                    ammoMultiplier =  1f;
+                    armorMultiplier = 1.25f;
+                    shieldDamageMultiplier = 1.45f;
+                    buildingDamageMultiplier = 1.15f;
+                    shootEffect = LPFx.impactorShoot;
+                    hitSound = Sounds.explosionQuad;
+                    hitShake = 6;
+                    despawnEffect = hitEffect = LPFx.impactorHit;
+                    despawnEffect = Fx.none;
+                    subBulletWidth = 6f;
+                    subBulletHeight = 9f;
+                    subTrailWidth = 2f;
+                    subTrailLength = 12;
+                    subHitEffect = LPFx.impactorHitSmall;
+                }}
+            );
+        }};
+
         //production
         jynDrill = new Drill("jyn-drill"){{
             size = 3;
@@ -782,6 +1031,326 @@ public class LPBlocks {
             alwaysUnlocked = true;
             researchCostMultiplier = 0.4f;
             buildVisibility = BuildVisibility.sandboxOnly;
+        }};
+
+        //craft
+        masHeatRedirector = new HeatConductor("mas-heat-redirector"){{
+            size = 2;
+            health = 28;
+            visualMaxHeat = 12f;
+            rotateDraw = false;
+            canOverdrive = true;
+            alwaysUnlocked = false;
+            drawer = new DrawMulti(new DrawDefault(), new DrawHeatOutput(), new DrawHeatInput("-heat"));
+            researchCostMultiplier = 0.4f;
+            requirements(Category.crafting, with(LPItems.massisteel, 12, LPItems.erocrys, 4));
+        }};
+        
+        masHeatRedirectorSmall= new HeatConductor("mas-heat-redirector-small"){{
+            size = 1;
+            health = 12;
+            visualMaxHeat = 6f;
+            rotateDraw = false;
+            canOverdrive = true;
+            alwaysUnlocked = false;
+            drawer = new DrawMulti(new DrawDefault(), new DrawHeatOutput(), new DrawHeatInput("-heat"));
+            researchCostMultiplier = 0.4f;
+            requirements(Category.crafting, with(LPItems.massisteel, 6, LPItems.erocrys, 3));
+        }};
+        
+        masHeatRouter = new HeatConductor("mas-heat-router"){{
+            size = 2;
+            health = 36;
+            visualMaxHeat = 16f;
+            rotateDraw = false;
+            canOverdrive = true;
+            splitHeat = true;
+            alwaysUnlocked = false;
+            drawer = new DrawMulti(new DrawDefault(), new DrawHeatOutput(-1, true), new DrawHeatOutput(), new DrawHeatOutput(1, true), new DrawHeatInput("-heat"));
+            researchCostMultiplier = 0.4f;
+            requirements(Category.crafting, with(LPItems.massisteel, 17, LPItems.erocrys, 6));
+        }};
+        
+        masHeatRouterSmall = new HeatConductor("mas-heat-router-small"){{
+            size = 1;
+            health = 16;
+            visualMaxHeat = 8f;
+            rotateDraw = false;
+            canOverdrive = true;
+            splitHeat = true;
+            alwaysUnlocked = false;
+            drawer = new DrawMulti(new DrawDefault(), new DrawHeatOutput(-1, true), new DrawHeatOutput(), new DrawHeatOutput(1, true), new DrawHeatInput("-heat"));
+            researchCostMultiplier = 0.4f;
+            requirements(Category.crafting, with(LPItems.massisteel, 8, LPItems.erocrys, 4));
+        }};
+        
+        masSlagHeater = new HeatProducer("mas-slag-heater"){{
+            size = 3;
+            health = 86;
+            itemCapacity = 0;
+            liquidCapacity = 80f;
+            consumeLiquid(Liquids.slag, 0.2f);
+            heatOutput = 24f;
+            warmupRate = 0.05f;
+            craftTime = 60f;
+            ambientSound = Sounds.loopHum;
+            rotateDraw = false;
+            canOverdrive = true;
+            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(Liquids.slag), new DrawDefault(), new DrawHeatOutput()); 
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.crafting, with(LPItems.massisteel, 40, LPItems.erocrys, 24));
+        }};
+
+        ionopolymerCrucible = new HeatCrafter("ionopolymer-crucible"){{
+            size = 3;
+            health = 126;
+            itemCapacity = 20;
+            liquidCapacity = 0f;
+            heatRequirement = 12f;
+            maxEfficiency = 3f;
+            craftTime = 180f;
+            consumeItems(with(LPItems.jynsteel, 4, LPItems.erocrys, 2, LPItems.massisteel, 1));
+            outputItem = new ItemStack(LPItems.ionopolymer, 1);
+            ambientSound = Sounds.loopDifferential;
+            ambientSoundVolume = 0.1f;
+            canOverdrive = false;
+            craftEffect = LPFx.ionopolymerCrucibleCraft;
+            var parts = new DrawBlockParts();
+            parts.parts = Seq.with(
+                new ShapePart(){{
+                    circle = false;
+                    hollow = true;
+                    color = Color.valueOf("FFEF6D00");
+                    colorTo = Color.valueOf("FFB570");
+                    sides = 4;
+                    radius = 0f;
+                    radiusTo = 12f;
+                    stroke = 0f;
+                    strokeTo = 2f;
+                    layer = 110f;
+                    progress = PartProgress.warmup.curve(Interp.circleIn);
+                }}
+            );
+            drawer = new DrawMulti(new DrawDefault(), new DrawHeatInput(), new DrawHeatRegion("-glow"), new DrawFlame(Color.valueOf("FFEF6D")), parts);
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.crafting, with(LPItems.massisteel, 55,LPItems.jynsteel, 35, LPItems.erocrys, 20));
+        }};
+        
+        ionopolymerCrucibleLarge = new HeatCrafter("ionopolymer-crucible-large"){{
+            size = 5;
+            health = 555;
+            itemCapacity = 96;
+            liquidCapacity = 0f;
+            heatRequirement = 48f;
+            maxEfficiency = 1f;
+            craftTime = 240f;
+            consumePower(3.5f);
+            consumeItems(with(LPItems.jynsteel, 48, LPItems.erocrys, 24, LPItems.massisteel, 12));
+            outputItem = new ItemStack(LPItems.ionopolymer, 12);
+            ambientSound = Sounds.loopDifferential;
+            ambientSoundVolume = 0.1f;
+            canOverdrive = false;
+            craftEffect = LPFx.ionopolymerCrucibleLargeCraft;
+            var parts = new DrawBlockParts();
+            parts.parts = Seq.with(
+                new ShapePart(){{
+                    circle = false;
+                    hollow = true;
+                    color = Color.valueOf("FFEF6D00");
+                    colorTo = Color.valueOf("FFB570");
+                    sides = 4;
+                    radius = 0f;
+                    radiusTo = 18f;
+                    stroke = 0f;
+                    strokeTo = 2.5f;
+                    layer = 110f;
+                    progress = PartProgress.warmup.curve(Interp.circleIn);
+                }},
+
+                new ShapePart(){{
+                    circle = false;
+                    hollow = true;
+                    color = Color.valueOf("FFEF6D00");
+                    colorTo = Color.valueOf("FFB570");
+                    sides = 4;
+                    radius = 0f;
+                    radiusTo = 12f;
+                    stroke = 0f;
+                    strokeTo = 1.5f;
+                    layer = 110f;
+                    progress = PartProgress.warmup.curve(Interp.linear).sin(0.1f, 0.4f).mul(PartProgress.warmup.add(0f).mul(10000f).clamp().curve(Interp.circleIn));
+                }}
+            );
+            drawer = new DrawMulti(new DrawDefault(), new DrawHeatInput(), new DrawHeatRegion("-glow"), new DrawFlame(){{
+                flameColor = Color.valueOf("FFEF6D");
+                lightRadius = 64f;
+                flameRadius = 7f;
+                flameRadiusIn = 6f;
+                flameRadiusScl = 3f;
+                flameRadiusMag = 3f;
+                flameRadiusInMag = 0.5f;
+            }}, parts);
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.1f;
+            requirements(Category.crafting, with(LPItems.transchimericsteel, 220, LPItems.massisteel, 216, LPItems.jynsteel, 48, LPItems.crystalite, 44));
+        }};
+
+        erocrysExtractory = new HeatCrafter("erocrys-extractory"){{
+            size = 4;
+            health = 202;
+            itemCapacity = 30;
+            liquidCapacity = 0f;
+            heatRequirement = 8f;
+            maxEfficiency = 2f;
+            craftTime = 240f;
+            consumePower(1.2f);
+            consumeItem(LPItems.erocrys, 15);
+            outputItem = new ItemStack(LPItems.crystalite, 3);
+            ambientSound = LPSounds.loopNecroplasm;
+            ambientSoundVolume = 0.2f;
+            updateEffect = LPFx.erocrysExtractoryUpdate;
+            var parts = new DrawBlockParts();
+            parts.parts = Seq.with(
+                new ShapePart(){{
+                    circle = false;
+                    hollow = true;
+                    color = Color.valueOf("EDA76E");
+                    colorTo = Color.valueOf("EDA76E");
+                    sides = 4;
+                    radius = 17f;
+                    radiusTo = 17f;
+                    stroke = 0f;
+                    strokeTo = 2.5f;
+                    rotateSpeed = -0.2f;
+                    layer = 110f;
+                    progress = PartProgress.warmup.curve(Interp.circleIn);
+                }},
+
+                new ShapePart(){{
+                    circle = false;
+                    hollow = true;
+                    color = Color.valueOf("EDA76E");
+                    colorTo = Color.valueOf("EDA76E");
+                    sides = 4;
+                    radius = 10f;
+                    radiusTo = 10f;
+                    stroke = 0f;
+                    strokeTo = 1.5f;
+                    rotateSpeed = 0.2f;
+                    layer = 110f;
+                    progress = PartProgress.warmup.curve(Interp.circleIn);
+                }}
+            );
+            drawer = new DrawMulti(new DrawDefault(), new DrawHeatInput(), new DrawHeatRegion("-glow"), parts);
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.crafting, with(LPItems.massisteel, 96, LPItems.jynsteel, 82, LPItems.erocrys, 80));
+        }};
+
+        transChimericFoundry = new GenericCrafter("trans-chimeric-foundry"){{
+            size = 4;
+            health = 314;
+            itemCapacity = 32;
+            liquidCapacity = 0f;
+            craftTime = 160f;
+            consumePower(2.8f);
+            consumeItems(with(LPItems.litelnlay, 6, LPItems.massisteel, 4));
+            outputItem = new ItemStack(LPItems.transchimericsteel, 4);
+            ambientSound = LPSounds.loopPressureGenerator;
+            ambientSoundVolume = 0.1f;
+            canOverdrive = true;
+            craftEffect = LPFx.transChimericFoundryCraft;
+            var parts = new DrawBlockParts();
+            parts.parts = Seq.with(
+                new ShapePart(){{
+                    circle = false;
+                    hollow = true;
+                    color = LPPal.orange;
+                    colorTo = Color.valueOf("E8EBFF");
+                    sides = 4;
+                    radius = 16f;
+                    radiusTo = 16f;
+                    stroke = 0f;
+                    strokeTo = 2f;
+                    layer = 110f;
+                    progress = PartProgress.warmup.curve(Interp.circleIn);
+                }}
+            );
+            drawer = new DrawMulti(new DrawDefault(), new DrawGlowRegion("-glow"){{color = LPPal.orange; glowIntensity = 0.8f;}}, 
+            new DrawGlowRegion("-glow0"){{color = LPPal.orange; glowScale = 12f; glowIntensity = 1.2f;}}, 
+            new DrawGlowRegion("-glow1"){{color = LPPal.orange; glowScale = 14f; glowIntensity = 1.6f;}}, new DrawFlame(){{
+                flameColor = Color.valueOf("E8EBFF");
+                lightRadius = 40f;
+                flameRadius = 4.5f;
+                flameRadiusIn = 4f;
+                flameRadiusScl = 4f;
+                flameRadiusMag = 3f;
+                flameRadiusInMag = 0.5f;
+            }}, parts);
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.crafting, with(LPItems.litelnlay, 85, LPItems.massisteel, 66, LPItems.jynsteel, 64, LPItems.crystalite, 32));
+        }};
+
+        highSpeedTranschimericFoundry = new GenericCrafter("high-speed-transchimeric-foundry"){{
+            size = 5;
+            health = 513;
+            itemCapacity = 128;
+            liquidCapacity = 0f;
+            craftTime = 300f;
+            consumePower(5f);
+            consumeItems(with(LPItems.litelnlay, 45, LPItems.massisteel, 30));
+            outputItem = new ItemStack(LPItems.transchimericsteel, 30);
+            ambientSound = LPSounds.loopRegen;
+            ambientSoundVolume = 0.2f;
+            canOverdrive = true;
+            updateEffect = LPFx.highSpeedTranschimericFoundryUpdate;
+            craftEffect = LPFx.highSpeedTranschimericFoundryCraft;
+            var parts = new DrawBlockParts();
+            parts.parts = Seq.with(
+                new RegionPart(){{
+                    outline = false;
+                    mirror = false;
+                    x = 0;
+                    y = 0;
+                    color = Color.valueOf("FFFFFF00");
+                    colorTo = Color.valueOf("FFFFFF00");
+                    xScl = 0;
+                    yScl = 0;
+                    layer = 110;
+                    progress = PartProgress.warmup.curve(Interp.pow10Out);
+                    moveRot = 90;
+                    children = Seq.with(
+                        new ShapePart(){{
+                            circle = false;
+                            hollow = true;
+                            color = Color.valueOf("E8EBFF00");
+                            colorTo = Color.valueOf("E8EBFF");
+                            sides = 4;
+                            radius = 0f;
+                            radiusTo = 18f;
+                            stroke = 0f;
+                            strokeTo = 2.5f;
+                            layer = 110f;
+                            progress = PartProgress.warmup.curve(Interp.circleIn);
+                        }}
+                    );
+                }}
+            );
+            drawer = new DrawMulti(new DrawDefault(), new DrawFlame(){{
+                flameColor = Color.valueOf("E8EBFF");
+                lightRadius = 56f;
+                flameRadius = 3.5f;
+                flameRadiusIn = 3.5f;
+                flameRadiusScl = 8f;
+                flameRadiusMag = 7f;
+                flameRadiusInMag = 2f;
+            }}, parts);
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.1f;
+            requirements(Category.crafting, with(LPItems.transchimericsteel, 180, LPItems.massisteel, 112, LPItems.jynsteel, 142, LPItems.crystalite, 40));
         }};
 
         //storage

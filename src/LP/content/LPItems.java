@@ -2,8 +2,6 @@ package LP.content;
 
 import arc.graphics.Color;
 import arc.struct.Seq;
-import mindustry.content.Items;
-import mindustry.graphics.Pal;
 import mindustry.type.Item;
 import LP.graphics.LPPal;
 

@@ -1,31 +1,7 @@
 package LP.content;
 
 import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.Fill;
-import arc.graphics.g2d.Lines;
-import arc.math.Angles;
-import arc.math.Interp;
-import arc.math.Mathf;
-import arc.util.Time;
-import arc.util.Tmp;
-import mindustry.content.Fx;
-import mindustry.content.Items;
-import mindustry.content.StatusEffects;
-import mindustry.entities.Effect;
-import mindustry.entities.units.StatusEntry;
-import mindustry.game.Team;
-import mindustry.gen.Unit;
-import mindustry.graphics.Pal;
 import mindustry.type.StatusEffect;
-import LP.graphics.LPPal;
-
-import static arc.graphics.g2d.Draw.alpha;
-import static arc.graphics.g2d.Draw.color;
-import static arc.graphics.g2d.Lines.lineAngle;
-import static arc.graphics.g2d.Lines.stroke;
-import static arc.math.Angles.randLenVectors;
-
 public class LPStatusEffect{
     
     public static StatusEffect claim;
