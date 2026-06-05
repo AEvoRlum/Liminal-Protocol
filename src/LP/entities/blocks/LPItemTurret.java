@@ -20,6 +20,8 @@ import mindustry.world.meta.*;
 import mindustry.world.blocks.defense.turrets.*;
 
 import static mindustry.Vars.*;
+import LP.content.LPStatValues;
+
 
 public class LPItemTurret extends Turret{
     public ObjectMap<Item, BulletType> ammoTypes = new OrderedMap<>();
@@ -48,7 +50,7 @@ public class LPItemTurret extends Turret{
         super.setStats();
 
         stats.remove(Stat.itemCapacity);
-        stats.add(Stat.ammo, StatValues.ammo(ammoTypes, name));
+        stats.add(Stat.ammo, LPStatValues.ammo(ammoTypes, name));
         stats.add(Stat.ammoCapacity, maxAmmo / ammoPerShot, StatUnit.shots);
     }
 
