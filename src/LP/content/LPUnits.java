@@ -1,32 +1,11 @@
 package LP.content;
 
-import mindustry.ai.types.*;
-import mindustry.content.Fx;
-import mindustry.content.StatusEffects;
-import mindustry.content.UnitTypes;
-import mindustry.entities.*;
-import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
-import mindustry.entities.effect.*;
 import mindustry.entities.part.*;
-import mindustry.entities.pattern.*;
-import mindustry.entities.units.WeaponMount;
-import mindustry.game.Team;
 import mindustry.gen.*;
-import mindustry.entities.units.UnitController;
-import mindustry.graphics.Drawf;
-import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
-import mindustry.graphics.Trail;
 import mindustry.type.UnitType;
-import mindustry.type.Weapon;
 import mindustry.type.weapons.*;
-import mindustry.world.meta.BlockFlag;
-import mindustry.world.meta.Env;
-import mindustry.world.meta.Stat;
-import mindustry.world.meta.StatUnit;
-import mindustry.world.meta.StatValue;
-import mindustry.entities.bullet.*;
 
 import LP.graphics.LPPal;
 
