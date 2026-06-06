@@ -89,7 +89,7 @@ public class ChainBulletType extends BulletType{
                 }
 
                 for (int j = 0; j < lightning; j++) {
-                    Lightning.create(b, lightningColor, lightningDamage < 0f ? damage : lightningDamage, sureTarget.getX(), sureTarget.getY(),
+                    Lightning.create(b, ChainBulletType.this.hitColor, lightningDamage < 0f ? damage : lightningDamage, sureTarget.getX(), sureTarget.getY(),
                             baseAngle + Mathf.range(lightningCone / 2f) + lightningAngle, lightningLength + Mathf.random(lightningLengthRand));
                 }
 
@@ -102,7 +102,7 @@ public class ChainBulletType extends BulletType{
                     }
                 }
 
-                hitEffect.at(sureTarget.getX(), sureTarget.getY(), hitColor);
+                hitEffect.at(sureTarget.getX(), sureTarget.getY(), ChainBulletType.this.hitColor);
 
                 if(sureTarget instanceof Unit)((Unit)sureTarget).apply(status, statusDuration);
 
