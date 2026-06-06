@@ -169,7 +169,7 @@ public class LPFx {
             if (!(e.data instanceof Vec2Seq)) return;
             Vec2Seq lines = e.data();
 
-            color(e.color, Color.white, e.fout() * 0.6f);
+            color(e.color, e.color, e.fout() * 0.6f);
 
             stroke(e.rotation * e.fout());
 
@@ -185,7 +185,7 @@ public class LPFx {
         })).layer(Layer.effect - 0.001f),
 
         lightningSpark = new Effect(Fx.chainLightning.lifetime, (e) -> {
-            color(Color.white, e.color, e.fin() + 0.25F);
+            color(e.color, e.color, e.fin() + 0.25F);
             stroke(0.65F + e.fout());
             randLenVectors(e.id, 3, e.fin() * e.rotation + 6.0F, (x, y) -> {
                 lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), e.fout() * 4.0F + 2.0F);
@@ -210,7 +210,7 @@ public class LPFx {
     }},
 
     disarrayEffect = new MultiEffect(
-        new WrapEffect(Fx.dynamicSpikes, Color.valueOf("E5E5E5"), 24f),
+        new WrapEffect(LPFx.dynamicSpikes, Color.valueOf("E5E5E5"), 24f),
         new ParticleEffect() {{
             particles = 12;
             line = true;
@@ -1359,7 +1359,6 @@ public class LPFx {
             sizeTo = 0f;
             colorFrom = LPPal.aureus;
             colorTo = LPPal.aureus;
-            layer = 110;
         }},
 
         new ParticleEffect(){{
@@ -1420,6 +1419,378 @@ public class LPFx {
             sizeInterp = Interp.pow10In;
             sizeFrom = 5f;
             sizeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.aureus;
+        }}
+    ),
+
+    radianceDestroy = new MultiEffect(
+        new ParticleEffect(){{
+            particles = 12;
+            line = true;
+            lifetime = 40f;
+            length = 45f;
+            baseLength = 2f;
+            interp = Interp.pow5Out;
+            sizeInterp = Interp.pow2In;
+            lenFrom = 55f;
+            lenTo = 0f;
+            strokeFrom = 2f;
+            strokeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.orangeDark;
+        }},
+
+        new ParticleEffect(){{
+            particles = 12;
+            lifetime = 40f;
+            length = 90f;
+            baseLength = 5f;
+            interp = Interp.pow3Out;
+            sizeInterp = Interp.pow4In;
+            sizeFrom = 7f;
+            sizeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = Color.valueOf("54545400");
+        }},
+
+        new ParticleEffect(){{
+            particles = 12;
+            lifetime = 45f;
+            length = 32f;
+            baseLength = 2f;
+            interp = Interp.pow10Out;
+            sizeInterp = Interp.pow5In;
+            sizeFrom = 8f;
+            sizeTo = 0f;
+            colorFrom = Color.valueOf("45454570");
+            colorTo = Color.valueOf("47474700");
+        }},
+
+        new WaveEffect(){{
+            lifetime = 40f;
+            interp = Interp.pow5Out;
+            sizeFrom = 0f;
+            sizeTo = 80f;
+            strokeFrom = 2f;
+            strokeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.orangeDark;
+        }}
+    ),
+
+    radianceShoot = new MultiEffect(
+        new ParticleEffect(){{
+            particles = 8;
+            line = true;
+            lifetime = 30f;
+            length = 28f;
+            baseLength = 2f;
+            cone = 30f;
+            interp = Interp.pow4Out;
+            sizeInterp = Interp.pow3In;
+            lenFrom = 18f;
+            lenTo = 0f;
+            strokeFrom = 1.5f;
+            strokeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.aureus;
+        }},
+        new ParticleEffect(){{
+            particles = 5;
+            lifetime = 20f;
+            length = 28f;
+            baseLength = 2f;
+            cone = 30f;
+            interp = Interp.pow5Out;
+            sizeInterp = Interp.pow4In;
+            sizeFrom = 6f;
+            sizeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.aureus;
+        }}
+    ),
+
+    radianceSmoke = new ParticleEffect(){{
+        particles = 8;
+        lifetime = 35f;
+        length = 18f;
+        baseLength = 2f;
+        interp = Interp.pow5Out;
+        sizeInterp = Interp.pow10In;
+        sizeFrom = 5f;
+        sizeTo = 0f;
+        colorFrom = Color.valueOf("45454570");
+        colorTo = Color.valueOf("47474700");
+    }},
+
+    radianceHit = new MultiEffect(
+        new WrapEffect(){{
+            effect = Fx.instBomb;
+            color = LPPal.aureus;
+            rotation = 1f;
+        }},
+        new ParticleEffect(){{
+            particles = 24;
+            line = true;
+            lifetime = 15f;
+            length = 48f;
+            baseLength = 2f;
+            interp = Interp.pow4Out;
+            sizeInterp = Interp.pow2In;
+            lenFrom = 28f;
+            lenTo = 0f;
+            strokeFrom = 1.5f;
+            strokeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.aureus;
+        }},
+        new ParticleEffect(){{
+            particles = 8;
+            lifetime = 15f;
+            length = 48f;
+            baseLength = 2f;
+            interp = Interp.pow2Out;
+            sizeInterp = Interp.pow3In;
+            sizeFrom = 7f;
+            sizeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.aureus;
+        }},
+        new WaveEffect(){{
+            lifetime = 15f;
+            interp = Interp.circleOut;
+            sizeFrom = 0f;
+            sizeTo = 72f;
+            strokeFrom = 2f;
+            strokeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.aureus;
+        }}
+    ),
+
+    meteorDestroy = new MultiEffect(
+        new ParticleEffect(){{
+            particles = 12;
+            line = true;
+            lifetime = 30f;
+            length = 12f;
+            baseLength = 2f;
+            interp = Interp.pow10Out;
+            sizeInterp = Interp.pow2In;
+            lenFrom = 40f;
+            lenTo = 0f;
+            strokeFrom = 1.5f;
+            strokeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.orangeDark;
+        }},
+        new ParticleEffect(){{
+            particles = 16;
+            line = true;
+            lifetime = 30f;
+            length = 40f;
+            baseLength = 2f;
+            interp = Interp.pow5Out;
+            sizeInterp = Interp.pow2In;
+            lenFrom = 24f;
+            lenTo = 0f;
+            strokeFrom = 1.5f;
+            strokeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.orangeDark;
+        }},
+        new ParticleEffect(){{
+            particles = 12;
+            lifetime = 30f;
+            length = 32f;
+            baseLength = 2f;
+            interp = Interp.pow4Out;
+            sizeInterp = Interp.pow5In;
+            sizeFrom = 8f;
+            sizeTo = 0f;
+            colorFrom = Color.valueOf("45454570");
+            colorTo = Color.valueOf("47474700");
+        }},
+        new WaveEffect(){{
+            lifetime = 30f;
+            interp = Interp.pow5Out;
+            sizeFrom = 0f;
+            sizeTo = 80f;
+            strokeFrom = 1.5f;
+            strokeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.orangeDark;
+        }}
+    ),
+
+    meteorErocrysShoot = new ParticleEffect(){{
+        particles = 7;
+        line = true;
+        lifetime = 30f;
+        length = 16f;
+        baseLength = 2f;
+        cone = 32f;
+        interp = Interp.pow3Out;
+        sizeInterp = Interp.pow2In;
+        lenFrom = 8f;
+        lenTo = 0f;
+        strokeFrom = 1.5f;
+        strokeTo = 0f;
+        colorFrom = LPPal.orangeDark;
+        colorTo = LPPal.orangeDark;
+    }},
+
+    meteorErocrysSmoke = new ParticleEffect(){{
+        particles = 2;
+        line = true;
+        lifetime = 30f;
+        length = 12f;
+        baseLength = 2f;
+        cone = 30f;
+        interp = Interp.pow2Out;
+        sizeInterp = Interp.pow3In;
+        lenFrom = 12f;
+        lenTo = 0f;
+        strokeFrom = 1.5f;
+        strokeTo = 0f;
+        colorFrom = LPPal.orange;
+        colorTo = LPPal.orangeDark;
+    }},
+
+    meteorErocrysHit = new MultiEffect(
+        new WrapEffect(LPFx.dynamicSpikes, LPPal.orangeDark, 32f),
+
+        new ParticleEffect(){{
+            particles = 6;
+            line = true;
+            lifetime = 30f;
+            length = 32f;
+            baseLength = 2f;
+            interp = Interp.pow5Out;
+            sizeInterp = Interp.pow3In;
+            lenFrom = 24f;
+            lenTo = 0f;
+            strokeFrom = 1.5f;
+            strokeTo = 0f;
+            colorFrom = LPPal.orangeDark;
+            colorTo = LPPal.orangeDark;
+        }},
+
+        new ParticleEffect(){{
+            particles = 6;
+            region = "lp-square";
+            lifetime = 30f;
+            length = 32f;
+            baseLength = 2f;
+            interp = Interp.pow5Out;
+            sizeInterp = Interp.pow3In;
+            sizeFrom = 3f;
+            sizeTo = 0f;
+            colorFrom = LPPal.orangeDark;
+            colorTo = LPPal.orangeDark;
+        }}
+    ),
+
+    meteorJynsteelShoot = new ParticleEffect(){{
+        particles = 7;
+        line = true;
+        lifetime = 30f;
+        length = 16f;
+        baseLength = 2f;
+        cone = 32f;
+        interp = Interp.pow3Out;
+        sizeInterp = Interp.pow2In;
+        lenFrom = 4f;
+        lenTo = 0f;
+        strokeFrom = 1.5f;
+        strokeTo = 0f;
+        colorFrom = LPPal.aureus;
+        colorTo = LPPal.aureus;
+    }},
+
+    meteorJynsteelSmoke = new ParticleEffect(){{
+        particles = 2;
+        line = true;
+        lifetime = 30f;
+        length = 12f;
+        baseLength = 2f;
+        cone = 30f;
+        interp = Interp.pow2Out;
+        sizeInterp = Interp.pow2In;
+        lenFrom = 8f;
+        lenTo = 0f;
+        strokeFrom = 1.5f;
+        strokeTo = 0f;
+        colorFrom = LPPal.aureus;
+        colorTo = LPPal.aureus;
+    }},
+
+    meteorJynsteelHit = new MultiEffect(
+        new WrapEffect(LPFx.dynamicSpikes, LPPal.aureus, 38f),
+
+        new ParticleEffect(){{
+            particles = 8;
+            region = "lp-square";
+            lifetime = 50f;
+            length = 24f;
+            baseLength = 2f;
+            interp = Interp.pow4Out;
+            sizeInterp = Interp.pow3In;
+            sizeFrom = 4f;
+            sizeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.aureus;
+        }},
+
+        new ParticleEffect(){{
+            particles = 4;
+            line = true;
+            lifetime = 50f;
+            length = 36f;
+            baseLength = 2f;
+            baseRotation = 180f;
+            cone = 40f;
+            interp = Interp.pow5Out;
+            sizeInterp = Interp.pow2In;
+            lenFrom = 30f;
+            lenTo = 0f;
+            strokeFrom = 1.5f;
+            strokeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.aureus;
+        }}
+    ),
+
+    meteorJynsteelDespawn = new MultiEffect(
+        new WrapEffect(LPFx.dynamicSpikes, LPPal.aureus, 38f),
+
+        new ParticleEffect(){{
+            particles = 4;
+            region = "lp-square";
+            lifetime = 50f;
+            length = 24f;
+            baseLength = 2f;
+            interp = Interp.pow4Out;
+            sizeInterp = Interp.pow3In;
+            sizeFrom = 4f;
+            sizeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.aureus;
+        }},
+
+        new ParticleEffect(){{
+            particles = 5;
+            line = true;
+            lifetime = 50f;
+            length = 36f;
+            baseLength = 2f;
+            interp = Interp.pow5Out;
+            sizeInterp = Interp.pow2In;
+            lenFrom = 15f;
+            lenTo = 0f;
+            strokeFrom = 1.5f;
+            strokeTo = 0f;
             colorFrom = LPPal.aureus;
             colorTo = LPPal.aureus;
         }}
