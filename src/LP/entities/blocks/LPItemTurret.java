@@ -58,7 +58,7 @@ public class LPItemTurret extends Turret{
     public void setBars(){
         super.setBars();
 
-        addBar("ammo", (ItemTurretBuild entity) ->
+        addBar("ammo", (LPItemTurretBuild entity) ->
             new Bar(
                 "stat.ammo",
                 Pal.ammo,
@@ -75,14 +75,14 @@ public class LPItemTurret extends Turret{
                 MultiReqImage image = new MultiReqImage();
                 content.items().each(i -> filter.get(i) && i.unlockedNow(),
                 item -> image.add(new ReqImage(new Image(item.uiIcon),
-                () -> build instanceof ItemTurretBuild it && !it.ammo.isEmpty() && ((ItemEntry)it.ammo.peek()).item == item)));
+                () -> build instanceof LPItemTurretBuild it && !it.ammo.isEmpty() && ((ItemEntry)it.ammo.peek()).item == item)));
 
                 table.add(image).size(8 * 4);
             }
 
             @Override
             public float efficiency(Building build){
-                return build instanceof ItemTurretBuild it && it.ammo.size > 0 && (it.ammo.peek().amount >= ammoPerShot || it.cheating()) ? 1f : 0f;
+                return build instanceof LPItemTurretBuild it && it.ammo.size > 0 && (it.ammo.peek().amount >= ammoPerShot || it.cheating()) ? 1f : 0f;
             }
 
             @Override
@@ -97,7 +97,7 @@ public class LPItemTurret extends Turret{
         super.init();
     }
 
-    public class ItemTurretBuild extends TurretBuild{
+    public class LPItemTurretBuild extends TurretBuild{
 
         @Override
         public void onProximityAdded(){

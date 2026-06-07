@@ -129,6 +129,63 @@ public class LPFx {
         });
     }
 
+    public static Effect energyExplosion(Color color, float lifetime, float radius) {
+        return new Effect(lifetime, e -> {
+            Draw.color(color);
+                float thMin = radius * 0.4f;
+                float thMax = radius;
+
+                rand.setSeed(e.id);
+                float th = (rand.random(thMin, thMax) * e.fout(Interp.pow5In));
+                float tw = (rand.random(8f, 16f) * e.fout(Interp.pow2In));
+            
+                float tr = e.rotation + rand.random(0f, 360f);
+                /**for循环变成了美妙的石 */
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+                Drawf.tri(e.x, e.y, tw, th, tr);
+
+            Drawf.light(e.x, e.y, radius * 1.2f, color, e.fout());
+        });
+    }
+
     public static final Effect
 
     drillSteam = new Effect(220f, e -> {
@@ -1793,6 +1850,109 @@ public class LPFx {
             strokeTo = 0f;
             colorFrom = LPPal.aureus;
             colorTo = LPPal.aureus;
+        }}
+    ),
+
+    cloudpiercerDestroy = new MultiEffect(
+        new ParticleEffect(){{
+            particles = 14;
+            line = true;
+            lifetime = 40f;
+            length = 45f;
+            baseLength = 2f;
+            interp = Interp.pow5Out;
+            sizeInterp = Interp.pow2In;
+            lenFrom = 55f;
+            lenTo = 0f;
+            strokeFrom = 1.5f;
+            strokeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.orangeDark;
+        }},
+        new ParticleEffect(){{
+            particles = 12;
+            lifetime = 40f;
+            length = 90f;
+            baseLength = 5f;
+            interp = Interp.pow3Out;
+            sizeInterp = Interp.pow2In;
+            sizeFrom = 5f;
+            sizeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = Color.valueOf("54545400");
+        }},
+        new ParticleEffect(){{
+            particles = 12;
+            lifetime = 45f;
+            length = 32f;
+            baseLength = 2f;
+            interp = Interp.pow4Out;
+            sizeInterp = Interp.pow5In;
+            sizeFrom = 8f;
+            sizeTo = 0f;
+            colorFrom = Color.valueOf("45454570");
+            colorTo = Color.valueOf("47474700");
+        }},
+        new WaveEffect(){{
+            lifetime = 40f;
+            interp = Interp.pow3Out;
+            sizeFrom = 0f;
+            sizeTo = 100f;
+            strokeFrom = 2f;
+            strokeTo = 0f;
+            colorFrom = LPPal.aureus;
+            colorTo = LPPal.orangeDark;
+        }}
+    ),
+
+    cloundpiercerHitEffect = new MultiEffect(
+        LPFx.energyExplosion(LPPal.redMid, 30f, 160),
+        LPFx.smoothColorCircle(LPPal.redMid, 80f, 30),
+
+        new ParticleEffect(){{
+            particles = 16;
+            line = true;
+            lifetime = 30f;
+            length = 10f;
+            baseLength = 2f;
+            interp = Interp.pow10Out;
+            sizeInterp = Interp.pow2In;
+            lenFrom = 120f;
+            lenTo = 0f;
+            strokeFrom = 2f;
+            strokeTo = 0f;
+            colorFrom = LPPal.redMid;
+            colorTo = LPPal.redMid;
+        }},
+
+        new ParticleEffect(){{
+            particles = 12;
+            region = "lp-square";
+            lifetime = 30f;
+            length = 120f;
+            baseLength = 8f;
+            interp = Interp.pow5Out;
+            sizeInterp = Interp.pow2In;
+            spin = -4f;
+            sizeFrom = 6f;
+            sizeTo = 0f;
+            colorFrom = LPPal.redMid;
+            colorTo = LPPal.redMid;
+        }},
+
+        new ParticleEffect(){{
+            particles = 12;
+            region = "lp-triangle";
+            lifetime = 30f;
+            length = 120f;
+            baseLength = 8f;
+            interp = Interp.pow5Out;
+            sizeInterp = Interp.pow2In;
+            spin = -4f;
+            sizeFrom = 6f;
+            sizeTo = 0f;
+            colorFrom = LPPal.redMid;
+            colorTo = LPPal.redMid;
         }}
     );
 }

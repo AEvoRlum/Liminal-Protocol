@@ -328,7 +328,6 @@ public class LPBlocks {
                     hitSound = Sounds.explosionQuad;
                     hitShake = 6;
                     despawnEffect = hitEffect = LPFx.impactorHit;
-                    despawnEffect = Fx.none;
                     subBulletWidth = 6f;
                     subBulletHeight = 9f;
                     subTrailWidth = 2f;
@@ -407,7 +406,7 @@ public class LPBlocks {
             );
         }};
 
-        radiance = new PowerTurret("radiance"){{
+        radiance = new LPPowerTurret("radiance"){{
             size = 4;
             health = 448;
             armor = 7;
@@ -514,6 +513,7 @@ public class LPBlocks {
             shootCone = 3;
             inaccuracy = 3f;
             outlineColor = LPPal.outline;
+            shootSound = LPSounds.cannonLargeShot; 
             shootSoundVolume = 1.12f;
             maxAmmo = 24;
             ammoPerShot = 3;
@@ -685,6 +685,346 @@ public class LPBlocks {
                     despawnSound = LPSounds.artilleryHeavyShot;
                 }}
             );
+        }};
+
+        cloudpiercer = new LPPowerTurret("cloudpiercer"){{
+            size = 4;
+            health = 486;
+            armor = 8f;
+            rotateSpeed = 3f;
+            reload = 240f;
+            range = 560f;
+            recoil = 5f;
+            recoilTime = 40f;
+            shake = 6f;
+            cooldownTime = 120f;
+            heatColor = LPPal.redDark;
+            canOverdrive = false;
+            databaseTag = "xn";
+            requirements(Category.turret, with(LPItems.jynsteel, 277, LPItems.massisteel, 145, LPItems.erocrys, 93));
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            buildTime = 120f;
+            shootSound = LPSounds.electricBlockerBreak;
+            shootSoundVolume = 0.95f;
+            destroySound = LPSounds.blockExplodeExplosiveAlt;
+            destroySoundVolume = 2f;
+            destroyEffect = LPFx.cloudpiercerDestroy;
+            shootY = 4f;
+            shoot.firstShotDelay = 220f;
+            consumePower(8.2f);
+            chargeSound = LPSounds.acceleratorCharge;
+            loopSound = LPSounds.loopThruster;
+            outlineColor = LPPal.outline;
+            drawer = new DrawTurret(){{
+                parts = Seq.with(
+                    new ShapePart(){{
+                        hollow = true;
+                        color = LPPal.orangeRed;
+                        colorTo = LPPal.redMid;
+                        sides = 4;
+                        radius = radiusTo = 31f;
+                        stroke = 0f;
+                        strokeTo = 1f;
+                        rotation = 0f;
+                        layer = Layer.effect;
+                        progress = PartProgress.recoil.compress(0f, 0.5f);
+                    }},
+
+                    new FlarePart(){{
+                        y = 4f;
+                        followRotation = false;
+                        color1 = Color.valueOf("FF584500");
+                        color2 = LPPal.redMid;
+                        sides = 2;
+                        radius = 0f;
+                        radiusTo = 28f;
+                        stroke = 1.6f;
+                        spinSpeed = 12f;
+                        rotation = 0f;
+                        innerRadScl = 0.4f;
+                        innerScl = 0.5f;
+                        layer = Layer.effect;
+                        progress = PartProgress.charge.compress(0.85f, 0.95f);
+                    }},
+
+                    new FlarePart(){{
+                        y = 4f;
+                        followRotation = false;
+                        color1 = Color.valueOf("FF584500");
+                        color2 = LPPal.redMid;
+                        sides = 2;
+                        radius = 0f;
+                        radiusTo = 28f;
+                        stroke = 1.6f;
+                        spinSpeed = -12f;
+                        rotation = 0f;
+                        innerRadScl = 0.4f;
+                        innerScl = 0.5f;
+                        layer = Layer.effect;
+                        progress = PartProgress.charge.compress(0.85f, 0.95f);
+                    }},
+
+                    new HaloPart(){{
+                        y = 4f;
+                        tri = true;
+                        color = LPPal.redMid;
+                        colorTo = LPPal.orangeRed;
+                        radius = 0f;
+                        radiusTo = 2f;
+                        triLength = 4f;
+                        triLengthTo = 10f;
+                        haloRadius = 0f;
+                        haloRotateSpeed = -16f;
+                        layer = Layer.effect;
+                        progress = PartProgress.charge.compress(0.7f, 0.95f);
+                    }},
+
+                    new HaloPart(){{
+                        y = 4f;
+                        tri = true;
+                        color = LPPal.redMid;
+                        colorTo = LPPal.orangeRed;
+                        radius = 0f;
+                        radiusTo = 1.6f;
+                        triLength = 1.6f;
+                        triLengthTo = 10f;
+                        shapeRotation = 180f;
+                        haloRadius = 0f;
+                        haloRotateSpeed = 12f;
+                        layer = Layer.effect;
+                        progress = PartProgress.charge.compress(0.7f, 0.9f);
+                    }},
+
+                    new HaloPart(){{
+                        y = 4f;
+                        tri = true;
+                        color = LPPal.redMid;
+                        colorTo = LPPal.orangeRed;
+                        radius = 0f;
+                        radiusTo = 1.6f;
+                        triLength = 1.6f;
+                        triLengthTo = 6f;
+                        shapeRotation = 180f;
+                        haloRadius = 0f;
+                        haloRadiusTo = 3.5f;
+                        haloRotateSpeed = 12f;
+                        layer = Layer.effect;
+                        progress = PartProgress.charge.compress(0.7f, 0.9f);
+                    }},
+
+                    new HaloPart(){{
+                        y = 4f;
+                        tri = true;
+                        color = LPPal.redMid;
+                        colorTo = LPPal.orangeRed;
+                        radius = 0f;
+                        radiusTo = 1.5f;
+                        triLength = 0f;
+                        triLengthTo = 8f;
+                        haloRadius = 0f;
+                        haloRadiusTo = 1.5f;
+                        haloRotateSpeed = 3f;
+                        layer = Layer.effect;
+                        progress = PartProgress.charge.compress(0.2f, 0.7f);
+                    }},
+
+                    new HaloPart(){{
+                        y = 4f;
+                        tri = true;
+                        color = LPPal.redMid;
+                        colorTo = LPPal.orangeRed;
+                        radius = 0f;
+                        radiusTo = 1.5f;
+                        triLength = 0f;
+                        triLengthTo = 12f;
+                        haloRadius = 0f;
+                        haloRadiusTo = 1.5f;
+                        haloRotateSpeed = 6f;
+                        layer = Layer.effect;
+                        progress = PartProgress.charge.compress(0.4f, 1f);
+                    }},
+
+                    new HaloPart(){{
+                        y = 4f;
+                        shapes = 1;
+                        sides = 256;
+                        color = LPPal.redMid;
+                        colorTo = LPPal.orangeRed;
+                        radius = 0f;
+                        radiusTo = 3f;
+                        triLength = 0f;
+                        triLengthTo = 3f;
+                        haloRadius = 0f;
+                        layer = Layer.effect - 0.1f;
+                        progress = PartProgress.charge.compress(0f, 0.8f);
+                    }},
+
+                    new HaloPart(){{
+                        y = 4f;
+                        shapes = 1;
+                        sides = 256;
+                        color = Color.valueOf("FF584500");
+                        colorTo = LPPal.orangeRed;
+                        radius = 1f;
+                        radiusTo = 1f;
+                        triLength = 1f;
+                        triLengthTo = 1f;
+                        haloRadius = 0f;
+                        layer = Layer.effect;
+                        progress = PartProgress.charge.compress(0f, 0.0001f);
+                    }},
+
+                    new EffectSpawnerPart(){{
+                        y = 4f;
+                        effect = new ParticleEffect(){{
+                            region = "lp-plasma";
+                            particles = 1;
+                            length = -50f;
+                            baseLength = 50f;
+                            randLength = false;
+                            interp = Interp.circleIn;
+                            lifetime = 30f;
+                            spin = 2f;
+                            sizeFrom = 6f;
+                            sizeTo = 2f;
+                            colorFrom = LPPal.redMid.a(0f);
+                            colorTo = LPPal.orangeRed;
+                        }};
+                        effectChance = 0.55f;
+                        progress = PartProgress.charge.sin(0.2f, 6f);
+                    }},
+
+                    new EffectSpawnerPart(){{
+                        y = 4f;
+                        effect = new ParticleEffect(){{
+                            line = true;
+                            particles = 1;
+                            length = -55f;
+                            baseLength = 55f;
+                            randLength = false;
+                            interp = Interp.circleIn;
+                            lenFrom = 0f;
+                            lenTo = 12f;
+                            sizeFrom = 1.2f;
+                            sizeTo = 1.2f;
+                            colorFrom = Color.valueOf("FF584590");
+                            colorTo = LPPal.orangeRed;
+                        }};
+                        effectChance = 0.4f;
+                        progress = PartProgress.charge.sin(16f, 0.2f, 6f);
+                    }},
+
+                    new RegionPart(){{
+                        outline = false;
+                        suffix = "-glow1";
+                        blending = Blending.additive;
+                        color = Color.valueOf("FF584500");
+                        colorTo = Color.valueOf("FF584550");
+                        progress = PartProgress.charge.sin(0f, 0.5f, 1f);
+                    }},
+
+                    new RegionPart(){{
+                        outline = false;
+                        suffix = "-glow2";
+                        blending = Blending.additive;
+                        color = Color.valueOf("FF584500");
+                        colorTo = Color.valueOf("FF584550");
+                        progress = PartProgress.charge.sin(60f, 0.5f, 1f);
+                    }},
+
+                    new RegionPart(){{
+                        outline = false;
+                        suffix = "-glow3";
+                        blending = Blending.additive;
+                        color = Color.valueOf("FF584500");
+                        colorTo = Color.valueOf("FF584550");
+                        progress = PartProgress.charge.sin(120f, 0.5f, 1f);
+                    }},
+
+                    new RegionPart(){{
+                        outline = false;
+                        suffix = "-glow4";
+                        blending = Blending.additive;
+                        color = Color.valueOf("FF584500");
+                        colorTo = Color.valueOf("FF584550");
+                        progress = PartProgress.charge.sin(180f, 0.5f, 1f);
+                    }},
+
+                    new RegionPart(){{
+                        outline = false;
+                        suffix = "-glow5";
+                        blending = Blending.additive;
+                        color = Color.valueOf("FF584500");
+                        colorTo = Color.valueOf("FF584550");
+                        progress = PartProgress.charge.sin(240f, 0.5f, 1f);
+                    }},
+
+                    new RegionPart(){{
+                        outline = false;
+                        suffix = "-glow6";
+                        blending = Blending.additive;
+                        color = Color.valueOf("FF584500");
+                        colorTo = Color.valueOf("FF584550");
+                        progress = PartProgress.charge.sin(300f, 0.5f, 1f);
+                    }}
+                );
+            }};
+            shootType = new EnergyBulletType(){{
+                sprite = "lp-plasma";
+                width = 9f;
+                height = 9f;
+                shrinkY = 0f;
+                hitColor = lightColor = backColor = frontColor = trailColor = LPPal.redMid;
+                trailWidth = 3f;
+                trailLength = 6;
+                speed = 56f;
+                lifetime = 10f;
+                maxRange = rangeOverride = 560f;
+                scaleLife = true;
+                damage = 0f;
+                energyDamage = 24000f;
+                shieldEnergyDamageMultiplier = 3f;
+                ammoMultiplier = 1f;
+                /**armorMultiplier = 1.6f;
+                buildingDamageMultiplier = 0.3f;
+                splashDamage = 300f;
+                splashDamageRadius = 120f;*/
+                smokeEffect = Fx.none;
+                shootEffect = Fx.none;
+                hitSound = LPSounds.acceleratorLaunch;
+                hitSoundVolume = 0.9f;
+                hitShake = 16f;
+                despawnHit = true;
+                hitEffect = LPFx.cloundpiercerHitEffect;
+                parts = Seq.with(
+                    new HaloPart(){{
+                        tri = true;
+                        color = LPPal.redMid;
+                        colorTo = LPPal.redMid;
+                        radius = 3f;
+                        radiusTo = 3f;
+                        triLength = 16f;
+                        triLengthTo = 16f;
+                        haloRadius = 0f;
+                        haloRotateSpeed = 12f;
+                        layer = Layer.effect;
+                    }},
+
+                    new HaloPart(){{
+                        tri = true;
+                        color = LPPal.redMid;
+                        colorTo = LPPal.redMid;
+                        radius = 3f;
+                        radiusTo = 3f;
+                        triLength = 10f;
+                        triLengthTo = 10f;
+                        haloRadius = 0f;
+                        haloRotateSpeed = -12f;
+                        layer = Layer.effect;
+                    }}
+                );
+            }};
         }};
 
         //production

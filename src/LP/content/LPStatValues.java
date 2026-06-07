@@ -162,6 +162,10 @@ public class LPStatValues {
                         "[lightgray] ~ [stat]" + Core.bundle.format("bullet.damage", type.continuousDamage()) + StatUnit.perSecond.localized() : ""));
                     }
 
+                    if(type instanceof EnergyBulletType b && b.energyDamage > 0){
+                        sep(bt, Core.bundle.format("bullet.lp-energyDamage", b.energyDamage, Strings.fixed(b.shieldEnergyDamageMultiplier * 100 - 100, 1)));
+                    }
+
                     if(type instanceof ChainBulletType b && b.maxHit > 0){
                         sep(bt, Core.bundle.format("bullet.lp-maxHit", (int)b.maxHit));
                     }
