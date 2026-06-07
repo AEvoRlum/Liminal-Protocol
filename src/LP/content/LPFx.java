@@ -132,55 +132,22 @@ public class LPFx {
     public static Effect energyExplosion(Color color, float lifetime, float radius) {
         return new Effect(lifetime, e -> {
             Draw.color(color);
-                float thMin = radius * 0.4f;
-                float thMax = radius;
 
-                rand.setSeed(e.id);
-                float th = (rand.random(thMin, thMax) * e.fout(Interp.pow5In));
-                float tw = (rand.random(8f, 16f) * e.fout(Interp.pow2In));
-            
-                float tr = e.rotation + rand.random(0f, 360f);
-                /**for循环变成了美妙的石 */
+            float thMin = radius * 0.4f;
+            float thMax = radius;
+
+            // 只设置一次种子，基于 effect 实例 ID
+            rand.setSeed(e.id);
+
+            int count = 40;
+            for (int i = 0; i < count; i++) {
+                // 关键：每次循环调用 random，利用 Rand 的内部状态推进
+                float th = rand.random(thMin, thMax) * e.fout(Interp.pow5In);
+                float tw = rand.random(8f, 16f) * e.fout(Interp.pow2In);
+                float tr = e.rotation + rand.random(360f);  // 0-360 简写
+
                 Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
-                Drawf.tri(e.x, e.y, tw, th, tr);
+            }
 
             Drawf.light(e.x, e.y, radius * 1.2f, color, e.fout());
         });
