@@ -975,7 +975,11 @@ public class LPBlocks {
                 width = 9f;
                 height = 9f;
                 shrinkY = 0f;
-                hitColor = lightColor = backColor = frontColor = trailColor = LPPal.redMid;
+                frontColor = LPPal.redMid;
+                backColor = LPPal.redDark;  // 或 LPPal.redMid，但分别赋值
+                trailColor = LPPal.redDark;
+                hitColor = LPPal.redMid;
+                lightColor = LPPal.redMid;
                 trailWidth = 3f;
                 trailLength = 6;
                 speed = 56f;
