@@ -720,11 +720,11 @@ public class LPBlocks {
                 parts = Seq.with(
                     new ShapePart(){{
                         hollow = true;
-                        color = LPPal.orangeRed;
-                        colorTo = LPPal.redMid;
+                        color = Color.valueOf("FF584500");
+                        colorTo = Color.valueOf("FF584500");
                         sides = 4;
                         radius = radiusTo = 31f;
-                        stroke = 0f;
+                        stroke = 2f;
                         strokeTo = 1f;
                         rotation = 0f;
                         layer = Layer.effect;
@@ -734,8 +734,8 @@ public class LPBlocks {
                     new FlarePart(){{
                         y = 4f;
                         followRotation = false;
-                        color1 = Color.valueOf("FF584500");
-                        color2 = LPPal.redMid;
+                        color1 = Color.valueOf("FF5845");
+                        color2 = Color.valueOf("FF6464");
                         sides = 2;
                         radius = 0f;
                         radiusTo = 28f;
@@ -751,8 +751,8 @@ public class LPBlocks {
                     new FlarePart(){{
                         y = 4f;
                         followRotation = false;
-                        color1 = Color.valueOf("FF584500");
-                        color2 = LPPal.redMid;
+                        color1 = Color.valueOf("FF5845");
+                        color2 = Color.valueOf("FF6464");
                         sides = 2;
                         radius = 0f;
                         radiusTo = 28f;
@@ -768,8 +768,8 @@ public class LPBlocks {
                     new HaloPart(){{
                         y = 4f;
                         tri = true;
-                        color = LPPal.redMid;
-                        colorTo = LPPal.orangeRed;
+                        color = Color.valueOf("FF6464");
+                        colorTo = Color.valueOf("FF6464");
                         radius = 0f;
                         radiusTo = 2f;
                         triLength = 4f;
@@ -783,8 +783,8 @@ public class LPBlocks {
                     new HaloPart(){{
                         y = 4f;
                         tri = true;
-                        color = LPPal.redMid;
-                        colorTo = LPPal.orangeRed;
+                        color = Color.valueOf("FF6464");
+                        colorTo = Color.valueOf("FF6464");
                         radius = 0f;
                         radiusTo = 1.6f;
                         triLength = 1.6f;
@@ -799,8 +799,8 @@ public class LPBlocks {
                     new HaloPart(){{
                         y = 4f;
                         tri = true;
-                        color = LPPal.redMid;
-                        colorTo = LPPal.orangeRed;
+                        color = Color.valueOf("FF6464");
+                        colorTo = Color.valueOf("FF6464");
                         radius = 0f;
                         radiusTo = 1.6f;
                         triLength = 1.6f;
@@ -816,8 +816,8 @@ public class LPBlocks {
                     new HaloPart(){{
                         y = 4f;
                         tri = true;
-                        color = LPPal.redMid;
-                        colorTo = LPPal.orangeRed;
+                        color = Color.valueOf("FF6464");
+                        colorTo = Color.valueOf("FF6464");
                         radius = 0f;
                         radiusTo = 1.5f;
                         triLength = 0f;
@@ -832,8 +832,8 @@ public class LPBlocks {
                     new HaloPart(){{
                         y = 4f;
                         tri = true;
-                        color = LPPal.redMid;
-                        colorTo = LPPal.orangeRed;
+                        color = Color.valueOf("FF6464");
+                        colorTo = Color.valueOf("FF6464");
                         radius = 0f;
                         radiusTo = 1.5f;
                         triLength = 0f;
@@ -849,8 +849,8 @@ public class LPBlocks {
                         y = 4f;
                         shapes = 1;
                         sides = 256;
-                        color = LPPal.redMid;
-                        colorTo = LPPal.orangeRed;
+                        color = Color.valueOf("FF6464");
+                        colorTo = Color.valueOf("FF6464");
                         radius = 0f;
                         radiusTo = 3f;
                         triLength = 0f;
@@ -865,7 +865,7 @@ public class LPBlocks {
                         shapes = 1;
                         sides = 256;
                         color = Color.valueOf("FF584500");
-                        colorTo = LPPal.orangeRed;
+                        colorTo = Color.valueOf("FF6464");
                         radius = 1f;
                         radiusTo = 1f;
                         triLength = 1f;
@@ -873,6 +873,21 @@ public class LPBlocks {
                         haloRadius = 0f;
                         layer = Layer.effect;
                         progress = PartProgress.charge.compress(0f, 0.0001f);
+                    }},
+
+                    new HaloPart(){{
+                        y = 4f;
+                        shapes = 1;
+                        sides = 256;
+                        color = Color.valueOf("FF6464");
+                        colorTo = Color.valueOf("FF646400");
+                        radius = 1f;
+                        radiusTo = 0f;
+                        triLength = 1f;
+                        triLengthTo = 0f;
+                        haloRadius = 0f;
+                        layer = Layer.effect;
+                        progress = PartProgress.reload;
                     }},
 
                     new EffectSpawnerPart(){{
@@ -888,11 +903,12 @@ public class LPBlocks {
                             spin = 2f;
                             sizeFrom = 6f;
                             sizeTo = 2f;
-                            colorFrom = LPPal.redMid.a(0f);
-                            colorTo = LPPal.orangeRed;
+                            colorFrom = Color.valueOf("FF6464");
+                            colorTo = Color.valueOf("FF584590");
+                            layer = 110f;
                         }};
                         effectChance = 0.55f;
-                        progress = PartProgress.charge.sin(0.2f, 6f);
+                        progress = PartProgress.charge.add(reload).add(0.01f);
                     }},
 
                     new EffectSpawnerPart(){{
@@ -909,10 +925,11 @@ public class LPBlocks {
                             sizeFrom = 1.2f;
                             sizeTo = 1.2f;
                             colorFrom = Color.valueOf("FF584590");
-                            colorTo = LPPal.orangeRed;
+                            colorTo = Color.valueOf("FF6464");
+                            layer = 110f;
                         }};
                         effectChance = 0.4f;
-                        progress = PartProgress.charge.sin(16f, 0.2f, 6f);
+                        progress = PartProgress.charge;
                     }},
 
                     new RegionPart(){{
@@ -921,7 +938,7 @@ public class LPBlocks {
                         blending = Blending.additive;
                         color = Color.valueOf("FF584500");
                         colorTo = Color.valueOf("FF584550");
-                        progress = PartProgress.charge.sin(0f, 0.5f, 1f);
+                        progress = PartProgress.charge.sin(0f, 5f, 15f);
                     }},
 
                     new RegionPart(){{
@@ -930,7 +947,7 @@ public class LPBlocks {
                         blending = Blending.additive;
                         color = Color.valueOf("FF584500");
                         colorTo = Color.valueOf("FF584550");
-                        progress = PartProgress.charge.sin(60f, 0.5f, 1f);
+                        progress = PartProgress.charge.sin(60f, 5f, 15f);
                     }},
 
                     new RegionPart(){{
@@ -939,7 +956,7 @@ public class LPBlocks {
                         blending = Blending.additive;
                         color = Color.valueOf("FF584500");
                         colorTo = Color.valueOf("FF584550");
-                        progress = PartProgress.charge.sin(120f, 0.5f, 1f);
+                        progress = PartProgress.charge.sin(120f, 5f, 15f);
                     }},
 
                     new RegionPart(){{
@@ -948,7 +965,7 @@ public class LPBlocks {
                         blending = Blending.additive;
                         color = Color.valueOf("FF584500");
                         colorTo = Color.valueOf("FF584550");
-                        progress = PartProgress.charge.sin(180f, 0.5f, 1f);
+                        progress = PartProgress.charge.sin(180f, 5f, 15f);
                     }},
 
                     new RegionPart(){{
@@ -957,7 +974,7 @@ public class LPBlocks {
                         blending = Blending.additive;
                         color = Color.valueOf("FF584500");
                         colorTo = Color.valueOf("FF584550");
-                        progress = PartProgress.charge.sin(240f, 0.5f, 1f);
+                        progress = PartProgress.charge.sin(240f, 5f, 15f);
                     }},
 
                     new RegionPart(){{
@@ -966,7 +983,7 @@ public class LPBlocks {
                         blending = Blending.additive;
                         color = Color.valueOf("FF584500");
                         colorTo = Color.valueOf("FF584550");
-                        progress = PartProgress.charge.sin(300f, 0.5f, 1f);
+                        progress = PartProgress.charge.sin(300f, 5f, 15f);
                     }}
                 );
             }};
@@ -975,25 +992,24 @@ public class LPBlocks {
                 width = 9f;
                 height = 9f;
                 shrinkY = 0f;
-                frontColor = LPPal.redMid;
-                backColor = LPPal.redDark;  // 或 LPPal.redMid，但分别赋值
-                trailColor = LPPal.redDark;
-                hitColor = LPPal.redMid;
-                lightColor = LPPal.redMid;
+                hitColor = Color.valueOf("FF6464");
+                lightColor = Color.valueOf("FF6464");
+                backColor = Color.valueOf("FF6464");
+                frontColor = Color.valueOf("FF6464");
+                trailColor = Color.valueOf("FF6464");
                 trailWidth = 3f;
                 trailLength = 6;
                 speed = 56f;
                 lifetime = 10f;
                 maxRange = rangeOverride = 560f;
-                scaleLife = true;
                 damage = 0f;
-                energyDamage = 24000f;
+                energyDamage = 240f;
                 shieldEnergyDamageMultiplier = 3f;
                 ammoMultiplier = 1f;
-                /**armorMultiplier = 1.6f;
+                armorMultiplier = 1.6f;
                 buildingDamageMultiplier = 0.3f;
                 splashDamage = 300f;
-                splashDamageRadius = 120f;*/
+                splashDamageRadius = 120f;
                 smokeEffect = Fx.none;
                 shootEffect = Fx.none;
                 hitSound = LPSounds.acceleratorLaunch;
@@ -1004,8 +1020,8 @@ public class LPBlocks {
                 parts = Seq.with(
                     new HaloPart(){{
                         tri = true;
-                        color = LPPal.redMid;
-                        colorTo = LPPal.redMid;
+                        color = Color.valueOf("FF6464");
+                        colorTo = Color.valueOf("FF6464");
                         radius = 3f;
                         radiusTo = 3f;
                         triLength = 16f;
@@ -1017,8 +1033,8 @@ public class LPBlocks {
 
                     new HaloPart(){{
                         tri = true;
-                        color = LPPal.redMid;
-                        colorTo = LPPal.redMid;
+                        color = Color.valueOf("FF6464");
+                        colorTo = Color.valueOf("FF6464");
                         radius = 3f;
                         radiusTo = 3f;
                         triLength = 10f;

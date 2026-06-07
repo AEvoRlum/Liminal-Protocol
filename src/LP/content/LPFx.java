@@ -130,21 +130,19 @@ public class LPFx {
     }
 
     public static Effect energyExplosion(Color color, float lifetime, float radius) {
-        return new Effect(lifetime, e -> {
+        return new Effect(lifetime, radius * 2, e -> {
             Draw.color(color);
 
             float thMin = radius * 0.4f;
             float thMax = radius;
 
-            // 只设置一次种子，基于 effect 实例 ID
             rand.setSeed(e.id);
 
             int count = 40;
             for (int i = 0; i < count; i++) {
-                // 关键：每次循环调用 random，利用 Rand 的内部状态推进
-                float th = rand.random(thMin, thMax) * e.fout(Interp.pow5In);
-                float tw = rand.random(8f, 16f) * e.fout(Interp.pow2In);
-                float tr = e.rotation + rand.random(360f);  // 0-360 简写
+                float th = rand.random(thMin, thMax) * e.fout();
+                float tw = rand.random(8f, 16f) * e.fout();
+                float tr = e.rotation + rand.random(360f);
 
                 Drawf.tri(e.x, e.y, tw, th, tr);
             }
@@ -1873,8 +1871,8 @@ public class LPFx {
     ),
 
     cloundpiercerHitEffect = new MultiEffect(
-        LPFx.energyExplosion(LPPal.redMid, 30f, 160),
-        LPFx.smoothColorCircle(LPPal.redMid, 80f, 30),
+        LPFx.energyExplosion(Color.valueOf("FF6464"), 30f, 160),
+        LPFx.smoothColorCircle(Color.valueOf("FF6464"), 80f, 40f),
 
         new ParticleEffect(){{
             particles = 16;
@@ -1884,12 +1882,12 @@ public class LPFx {
             baseLength = 2f;
             interp = Interp.pow10Out;
             sizeInterp = Interp.pow2In;
-            lenFrom = 120f;
+            lenFrom = 80f;
             lenTo = 0f;
             strokeFrom = 2f;
             strokeTo = 0f;
-            colorFrom = LPPal.redMid;
-            colorTo = LPPal.redMid;
+            colorFrom = Color.valueOf("FF6464");
+            colorTo = Color.valueOf("FF6464");
         }},
 
         new ParticleEffect(){{
@@ -1903,8 +1901,8 @@ public class LPFx {
             spin = -4f;
             sizeFrom = 6f;
             sizeTo = 0f;
-            colorFrom = LPPal.redMid;
-            colorTo = LPPal.redMid;
+            colorFrom = Color.valueOf("FF6464");
+            colorTo = Color.valueOf("FF6464");
         }},
 
         new ParticleEffect(){{
@@ -1918,8 +1916,8 @@ public class LPFx {
             spin = -4f;
             sizeFrom = 6f;
             sizeTo = 0f;
-            colorFrom = LPPal.redMid;
-            colorTo = LPPal.redMid;
+            colorFrom = Color.valueOf("FF6464");
+            colorTo = Color.valueOf("FF6464");
         }}
     );
 }
