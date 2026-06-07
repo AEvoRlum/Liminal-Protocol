@@ -8,7 +8,7 @@ import LP.graphics.LPPal;
 public class LPItems {
     public static Item jynsteel, massisteel, litelnlay,  transchimericsteel, crystalite, erocrys, ionopolymer;
 
-    public static Seq <Item> items = new Seq<>();
+    public static final Seq <Item> mx1Items = new Seq<>();
     private LPItems(){
         
     }
@@ -111,5 +111,9 @@ public class LPItems {
             alwaysUnlocked = false;
             databaseTag = "cons-mat";
         }};
+
+        mx1Items.addAll(
+            jynsteel, massisteel, litelnlay,  transchimericsteel, crystalite, erocrys, ionopolymer
+        );
     }
 }
