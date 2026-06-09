@@ -19,7 +19,7 @@ public class LPPowerTurret extends Turret{
     @Override
     public void setStats(){
         super.setStats();
-        stats.add(Stat.ammo, LPStatValues.ammo(ObjectMap.of(this, shootType)));
+            stats.add(Stat.ammo, LPStatValues.ammo(ObjectMap.of(this, shootType)));
     }
 
     public void limitRange(float margin){

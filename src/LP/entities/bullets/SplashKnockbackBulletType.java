@@ -14,6 +14,9 @@ public class SplashKnockbackBulletType extends BasicBulletType {
         this.lifetime = lifetime;
     }
 
+    public SplashKnockbackBulletType(){
+    }
+
     @Override
     public void hit(Bullet b, float x, float y){
         super.hit(b, x, y);

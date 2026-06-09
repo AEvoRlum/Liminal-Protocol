@@ -69,17 +69,24 @@ public final class PositionLightning{
         Seq<Healthc> entities = new Seq<>();
         // find all entities in range
         whetherAdd(entities, team, rect.setSize(range * 2f).setCenter(from.getX(), from.getY()), maxHit, hitGround, hitAir);
+        float armorMultiplier = owner != null ? owner.type.armorMultiplier : 1f;
+        float shieldDamageMultiplier = owner != null ? owner.type.shieldDamageMultiplier : 1f;
+        float buildingDamageMultiplier = owner != null ? owner.type.buildingDamageMultiplier : 1f;
         for(Healthc p : entities)
-            create(owner, team, from, p, color, createSubLightning, damage, subLightningLength, width, lightningNum, hitPointMovement);
+            create(owner, team, from, p, color, createSubLightning, damage, subLightningLength, width, lightningNum, hitPointMovement, armorMultiplier, shieldDamageMultiplier, buildingDamageMultiplier);
     }
 
     public static void createLength(Bullet owner, Team team, Position from, float length, float angle, Color color, boolean createSubLightning, float damage, int subLightningLength, float width, int lightningNum, Cons<Position> hitPointMovement){
-        create(owner, team, from, tmp2.trns(angle, length).add(from), color, createSubLightning, damage, subLightningLength, width, lightningNum, hitPointMovement);
+        create(owner, team, from, tmp2.trns(angle, length).add(from), color, createSubLightning, damage, subLightningLength, width, lightningNum, hitPointMovement, 
+            owner != null ? owner.type.armorMultiplier : 1f, 
+            owner != null ? owner.type.shieldDamageMultiplier : 1f, 
+            owner != null ? owner.type.buildingDamageMultiplier : 1f);
     }
 
     /** A create method that with a Bullet owner. */
     public static void create(Entityc owner, Team team, Position from, Position target, Color color, boolean createSubLightning,
-                              float damage, int subLightningLength, float lightningWidth, int lightningNum, Cons<Position> hitPointMovement){
+                              float damage, int subLightningLength, float lightningWidth, int lightningNum, Cons<Position> hitPointMovement,
+                              float armorMultiplier, float shieldDamageMultiplier, float buildingDamageMultiplier){
         if(!Mathf.chance(trueHitChance)) return;
         Position sureTarget = findInterceptedPoint(from, target, team);
         hitPointMovement.get(sureTarget);
@@ -100,13 +107,19 @@ public final class PositionLightning{
             }else realDamage = 1;
         }
 
+        hitter.armorMultiplier = armorMultiplier;
+        hitter.shieldDamageMultiplier = shieldDamageMultiplier;
+        hitter.buildingDamageMultiplier = buildingDamageMultiplier;
         hitter.create(owner, team, sureTarget.getX(), sureTarget.getY(), 1).damage(realDamage);
 
         createEffect(from, sureTarget, color, lightningNum, lightningWidth);
     }
 
     public static void createRandom(Bullet owner, Team team, Position from, float rand, Color color, boolean createSubLightning, float damage, int subLightningLength, float width, int lightningNum, Cons<Position> hitPointMovement){
-        create(owner, team, from, tmp2.rnd(rand).scl(Mathf.random(1.0F)).add(from), color, createSubLightning, damage, subLightningLength, width, lightningNum, hitPointMovement);
+        float armorMultiplier = owner != null ? owner.type.armorMultiplier : 1f;
+        float shieldDamageMultiplier = owner != null ? owner.type.shieldDamageMultiplier : 1f;
+        float buildingDamageMultiplier = owner != null ? owner.type.buildingDamageMultiplier : 1f;
+        create(owner, team, from, tmp2.rnd(rand).scl(Mathf.random(1.0F)).add(from), color, createSubLightning, damage, subLightningLength, width, lightningNum, hitPointMovement, armorMultiplier, shieldDamageMultiplier, buildingDamageMultiplier);
     }
 
     public static void createRandom(Team team, Position from, float rand, Color color, boolean createSubLightning, float damage, int subLightningLength, float width, int lightningNum, Cons<Position> hitPointMovement){
