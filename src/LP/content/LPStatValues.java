@@ -162,10 +162,6 @@ public class LPStatValues {
                         "[lightgray] ~ [stat]" + Core.bundle.format("bullet.damage", type.continuousDamage()) + StatUnit.perSecond.localized() : ""));
                     }
 
-                    if(type instanceof EnergyBulletType b && b.energyDamage > 0){
-                        sep(bt, Core.bundle.format("bullet.lp-energyDamage", b.energyDamage, Strings.fixed(b.shieldEnergyDamageMultiplier * 100, 1)));
-                    }
-
                     if(type instanceof LightningLinkBulletType b && b.lightningLinkDamage > 0){
                         float range = b.linkRange / tilesize;
                         float freq = 60 / b.hitSpacing;
@@ -173,6 +169,10 @@ public class LPStatValues {
                         String rangeStr = range == (int)range ? String.valueOf((int)range) : Strings.fixed(range, 2);
                         String freqStr = freq == (int)freq ? String.valueOf((int)freq) : Strings.fixed(freq, 3);
                         sep(bt, Core.bundle.format("bullet.lp-lightningLinkDamage", damageStr, String.valueOf((int)b.maxHit), rangeStr, freqStr));
+                    }
+
+                    if(type instanceof EnergyBulletType b && b.energyDamage > 0){
+                        sep(bt, Core.bundle.format("bullet.lp-energyDamage", b.energyDamage, Strings.fixed(b.shieldEnergyDamageMultiplier * 100, 1)));
                     }
 
                     if(type instanceof ChainBulletType b && b.maxHit > 0){
@@ -192,7 +192,7 @@ public class LPStatValues {
                     }
 
                     if(type.splashDamage > 0){
-                        sep(bt, Core.bundle.format("bullet.splashdamage", (int)type.splashDamage, Strings.fixed(type.splashDamageRadius / tilesize, 1)));
+                        sep(bt, Core.bundle.format("bullet.lp-splashdamage", (int)type.splashDamage, Strings.fixed(type.splashDamageRadius / tilesize, 1)));
                     }
 
                     if(type.statLiquidConsumed <= 0f && !compact && !Mathf.equal(type.ammoMultiplier, 1f) && type.displayAmmoMultiplier && (!(t instanceof Turret turret) || turret.displayAmmoMultiplier)){

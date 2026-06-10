@@ -15,6 +15,7 @@ import static arc.math.Angles.*;
 
 import LP.graphics.LPPal;
 import LP.graphics.PositionLightning;
+import LP.graphics.TrailEffect;
 import LP.util.struct.Vec2Seq;
 import LP.graphics.Drawn;
 
@@ -47,10 +48,30 @@ public class LPFx {
         });
     }
 
-    public static Effect circleOut(float lifetime, Color color, float range, float alpha) {
+    public static Effect smoothCircleOut(float lifetime, Color color, float size, int amount, boolean smooth) {
+        return new MultiEffect(
+            new Effect(lifetime * 2.5f, e -> {
+                color(color);
+
+                e.scaled(lifetime, i -> {
+                    stroke(3f * i.fout(Interp.pow2Out));
+                    if (!smooth) circle(e.x, e.y, 3f + i.fin(Interp.circleOut) * size);
+                    if (smooth) {
+                        Draw.blend(Blending.additive);
+                        circle(e.x, e.y, i.fin(Interp.circleOut) * size);
+                        Drawn.shockWave(i.x, i.y, size, size * 0.25f * i.fout(Interp.pow2Out), i.fin(Interp.circleOut), color);
+                        Draw.blend();
+                    }
+                });
+                Drawf.light(e.x, e.y, size * 1.5f, color, 0.8f * e.fout());
+            })
+        );
+    }
+
+    public static Effect circleOut(float lifetime, Color color, float range) {
         return new Effect(lifetime, range * 2f, (e) -> {
             rand.setSeed(e.id);
-            color(Color.white, color.cpy(), e.fin() + 0.6F);
+            color(Color.white, color, e.fin(Interp.pow5Out));
             float circleRad = e.fin(Interp.circleOut) * range;
             stroke(Mathf.clamp(range / 24f, 4f, 20f) * e.fout());
             circle(e.x, e.y, circleRad);
@@ -61,11 +82,6 @@ public class LPFx {
                 Drawn.tri(e.x + Tmp.v1.x, e.y + Tmp.v1.y, rand.random(circleRad / 12f, circleRad / 12f) * e.fout(),
                 rand.random(circleRad / 4f, circleRad / 1.5f) * (1f + e.fin()) / 2f, Tmp.v1.angle() - 180f);
             }
-
-            Draw.blend(Blending.additive);
-            Fill.light(e.x, e.y, circleVertices(circleRad), circleRad, Color.clear, Tmp.c1.set(color).a(e.fout(Interp.pow5Out) * alpha));
-            Drawf.light(e.x, e.y, circleRad * 1.3f, color, 0.7f * e.fout(0.23f));
-            Draw.blend();
         });
     }
 
@@ -134,6 +150,40 @@ public class LPFx {
 
             Drawf.light(e.x, e.y, radius * 1.2f, color, e.fout());
         });
+    }
+
+    public static Effect BlackHoleHit(Color color, float lifetime, float radius) {
+        return new Effect(lifetime, radius * 2, e -> {
+            color(color);
+
+            float maxRad = radius;
+            float minRad = (radius / 3f * 2f);
+            
+            Fill.circle(e.x, e.y, e.fout(Interp.circleIn) * maxRad);
+
+            Draw.z(111f);
+            color(Color.black);
+            Fill.circle(e.x, e.y, e.fout(Interp.circleIn) * minRad);
+            
+            Draw.z();
+        });
+    }
+
+    public static TrailEffect trailHitSpark(float lifetime, Color color, int num, float range, float stroke, float length) {
+        int intensity = num;
+        return new TrailEffect(lifetime, range * 2, color, color, intensity, (int) length, stroke)
+            .trailUpdater((e, trail, x, y, width, len, index) -> {
+            long id = e.id + index * 45L;
+            rand.setSeed(e.id + id);
+            randLenVectors(e.id + id, 1, e.fin(Interp.pow3Out) * range, e.rotation, 360, (x1, y1) -> {
+                trail.length = (int) (len * LPFx.fout(e.fin(), 0.06f));
+                trail.update(x + x1, y + y1, width * e.fout());
+            });
+        }).drawTri(true);
+    }
+
+    public static float fout(float fin, float margin) {
+        return fin >= 1 - margin ? 1 - (fin - (1 - margin)) / margin : 1;
     }
 
     public static final Effect
@@ -2205,6 +2255,117 @@ public class LPFx {
             strokeTo = 0f;
             colorFrom = LPPal.orange;
             colorTo = LPPal.orangeDark;
+        }}
+    ),
+
+    crimsondwarfDestroy = new MultiEffect(
+        new ParticleEffect(){{
+            particles = 10;
+            line = true;
+            length = 48f;
+            baseLength = 2f;
+            lifetime = 40f;
+            interp = Interp.pow5Out;
+            sizeInterp = Interp.pow2In;
+            lenFrom = 55f;
+            lenTo = 0f;
+            strokeFrom = 2f;
+            strokeTo = 0f;
+            colorFrom = LPPal.orange;
+            colorTo = LPPal.orangeDark;
+        }},
+
+        new ParticleEffect(){{
+            particles = 12;
+            line = true;
+            length = 48f;
+            baseLength = 2f;
+            lifetime = 40f;
+            interp = Interp.pow3Out;
+            sizeInterp = Interp.pow2In;
+            lenFrom = 24f;
+            lenTo = 0f;
+            strokeFrom = 2f;
+            strokeTo = 0f;
+            colorFrom = LPPal.orange;
+            colorTo = LPPal.orangeDark;
+        }},
+
+        new ParticleEffect(){{
+            particles = 12;
+            length = 90f;
+            baseLength = 5f;
+            lifetime = 40f;
+            interp = Interp.pow3Out;
+            sizeInterp = Interp.pow2In;
+            sizeFrom = 5f;
+            sizeTo = 0f;
+            colorFrom = LPPal.orange;
+            colorTo = Color.valueOf("54545400");
+        }},
+
+        new ParticleEffect(){{
+            particles = 12;
+            length = 54f;
+            baseLength = 2f;
+            lifetime = 45f;
+            interp = Interp.pow4Out;
+            sizeInterp = Interp.pow5In;
+            sizeFrom = 12f;
+            sizeTo = 0f;
+            colorFrom = Color.valueOf("454545");
+            colorTo = Color.valueOf("47474700");
+        }},
+
+        new WaveEffect(){{
+            lifetime = 40f;
+            interp = Interp.pow3Out;
+            sizeFrom = 0f;
+            sizeTo = 120f;
+            strokeFrom = 2f;
+            strokeTo = 0f;
+            colorFrom = LPPal.orange;
+            colorTo = LPPal.orangeDark;
+        }}
+    ),
+
+    crimsondwarfShoot = new MultiEffect(
+        new ParticleEffect(){{
+            particles = 18;
+            line = true;
+            length = 48f;
+            baseLength = 2f;
+            lifetime = 60f;
+            interp = Interp.pow5Out;
+            sizeInterp = Interp.pow3In;
+            lenFrom = 16f;
+            lenTo = 0f;
+            strokeFrom = 1.5f;
+            strokeTo = 0f;
+            colorFrom = Color.valueOf("FF6464");
+            colorTo = LPPal.redDark;
+        }},
+
+        new WaveEffect(){{
+            lifetime = 60f;
+            interp = Interp.circleOut;
+            sizeFrom = 0f;
+            sizeTo = 48f;
+            strokeFrom = 2f;
+            strokeTo = 0f;
+            colorFrom = Color.valueOf("FF6464");
+            colorTo = LPPal.redDark;
+        }},
+
+        new WaveEffect(){{
+            lifetime = 60f;
+            interp = Interp.circleOut;
+            sizeFrom = 0f;
+            sizeTo = 60f;
+            strokeFrom = 2f;
+            strokeTo = 0f;
+            colorFrom = Color.valueOf("FF6464");
+            colorTo = LPPal.redDark;
         }}
     );
 }
