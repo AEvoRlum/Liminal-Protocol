@@ -107,10 +107,57 @@ public final class PositionLightning{
             }else realDamage = 1;
         }
 
-        hitter.armorMultiplier = armorMultiplier;
-        hitter.shieldDamageMultiplier = shieldDamageMultiplier;
-        hitter.buildingDamageMultiplier = buildingDamageMultiplier;
-        hitter.create(owner, team, sureTarget.getX(), sureTarget.getY(), 1).damage(realDamage);
+        if(sureTarget instanceof Healthc healthc){
+            float shieldDamage = realDamage * shieldDamageMultiplier;
+            float armorDamage = realDamage;
+            float buildingDamage = realDamage * buildingDamageMultiplier;
+
+            if(healthc instanceof Unit unit){
+                if(unit.shield > 0){
+                    unit.shield -= shieldDamage;
+                    
+                    if(unit.shield <= 0){
+                        float remainingDamage = -unit.shield;
+                        unit.shield = 0;
+                        
+                        float armor = unit.armor();
+                        float armorReduction = armorMultiplier * armor;
+                        float damageToHealth;
+                        
+                        if(remainingDamage <= armorReduction){
+                            damageToHealth = remainingDamage * 0.1f;
+                        } else {
+                            damageToHealth = remainingDamage - armorReduction;
+                        }
+                        
+                        if(damageToHealth > 0){
+                            unit.health -= damageToHealth;
+                        }
+                    }
+                } else {
+                    float armor = unit.armor();
+                    float armorReduction = armorMultiplier * armor;
+                    float damageToHealth;
+                    
+                    if(armorDamage <= armorReduction){
+                        damageToHealth = armorDamage * 0.1f;
+                    } else {
+                        damageToHealth = armorDamage - armorReduction;
+                    }
+                    
+                    if(damageToHealth > 0){
+                        unit.health -= damageToHealth;
+                    }
+                }
+            } else if(healthc instanceof Building building){
+                building.damage(buildingDamage);
+            }
+        } else {
+            hitter.armorMultiplier = armorMultiplier;
+            hitter.shieldDamageMultiplier = shieldDamageMultiplier;
+            hitter.buildingDamageMultiplier = buildingDamageMultiplier;
+            hitter.create(owner, team, sureTarget.getX(), sureTarget.getY(), 1).damage(realDamage);
+        }
 
         createEffect(from, sureTarget, color, lightningNum, lightningWidth);
     }

@@ -2,7 +2,6 @@ package LP.entities.bullets;
 
 import arc.audio.Sound;
 import arc.func.Cons;
-import arc.graphics.g2d.Fill;
 import arc.math.Mathf;
 import arc.math.geom.Position;
 import arc.math.geom.Vec2;
@@ -16,11 +15,9 @@ import mindustry.entities.bullet.BasicBulletType;
 import mindustry.gen.Building;
 import mindustry.gen.Bullet;
 import mindustry.gen.Sounds;
-import mindustry.graphics.Drawf;
+
 import LP.content.LPFx;
 import LP.graphics.PositionLightning;
-
-import static arc.graphics.g2d.Draw.color;
 
 public class LightningLinkBulletType extends BasicBulletType {
     public static final Vec2 randVec = new Vec2();
@@ -40,11 +37,10 @@ public class LightningLinkBulletType extends BasicBulletType {
     public float range = -1;
     public int boltNum = 1;
     public int effectLingtning = 2;
-    public float effectLightningChance = 0.35f;
+    public float effectLightningChance = 0f;
     public float effectLightningLength = -1;
     public float effectLightningLengthRand = -1;
     public float trueHitChance = 0.7f;
-    public boolean drawCircle = true;
     public Effect slopeEffect, liHitEffect, spreadEffect;
 
     public LightningLinkBulletType() {
@@ -80,17 +76,17 @@ public class LightningLinkBulletType extends BasicBulletType {
         Effect.shake(hitShake, hitShake, b);
         if (b.timer(4, hitSpacing)) {
             PositionLightning.setHitChance(trueHitChance);
-            PositionLightning.createRange(b, collidesAir, collidesGround, b, b.team, linkRange, maxHit, backColor, Mathf.chanceDelta(randomLightningChance), lightningLinkDamage, lightningLength, PositionLightning.WIDTH, boltNum, p -> {
+            PositionLightning.createRange(b, collidesAir, collidesGround, b, b.team, linkRange, maxHit, hitColor, Mathf.chanceDelta(randomLightningChance), lightningLinkDamage, lightningLength, PositionLightning.WIDTH, boltNum, p -> {
                 liHitEffect.at(p.getX(), p.getY(), hitColor);
             });
             PositionLightning.setHitChanceDef();
         }
 
         if (randomGenerateRange > 0f && Mathf.chance(Time.delta * randomGenerateChance) && b.lifetime - b.time > PositionLightning.lifetime)
-            PositionLightning.createRandomRange(b, b.team, b, randomGenerateRange, backColor, Mathf.chanceDelta(randomLightningChance), 0, 0, boltWidth, boltNum, randomLightningNum, hitPos -> {
+            PositionLightning.createRandomRange(b, b.team, b, randomGenerateRange, hitColor, Mathf.chanceDelta(randomLightningChance), 0, 0, boltWidth, boltNum, randomLightningNum, hitPos -> {
                 randomGenerateSound.at(hitPos, Mathf.random(0.9f, 1.1f));
                 Damage.damage(b.team, hitPos.getX(), hitPos.getY(), splashDamageRadius / 8, splashDamage * b.damageMultiplier() / 8, collidesAir, collidesGround);
-                LPFx.lightningSpark.at(hitPos.getX(), hitPos.getY(), lightningColor);
+                LPFx.lightningSpark.at(hitPos.getX(), hitPos.getY(), hitColor);
 
                 hitModifier.get(hitPos);
             });
@@ -98,8 +94,8 @@ public class LightningLinkBulletType extends BasicBulletType {
         if (Mathf.chanceDelta(effectLightningChance) && b.lifetime - b.time > Fx.chainLightning.lifetime) {
             for (int i = 0; i < effectLingtning; i++) {
                 Vec2 v = randVec.rnd(effectLightningLength + Mathf.random(effectLightningLengthRand)).add(b).add(Tmp.v1.set(b.vel).scl(Fx.chainLightning.lifetime / 2));
-                Fx.chainLightning.at(b.x, b.y, 12f, backColor, v.cpy());
-                LPFx.lightningSpark.at(v.x, v.y, 20f, backColor);
+                Fx.chainLightning.at(b.x, b.y, 12f, hitColor, v.cpy());
+                LPFx.lightningSpark.at(v.x, v.y, 20f, hitColor);
             }
         }
     }
@@ -107,34 +103,16 @@ public class LightningLinkBulletType extends BasicBulletType {
     @Override
     public void init(Bullet b) {
         super.init(b);
-
-        b.vel.scl(1 + b.lifetime * drag * 28 / lifetime);
-    }
-
-    @Override
-    public void draw(Bullet b) {
-        drawTrail(b);
-
-        if (drawCircle) {
-            color(backColor);
-            Fill.circle(b.x, b.y, size);
-            color(frontColor);
-            Fill.circle(b.x, b.y, size / 7f + size / 3 * Mathf.curve(b.fout(), 0.1f, 0.35f));
-        } else {
-            super.draw(b);
-        }
-
-        Drawf.light(b.x, b.y, size * 1.85f, backColor, 0.7f);
     }
 
     @Override
     public void despawned(Bullet b) {
-        PositionLightning.createRandomRange(b, b.team, b, randomGenerateRange, backColor, Mathf.chanceDelta(randomLightningChance), 0, 0, boltWidth, boltNum, randomLightningNum, hitPos -> {
+        PositionLightning.createRandomRange(b, b.team, b, randomGenerateRange, hitColor, Mathf.chanceDelta(randomLightningChance), 0, 0, boltWidth, boltNum, randomLightningNum, hitPos -> {
             Damage.damage(b.team, hitPos.getX(), hitPos.getY(), splashDamageRadius, splashDamage * b.damageMultiplier(), collidesAir, collidesGround);
-            LPFx.lightningSpark.at(hitPos.getX(), hitPos.getY(), lightningColor);
+            LPFx.lightningSpark.at(hitPos.getX(), hitPos.getY(), hitColor);
             liHitEffect.at(hitPos);
             for (int j = 0; j < lightning; j++) {
-                Lightning.create(b, lightningColor, lightningDamage < 0.0F ? damage : lightningDamage, b.x, b.y, b.rotation() + Mathf.range(lightningCone / 2.0F) + lightningAngle, lightningLength + Mathf.random(lightningLengthRand));
+                Lightning.create(b, hitColor, lightningLinkDamage < 0.0F ? damage : lightningLinkDamage, b.x, b.y, b.rotation() + Mathf.range(lightningCone / 2.0F) + lightningAngle, lightningLength + Mathf.random(lightningLengthRand));
             }
             hitSound.at(hitPos, Mathf.random(0.9f, 1.1f));
 

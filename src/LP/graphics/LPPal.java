@@ -15,6 +15,7 @@ public class LPPal extends Pal {
     public static Color orangeRed;
     public static Color redDark;
     public static Color redMid;
+    public static Color redMidDark;
     public static Color redLight;
     public static Color purple;
 
@@ -33,6 +34,7 @@ public class LPPal extends Pal {
         orangeRed = Color.valueOf("FF5845");
         redDark = Color.valueOf("FF4040");
         redMid = Color.valueOf("FF6464");
+        redMidDark = redDark.cpy().lerp(redDark, 0.9f);
         redLight = Color.valueOf("FF9492");
         purple = Color.valueOf("D1A4FF");
     }

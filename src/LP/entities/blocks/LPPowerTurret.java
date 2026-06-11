@@ -7,6 +7,7 @@ import mindustry.world.blocks.defense.turrets.Turret;
 import mindustry.world.meta.*;
 
 import LP.content.LPStatValues;
+import LP.graphics.LPPal;
 
 public class LPPowerTurret extends Turret{
     public BulletType shootType;
@@ -14,6 +15,7 @@ public class LPPowerTurret extends Turret{
     public LPPowerTurret(String name){
         super(name);
         hasPower = true;
+        outlineColor = LPPal.outline;
     }
 
     @Override

@@ -162,6 +162,14 @@ public class LPStatValues {
                         "[lightgray] ~ [stat]" + Core.bundle.format("bullet.damage", type.continuousDamage()) + StatUnit.perSecond.localized() : ""));
                     }
 
+                    if(type instanceof HellbladeBulletType b && b.splashRange > 0){
+                        float range = b.splashRange / tilesize;
+                        float multiplier = b.maxDamageMultiplier * 100;
+                        String rangeStr = range == (int)range ? String.valueOf((int)range) : Strings.fixed(range, 0);
+                        String multiplierStr = multiplier == (int)multiplier ? String.valueOf((int)multiplier) : Strings.fixed(multiplier, 1);
+                        sep(bt, Core.bundle.format("bullet.lp-hellblade", rangeStr, multiplierStr));
+                    }
+
                     if(type instanceof LightningLinkBulletType b && b.lightningLinkDamage > 0){
                         float range = b.linkRange / tilesize;
                         float freq = 60 / b.hitSpacing;

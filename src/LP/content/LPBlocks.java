@@ -1830,6 +1830,7 @@ public class LPBlocks {
                     LPFx.smoothCircleOut(60f, Color.valueOf("FF6464"), 120f, 40, true),
                     LPFx.BlackHoleHit(Color.valueOf("FF6464"), 60f, 24f),
                     LPFx.trailHitSpark(60f, Color.valueOf("FF6464"), 18, 120f, 1.5f, 16f),
+                    LPFx.sharpHitSpark(60f, Color.valueOf("FF6464"), 8, 120f, 32f, Interp.circleOut),
                     new ParticleEffect(){{
                         particles = 18;
                         line = true;
@@ -1849,6 +1850,251 @@ public class LPBlocks {
                 despawnEffect = Fx.none;
             }};
             drawAimPoint = true;
+        }};
+
+        infernoblade = new LPLaserTurret("infernoblade"){{
+            size = 5;
+            health = 868;
+            armor = 11f;
+            requirements(Category.turret, with(LPItems.transchimericsteel, 302, LPItems.massisteel, 287, LPItems.jynsteel, 95, LPItems.crystalite, 82));
+            rotateSpeed = 2.4f;
+            reload = 240f;
+            range = 192f;
+            trackingRange = 288f;
+            recoil = 4f;
+            recoilTime = 60f;
+            shake = 3f;
+            cooldownTime = 90f;
+            heatColor = LPPal.redDark;
+            minWarmup = 0.999f;
+            shootWarmupSpeed = 0.2f;
+            warmupMaintainTime = 360f;
+            firingMoveFract = 0.3f;
+            shootCone = 8f;
+            shootDuration = 320f;
+            canOverdrive = false;
+            targetAir = false;
+            databaseTag = "jg";
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.1f;
+            buildTime = 180f;
+            shootSound = LPSounds.largeBeam;
+            shootSoundVolume = 0f;
+            loopSound = LPSounds.largeBeam;
+            loopSoundVolume = 6f;
+            destroySound = LPSounds.blockExplodeExplosiveAlt;
+            destroySoundVolume = 2.2f;
+            destroyEffect = LPFx.infernobladeDestroy;
+            consumePower(16f);
+            shootY = 20f;
+            drawer = new DrawTurret(){{
+                parts.addAll(
+                    new RegionPart(){{
+                        suffix = "-barrel";
+                        heatColor = LPPal.redDark;
+                        heatProgress = PartProgress.heat;
+                        progress = PartProgress.warmup;
+                        under = false;
+                        mirror = false;
+                        outline = true;
+                        replaceOutline = true;
+                        moveY = -4f;
+                    }},
+
+                    new RegionPart(){{
+                        suffix = "-bottom";
+                        heatColor = LPPal.redDark;
+                        heatProgress = PartProgress.heat;
+                        progress = PartProgress.warmup;
+                        under = true;
+                        mirror = true;
+                        outline = true;
+                        moveY = 8f;
+                        moveX = 2f;
+                        moveRot = 12f;
+                        layerOffset = -0.01f;
+                    }},
+
+                    new RegionPart(){{
+                        suffix = "-side";
+                        heatColor = LPPal.redDark;
+                        heatProgress = PartProgress.heat;
+                        progress = PartProgress.warmup;
+                        under = true;
+                        mirror = true;
+                        outline = true;
+                        moveX = 12f;
+                        moveRot = -45f;
+                        layerOffset = -0.01f;
+                    }},
+
+                    new HaloPart(){{
+                        y = 20f;
+                        moveX = 4f;
+                        tri = true;
+                        mirror = true;
+                        color = colorTo = LPPal.aureus;
+                        shapes = 1;
+                        radius = 0f;
+                        radiusTo = 1.2f;
+                        triLength = 0f;
+                        triLengthTo = 180f;
+                        haloRadius = 0f;
+                        layer = 110f;
+                        progress = PartProgress.recoil.compress(0f, 0.8f).curve(Interp.circleIn);
+                    }},
+
+                    new HaloPart(){{
+                        y = 20f;
+                        moveX = 3.5f;
+                        tri = true;
+                        mirror = true;
+                        color = colorTo = LPPal.aureus;
+                        shapes = 1;
+                        radius = 0f;
+                        radiusTo = 1.2f;
+                        triLength = 0f;
+                        triLengthTo = 160f;
+                        haloRadius = 0f;
+                        layer = 110f;
+                        progress = PartProgress.recoil.compress(0f, 0.8f).curve(Interp.circleIn);
+                    }},
+
+                    new HaloPart(){{
+                        y = 20f;
+                        moveX = 3f;
+                        tri = true;
+                        mirror = true;
+                        color = colorTo = LPPal.aureus;
+                        shapes = 1;
+                        radius = 0f;
+                        radiusTo = 1.2f;
+                        triLength = 0f;
+                        triLengthTo = 140f;
+                        haloRadius = 0f;
+                        layer = 110f;
+                        progress = PartProgress.recoil.compress(0f, 0.8f).curve(Interp.circleIn);
+                    }},
+
+                    new HaloPart(){{
+                        y = 20f;
+                        color = colorTo = LPPal.aureus;
+                        sides = 256;
+                        shapes = 1;
+                        radius = 0f;
+                        radiusTo = 5.5f;
+                        triLength = 0f;
+                        triLengthTo = 5.5f;
+                        haloRadius = 0f;
+                        layer = 110f;
+                        progress = PartProgress.recoil.compress(0f, 0.8f).curve(Interp.circleIn);
+                    }},
+
+                    new ShapePart(){{
+                        y = 20f;
+                        circle = true;
+                        hollow = true;
+                        color = colorTo = LPPal.aureus;
+                        radius = 0f;
+                        radiusTo = 8f;
+                        stroke = 0f;
+                        strokeTo = 1f;
+                        layer = 110f;
+                        progress = PartProgress.recoil.compress(0f, 0.8f).curve(Interp.circleIn);
+                    }},
+
+                    new HaloPart(){{
+                        y = 20f;
+                        tri = true;
+                        color = colorTo = LPPal.aureus;
+                        shapes = 2;
+                        radius = 0f;
+                        radiusTo = 3f;
+                        triLength = 0f;
+                        triLengthTo = 18f;
+                        haloRadius = 0f;
+                        haloRadiusTo = 4f;
+                        haloRotateSpeed = 0.45f;
+                        layer = 110f;
+                        progress = PartProgress.recoil.curve(Interp.circleIn);
+                    }},
+
+                    new HaloPart(){{
+                        y = 20f;
+                        tri = true;
+                        color = colorTo = LPPal.aureus;
+                        shapes = 2;
+                        radius = 0f;
+                        radiusTo = 3f;
+                        triLength = 0f;
+                        triLengthTo = 32f;
+                        haloRadius = 0f;
+                        haloRadiusTo = 4f;
+                        haloRotateSpeed = -0.3f;
+                        layer = 110f;
+                        progress = PartProgress.recoil.compress(0f, 0.9f).curve(Interp.circleIn);
+                    }},
+
+                    new HaloPart(){{
+                        y = 20f;
+                        tri = true;
+                        color = colorTo = Color.black;
+                        shapes = 3;
+                        radius = 0f;
+                        radiusTo = 3f;
+                        triLength = 0f;
+                        triLengthTo = 16f;
+                        haloRadius = haloRadiusTo = 4f;
+                        haloRotateSpeed = -0.5f;
+                        layer = 110f;
+                        progress = PartProgress.recoil.compress(0.7f, 1f).curve(Interp.circleIn);
+                    }},
+
+                    new EffectSpawnerPart(){{
+                        y = 20f;
+                        effect = LPFx.sharpHitSpark(16f, LPPal.aureus, 2, 192, 18f, Interp.pow10In, 3f);
+                        effectChance = 0.3f;
+                        progress = PartProgress.recoil.curve(Interp.pow5In);
+                    }},
+
+                    new EffectSpawnerPart(){{
+                        y = 20f;
+                        effect = LPFx.sharpHitSpark(16f, LPPal.aureus, 3, 192, 18f, Interp.pow10In, 6f);
+                        effectChance = 0.7f;
+                        progress = PartProgress.recoil.curve(Interp.circleIn);
+                    }}
+                );
+            }};
+            shootType = new HellbladeBulletType(){{
+                fadeTime = 10f;
+                colors = new Color[]{LPPal.aureusMid, LPPal.aureus, Color.valueOf("E8D074"), Color.valueOf("D89F6B")};
+                hitColor = lightColor = LPPal.aureus;
+                length = 192f;
+                width = 0f;
+                oscScl = 0f;
+                oscMag = 0f;
+                length = 172f;
+                drawSize = 0f;
+                hitSize = 128f;
+                makeFire = false;
+                collidesAir = false;
+                timescaleDamage = true;
+                largeHit = true;
+                pierce = true;
+                pierceBuilding = true;
+                continuous = true;
+                pierceCap = 128;
+                maxRange = 192;
+                damage = 16;
+                splashRange = 40f;
+                armorMultiplier = 1.8f;
+                shieldDamageMultiplier = 3f;
+                buildingDamageMultiplier = 0.45f;
+                ammoMultiplier = 1f;
+                hitShake = 2;
+                hitEffect = LPFx.sharpHitSpark(24f, hitColor, 4, 90f, 20f, Interp.pow10In, 60f);
+                shootEffect = smokeEffect = Fx.none;
+            }};
         }};
 
         //production
