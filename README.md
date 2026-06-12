@@ -29,6 +29,8 @@
 + **......And all supporters, players... and those I have not remembered...**
 
 --- 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/AEvoRlum/Liminal-Protocol)
+---
 
 # 一个拓展性的Java/Json [Mindustry](https://github.com/Anuken/Mindustry) Mod
 
