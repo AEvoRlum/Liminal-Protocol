@@ -1,7 +1,6 @@
 package LP.graphics;
 
 import arc.Core;
-import arc.func.Cons;
 import arc.func.Floatc2;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
@@ -23,11 +22,13 @@ import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.ui.Fonts;
-import LP.util.struct.Vec2Seq;
 
 import static arc.graphics.g2d.Lines.circleVertices;
 import static arc.graphics.g2d.Lines.polyline;
 import static mindustry.Vars.tilesize;
+
+import LP.util.struct.Vec2Seq;
+import LP.content.LPFx;
 
 public final class Drawn{
     private static final FloatSeq points = new FloatSeq(2 * 4);
@@ -75,6 +76,14 @@ public final class Drawn{
     private Drawn(){
     }
 
+    public static void randFadeLightningEffect(float x, float y, float range, float lightningPieceLength, Color color, boolean in){
+        randFadeLightningEffectScl(x, y, range, 0.55F, 1.1F, lightningPieceLength, color, in);
+    }
+
+    public static void randFadeLightningEffectScl(float x, float y, float range, float sclMin, float sclMax, float lightningPieceLength, Color color, boolean in){
+        v6.rnd(range).scl(Mathf.random(sclMin, sclMax)).add(x, y);
+        (in ? LPFx.chainLightningFadeReversed : LPFx.chainLightningFade).at(x, y, lightningPieceLength, color, v6.cpy());
+    }
 
     public static void basicLaser(float x, float y, float x2, float y2, float stroke, float circleScl){
         Lines.stroke(stroke);
@@ -230,7 +239,6 @@ public final class Drawn{
         circlePercent(x, y, rad, f > 0.0F ? f : -f, in + (float)(-90 * Mathf.sign(f)));
     }
 
-    // arc 加个 progress（按比例绘制）
     public static void arcProcess(float x, float y, float radius, float fraction, float rotation, int sides, float progress){
         int max = Mathf.ceil(sides * fraction);
         points.clear();
@@ -582,45 +590,6 @@ public final class Drawn{
         Lines.stroke(width, Tmp.c1.set(color).a(color.a * alpha));
         Lines.line(projX[a], projY[a], projX[b], projY[b]);
     }
-
-
-    /**
-     * 伪 3D 多边形：输入 2D 点，提升到 z=0 平面后做旋转和透视。
-     * `drawer` 需按面写入扁平 XY 数据：每个面 4 个顶点，共 8 个 float。
-     */
-    public static void draw3D(float x, float y, float rx, float ry, float rz, Cons<FloatSeq> drawer){
-        points.clear();
-        drawer.get(points);
-        int size = points.size;
-        float[] items = points.items;
-
-        // 透视相机距离：值越大，透视形变越弱。
-        final float cameraZ = 700f;
-
-        // 每个面 8 个 float：(x1,y1,x2,y2,x3,y3,x4,y4)。
-        for(int i = 0; i < size; i += 8){
-            Fill.polyBegin();
-            // 每次读取一个顶点的 XY。
-            for(int j = 0; j < 8; j += 2){
-                int idx = i + j;
-                float wx = items[idx];
-                float wy = items[idx + 1];
-
-                // 2D 点先提升到 3D（z=0），再按 Y -> X -> Z 顺序旋转。
-                v31.set(wx, wy, 0f).rotate(Vec3.Y, ry).rotate(Vec3.X, rx).rotate(Vec3.Z, rz);
-
-                // 简单透视：点越靠近 cameraZ，缩放越大。
-                float sz = cameraZ / (cameraZ - v31.z);
-                v31.x *= sz;
-                v31.y *= sz;
-
-                // 投影后平移到目标中心点。
-                Fill.polyPoint(v31.x + x, v31.y + y);
-            }
-            Fill.polyEnd();
-        }
-    }
-
 
     public static void drawConnected(float x, float y, float size, Color color){
         Draw.reset();

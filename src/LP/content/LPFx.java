@@ -25,6 +25,7 @@ public class LPFx {
 
     public static final Rand rand = new Rand();
     public static final Vec2 v = new Vec2();
+    public static final float lightningAlign = 0.5f;
 
     private LPFx() {}
 
@@ -71,7 +72,7 @@ public class LPFx {
     public static Effect circleOut(float lifetime, Color color, float range) {
         return new Effect(lifetime, range * 2f, (e) -> {
             rand.setSeed(e.id);
-            color(color.cpy().lerp(Color.white, 0.5f), color, e.fin(Interp.pow5Out));
+            color(color.cpy().lerp(Color.white, 0.8f), color, e.fin(Interp.pow5Out));
             float circleRad = e.fin(Interp.circleOut) * range;
             stroke(Mathf.clamp(range / 24f, 4f, 20f) * e.fout());
             circle(e.x, e.y, circleRad);
@@ -161,8 +162,8 @@ public class LPFx {
             
             Fill.circle(e.x, e.y, e.fout(Interp.circleIn) * maxRad);
 
-            Draw.z(110f);
-            color(Color.black.cpy().lerp(Color.white, 0.01f));
+            Draw.z(111f);
+            color(Color.black);
             Fill.circle(e.x, e.y, e.fout(Interp.circleIn) * minRad);
             
             Draw.z();
@@ -234,6 +235,69 @@ public class LPFx {
         });
     }
 
+    public static Effect railShoot(float lifetime, Color color, float size, Interp interp) {
+        return new Effect(lifetime, size * 2, (e) -> {
+            color(color);
+
+            float fout = e.fout(interp);
+            float lightLen = size * 1.5f;
+
+            float tw = size / 8f * fout;
+            float tl = size;
+            
+            Drawf.tri(e.x, e.y, 2f * fout, lightLen, e.rotation + 90f);
+            Drawf.tri(e.x, e.y, 2f * fout, lightLen, e.rotation - 90f);
+
+            Drawf.tri(e.x, e.y, tw, tl * 1.4f, e.rotation);
+            Drawf.tri(e.x, e.y, tw, tl * 1.2f, e.rotation + 180f);
+
+            Drawf.tri(e.x, e.y, tw, tl, e.rotation + 15f);
+            Drawf.tri(e.x, e.y, tw, tl * 0.8f, e.rotation + 20f + 180f);
+            Drawf.tri(e.x, e.y, tw, tl, e.rotation - 15f);
+            Drawf.tri(e.x, e.y, tw, tl * 0.8f, e.rotation - 20f + 180f);
+        });
+    }
+
+    public static Effect cutting(float lifetime, Color color, Color bottomColor, Boolean drawBottom, float length, float rotation) {
+        return new Effect(lifetime, length * 2f, (e) -> {
+            float len, ang;
+            if (e.data instanceof Float) {
+                len = (Float) e.data;
+                ang = e.rotation;
+            } else {
+                len = length;
+                ang = rotation == -1f ? Mathf.randomSeed(e.id, 0, 360) : rotation;
+            }
+
+            color(color);
+            Drawf.light(e.x, e.y, e.fout() * len, color, 0.7f);
+            float fout = e.fout(Interp.exp10Out);
+            for (int i : Mathf.signs) {
+                Drawn.tri(e.x, e.y, len / 14 * fout * (Mathf.absin(0.8f, 0.07f) + 1),
+                len * 2 * Interp.swingOut.apply(Mathf.curve(e.fin(), 0, 0.7f)) * (Mathf.absin(0.8f, 0.12f) + 1) * e.fout(0.2f),
+                ang + i * 90);
+            }
+
+            if (drawBottom) {
+                color(bottomColor);
+                z(Layer.effect + 0.0001f);
+                for (int i : Mathf.signs) {
+                    Drawn.tri(e.x, e.y, (len * 0.7f) / 14 * fout * (Mathf.absin(0.8f, 0.07f) + 1),
+                    len * 2 * 0.7f * Interp.swingOut.apply(Mathf.curve(e.fin(), 0, 0.7f)) * (Mathf.absin(0.8f, 0.12f) + 1) * e.fout(0.2f),
+                    ang + i * 90);
+                }
+
+                z(Layer.effect + 0.0001f);
+                for (int i : Mathf.signs) {
+                    Drawn.tri(e.x, e.y, (len * 0.7f) / 14 * fout * (Mathf.absin(0.8f, 0.07f) + 1),
+                    len * 2 * 0.7f * Interp.swingOut.apply(Mathf.curve(e.fin(), 0, 0.7f)) * (Mathf.absin(0.8f, 0.12f) + 1) * e.fout(0.2f),
+                    ang + i * 90);
+                }
+            }
+
+        }).layer(Layer.effect - 1f);
+    }
+
     public static float fout(float fin, float margin) {
         return fin >= 1 - margin ? 1 - (fin - (1 - margin)) / margin : 1;
     }
@@ -301,6 +365,114 @@ public class LPFx {
         });
         Fill.circle(e.x, e.y, 2.5F * e.fout());
     }),
+
+    chainLightningFadeReversed = new Effect(220f, 500f, e -> {
+        if (!(e.data instanceof Position)) return;
+        Position p = e.data();
+        float tx = e.x, ty = e.y, dst = Mathf.dst(p.getX(), p.getY(), tx, ty);
+        Tmp.v1.set(e.x, e.y).sub(p).nor();
+
+        e.lifetime = dst * 0.3f;
+        float normx = Tmp.v1.x, normy = Tmp.v1.y;
+        float range = e.rotation;
+        int links = Mathf.ceil(dst / range);
+        float spacing = dst / links;
+
+        Lines.stroke(2.5f * Mathf.curve(e.fout(), 0, 0.7f));
+        color(e.color, Color.white, e.fout() * 0.6f);
+
+        Lines.beginLine();
+
+        Fill.circle(p.getX(), p.getY(), Lines.getStroke() / 2);
+        Lines.linePoint(p);
+
+        rand.setSeed(e.id);
+
+        float fin = Mathf.curve(e.fin(), 0, lightningAlign);
+        int i;
+        float nx = p.getX(), ny = p.getY();
+        for (i = 0; i < (int) (links * fin); i++) {
+            if (i == links - 1) {
+                nx = tx;
+                ny = ty;
+            } else {
+                float len = (i + 1) * spacing;
+                Tmp.v1.setToRandomDirection(rand).scl(range / 2f);
+                nx = p.getX() + normx * len + Tmp.v1.x;
+                ny = p.getY() + normy * len + Tmp.v1.y;
+            }
+
+            linePoint(nx, ny);
+        }
+
+        if (i < links) {
+            float f = Mathf.clamp(fin * links % 1);
+            float len = (i + 1) * spacing;
+            Tmp.v1.setToRandomDirection(rand).scl(range / 2f);
+            Tmp.v2.set(nx, ny);
+            if (i == links - 1) Tmp.v2.lerp(tx, ty, f);
+            else Tmp.v2.lerp(p.getX() + (normx * len + Tmp.v1.x), p.getY() + (normy * len + Tmp.v1.y), f);
+
+            linePoint(Tmp.v2.x, Tmp.v2.y);
+            Fill.circle(Tmp.v2.x, Tmp.v2.y, getStroke() / 2);
+        }
+
+        Lines.endLine();
+    }).followParent(false),
+
+    chainLightningFade = new Effect(220f, 500f, e -> {
+        if (!(e.data instanceof Position)) return;
+        Position p = e.data();
+        float tx = p.getX(), ty = p.getY(), dst = Mathf.dst(e.x, e.y, tx, ty);
+        Tmp.v1.set(p).sub(e.x, e.y).nor();
+
+        e.lifetime = dst * 0.3f;
+        float normx = Tmp.v1.x, normy = Tmp.v1.y;
+        float range = e.rotation;
+        int links = Mathf.ceil(dst / range);
+        float spacing = dst / links;
+
+        stroke(2.5f * Mathf.curve(e.fout(), 0, 0.7f));
+        color(e.color, Color.white, e.fout() * 0.6f);
+
+        beginLine();
+
+        Fill.circle(e.x, e.y, getStroke() / 2);
+        linePoint(e.x, e.y);
+
+        rand.setSeed(e.id);
+
+        float fin = Mathf.curve(e.fin(), 0, lightningAlign);
+        int i;
+        float nx = e.x, ny = e.y;
+        for (i = 0; i < (int) (links * fin); i++) {
+            if (i == links - 1) {
+                nx = tx;
+                ny = ty;
+            } else {
+                float len = (i + 1) * spacing;
+                Tmp.v1.setToRandomDirection(rand).scl(range / 2f);
+                nx = e.x + normx * len + Tmp.v1.x;
+                ny = e.y + normy * len + Tmp.v1.y;
+            }
+
+            linePoint(nx, ny);
+        }
+
+        if (i < links) {
+            float f = Mathf.clamp(fin * links % 1);
+            float len = (i + 1) * spacing;
+            Tmp.v1.setToRandomDirection(rand).scl(range / 2f);
+            Tmp.v2.set(nx, ny);
+            if (i == links - 1) Tmp.v2.lerp(tx, ty, f);
+            else Tmp.v2.lerp(e.x + (normx * len + Tmp.v1.x), e.y + (normy * len + Tmp.v1.y), f);
+
+            linePoint(Tmp.v2.x, Tmp.v2.y);
+            Fill.circle(Tmp.v2.x, Tmp.v2.y, getStroke() / 2);
+        }
+
+        endLine();
+    }).followParent(false),
 
     fallenStar = new Effect(30f, e -> {
         color(e.color);
@@ -2480,6 +2652,73 @@ public class LPFx {
             colorTo = Color.valueOf("54545400");
         }},
 
+        new WaveEffect(){{
+            lifetime = 40f;
+            interp = Interp.pow3Out;
+            sizeFrom = 0f;
+            sizeTo = 120f;
+            strokeFrom = 2f;
+            strokeTo = 0f;
+            colorFrom = LPPal.orange;
+            colorTo = LPPal.orangeDark;
+        }}
+    ),
+
+    recursionDestroy = new MultiEffect(
+        new ParticleEffect(){{
+            particles = 10;
+            line = true;
+            length = 48f;
+            baseLength = 2f;
+            lifetime = 40f;
+            interp = Interp.pow5Out;
+            sizeInterp = Interp.pow2In;
+            lenFrom = 55f;
+            lenTo = 0f;
+            strokeFrom = 2f;
+            strokeTo = 0f;
+            colorFrom = LPPal.orange;
+            colorTo = LPPal.orangeDark;
+        }},
+        new ParticleEffect(){{
+            particles = 12;
+            line = true;
+            length = 48f;
+            baseLength = 2f;
+            lifetime = 40f;
+            interp = Interp.pow3Out;
+            sizeInterp = Interp.pow2In;
+            lenFrom = 24f;
+            lenTo = 0f;
+            strokeFrom = 2f;
+            strokeTo = 0f;
+            colorFrom = LPPal.orange;
+            colorTo = LPPal.orangeDark;
+        }},
+        new ParticleEffect(){{
+            particles = 12;
+            length = 90f;
+            baseLength = 5f;
+            lifetime = 40f;
+            interp = Interp.pow3Out;
+            sizeInterp = Interp.pow2In;
+            sizeFrom = 5f;
+            sizeTo = 0f;
+            colorFrom = LPPal.orange;
+            colorTo = Color.valueOf("54545400");
+        }},
+        new ParticleEffect(){{
+            particles = 12;
+            length = 54f;
+            baseLength = 2f;
+            lifetime = 45f;
+            interp = Interp.pow4Out;
+            sizeInterp = Interp.pow5In;
+            sizeFrom = 12f;
+            sizeTo = 0f;
+            colorFrom = Color.valueOf("454545");
+            colorTo = Color.valueOf("47474700");
+        }},
         new WaveEffect(){{
             lifetime = 40f;
             interp = Interp.pow3Out;

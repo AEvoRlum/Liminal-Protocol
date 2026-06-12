@@ -12,7 +12,7 @@ public class HellbladeBulletType extends ContinuousLaserBulletType{
 
     public float splashDamageMultiplier = 1.2f;
     public float splashRange = 0f;
-    public float velocityDamageMultiplier = 0.05f;
+    public float velocityDamageMultiplier = 0.1f;
     public float velocityThreshold = 2f;
     public float maxDamageMultiplier = 5f;
 
@@ -29,15 +29,12 @@ public class HellbladeBulletType extends ContinuousLaserBulletType{
 
     @Override
     public void update(Bullet b){
+        super.update(b);
         if(!continuous) return;
-
-        applyDamage(b);
-
-        if(shake > 0){
-            mindustry.entities.Effect.shake(shake, shake, b);
+        
+        if(b.timer(1, damageInterval)){
+            applyDamage(b);
         }
-
-        updateBulletInterval(b);
     }
 
     @Override
@@ -51,9 +48,8 @@ public class HellbladeBulletType extends ContinuousLaserBulletType{
         float length = currentLength(b);
         float rot = b.rotation();
 
-        Vec2 bulletVel = Tmp.v1.set(b.vel);
-        float x2 = b.x + Tmp.v2.trns(rot, length).x;
-        float y2 = b.y + Tmp.v2.y;
+        float x2 = b.x + Tmp.v1.trns(rot, length).x;
+        float y2 = b.y + Tmp.v1.y;
 
         if(b.type.collidesGround && b.type.collidesTiles){
             mindustry.core.World.raycastEachWorld(b.x, b.y, x2, y2, (cx, cy) -> {
@@ -69,14 +65,14 @@ public class HellbladeBulletType extends ContinuousLaserBulletType{
             });
         }
 
-        Units.nearbyEnemies(b.team, Tmp.r1.setPosition(b.x, b.y).setSize(x2 - b.x, y2 - b.y).normalize().grow(3f * 2), u -> {
+        Units.nearbyEnemies(b.team, Tmp.r1.setPosition(b.x, b.y).setSize(x2 - b.x, y2 - b.y).normalize().grow(width), u -> {
             if(u.checkTarget(b.type.collidesAir, b.type.collidesGround) && u.hittable()){
                 u.hitbox(Tmp.r2);
-                Vec2 hitPoint = arc.math.geom.Geometry.raycastRect(b.x, b.y, x2, y2, Tmp.r2.grow(3f * 2));
+                Vec2 hitPoint = arc.math.geom.Geometry.raycastRect(b.x, b.y, x2, y2, Tmp.r2.grow(3f));
                 if(hitPoint != null){
-                    float relativeVelocity = Tmp.v3.set(u.vel).sub(bulletVel).len();
+                    float relativeVelocity = u.vel.len();
                     float velocityMultiplier = 1f + (relativeVelocity / velocityThreshold) * velocityDamageMultiplier;
-                    float finalMultiplier = Math.min(velocityMultiplier, maxDamageMultiplier);
+                    float finalMultiplier = Math.max(1f, Math.min(velocityMultiplier, maxDamageMultiplier));
                     float adjustedDamage = currentDamage * finalMultiplier;
 
                     float shieldDamage = adjustedDamage * b.type.shieldDamageMultiplier;
@@ -110,8 +106,6 @@ public class HellbladeBulletType extends ContinuousLaserBulletType{
                 }
             }
         });
-
-        Damage.collideLine(b, b.team, b.x, b.y, rot, length, largeHit, laserAbsorb, pierceCap);
 
         b.damage = damage;
     }

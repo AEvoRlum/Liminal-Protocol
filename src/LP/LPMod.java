@@ -24,5 +24,8 @@ public class LPMod extends Mod {
         LPStatusEffect.load();
         LPUnits.load();
         LPBlocks.load();
+        
+        Mx1Sectors.load();
+        Mx1TechTree.load();
     }
 }

@@ -9,7 +9,9 @@ import mindustry.content.StatusEffects;
 import mindustry.content.Liquids;
 import mindustry.entities.part.*;
 import mindustry.entities.pattern.*;
+import mindustry.entities.Effect;
 import mindustry.entities.bullet.*;
+import mindustry.entities.UnitSorts;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.effect.SoundEffect;
@@ -1719,136 +1721,156 @@ public class LPBlocks {
                     }}
                 );
             }};
-            shootType = new LightningLinkBulletType(){{
-                parts.addAll(
-                    new HaloPart(){{
-                        color = colorTo = Color.valueOf("000000");
-                        sides = 256;
-                        shapes = 1;
-                        radius = 6;
-                        radiusTo = 6;
-                        triLength = 6;
-                        triLengthTo = 6;
-                        haloRadius = 0f;
-                        layer = 111f;
-                        progress = PartProgress.life.curve(Interp.pow10In);
-                    }},
+            shootType = new LightningLinkBulletType(){
+                {
+                    parts.addAll(
+                        new HaloPart(){{
+                            color = colorTo = Color.valueOf("000000");
+                            sides = 256;
+                            shapes = 1;
+                            radius = 6;
+                            radiusTo = 6;
+                            triLength = 6;
+                            triLengthTo = 6;
+                            haloRadius = 0f;
+                            layer = 111f;
+                            progress = PartProgress.life.curve(Interp.pow10In);
+                        }},
 
-                    new HaloPart(){{
-                        color = colorTo = Color.valueOf("FF6464");
-                        sides = 256;
-                        shapes = 1;
-                        radius = 9;
-                        radiusTo = 9;
-                        triLength = 9;
-                        triLengthTo = 9;
-                        haloRadius = 0f;
-                        layer = 110f;
-                        progress = PartProgress.life.curve(Interp.pow10In);
-                    }},
+                        new HaloPart(){{
+                            color = colorTo = Color.valueOf("FF6464");
+                            sides = 256;
+                            shapes = 1;
+                            radius = 9;
+                            radiusTo = 9;
+                            triLength = 9;
+                            triLengthTo = 9;
+                            haloRadius = 0f;
+                            layer = 110f;
+                            progress = PartProgress.life.curve(Interp.pow10In);
+                        }},
 
-                    new HaloPart(){{
-                        tri = true;
-                        color = colorTo = Color.valueOf("FF6464");
-                        radius = 4;
-                        radiusTo = 4;
-                        triLength = 28;
-                        triLengthTo = 0;
-                        haloRadius = 0f;
-                        haloRotateSpeed = 4f;
-                        layer = 110f;
-                        progress = PartProgress.life.curve(Interp.pow10In);
-                    }},
+                        new HaloPart(){{
+                            tri = true;
+                            color = colorTo = Color.valueOf("FF6464");
+                            radius = 4;
+                            radiusTo = 4;
+                            triLength = 28;
+                            triLengthTo = 0;
+                            haloRadius = 0f;
+                            haloRotateSpeed = 4f;
+                            layer = 110f;
+                            progress = PartProgress.life.curve(Interp.pow10In);
+                        }},
 
-                    new HaloPart(){{
-                        tri = true;
-                        color = colorTo = Color.valueOf("FF6464");
-                        radius = 4;
-                        radiusTo = 4;
-                        triLength = 20;
-                        triLengthTo = 0;
-                        haloRadius = 0f;
-                        haloRotateSpeed = -8f;
-                        layer = 110f;
-                        progress = PartProgress.life.curve(Interp.pow10In);
-                    }}
-                );
-                backColor = trailColor = hitColor = lightColor = lightningColor = Color.valueOf("FF6464");
-                frontColor = LPPal.redMidDark;
-                trailWidth = 4f;
-                lightRadius = 12f;
-                lightColor = Color.valueOf("FF6464");
-                ammoMultiplier = 1f;
-                armorMultiplier = 1.4f;
-                buildingDamageMultiplier = 0.4f;
-                shieldDamageMultiplier = 2.25f;
-                damage = 540f;
-                splashDamage = 240f;
-                splashDamageRadius = 120f;
-                speed = 5f;
-                lifetime = 400f / speed;
-                range = rangeOverride = 400;
-                scaleLife = despawnHit = true;
-                collidesGround = collidesAir = true;
-                trailInterval = 4f;
-                trailEffect = new ParticleEffect(){{
-                    particles = 8;
-                    line = true;
-                    lifetime = 20f;
-                    length = 12f;
-                    baseLength = 1f;
-                    interp = Interp.circleOut;
-                    sizeInterp = Interp.circleIn;
-                    lenFrom = 12f;
-                    lenTo = 0f;
-                    strokeFrom = 1.5f;
-                    strokeTo = 0f;
-                    colorFrom = Color.valueOf("FF6464");
-                    colorTo = LPPal.redDark;
-                }};
-                lightningLinkDamage = 32f;
-                linkRange = 160f;
-                hitSpacing = 6f;
-                maxHit = 9;
-                boltWidth = 4f;
-                randomGenerateRange = 160f;
-                randomGenerateChance = 0.3f;
-                randomLightningChance = 0.5f;
-                randomLightningNum = 3;
-                slopeEffect = spreadEffect = Fx.none;
-                liHitEffect = new WrapEffect(LPFx.lightningSpark, Color.valueOf("FF6464"), 18f);
-                smokeEffect = Fx.none;
-                shootEffect = LPFx.crimsondwarfShoot;
-                chargeEffect = new SoundEffect(LPSounds.chargeSubsonic, Fx.none){{
-                    minPitch = maxPitch = 1f;
-                    maxVolume = minVolume = 2f;
-                }};
-                hitSound = LPSounds.shootLaserBeam;
-                hitShake = 4f;
-                hitEffect = new MultiEffect(
-                    LPFx.circleOut(60f, Color.valueOf("FF6464"), 120f),
-                    LPFx.smoothCircleOut(60f, Color.valueOf("FF6464"), 120f, 40, true),
-                    LPFx.BlackHoleHit(Color.valueOf("FF6464"), 60f, 24f),
-                    LPFx.trailHitSpark(60f, Color.valueOf("FF6464"), 18, 120f, 1.5f, 16f),
-                    LPFx.sharpHitSpark(60f, Color.valueOf("FF6464"), 8, 120f, 32f, Interp.circleOut),
-                    new ParticleEffect(){{
-                        particles = 18;
+                        new HaloPart(){{
+                            tri = true;
+                            color = colorTo = Color.valueOf("FF6464");
+                            radius = 4;
+                            radiusTo = 4;
+                            triLength = 20;
+                            triLengthTo = 0;
+                            haloRadius = 0f;
+                            haloRotateSpeed = -8f;
+                            layer = 110f;
+                            progress = PartProgress.life.curve(Interp.pow10In);
+                        }}
+                    );
+                    backColor = trailColor = hitColor = lightColor = lightningColor = Color.valueOf("FF6464");
+                    frontColor = LPPal.redMidDark;
+                    trailWidth = 4f;
+                    lightRadius = 12f;
+                    lightColor = Color.valueOf("FF6464");
+                    ammoMultiplier = 1f;
+                    armorMultiplier = 1.4f;
+                    buildingDamageMultiplier = 0.4f;
+                    shieldDamageMultiplier = 2.25f;
+                    damage = 540f;
+                    splashDamage = 240f;
+                    splashDamageRadius = 120f;
+                    speed = 5f;
+                    lifetime = 400f / speed;
+                    range = rangeOverride = 400;
+                    scaleLife = despawnHit = true;
+                    collidesGround = collidesAir = true;
+                    trailInterval = 4f;
+                    trailEffect = new ParticleEffect(){{
+                        particles = 8;
                         line = true;
-                        lifetime = 60f;
-                        length = 72f;
-                        baseLength = 6f;
+                        lifetime = 20f;
+                        length = 12f;
+                        baseLength = 1f;
                         interp = Interp.circleOut;
-                        sizeInterp = Interp.pow2In;
+                        sizeInterp = Interp.circleIn;
                         lenFrom = 12f;
                         lenTo = 0f;
-                        strokeFrom = 1.6f;
+                        strokeFrom = 1.5f;
                         strokeTo = 0f;
                         colorFrom = Color.valueOf("FF6464");
-                        colorTo = Color.valueOf("FF6464");
-                    }}
-                );
-                despawnEffect = Fx.none;
-            }};
+                        colorTo = LPPal.redDark;
+                    }};
+                    lightningLinkDamage = 32f;
+                    linkRange = 160f;
+                    hitSpacing = 6f;
+                    maxHit = 9;
+                    boltWidth = 4f;
+                    randomGenerateRange = 160f;
+                    randomGenerateChance = 0.3f;
+                    randomLightningChance = 0.5f;
+                    randomLightningNum = 3;
+                    slopeEffect = liHitEffect = spreadEffect = Fx.none;
+                    smokeEffect = Fx.none;
+                    shootEffect = LPFx.crimsondwarfShoot;
+                    chargeEffect = new SoundEffect(LPSounds.chargeSubsonic, Fx.none){{
+                        minPitch = maxPitch = 1f;
+                        maxVolume = minVolume = 2f;
+                    }};
+                    hitSound = LPSounds.shootLaserBeam;
+                    hitShake = 4f;
+                    hitEffect = new MultiEffect(
+                        LPFx.circleOut(60f, Color.valueOf("FF6464"), 120f),
+                        LPFx.smoothCircleOut(60f, Color.valueOf("FF6464"), 120f, 40, true),
+                        LPFx.BlackHoleHit(Color.valueOf("FF6464"), 60f, 24f),
+                        LPFx.trailHitSpark(60f, Color.valueOf("FF6464"), 18, 120f, 1.5f, 16f),
+                        LPFx.sharpHitSpark(60f, Color.valueOf("FF6464"), 8, 120f, 32f, Interp.circleOut),
+                        new ParticleEffect(){{
+                            particles = 18;
+                            line = true;
+                            lifetime = 60f;
+                            length = 72f;
+                            baseLength = 6f;
+                            interp = Interp.circleOut;
+                            sizeInterp = Interp.pow2In;
+                            lenFrom = 12f;
+                            lenTo = 0f;
+                            strokeFrom = 1.6f;
+                            strokeTo = 0f;
+                            colorFrom = Color.valueOf("FF6464");
+                            colorTo = Color.valueOf("FF6464");
+                        }},
+
+                        new Effect(160f, (e) -> {
+                            if (e.time % 2 == 0) {
+                                for (int i = 0; i < 3; i++) {
+                                    LP.graphics.Drawn.randFadeLightningEffect(e.x, e.y, Mathf.random(160), Mathf.random(2, 4), hitColor, Mathf.chance(0.5));
+                                }
+                            }
+                        })
+                    );
+                    despawnEffect = Fx.none;
+                }
+                
+                @Override
+                public void update(Bullet b) {
+                    super.update(b);
+                    
+                    if (b.timer(1, 4)) {
+                        for (int l = 0; l < 3; l++) {
+                            LP.graphics.Drawn.randFadeLightningEffect(b.x, b.y, Mathf.random(160), Mathf.random(4, 7), hitColor, Mathf.chance(0.5));
+                        }
+                    }
+                }
+            };
             drawAimPoint = true;
         }};
 
@@ -2085,7 +2107,7 @@ public class LPBlocks {
                 continuous = true;
                 pierceCap = 128;
                 maxRange = 192;
-                damage = 16;
+                damage = 32;
                 splashRange = 40f;
                 armorMultiplier = 1.8f;
                 shieldDamageMultiplier = 3f;
@@ -2095,6 +2117,234 @@ public class LPBlocks {
                 hitEffect = LPFx.sharpHitSpark(24f, hitColor, 4, 90f, 20f, Interp.pow10In, 60f);
                 shootEffect = smokeEffect = Fx.none;
             }};
+        }};
+
+        recursion = new LPItemTurret("recursion"){{
+            size = 5;
+            health = 904;
+            armor = 12;
+            requirements(Category.turret, with(LPItems.transchimericsteel, 337, LPItems.massisteel, 106, LPItems.jynsteel, 85, LPItems.litelnlay, 82,  LPItems.crystalite, 80));
+            rotateSpeed = 2.5f;
+            reload = 240f;
+            range = 520;
+            trackingRange = 780;
+            recoil = 6.5f;
+            recoilTime = 60;
+            shake = 12;
+            minWarmup = 0.999f;
+            shootWarmupSpeed = 0.08f;
+            warmupMaintainTime = 120;
+            cooldownTime = 90;
+            heatColor = LPPal.redDark;
+            canOverdrive = true;
+            predictTarget = false;
+            maxAmmo = 32;
+            ammoPerShot = 4;
+            unitSort = UnitSorts.strongest;
+            databaseTag = "dn";
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.1f;
+            buildTime = 180;
+            destroySound = LPSounds.blockExplodeExplosiveAlt;
+            destroySoundVolume = 2.2f;
+            destroyEffect = LPFx.recursionDestroy;
+            consumePower(12f);
+            heatRequirement = 12f;
+            maxHeatEfficiency = 1f;
+            drawer = new DrawTurret(){{
+                parts.addAll(
+                    new RegionPart(){{
+                        mirror = true;
+                        under = true;
+                        suffix = "-side2";
+                        progress = PartProgress.warmup;
+                        moveX = 2.8f;
+                        moveRot = -15f;
+                        moves.add(new PartMove(PartProgress.recoil, 0f, -2f, 0f));
+                    }},
+
+                    new RegionPart(){{
+                        mirror = true;
+                        under = true;
+                        suffix = "-side1";
+                        progress = PartProgress.warmup;
+                        moveX = 1.8f;
+                        moves.add(new PartMove(PartProgress.recoil, -0.8f, -4f, 0f));
+                    }}
+                );
+            }};
+            shootCone = 2f;
+            shootY = 4f;
+            shootSound = LPSounds.cannonLargeShot;
+            shootSoundVolume = 1.5f;
+            soundPitchMin = 1.8f;
+            soundPitchMax = 2f;
+            ammo(
+                LPItems.transchimericsteel, new RailBulletType(){{
+                    trailColor = hitColor = lightColor = lightningColor = LPPal.aureus;
+                    length = 520f;
+                    damage = 820f;
+                    knockback = 12f;
+                    impact = true;
+                    pierce = true;
+                    pierceBuilding = false;
+                    pierceCap = 12;
+                    pierceDamageFactor = 0.75f;
+                    ammoMultiplier = 1f;
+                    armorMultiplier = 0.1f;
+                    shieldDamageMultiplier = 0.45f;
+                    hitSound = LPSounds.cannonLargeHit;
+                    hitSoundVolume = 2.8f;
+                    hitShake = 8;
+                    shootEffect = new MultiEffect(
+                        LPFx.railShoot(30f, LPPal.aureus, 80f, Interp.circleOut),
+                        new ParticleEffect(){{
+                            particles = 12;
+                            line = true;
+                            lifetime = 24f;
+                            length = 48f;
+                            baseLength = 2f;
+                            cone = 30f;
+                            interp = Interp.circleOut;
+                            sizeInterp = Interp.pow2In;
+                            lenFrom = 24f;
+                            lenTo = 0f;
+                            strokeFrom = 1.5f;
+                            strokeTo = 0f;
+                            colorFrom = colorTo = LPPal.aureus;
+                        }},
+                        new ParticleEffect(){{
+                            particles = 16;
+                            line = true;
+                            lifetime = 24f;
+                            length = 48f;
+                            baseLength = 8f;
+                            baseRotation = 180f;
+                            cone = 80f;
+                            interp = Interp.circleOut;
+                            sizeInterp = Interp.pow2In;
+                            lenFrom = 30f;
+                            lenTo = 0f;
+                            strokeFrom = 1.5f;
+                            strokeTo = 0f;
+                            colorFrom = colorTo = LPPal.aureus;
+                        }}
+                    );
+                    smokeEffect = Fx.none;
+                    hitSound = LPSounds.cannonLargeHit;
+                    hitSoundVolume = 2.8f;
+                    hitShake = 8;
+                    lineEffect = LPFx.chainLightningFadeReversed;
+                    pointEffect = endEffect = new ParticleEffect(){{
+                        particles = 1;
+                        region = "lp-railblast";
+                        lifetime = 30f;
+                        length = 0f;
+                        baseLength = 0f;
+                        cone = 0f;
+                        randLength = false;
+                        interp = Interp.circleIn;
+                        sizeFrom = 16f;
+                        sizeTo = 0f;
+                        colorFrom = colorTo = LPPal.aureus;
+                    }};
+                    hitEffect = despawnEffect = new MultiEffect(
+                        LPFx.sharpHitSpark(30f, LPPal.aureus, 9, 72, 30f, Interp.circleIn, 30f),
+                        new ParticleEffect(){{
+                            particles = 16;
+                            line = true;
+                            lifetime = 30f;
+                            length = 60f;
+                            baseLength = 12f;
+                            cone = 30f;
+                            interp = Interp.circleOut;
+                            sizeInterp = Interp.pow3In;
+                            lenFrom = 24f;
+                            lenTo = 0f;
+                            strokeFrom = 1.5f;
+                            strokeTo = 0f;
+                            colorFrom = colorTo = LPPal.aureus;
+                        }}
+                    );
+                    pierceEffect = new MultiEffect(
+                        LPFx.cutting(30f, LPPal.aureus, LPPal.aureusMid, false, 50f, 45f),
+                        
+                        new ParticleEffect(){{
+                            particles = 12;
+                            line = true;
+                            lifetime = 30f;
+                            length = 70f;
+                            baseLength = 12f;
+                            baseRotation = -225f;
+                            useRotation = false;
+                            cone = 12f;
+                            interp = Interp.circleOut;
+                            sizeInterp = Interp.pow3In;
+                            lenFrom = 18f;
+                            lenTo = 0f;
+                            strokeFrom = 1.5f;
+                            strokeTo = 0f;
+                            colorFrom = colorTo = LPPal.aureus;
+                        }},
+
+                        new ParticleEffect(){{
+                            particles = 4;
+                            line = true;
+                            lifetime = 30f;
+                            length = 76f;
+                            baseLength = 12f;
+                            baseRotation = -225f;
+                            useRotation = false;
+                            cone = 10f;
+                            interp = Interp.circleOut;
+                            sizeInterp = Interp.pow3In;
+                            lenFrom = 20f;
+                            lenTo = 0f;
+                            strokeFrom = 1.5f;
+                            strokeTo = 0f;
+                            colorFrom = colorTo = LPPal.aureusDark;
+                        }},
+
+                        new ParticleEffect(){{
+                            particles = 12;
+                            line = true;
+                            lifetime = 30f;
+                            length = 70f;
+                            baseLength = 12f;
+                            baseRotation = -45f;
+                            useRotation = false;
+                            cone = 12f;
+                            interp = Interp.circleOut;
+                            sizeInterp = Interp.pow3In;
+                            lenFrom = 18f;
+                            lenTo = 0f;
+                            strokeFrom = 1.5f;
+                            strokeTo = 0f;
+                            colorFrom = colorTo = LPPal.aureus;
+                        }},
+
+                        new ParticleEffect(){{
+                            particles = 4;
+                            line = true;
+                            lifetime = 30f;
+                            length = 76f;
+                            baseLength = 12f;
+                            baseRotation = -45f;
+                            useRotation = false;
+                            cone = 10f;
+                            interp = Interp.circleOut;
+                            sizeInterp = Interp.pow3In;
+                            lenFrom = 20f;
+                            lenTo = 0f;
+                            strokeFrom = 1.5f;
+                            strokeTo = 0f;
+                            colorFrom = colorTo = LPPal.aureusDark;
+                        }}
+                    );
+                    fragOnDespawn = false;
+                    fragOnHit = false;
+                }}
+            );
         }};
 
         //production
