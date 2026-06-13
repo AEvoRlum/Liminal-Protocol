@@ -1,4 +1,5 @@
 package LP.graphics;
+import arc.Events;
 import arc.func.*;
 import arc.graphics.*;
 import arc.math.*;
@@ -11,6 +12,7 @@ import mindustry.entities.*;
 import mindustry.entities.bullet.*;
 import mindustry.game.*;
 import mindustry.gen.*;
+import mindustry.type.*;
 import LP.content.*;
 import LP.entities.bullets.*;
 import LP.util.struct.*;
@@ -67,7 +69,6 @@ public final class PositionLightning{
 
     public static void createRange(Bullet owner, boolean hitAir, boolean hitGround, Position from, Team team, float range, int maxHit, Color color, boolean createSubLightning, float damage, int subLightningLength, float width, int lightningNum, Cons<Position> hitPointMovement){
         Seq<Healthc> entities = new Seq<>();
-        // find all entities in range
         whetherAdd(entities, team, rect.setSize(range * 2f).setCenter(from.getX(), from.getY()), maxHit, hitGround, hitAir);
         float armorMultiplier = owner != null ? owner.type.armorMultiplier : 1f;
         float shieldDamageMultiplier = owner != null ? owner.type.shieldDamageMultiplier : 1f;
@@ -83,7 +84,6 @@ public final class PositionLightning{
             owner != null ? owner.type.buildingDamageMultiplier : 1f);
     }
 
-    /** A create method that with a Bullet owner. */
     public static void create(Entityc owner, Team team, Position from, Position target, Color color, boolean createSubLightning,
                               float damage, int subLightningLength, float lightningWidth, int lightningNum, Cons<Position> hitPointMovement,
                               float armorMultiplier, float shieldDamageMultiplier, float buildingDamageMultiplier){
@@ -107,59 +107,139 @@ public final class PositionLightning{
             }else realDamage = 1;
         }
 
+        StatusEffect status = owner instanceof Bullet b ? b.type.status : StatusEffects.none;
+        float statusDuration = owner instanceof Bullet b ? b.type.statusDuration : 0f;
+
         if(sureTarget instanceof Healthc healthc){
-            float shieldDamage = realDamage * shieldDamageMultiplier;
-            float armorDamage = realDamage;
             float buildingDamage = realDamage * buildingDamageMultiplier;
 
             if(healthc instanceof Unit unit){
-                if(unit.shield > 0){
-                    unit.shield -= shieldDamage;
-                    
-                    if(unit.shield <= 0){
-                        float remainingDamage = -unit.shield;
-                        unit.shield = 0;
-                        
-                        float armor = unit.armor();
-                        float armorReduction = armorMultiplier * armor;
-                        float damageToHealth;
-                        
-                        if(remainingDamage <= armorReduction){
-                            damageToHealth = remainingDamage * 0.1f;
-                        } else {
-                            damageToHealth = remainingDamage - armorReduction;
-                        }
-                        
-                        if(damageToHealth > 0){
-                            unit.health -= damageToHealth;
-                        }
-                    }
-                } else {
-                    float armor = unit.armor();
-                    float armorReduction = armorMultiplier * armor;
-                    float damageToHealth;
-                    
-                    if(armorDamage <= armorReduction){
-                        damageToHealth = armorDamage * 0.1f;
+                float finalDamage = owner instanceof Bullet b ? b.damage : realDamage;
+                
+                if(owner instanceof Bullet b){
+                    if(b.type.pierceArmor){
+                        unit.damagePierce(finalDamage);
+                    } else if(b.type.armorMultiplier != 1){
+                        unit.damageArmorMult(finalDamage, b.type.armorMultiplier);
                     } else {
-                        damageToHealth = armorDamage - armorReduction;
+                        unit.damage(finalDamage);
                     }
                     
-                    if(damageToHealth > 0){
-                        unit.health -= damageToHealth;
+                    unit.apply(b.type.status, b.type.statusDuration);
+                    Events.fire(new mindustry.game.EventType.UnitDamageEvent().set(unit, b));
+                } else {
+                    if(armorMultiplier != 1){
+                        unit.damageArmorMult(finalDamage, armorMultiplier);
+                    } else {
+                        unit.damage(finalDamage);
+                    }
+                    
+                    if(status != StatusEffects.none){
+                        unit.apply(status, statusDuration);
                     }
                 }
             } else if(healthc instanceof Building building){
-                building.damage(buildingDamage);
+                float finalDamage = owner instanceof Bullet b ? b.damage * b.type.buildingDamageMultiplier : buildingDamage;
+                building.damage(finalDamage);
+                
+                if(status != StatusEffects.none && building instanceof Unitc unitc){
+                    unitc.apply(status, statusDuration);
+                }
             }
         } else {
             hitter.armorMultiplier = armorMultiplier;
             hitter.shieldDamageMultiplier = shieldDamageMultiplier;
             hitter.buildingDamageMultiplier = buildingDamageMultiplier;
+            hitter.status = owner instanceof Bullet b ? b.type.status : StatusEffects.none;
+            hitter.statusDuration = owner instanceof Bullet b ? b.type.statusDuration : 0f;
             hitter.create(owner, team, sureTarget.getX(), sureTarget.getY(), 1).damage(realDamage);
         }
 
         createEffect(from, sureTarget, color, lightningNum, lightningWidth);
+    }
+
+    public static void createForLink(Entityc owner, Team team, Position from, Position target, Color color, boolean createSubLightning,
+                              float damage, int subLightningLength, float lightningWidth, int lightningNum, Cons<Position> hitPointMovement,
+                              float armorMultiplier, float shieldDamageMultiplier, float buildingDamageMultiplier){
+        if(!Mathf.chance(trueHitChance)) return;
+        Position sureTarget = findInterceptedPoint(from, target, team);
+        hitPointMovement.get(sureTarget);
+
+        if(createSubLightning){
+            if(owner instanceof Bullet b){
+                for(int i = 0; i < b.type.lightning; i++)
+                    mindustry.entities.Lightning.create(b, color, b.type.lightningDamage < 0f ? b.damage : b.type.lightningDamage, sureTarget.getX(), sureTarget.getY(), b.rotation() + Mathf.range(b.type.lightningCone / 2f) + b.type.lightningAngle, b.type.lightningLength + Mathf.random(b.type.lightningLengthRand));
+            }else for(int i = 0; i < 3; i++)
+                mindustry.entities.Lightning.create(team, color, damage <= 0f ? 1f : damage, sureTarget.getX(), sureTarget.getY(), Mathf.random(360f), subLightningLength);
+        }
+
+        float realDamage = damage;
+
+        if(realDamage <= 0){
+            if(owner instanceof Bullet b){
+                realDamage = b.damage > 0 ? b.damage : 1;
+            }else realDamage = 1;
+        }
+
+        StatusEffect status = owner instanceof Bullet b ? b.type.status : StatusEffects.none;
+        float statusDuration = owner instanceof Bullet b ? b.type.statusDuration : 0f;
+
+        if(sureTarget instanceof Healthc healthc){
+            float buildingDamage = realDamage * buildingDamageMultiplier;
+
+            if(healthc instanceof Unit unit){
+                float finalDamage = realDamage;
+                
+                if(owner instanceof Bullet b){
+                    if(b.type.pierceArmor){
+                        unit.damagePierce(finalDamage);
+                    } else if(b.type.armorMultiplier != 1){
+                        unit.damageArmorMult(finalDamage, b.type.armorMultiplier);
+                    } else {
+                        unit.damage(finalDamage);
+                    }
+                    
+                    unit.apply(b.type.status, b.type.statusDuration);
+                    Events.fire(new mindustry.game.EventType.UnitDamageEvent().set(unit, b));
+                } else {
+                    if(armorMultiplier != 1){
+                        unit.damageArmorMult(finalDamage, armorMultiplier);
+                    } else {
+                        unit.damage(finalDamage);
+                    }
+                    
+                    if(status != StatusEffects.none){
+                        unit.apply(status, statusDuration);
+                    }
+                }
+            } else if(healthc instanceof Building building){
+                float finalDamage = owner instanceof Bullet b ? realDamage * b.type.buildingDamageMultiplier : buildingDamage;
+                building.damage(finalDamage);
+                
+                if(status != StatusEffects.none && building instanceof Unitc unitc){
+                    unitc.apply(status, statusDuration);
+                }
+            }
+        } else {
+            hitter.armorMultiplier = armorMultiplier;
+            hitter.shieldDamageMultiplier = shieldDamageMultiplier;
+            hitter.buildingDamageMultiplier = buildingDamageMultiplier;
+            hitter.status = owner instanceof Bullet b ? b.type.status : StatusEffects.none;
+            hitter.statusDuration = owner instanceof Bullet b ? b.type.statusDuration : 0f;
+            hitter.create(owner, team, sureTarget.getX(), sureTarget.getY(), 1).damage(realDamage);
+        }
+
+        createEffect(from, sureTarget, color, lightningNum, lightningWidth);
+    }
+
+    public static void createRangeForLink(Bullet owner, boolean hitAir, boolean hitGround, Position from, Team team, float range, int maxHit, Color color, boolean createSubLightning, float damage, int subLightningLength, float width, int lightningNum, Cons<Position> hitPointMovement){
+        Seq<Healthc> entities = new Seq<>();
+        whetherAdd(entities, team, rect.setSize(range * 2f).setCenter(from.getX(), from.getY()), maxHit, hitGround, hitAir);
+        float armorMultiplier = owner != null ? owner.type.armorMultiplier : 1f;
+        float shieldDamageMultiplier = owner != null ? owner.type.shieldDamageMultiplier : 1f;
+        float buildingDamageMultiplier = owner != null ? owner.type.buildingDamageMultiplier : 1f;
+        for(Healthc p : entities)
+            createForLink(owner, team, from, p, color, createSubLightning, damage, subLightningLength, width, lightningNum, hitPointMovement, armorMultiplier, shieldDamageMultiplier, buildingDamageMultiplier);
     }
 
     public static void createRandom(Bullet owner, Team team, Position from, float rand, Color color, boolean createSubLightning, float damage, int subLightningLength, float width, int lightningNum, Cons<Position> hitPointMovement){
@@ -212,7 +292,6 @@ public final class PositionLightning{
         }
     }
 
-    /** Add proper unit into the to hit Seq. */
     private static void whetherAdd(Seq<Healthc> points, Team team, Rect selectRect, int maxHit, boolean targetGround, boolean targetAir) {
         Units.nearbyEnemies(team, selectRect, unit -> {
             if (unit.checkTarget(targetAir, targetGround)) points.add(unit);
@@ -229,7 +308,6 @@ public final class PositionLightning{
         points.truncate(maxHit);
     }
 
-    /** Compute the proper hit position. */
     public static Position findInterceptedPoint(Position from, Position target, Team fromTeam){
         furthest = null;
         return Geometry.raycast(
@@ -241,7 +319,6 @@ public final class PositionLightning{
         ) && furthest != null ? furthest : target;
     }
 
-    /** create lightning effect. */
     public static void createBoltEffect(Color color, float width, Vec2Seq vets) {
         vets.each(((x, y) -> {
             if(Mathf.chance(0.0855f)) LPFx.lightningSpark.at(x, y, rand.random(2f + width, 4f + width), color);
@@ -249,7 +326,6 @@ public final class PositionLightning{
         LPFx.posLightning.at((vets.firstTmp().x + vets.peekTmp().x) / 2f, (vets.firstTmp().y + vets.peekTmp().y) / 2f, width, color, vets);
     }
 
-    // 根据数组偏移量来计算中间的点数量并且偏移
     private static Vec2Seq computeVectors(FloatSeq randomVec, Position from, Position to) {
         int param = randomVec.size;
         float angle = from.angleTo(to);
@@ -259,7 +335,6 @@ public final class PositionLightning{
 
         lines.add(from);
         for (int i = 1; i < param - 2; i++)
-            //根据randomVec计算纵向偏移
             lines.add(tmp3.trns(angle - 90, randomVec.get(i)).add(tmp1, i).add(from.getX(), from.getY()));
         lines.add(to);
 

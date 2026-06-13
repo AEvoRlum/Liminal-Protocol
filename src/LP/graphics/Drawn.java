@@ -342,8 +342,7 @@ public final class Drawn{
 
         int sides = Math.max(24, Lines.circleVertices(outer));
         float step = 360f / sides;
-
-        // 连续深度插值 + 宽度透视，避免前后半环颜色“硬切”，并增强伪 3D 体积感。
+        
         for(int i = 0; i < sides; i++){
             float angle = i * step;
             float mid = angle + step * 0.5f;
@@ -356,7 +355,6 @@ public final class Drawn{
 
             ringSegment(x, y, segInner, segOuter, sclY, angle, step, rotation, blended, blended);
 
-            // 近端外圈高光：让环更像有“厚度”的物体，而不是平面描边。
             if(smooth > 0.62f){
                 float h = Interp.smoother.apply(Mathf.curve(smooth, 0.62f, 1f));
                 float hi = Color.toFloatBits(

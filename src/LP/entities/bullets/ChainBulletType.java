@@ -14,7 +14,6 @@ import mindustry.entities.Lightning;
 import mindustry.entities.Units;
 import mindustry.entities.bullet.BulletType;
 import mindustry.gen.Bullet;
-import mindustry.gen.Unit;
 
 import LP.graphics.PositionLightning;
 import LP.util.*;
@@ -83,10 +82,9 @@ public class ChainBulletType extends BulletType{
                 float baseAngle = Angles.angle(from.getX(), from.getY(), sureTarget.getX(), sureTarget.getY());
 
                 effectController.get(from, sureTarget);
-                Bullet hitBullet = lightningType.create(b, sureTarget.getX(), sureTarget.getY(), baseAngle);
-                if (hitBullet != null) {
-                    hitBullet.damage(damage);
-                }
+
+                PositionLightning.create(b, b.team, from, sureTarget, hitColor, false, damage, lightningLength, boltWidth, boltNum, p -> {},
+                        b.type.armorMultiplier, b.type.shieldDamageMultiplier, b.type.buildingDamageMultiplier);
 
                 for (int j = 0; j < lightning; j++) {
                     Lightning.create(b, hitColor, lightningDamage < 0f ? damage : lightningDamage, sureTarget.getX(), sureTarget.getY(),
@@ -103,8 +101,6 @@ public class ChainBulletType extends BulletType{
                 }
 
                 hitEffect.at(sureTarget.getX(), sureTarget.getY(), hitColor);
-
-                if(sureTarget instanceof Unit)((Unit)sureTarget).apply(status, statusDuration);
 
                 if(sureTarget != to)break;
             }

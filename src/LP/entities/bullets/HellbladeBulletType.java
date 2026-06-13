@@ -60,6 +60,8 @@ public class HellbladeBulletType extends ContinuousLaserBulletType{
                     
                     float splashDamage = currentDamage * splashDamageMultiplier;
                     Damage.damage(b.team, buildX, buildY, splashRange, splashDamage);
+                    
+                    hitEffect.at(buildX, buildY, rot);
                 }
                 return false;
             });
@@ -70,9 +72,18 @@ public class HellbladeBulletType extends ContinuousLaserBulletType{
                 u.hitbox(Tmp.r2);
                 Vec2 hitPoint = arc.math.geom.Geometry.raycastRect(b.x, b.y, x2, y2, Tmp.r2.grow(3f));
                 if(hitPoint != null){
-                    float relativeVelocity = u.vel.len();
-                    float velocityMultiplier = 1f + (relativeVelocity / velocityThreshold) * velocityDamageMultiplier;
-                    float finalMultiplier = Math.max(1f, Math.min(velocityMultiplier, maxDamageMultiplier));
+                    /** 相对速度增伤 */
+                    float relativeVelocity = b.vel.len() - u.vel.len();
+                    float velocityBonus = relativeVelocity > 0 ? (relativeVelocity / velocityThreshold) * velocityDamageMultiplier : 0f;
+                    
+                    /** 目标速度增伤 */
+                    float targetSpeedBonus = (u.vel.len() * 2.5f) / 100f;
+                    
+                    /** 总增伤 */
+                    float totalBonus = Math.min(velocityBonus + targetSpeedBonus, maxDamageMultiplier - 1f);
+                    
+                    /** 最终伤害 */
+                    float finalMultiplier = 1f + totalBonus;
                     float adjustedDamage = currentDamage * finalMultiplier;
 
                     float shieldDamage = adjustedDamage * b.type.shieldDamageMultiplier;
@@ -103,6 +114,8 @@ public class HellbladeBulletType extends ContinuousLaserBulletType{
 
                     float splashDamage = currentDamage * splashDamageMultiplier;
                     Damage.damage(b.team, hitPoint.x, hitPoint.y, splashRange, splashDamage);
+                    
+                    hitEffect.at(hitPoint.x, hitPoint.y, rot);
                 }
             }
         });

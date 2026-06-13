@@ -23,6 +23,7 @@ public class LPMod extends Mod {
         LPFx.loadPriority();
         LPStatusEffect.load();
         LPUnits.load();
+        LPEnemyUnits.load();
         LPBlocks.load();
         
         Mx1Sectors.load();

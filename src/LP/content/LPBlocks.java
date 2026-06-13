@@ -1427,7 +1427,6 @@ public class LPBlocks {
             consumePower(8f);
             shootY = 8f;
             shootSound = LPSounds.shootPulse3;
-            shootSoundVolume = 1.2f;
             shootCone = 2f;
             shootType = new BasicBulletType(){{
                 width = height = shrinkY = 0f;
@@ -1517,7 +1516,6 @@ public class LPBlocks {
                 hitSound = LPSounds.shootCoil1;
                 hitSoundVolume = 2f;
                 hitEffect = new MultiEffect(
-                    new WrapEffect(Fx.shootQuellPulse, LPPal.purple),
                     new WrapEffect(LPFx.fallenStar, LPPal.purple, 2.4f),
                     LPFx.circleOut(60f, LPPal.purple, 72f),
                     LPFx.smoothCircleOut(60f, LPPal.purple, 72f, 80, true)
@@ -2188,7 +2186,7 @@ public class LPBlocks {
                     impact = true;
                     pierce = true;
                     pierceBuilding = false;
-                    pierceCap = 12;
+                    pierceCap = 32;
                     pierceDamageFactor = 0.75f;
                     ammoMultiplier = 1f;
                     armorMultiplier = 0.1f;
@@ -3041,8 +3039,8 @@ public class LPBlocks {
         ttfWall = new Wall("325"){{
             size = 3;
             health = 325;
-            alwaysUnlocked = true;
-            researchCostMultiplier = 0.4f;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0f;
             buildVisibility = BuildVisibility.sandboxOnly;
         }};
 

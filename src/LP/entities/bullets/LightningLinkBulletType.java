@@ -76,7 +76,7 @@ public class LightningLinkBulletType extends BasicBulletType {
         Effect.shake(hitShake, hitShake, b);
         if (b.timer(4, hitSpacing)) {
             PositionLightning.setHitChance(trueHitChance);
-            PositionLightning.createRange(b, collidesAir, collidesGround, b, b.team, linkRange, maxHit, hitColor, Mathf.chanceDelta(randomLightningChance), lightningLinkDamage, lightningLength, PositionLightning.WIDTH, boltNum, p -> {
+            PositionLightning.createRangeForLink(b, collidesAir, collidesGround, b, b.team, linkRange, maxHit, hitColor, Mathf.chanceDelta(randomLightningChance), lightningLinkDamage, lightningLength, PositionLightning.WIDTH, boltNum, p -> {
                 liHitEffect.at(p.getX(), p.getY(), hitColor);
             });
             PositionLightning.setHitChanceDef();
