@@ -5,6 +5,7 @@ import mindustry.world.meta.Env;
 import mindustry.world.meta.Stat;
 import mindustry.gen.Sounds;
 import mindustry.gen.Unit;
+import mindustry.gen.UnitEntity;
 import arc.graphics.g2d.Draw;
 import mindustry.content.Fx;
 
@@ -23,6 +24,7 @@ public class SpawnUnitType extends UnitType {
         envDisabled = Env.space;
         flyingLayer = 0f;
         engineSize = 0f;
+        constructor = UnitEntity::create;
     }
 
     @Override

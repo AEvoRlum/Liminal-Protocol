@@ -74,7 +74,7 @@ public class LPFx {
             rand.setSeed(e.id);
             color(color.cpy().lerp(Color.white, 0.8f), color, e.fin(Interp.pow5Out));
             float circleRad = e.fin(Interp.circleOut) * range;
-            stroke(Mathf.clamp(range / 24f, 4f, 20f) * e.fout());
+            stroke(Mathf.clamp(range / 24f, 3f, 20f) * e.fout());
             circle(e.x, e.y, circleRad);
 
             int intensity = (int)Mathf.clamp(range / 8, 9, 60);
@@ -84,6 +84,44 @@ public class LPFx {
                 rand.random(circleRad / 4f, circleRad / 1.5f) * (1f + e.fin()) / 2f, Tmp.v1.angle() - 180f);
             }
         });
+    }
+
+    public static Effect XSharpHit(float lifetime, Color color, float range) {
+        return new Effect(lifetime, range * 2f, (e) -> {
+            color(color.cpy().lerp(Color.white, 0.8f), color, e.fin(Interp.pow5Out));
+            float tl = range * 0.8f;
+            float tw = range / 10f * e.fout(Interp.pow3Out);
+
+            float m = e.fin(Interp.pow3Out) * (range - tl * 0.4f);
+
+            float[] angles = {45f, 135f, 225f, 315f};
+            for (float angle : angles) {
+                float rad = angle * Mathf.degRad;
+                float x = e.x + Mathf.cos(rad) * m;
+                float y = e.y + Mathf.sin(rad) * m;
+
+                Drawn.tri(x, y, tw, tl * (1f + 0.2f * e.fin(Interp.pow3Out)), angle);
+                Drawn.tri(x, y, tw, tl * (1f + 0.2f * e.fin(Interp.pow3Out)) * 0.1f, angle + 180f);
+            }
+        });
+    }
+
+    public static Effect XSharpShoot(float lifetime, Color color, float size) {
+        return new Effect(lifetime, size * 1.5f, (e) -> {
+            color(color);
+            float tw = size / 6f * e.fout(Interp.circleIn);
+
+            for (int i : Mathf.signs) {
+                Drawn.tri(e.x, e.y, tw, size * (1 + 0.2f * e.fin(Interp.circleIn)), e.rotation + 90 * i);
+                Drawn.tri(e.x, e.y, tw, size * (1 + 0.2f * e.fin(Interp.circleIn)) * 0.7f, e.rotation + 55f + 90 * i);
+            }
+
+            color(Color.white);
+            for (int i : Mathf.signs) {
+                Drawn.tri(e.x, e.y, tw * 0.5f, size * e.fin(Interp.circleIn) * 0.5f, e.rotation + 90 * i);
+                Drawn.tri(e.x, e.y, tw * 0.5f, size * e.fin(Interp.circleIn) * 0.7f * 0.5f, e.rotation + 55f + 90 * i);
+            }
+        }).followParent(true);
     }
 
     public static Effect impactHit(Color color, float lifetime, float size) {
@@ -285,8 +323,8 @@ public class LPFx {
             Drawf.light(e.x, e.y, e.fout() * len, color, 0.7f);
             float fout = e.fout(Interp.exp10Out);
             for (int i : Mathf.signs) {
-                Drawn.tri(e.x, e.y, len / 14 * fout * (Mathf.absin(0.8f, 0.07f) + 1),
-                len * 2 * Interp.swingOut.apply(Mathf.curve(e.fin(), 0, 0.7f)) * (Mathf.absin(0.8f, 0.12f) + 1) * e.fout(0.2f),
+                Drawn.tri(e.x, e.y, len / 12f * fout * (Mathf.absin(0.8f, 0.07f) + 1),
+                len * 2 * Interp.swingOut.apply(Mathf.curve(e.fin(), 0, 0.7f)) * (Mathf.absin(0.8f, 0.12f) + 1) * (1f + e.fin(Interp.circleOut) * 0.5f),
                 ang + i * 90);
             }
 
@@ -294,15 +332,15 @@ public class LPFx {
                 color(bottomColor);
                 z(Layer.effect + 0.0001f);
                 for (int i : Mathf.signs) {
-                    Drawn.tri(e.x, e.y, (len * 0.7f) / 14 * fout * (Mathf.absin(0.8f, 0.07f) + 1),
-                    len * 2 * 0.7f * Interp.swingOut.apply(Mathf.curve(e.fin(), 0, 0.7f)) * (Mathf.absin(0.8f, 0.12f) + 1) * e.fout(0.2f),
+                    Drawn.tri(e.x, e.y, (len * 0.7f) / 12f * fout * (Mathf.absin(0.8f, 0.07f) + 1),
+                    len * 2 * 0.7f * Interp.swingOut.apply(Mathf.curve(e.fin(), 0, 0.7f)) * (Mathf.absin(0.8f, 0.12f) + 1) * (1f + e.fin(Interp.circleOut) * 0.5f),
                     ang + i * 90);
                 }
 
                 z(Layer.effect + 0.0001f);
                 for (int i : Mathf.signs) {
-                    Drawn.tri(e.x, e.y, (len * 0.7f) / 14 * fout * (Mathf.absin(0.8f, 0.07f) + 1),
-                    len * 2 * 0.7f * Interp.swingOut.apply(Mathf.curve(e.fin(), 0, 0.7f)) * (Mathf.absin(0.8f, 0.12f) + 1) * e.fout(0.2f),
+                    Drawn.tri(e.x, e.y, (len * 0.7f) / 12f * fout * (Mathf.absin(0.8f, 0.07f) + 1),
+                    len * 2 * 0.7f * Interp.swingOut.apply(Mathf.curve(e.fin(), 0, 0.7f)) * (Mathf.absin(0.8f, 0.12f) + 1) * (1f + e.fin(Interp.circleOut) * 0.5f),
                     ang + i * 90);
                 }
             }

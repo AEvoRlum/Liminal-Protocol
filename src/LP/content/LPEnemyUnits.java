@@ -2,19 +2,21 @@ package LP.content;
 
 import arc.graphics.Color;
 import arc.math.*;
-import mindustry.gen.UnitEntity;
 import mindustry.type.Weapon;
 import mindustry.gen.Bullet;
 import mindustry.gen.ElevationMoveUnit;
+import mindustry.gen.MechUnit;
 import mindustry.gen.Sounds;
 import mindustry.content.Fx;
 import mindustry.entities.bullet.*;
 import mindustry.entities.part.*;
 import mindustry.entities.effect.*;
+import mindustry.entities.pattern.*;
 
 import LP.entities.units.SpawnUnitType;
 import LP.entities.units.LPUnitType;
 import LP.graphics.LPPal;
+import static LP.LPMod.name;
 
 public class LPEnemyUnits {
     /** 悬浮 */
@@ -41,6 +43,7 @@ public class LPEnemyUnits {
     public static SpawnUnitType rusherSpawn, vectruptorSpawn, sustainerSpawn;
 
     public static void load() {
+        /** 悬浮 */
         riptide = new LPUnitType("riptide"){{
             constructor = ElevationMoveUnit::create;
             databaseTag = "enemy";
@@ -102,7 +105,7 @@ public class LPEnemyUnits {
                     layerOffset = -0.001f;
                 }}
             );
-            weapons.add(new Weapon("riptide-b"){{
+            weapons.add(new Weapon(name("riptide-b")){{
                 x = 4.7f;
                 y = 0f;
                 mirror = true;
@@ -115,6 +118,7 @@ public class LPEnemyUnits {
                 reload = 30;
                 recoil = 2f;
                 recoilTime = 20;
+                layerOffset = 0.001f;
                 bullet = new MultiBulletType(
                     new BasicBulletType(){{
                         angleOffset = -1f;
@@ -270,7 +274,6 @@ public class LPEnemyUnits {
         }};
 
         riptideSpawn = new SpawnUnitType("riptide-spawn"){{
-            constructor = UnitEntity::create;
             weapons.add(new Weapon(){{
                 alwaysShooting = true;
                 shootOnDeath = true;
@@ -414,6 +417,865 @@ public class LPEnemyUnits {
                         }
                     }
                 };
+            }});
+        }};
+
+        stormpole = new LPUnitType("stormpole"){{
+            constructor = ElevationMoveUnit::create;
+            databaseTag = "enemy";
+            health = 860f;
+            armor = 5f;
+            hitSize = 32f;
+            rotateSpeed = 2.8f;
+            speed = 2.2f;
+            accel = 0.1f;
+            drag = 0.04f;
+            engineSize = 0f;
+            buildSpeed = 0f;
+            itemCapacity = 200;
+            range = maxRange = fogRadius = 176f;
+            shadowElevation = 0.4f;
+            lowAltitude = true;
+            hovering = true;
+            flying = false;
+            faceTarget = false;
+            alwaysUnlocked = false;
+            canDrown = false;
+            drawCell = false;
+            useUnitCap = false;
+            parts.addAll(
+                new ShapePart(){{
+                    y = 18f;
+                    hollow = true;
+                    color = colorTo = LPPal.eyesLight;
+                    sides = 4;
+                    radius = radiusTo = 8f;
+                    stroke = strokeTo = 1.8f;
+                    rotation = 0f;
+                    layer = 110f;
+                }},
+
+                new HoverPart(){{
+                    mirror = false;
+                    color = LPPal.aureusDark;
+                    sides = 4;
+                    circles = 3;
+                    radius = 50f;
+                    phase = 60f;
+                    stroke = 2f;
+                    layerOffset = -0.001f;
+                }}
+            );
+            weapons.add(new Weapon(name("stormpole-1")){{
+                x = 0f;
+                y = -2.25f;
+                mirror = false;
+                rotate = true;
+                shootY = 0f;
+                shootCone = 2f;
+                shootSound = LPSounds.plasmaShot1;
+                shootSoundVolume = 1.4f;
+                rotateSpeed = 3f;
+                reload = 100f;
+                recoil = 4f;
+                recoilTime = 60f;
+                shake = 5f;
+                shoot = new ShootPattern(){{
+                    shots = 2;
+                    shotDelay = 10f;
+                }};
+                bullet = new BasicBulletType(){{
+                    sprite = "lp-energy-bullet";
+                    width = height = 9f;
+                    shrinkY = 0f;
+                    lightColor = frontColor = backColor = trailColor = hitColor = LPPal.aureusDark;
+                    trailWidth = 2f;
+                    trailLength = 6;
+                    scaleLife = true;
+                    keepVelocity = true;
+                    speed = 17.6f;
+                    lifetime = 10f;
+                    rangeOverride = maxRange = 176f;
+                    damage = 0f;
+                    splashDamage = 60f;
+                    splashDamageRadius = 64f;
+                    ammoMultiplier = 1f;
+                    shootEffect = new MultiEffect(
+                        LPFx.XSharpShoot(18f, LPPal.aureusDark, 50f),
+                        new ParticleEffect(){{
+                            particles = 4;
+                            line = true;
+                            lifetime = 18f;
+                            length = 24f;
+                            baseLength = 4f;
+                            cone = 15f;
+                            interp = Interp.pow2Out;
+                            sizeInterp = Interp.pow3In;
+                            lenFrom = 10f;
+                            lenTo = 0f;
+                            strokeFrom = 1.5f;
+                            strokeTo = 0f;
+                            colorFrom = colorTo = LPPal.aureusDark;
+                        }},
+
+                        new ParticleEffect(){{
+                            particles = 5;
+                            line = true;
+                            lifetime = 18f;
+                            length = 34f;
+                            baseLength = 6f;
+                            cone = 20f;
+                            interp = Interp.pow4Out;
+                            sizeInterp = Interp.pow3In;
+                            lenFrom = 16f;
+                            lenTo = 0f;
+                            strokeFrom = 1.5f;
+                            strokeTo = 0f;
+                            colorFrom = colorTo = LPPal.aureusDark;
+                        }}
+                    );
+                    smokeEffect = Fx.none;
+                    hitShake = despawnShake = 7f;
+                    hitSound = despawnSound = LPSounds.airCrushSmall2;
+                    hitSoundVolume = 1.8f;
+                    hitEffect = despawnEffect = new MultiEffect(
+                        LPFx.XSharpHit(40f, LPPal.aureusDark, 60f),
+                        LPFx.circleOut(40f, LPPal.aureusDark, 60f),
+                        LPFx.smoothCircleOut(40f, LPPal.aureusDark, 60f, 120, true)
+                    );
+                }};
+            }});
+        }};
+
+        stormpoleSpawn = new SpawnUnitType("stormpole-spawn"){{
+            weapons.add(new Weapon(){{
+                alwaysShooting = true;
+                shootOnDeath = true;
+                mirror = false;
+                controllable = aiControllable = false;
+                x = shootY = 0f;
+                shootSound = LPSounds.chargeRail2;
+                shootSoundVolume = 1.25f;
+                bullet = new BasicBulletType(){{
+                    width = height = shrinkY = 0f;
+                    killShooter = ignoreSpawnAngle = true;
+                    collides = absorbable = hittable = keepVelocity = false;
+                    speed = damage = 0f;
+                    lifetime = 110f;
+                    hitSound = LPSounds.shootPulse3;
+                    hitSoundVolume = 2.5f;
+                    hitEffect = despawnEffect = Fx.none;
+                    shootEffect = smokeEffect = Fx.none;
+                    parts.addAll(
+                        new ShapePart(){{
+                            hollow = true;
+                            color = Color.valueOf("F3E6E600");
+                            colorTo = LPPal.eyesLight;
+                            sides = 4;
+                            radius = 0f;
+                            radiusTo = 8f;
+                            stroke = 0f;
+                            strokeTo = 2f;
+                            rotation = 0f;
+                            layer = 110f;
+                            progress = PartProgress.life.compress(0f, 0.24f).curve(Interp.pow2In);
+                        }},
+
+                        new ShapePart(){{
+                            circle = true;
+                            hollow = true;
+                            color = Color.valueOf("F3E6E600");
+                            colorTo = LPPal.eyesLight;
+                            radius = 0f;
+                            radiusTo = 20f;
+                            stroke = 0f;
+                            strokeTo = 4f;
+                            rotation = 0f;
+                            layer = 110f;
+                            progress = PartProgress.life.compress(0.3f, 0.46f).curve(Interp.pow2In).mul(0f).sin(1f, 0.2f).add(1f).mul(PartProgress.life.mul(0.8f).sin(1f, 0.2f)).add(0f).curve(Interp.circleIn);
+                        }},
+
+                        new HaloPart(){{
+                            tri = true;
+                            color = colorTo = LPPal.eyesLight;
+                            shapes = 2;
+                            radius = 0f;
+                            radiusTo = 6f;
+                            triLength = 0f;
+                            triLengthTo = 32f;
+                            haloRadius = 0f;
+                            haloRadiusTo = 24f;
+                            haloRotateSpeed = -4f;
+                            layer = 110f;
+                            progress = PartProgress.life.compress(0.4f, 0.6f).curve(Interp.pow2In);
+                        }},
+
+                        new HaloPart(){{
+                            tri = true;
+                            color = colorTo = LPPal.eyesLight;
+                            shapes = 2;
+                            radius = 0f;
+                            radiusTo = 6f;
+                            triLength = 0f;
+                            triLengthTo = 6f;
+                            shapeRotation = 180f;
+                            haloRadius = 0f;
+                            haloRadiusTo = 24f;
+                            haloRotateSpeed = -4f;
+                            layer = 110f;
+                            progress = PartProgress.life.compress(0.4f, 0.6f).curve(Interp.pow2In);
+                        }},
+
+                        new HaloPart(){{
+                            tri = true;
+                            color = colorTo = LPPal.eyesLight;
+                            shapes = 2;
+                            radius = 0f;
+                            radiusTo = 6f;
+                            triLength = 0f;
+                            triLengthTo = 24f;
+                            haloRadius = 0f;
+                            haloRadiusTo = 24f;
+                            haloRotation = 24f;
+                            haloRotateSpeed = 5f;
+                            layer = 110f;
+                            progress = PartProgress.life.compress(0.45f, 0.6f).curve(Interp.pow2In);
+                        }},
+
+                        new HaloPart(){{
+                            tri = true;
+                            color = colorTo = LPPal.eyesLight;
+                            shapes = 2;
+                            radius = 0f;
+                            radiusTo = 6f;
+                            triLength = 0f;
+                            triLengthTo = 4f;
+                            shapeRotation = 180f;
+                            haloRadius = 0f;
+                            haloRadiusTo = 24f;
+                            haloRotation = 24f;
+                            haloRotateSpeed = 5f;
+                            layer = 110f;
+                            progress = PartProgress.life.compress(0.45f, 0.6f).curve(Interp.pow2In);
+                        }},
+
+                        new FlarePart(){{
+                            followRotation = false;
+                            color1 = color2 = LPPal.eyesLight;
+                            sides = 2;
+                            radius = 0f;
+                            radiusTo = 60f;
+                            stroke = 1f;
+                            layer = 110f;
+                            progress = PartProgress.life.compress(0.3f, 1f).curve(Interp.circleOut);
+                        }},
+
+                        new HaloPart(){{
+                            tri = true;
+                            color = colorTo = LPPal.eyesLight;
+                            shapes = 2;
+                            radius = 0f;
+                            radiusTo = 1f;
+                            triLength = 70f;
+                            triLengthTo = 0f;
+                            haloRadius = 0f;
+                            haloRotation = 20f;
+                            layer = 110f;
+                            progress = PartProgress.life.compress(0.3f, 0.32f).curve(Interp.circleOut);
+                        }},
+
+                        new HaloPart(){{
+                            tri = true;
+                            color = colorTo = LPPal.eyesLight;
+                            shapes = 2;
+                            radius = 0f;
+                            radiusTo = 1f;
+                            triLength = 70f;
+                            triLengthTo = 0f;
+                            haloRadius = 0f;
+                            haloRotation = 40f;
+                            layer = 110f;
+                            progress = PartProgress.life.compress(0.32f, 0.34f).curve(Interp.circleOut);
+                        }},
+
+                        new HaloPart(){{
+                            tri = true;
+                            color = colorTo = LPPal.eyesLight;
+                            shapes = 2;
+                            radius = 0f;
+                            radiusTo = 1f;
+                            triLength = 70f;
+                            triLengthTo = 0f;
+                            haloRadius = 0f;
+                            haloRotation = 60f;
+                            layer = 110f;
+                            progress = PartProgress.life.compress(0.34f, 0.36f).curve(Interp.circleOut);
+                        }},
+
+                        new HaloPart(){{
+                            tri = true;
+                            color = colorTo = LPPal.eyesLight;
+                            shapes = 2;
+                            radius = 0f;
+                            radiusTo = 1f;
+                            triLength = 70f;
+                            triLengthTo = 0f;
+                            haloRadius = 0f;
+                            haloRotation = 80f;
+                            layer = 110f;
+                            progress = PartProgress.life.compress(0.36f, 0.38f).curve(Interp.circleOut);
+                        }},
+
+                        new HaloPart(){{
+                            tri = true;
+                            color = colorTo = LPPal.eyesLight;
+                            shapes = 2;
+                            radius = 0f;
+                            radiusTo = 1f;
+                            triLength = 70f;
+                            triLengthTo = 0f;
+                            haloRadius = 0f;
+                            haloRotation = 100f;
+                            layer = 110f;
+                            progress = PartProgress.life.compress(0.38f, 0.40f).curve(Interp.circleOut);
+                        }},
+
+                        new HaloPart(){{
+                            tri = true;
+                            color = colorTo = LPPal.eyesLight;
+                            shapes = 2;
+                            radius = 0f;
+                            radiusTo = 1f;
+                            triLength = 70f;
+                            triLengthTo = 0f;
+                            haloRadius = 0f;
+                            haloRotation = 120f;
+                            layer = 110f;
+                            progress = PartProgress.life.compress(0.40f, 0.42f).curve(Interp.circleOut);
+                        }},
+
+                        new HaloPart(){{
+                            tri = true;
+                            color = colorTo = LPPal.eyesLight;
+                            shapes = 2;
+                            radius = 0f;
+                            radiusTo = 1f;
+                            triLength = 70f;
+                            triLengthTo = 0f;
+                            haloRadius = 0f;
+                            haloRotation = 140f;
+                            layer = 110f;
+                            progress = PartProgress.life.compress(0.42f, 0.44f).curve(Interp.circleOut);
+                        }},
+
+                        new HaloPart(){{
+                            tri = true;
+                            color = colorTo = LPPal.eyesLight;
+                            shapes = 2;
+                            radius = 0f;
+                            radiusTo = 1f;
+                            triLength = 70f;
+                            triLengthTo = 0f;
+                            haloRadius = 0f;
+                            haloRotation = 160f;
+                            layer = 110f;
+                            progress = PartProgress.life.compress(0.44f, 0.46f).curve(Interp.circleOut);
+                        }},
+
+                        new HaloPart(){{
+                            tri = true;
+                            color = colorTo = LPPal.eyesLight;
+                            shapes = 2;
+                            radius = 0f;
+                            radiusTo = 1f;
+                            triLength = 70f;
+                            triLengthTo = 0f;
+                            haloRadius = 0f;
+                            haloRotation = 180f;
+                            layer = 110f;
+                            progress = PartProgress.life.compress(0.46f, 0.48f).curve(Interp.circleOut);
+                        }},
+
+                        new HaloPart(){{
+                            tri = true;
+                            color = colorTo = LPPal.eyesLight;
+                            shapes = 2;
+                            radius = 0f;
+                            radiusTo = 1f;
+                            triLength = 70f;
+                            triLengthTo = 0f;
+                            haloRadius = 0f;
+                            haloRotation = 200f;
+                            layer = 110f;
+                            progress = PartProgress.life.compress(0.48f, 0.50f).curve(Interp.circleOut);
+                        }}
+                    );
+                    despawnUnit = stormpole;
+                    despawnUnitRadius = 0f;
+                    fragBullets = 1;
+                    fragVelocityMin = fragVelocityMax =fragOffsetMin = fragOffsetMax = 0;
+                    fragLifeMin = fragLifeMax = 1;
+                    fragBullet = new BasicBulletType(){{
+                        width = height = shrinkY = 0f;
+                        ignoreSpawnAngle = true;
+                        collides = absorbable = hittable = keepVelocity = false;
+                        speed = damage = 0f;
+                        lifetime = 30f;
+                        hitSound = Sounds.none;
+                        hitEffect = despawnEffect = Fx.none;
+                        parts.addAll(
+                            new ShapePart(){{
+                                hollow = true;
+                                color = LPPal.eyesLight;
+                                colorTo = Color.valueOf("F3E6E600");
+                                sides = 4;
+                                radius = 0f;
+                                radiusTo = 36f;
+                                stroke = 3f;
+                                strokeTo = 0f;
+                                rotation = 0f;
+                                layer = 110f;
+                                progress = PartProgress.life.curve(Interp.circleOut);
+                            }},
+
+                            new ShapePart(){{
+                                hollow = true;
+                                color = LPPal.eyesLight;
+                                colorTo = Color.valueOf("F3E6E600");
+                                sides = 4;
+                                radius = 0f;
+                                radiusTo = 40f;
+                                stroke = 2f;
+                                strokeTo = 0f;
+                                rotation = 0f;
+                                layer = 110f;
+                                progress = PartProgress.life.curve(Interp.circleOut);
+                            }},
+
+                            new ShapePart(){{
+                                circle = true;
+                                hollow = true;
+                                color = colorTo = LPPal.eyesLight;
+                                radius = 0f;
+                                radiusTo = 48f;
+                                stroke = 2f;
+                                strokeTo = 0f;
+                                rotation = 0f;
+                                layer = 110f;
+                                progress = PartProgress.life.curve(Interp.circleOut);
+                            }},
+
+                            new FlarePart(){{
+                                followRotation = false;
+                                color1 = color2 = LPPal.eyesLight;
+                                sides = 2;
+                                radius = 0f;
+                                radiusTo = 80f;
+                                stroke = 1f;
+                                layer = 110f;
+                                progress = PartProgress.life.curve(Interp.circleOut);
+                            }},
+
+                            new HaloPart(){{
+                                tri = true;
+                                color = colorTo = LPPal.eyesLight;
+                                shapes = 2;
+                                radius = 8f;
+                                radiusTo = 0f;
+                                triLength = 25f;
+                                triLengthTo = 40f;
+                                haloRadius = 24f;
+                                haloRadiusTo = 48f;
+                                haloRotation = 45;
+                                layer = 110f;
+                                progress = PartProgress.life.curve(Interp.circleOut);
+                            }},
+
+                            new HaloPart(){{
+                                tri = true;
+                                color = colorTo = LPPal.eyesLight;
+                                shapes = 2;
+                                radius = 8f;
+                                radiusTo = 0f;
+                                triLength = 8f;
+                                triLengthTo = 6f;
+                                shapeRotation = 180f;
+                                haloRadius = 24f;
+                                haloRadiusTo = 48f;
+                                haloRotation = 45;
+                                layer = 110f;
+                                progress = PartProgress.life.curve(Interp.circleOut);
+                            }}
+                        );
+                    }};
+                }};
+            }});
+        }};
+
+        rupture = new LPUnitType("rupture"){{
+            constructor = MechUnit::create;
+            databaseTag = "enemy";
+            health = 980f;
+            armor = 8f;
+            hitSize = 38f;
+            rotateSpeed = 2.8f;
+            speed = 0.58f;
+            accel = 0.2f;
+            drag = 0.2f;
+            engineSize = 0f;
+            buildSpeed = 0f;
+            itemCapacity = 0;
+            fogRadius = range = maxRange = 224f;
+            shadowElevation = 0.2f;
+            groundLayer = 60f;
+            mechLandShake = 0.5f;
+            mechLegColor = Color.valueOf("303238");
+            stepSound = LPSounds.mechStepHeavy;
+            stepSoundVolume = 1f;
+            stepSoundPitch = 0.8f;
+            mechStepParticles = true;
+            drawCell = false;
+            useUnitCap = false;
+            parts.addAll(
+                new ShapePart(){{
+                    y = 14f;
+                    hollow = true;
+                    color = colorTo = LPPal.eyesLight;
+                    sides = 4;
+                    radius = radiusTo = 8f;
+                    stroke = strokeTo = 1.8f;
+                    rotation = 0f;
+                    layer = 110f;
+                }}
+            );
+            weapons.add(new Weapon(name("rupture-1")){{
+                top = predictTarget = false;
+                x = 20f;
+                y = 1f;
+                shootY = 13f;
+                shootX = -1.25f;
+                shootCone = 10f;
+                shootSound = LPSounds.beamLargeShot1;
+                shootSoundVolume = 0.7f;
+                reload = 72f;
+                recoil = 2f;
+                recoilTime = 30f;
+                shake = 5f;
+                bullet = new MultiBulletType(
+                    new LaserBulletType(){{
+                        lightColor = hitColor = Color.valueOf("FF6464");
+                        length = 224f;
+                        width = 24f;
+                        sideAngle = 80f;
+                        sideWidth = 0.8f;
+                        sideLength = 45f;
+                        colors = new Color[]{LPPal.redDark, LPPal.orangeRed, Color.valueOf("FF6461"), LPPal.redLight};
+                        lifetime = 12f;
+                        damage = 30f;
+                        pierce = true;
+                        pierceBuilding = true;
+                        pierceCap = 4;
+                        ammoMultiplier = 1f;
+                        armorMultiplier = 1.85f;
+                        shieldDamageMultiplier = 2.15f;
+                        laserEffect = Fx.none;
+                    }},
+
+                    new BasicBulletType(){{
+                        sprite = "lp-pierce";
+                        width = 9f;
+                        height = 12f;
+                        shrinkY = 0f;
+                        lightColor = frontColor = backColor = frontColor = trailColor = Color.valueOf("FF6464");
+                        trailWidth = 3f;
+                        trailLength = 3;
+                        speed = 22.4f;
+                        lifetime = 10f;
+                        maxRange = rangeOverride = 224f;
+                        damage = 50f;
+                        keepVelocity = pierce = pierceBuilding = true;
+                        pierceCap = 4;
+                        ammoMultiplier = 1f;
+                        armorMultiplier = 1.85f;
+                        shieldDamageMultiplier = 2.15f;
+                        hitShake = 6f;
+                        hitSound = LPSounds.shootArtillerySapBig;
+                        hitSoundVolume = 1.2f;
+                        hitEffect = new MultiEffect(
+                            new ParticleEffect(){{
+                                particles = 6;
+                                line = true;
+                                lifetime = 18f;
+                                length = 28f;
+                                baseLength = 4f;
+                                cone = 20f;
+                                interp = Interp.pow3Out;
+                                sizeInterp = Interp.pow2In;
+                                lenFrom = 16f;
+                                lenTo = 0f;
+                                strokeFrom = 1.2f;
+                                strokeTo = 0f;
+                                colorFrom = LPPal.redLight;
+                                colorTo = Color.valueOf("FF6464");
+                            }},
+                            LPFx.cutting(40f, Color.valueOf("FF6464"), Color.valueOf("FF6464"), false, 30f, 55f)
+                        );
+                        despawnSound = Sounds.none;
+                        despawnEffect = Fx.none;
+                        despawnHit = fragOnDespawn = false;
+                    }}
+                ){{
+                    damage = 80f;
+                    pierce = pierceBuilding = true;
+                    pierceCap = 4;
+                    ammoMultiplier = 1f;
+                    armorMultiplier = 1.85f;
+                    shieldDamageMultiplier = 2.15f;
+                    shootEffect = Fx.none;
+                    smokeEffect = Fx.smokeCloud;
+                    maxRange = rangeOverride = 224f;
+                }};
+            }});
+        }};
+
+        ruptureSpawn = new SpawnUnitType("rupture-spawn"){{
+            weapons.add(new Weapon(){{
+                alwaysShooting = true;
+                shootOnDeath = true;
+                mirror = false;
+                controllable = aiControllable = false;
+                x = shootY = 0f;
+                bullet = new MultiBulletType(
+                    new BasicBulletType(){{
+                        width = height = shrinkY = 0f;
+                        ignoreSpawnAngle = true;
+                        collides = absorbable = hittable = keepVelocity = false;
+                        speed = damage = 0f;
+                        lifetime = 90f;
+                        hitSound = despawnSound = LPSounds.plasmaShot2;
+                        hitEffect = despawnEffect = Fx.none;
+                        despawnUnit = rupture;
+                        despawnUnitRadius = 0f;
+                        parts.addAll(
+                            new ShapePart(){{
+                                hollow = true;
+                                color = Color.valueOf("F3E6E600");
+                                colorTo = LPPal.eyesLight;
+                                sides = 4;
+                                radius = 0f;
+                                radiusTo = 30f;
+                                stroke = 0f;
+                                strokeTo = 2.8f;
+                                rotation = 0f;
+                                layer = 110;
+                                progress = PartProgress.life.curve(Interp.pow2Out);
+                            }},
+
+                            new ShapePart(){{
+                                hollow = true;
+                                color = Color.valueOf("F3E6E600");
+                                colorTo = LPPal.eyesLight;
+                                sides = 4;
+                                radius = 0f;
+                                radiusTo = 30f;
+                                stroke = 0f;
+                                strokeTo = 2.8f;
+                                rotation = 0f;
+                                layer = 110;
+                                progress = PartProgress.life.compress(0.7f, 1f).curve(Interp.circleOut);
+                            }},
+
+                            new ShapePart(){{
+                                hollow = true;
+                                color = Color.valueOf("F3E6E600");
+                                colorTo = LPPal.eyesLight;
+                                sides = 4;
+                                radius = 0f;
+                                radiusTo = 30f;
+                                stroke = 0f;
+                                strokeTo = 2.8f;
+                                rotation = 0f;
+                                layer = 110;
+                                progress = PartProgress.life.compress(0.75f, 1f).curve(Interp.circleOut);
+                            }},
+
+                            new ShapePart(){{
+                                hollow = true;
+                                color = Color.valueOf("F3E6E600");
+                                colorTo = LPPal.eyesLight;
+                                sides = 4;
+                                radius = 0f;
+                                radiusTo = 30f;
+                                stroke = 0f;
+                                strokeTo = 2.8f;
+                                rotation = 0f;
+                                layer = 110;
+                                progress = PartProgress.life.compress(0.8f, 1f).curve(Interp.circleOut);
+                            }},
+
+                            new ShapePart(){{
+                                hollow = true;
+                                color = Color.valueOf("F3E6E600");
+                                colorTo = LPPal.eyesLight;
+                                sides = 4;
+                                radius = 0f;
+                                radiusTo = 30f;
+                                stroke = 0f;
+                                strokeTo = 2.8f;
+                                rotation = 0f;
+                                layer = 110;
+                                progress = PartProgress.life.compress(0.85f, 1f).curve(Interp.circleOut);
+                            }},
+
+                            new ShapePart(){{
+                                hollow = true;
+                                color = Color.valueOf("F3E6E600");
+                                colorTo = LPPal.eyesLight;
+                                sides = 4;
+                                radius = 0f;
+                                radiusTo = 30f;
+                                stroke = 0f;
+                                strokeTo = 2.8f;
+                                rotation = 0f;
+                                layer = 110;
+                                progress = PartProgress.life.compress(0.9f, 1f).curve(Interp.circleOut);
+                            }},
+
+                            new ShapePart(){{
+                                hollow = true;
+                                color = Color.valueOf("F3E6E600");
+                                colorTo = LPPal.eyesLight;
+                                sides = 4;
+                                radius = 0f;
+                                radiusTo = 30f;
+                                stroke = 0f;
+                                strokeTo = 2.8f;
+                                rotation = 0f;
+                                layer = 110;
+                                progress = PartProgress.life.compress(0.95f, 1f).curve(Interp.circleOut);
+                            }},
+
+                            new FlarePart(){{
+                                followRotation = false;
+                                color1 = color2 = LPPal.eyesLight;
+                                sides = 2;
+                                radius = 0f;
+                                radiusTo = 70f;
+                                stroke = 1f;
+                                layer = 110f;
+                                progress = PartProgress.life.curve(Interp.pow2In);
+                            }},
+
+                            new FlarePart(){{
+                                followRotation = false;
+                                color1 = color2 = LPPal.eyesLight;
+                                sides = 2;
+                                radius = 0f;
+                                radiusTo = 60f;
+                                stroke = 1f;
+                                spinSpeed = 8f;
+                                layer = 110f;
+                                progress = PartProgress.life.compress(0.7f, 1f).curve(Interp.pow2In);
+                            }},
+
+                            new FlarePart(){{
+                                followRotation = false;
+                                color1 = color2 = LPPal.eyesLight;
+                                sides = 2;
+                                radius = 0f;
+                                radiusTo = 48f;
+                                stroke = 1f;
+                                spinSpeed = -9f;
+                                layer = 110f;
+                                progress = PartProgress.life.compress(0.7f, 1f).curve(Interp.pow2In);
+                            }}
+                        );
+                        despawnHit = true;
+                        fragBullets = 1;
+                        fragVelocityMin = fragVelocityMax =fragOffsetMin = fragOffsetMax = 0;
+                        fragLifeMin = fragLifeMax = 1;
+                        fragBullet = new BasicBulletType(){{
+                            width = height = shrinkY = 0f;
+                            killShooter = ignoreSpawnAngle = true;
+                            collides = absorbable = hittable = keepVelocity = false;
+                            speed = damage = 0f;
+                            lifetime = 48;
+                            hitSound = despawnSound = Sounds.none;
+                            hitEffect = despawnEffect = Fx.none;
+                            shootEffect = smokeEffect = Fx.none;
+                            parts.addAll(
+                                new ShapePart(){{
+                                    hollow = true;
+                                    color = LPPal.eyesLight;
+                                    colorTo = Color.valueOf("F3E6E600");
+                                    sides = 4;
+                                    radius = 30f;
+                                    radiusTo = 40f;
+                                    stroke = 2.8f;
+                                    strokeTo = 4f;
+                                    rotation = 0f;
+                                    layer = 110;
+                                    progress = PartProgress.life.curve(Interp.pow3Out);
+                                }},
+
+                                new ShapePart(){{
+                                    hollow = true;
+                                    color = LPPal.eyesLight;
+                                    colorTo = Color.valueOf("F3E6E600");
+                                    sides = 4;
+                                    radius = 30f;
+                                    radiusTo = 40f;
+                                    stroke = 2.8f;
+                                    strokeTo = 4f;
+                                    rotation = 0f;
+                                    layer = 110;
+                                    progress = PartProgress.life.curve(Interp.pow4Out);
+                                }},
+
+                                new ShapePart(){{
+                                    hollow = true;
+                                    color = LPPal.eyesLight;
+                                    colorTo = Color.valueOf("F3E6E600");
+                                    sides = 4;
+                                    radius = 30f;
+                                    radiusTo = 40f;
+                                    stroke = 2.8f;
+                                    strokeTo = 4f;
+                                    rotation = 0f;
+                                    layer = 110;
+                                    progress = PartProgress.life.curve(Interp.pow5Out);
+                                }},
+
+                                new FlarePart(){{
+                                    followRotation = false;
+                                    color1 = color2 = LPPal.eyesLight;
+                                    sides = 2;
+                                    radius = 60f;
+                                    radiusTo = 0f;
+                                    stroke = 1f;
+                                    spinSpeed = 8f;
+                                    layer = 110f;
+                                    progress = PartProgress.life.curve(Interp.circleOut);
+                                }},
+
+                                new FlarePart(){{
+                                    followRotation = false;
+                                    color1 = color2 = LPPal.eyesLight;
+                                    sides = 2;
+                                    radius = 48f;
+                                    radiusTo = 0f;
+                                    stroke = 1f;
+                                    spinSpeed = -9f;
+                                    layer = 110f;
+                                    progress = PartProgress.life.curve(Interp.circleOut);
+                                }}
+                            );
+                        }};
+                    }}
+                ){{
+                    killShooter = true;
+                    shootEffect = smokeEffect = Fx.none;
+                }};
             }});
         }};
     }

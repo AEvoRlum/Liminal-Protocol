@@ -26,7 +26,7 @@ public class LPSounds {
         laserLargeShot1, laserLargeShot2, laserShot, launch, loopBio, loopDifferential, loopElixir, loopNecroplasm, 
         loopPressureGenerator, loopRadarPulse, loopRegen, loopThoriumReactor, loopThruster, loudlyBlasterShot1, 
         martianCrash, mechDestroyed, mechLargeFootsteps, mechMediumFootsteps, mechStepHeavy, mgsvExplosion, 
-        plasmaShoot, plasmaShoot1, plasmaShoot2, railGunBlast, railShot1, railShot2, ramielblast, shield, 
+        plasmaShoot, plasmaShot1, plasmaShot2, railGunBlast, railShot1, railShot2, ramielblast, shield, 
         shockBulletByte, shockBulletSyntax, shockwaveTower, shootAfflict, shootArc, shootArtillerySapBig, shootAvert, 
         shootBang, shootBeam, shootBeamPlasma, shootBeamPlasmaSmall, shootBlaster1, shootBlaster2, shootBlaster3, 
         shootBulwark, shootCoil1, shootCoil2, shootCoil3, shootCollaris, shootDefence, shootDiffuse, shootElectric, 
