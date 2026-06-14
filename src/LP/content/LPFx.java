@@ -255,6 +255,18 @@ public class LPFx {
             Drawf.tri(e.x, e.y, tw, tl * 0.8f, e.rotation + 20f + 180f);
             Drawf.tri(e.x, e.y, tw, tl, e.rotation - 15f);
             Drawf.tri(e.x, e.y, tw, tl * 0.8f, e.rotation - 20f + 180f);
+
+            color(Color.white);
+            Drawf.tri(e.x, e.y, 2f * fout * 0.5f, lightLen * 0.5f, e.rotation + 90f);
+            Drawf.tri(e.x, e.y, 2f * fout * 0.5f, lightLen * 0.5f, e.rotation - 90f);
+
+            Drawf.tri(e.x, e.y, tw * 0.5f, tl * 1.4f * 0.5f, e.rotation);
+            Drawf.tri(e.x, e.y, tw * 0.5f, tl * 1f * 0.5f, e.rotation + 180f);
+
+            Drawf.tri(e.x, e.y, tw * 0.5f, tl * 0.5f, e.rotation + 15f);
+            Drawf.tri(e.x, e.y, tw * 0.5f, tl * 0.8f * 0.5f, e.rotation + 20f + 180f);
+            Drawf.tri(e.x, e.y, tw * 0.5f, tl * 0.5f, e.rotation - 15f);
+            Drawf.tri(e.x, e.y, tw * 0.5f, tl * 0.8f * 0.5f, e.rotation - 20f + 180f);
         });
     }
 

@@ -3,6 +3,7 @@ package LP.entities.bullets;
 import arc.math.geom.Vec2;
 import arc.util.Tmp;
 import mindustry.entities.Damage;
+import mindustry.entities.Effect;
 import mindustry.entities.Units;
 import mindustry.entities.bullet.ContinuousLaserBulletType;
 import mindustry.gen.Building;
@@ -29,12 +30,17 @@ public class HellbladeBulletType extends ContinuousLaserBulletType{
 
     @Override
     public void update(Bullet b){
-        super.update(b);
         if(!continuous) return;
         
         if(b.timer(1, damageInterval)){
             applyDamage(b);
         }
+
+        if(shake > 0){
+            Effect.shake(shake, shake, b);
+        }
+
+        updateBulletInterval(b);
     }
 
     @Override

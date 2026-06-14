@@ -1574,8 +1574,8 @@ public class LPBlocks {
             requirements(Category.turret, with(LPItems.transchimericsteel, 314, LPItems.jynsteel, 107, LPItems.massisteel, 76, LPItems.crystalite, 74));
             rotateSpeed = 2.7f;
             reload = 400f;
-            range = 400f;
-            trackingRange = 480f;
+            range = 480f;
+            trackingRange = 576f;
             recoil = 6f;
             recoilTime = 60f;
             shake = 10f;
@@ -1787,8 +1787,8 @@ public class LPBlocks {
                     splashDamage = 240f;
                     splashDamageRadius = 120f;
                     speed = 5f;
-                    lifetime = 400f / speed;
-                    range = rangeOverride = 400;
+                    lifetime = 480f / speed;
+                    range = rangeOverride = 480f;
                     scaleLife = despawnHit = true;
                     collidesGround = collidesAir = true;
                     trailInterval = 4f;
@@ -2186,7 +2186,7 @@ public class LPBlocks {
                     impact = true;
                     pierce = true;
                     pierceBuilding = false;
-                    pierceCap = 32;
+                    pierceCap = 128;
                     pierceDamageFactor = 0.75f;
                     ammoMultiplier = 1f;
                     armorMultiplier = 0.1f;
