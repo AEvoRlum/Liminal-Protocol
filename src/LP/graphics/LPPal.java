@@ -19,6 +19,7 @@ public class LPPal extends Pal {
     public static Color redLight;
     public static Color purple;
     public static Color eyesLight;
+    public static Color black;
 
     private LPPal() {
     }
@@ -39,5 +40,6 @@ public class LPPal extends Pal {
         redLight = Color.valueOf("FF9492");
         purple = Color.valueOf("D1A4FF");
         eyesLight = Color.valueOf("F3E6E6");
+        black = Color.valueOf("272727");
     }
 }

@@ -90,7 +90,7 @@ public class LPFx {
         return new Effect(lifetime, range * 2f, (e) -> {
             color(color.cpy().lerp(Color.white, 0.8f), color, e.fin(Interp.pow5Out));
             float tl = range * 0.8f;
-            float tw = range / 10f * e.fout(Interp.pow3Out);
+            float tw = range / 12f * e.fout(Interp.pow3Out);
 
             float m = e.fin(Interp.pow3Out) * (range - tl * 0.4f);
 
@@ -221,6 +221,7 @@ public class LPFx {
         }).drawTri(true);
     }
 
+    /** 插值要反着填pow10In -> pow10Out */
     public static Effect sharpHitSpark(float lifetime, Color color, int num, float range, float length, Interp interp) {
         return new Effect(lifetime, length * 2, e -> {
             color(color);
@@ -228,7 +229,7 @@ public class LPFx {
             for (int i = 0; i < num; i++) {
                 rand.setSeed(e.id + i);
                 
-                float tw = rand.random(length / 6f, length / 6f * 1.2f) * e.fout(interp);
+                float tw = rand.random(length / 6f, length / 6f * 1.5f) * e.fout(interp);
                 float tl = length * (1f - 0.4f * e.fin(Interp.circleIn));
                 float tl1 = tl * 0.4f;
                 float rad = range - length;
@@ -254,7 +255,7 @@ public class LPFx {
             for (int i = 0; i < num; i++) {
                 rand.setSeed(e.id + i);
                 
-                float tw = rand.random(length / 6f, length / 6f * 1.2f) * e.fout(interp);
+                float tw = rand.random(length / 6f, length / 6f * 1.5f) * e.fout(interp);
                 float tl = length * (1f - 0.4f * e.fin(Interp.circleIn));
                 float tl1 = tl * 0.4f;
                 float rad = range - length;
@@ -324,7 +325,7 @@ public class LPFx {
             float fout = e.fout(Interp.exp10Out);
             for (int i : Mathf.signs) {
                 Drawn.tri(e.x, e.y, len / 12f * fout * (Mathf.absin(0.8f, 0.07f) + 1),
-                len * 2 * Interp.swingOut.apply(Mathf.curve(e.fin(), 0, 0.7f)) * (Mathf.absin(0.8f, 0.12f) + 1) * (1f + e.fin(Interp.circleOut) * 0.5f),
+                len * 2 * Interp.swingOut.apply(Mathf.curve(e.fin(), 0, 0.7f)) * (Mathf.absin(0.8f, 0.12f) + 1) * (1f + e.fin(Interp.circleOut) * 0.2f),
                 ang + i * 90);
             }
 
@@ -345,6 +346,44 @@ public class LPFx {
                 }
             }
 
+        }).layer(Layer.effect - 1f);
+    }
+
+    public static Effect cutting(float lifetime, Color color, Color bottomColor, float length, float rotation, float bottomLayer) {
+        return new Effect(lifetime, length * 2f, (e) -> {
+            float len, ang;
+            if (e.data instanceof Float) {
+                len = (Float) e.data;
+                ang = e.rotation;
+            } else {
+                len = length;
+                ang = rotation == -1f ? Mathf.randomSeed(e.id, 0, 360) : rotation;
+            }
+
+            color(color);
+            Drawf.light(e.x, e.y, e.fout() * len, color, 0.7f);
+            float fout = e.fout(Interp.exp10Out);
+            for (int i : Mathf.signs) {
+                Drawn.tri(e.x, e.y, len / 12f * fout * (Mathf.absin(0.8f, 0.07f) + 1),
+                len * 2 * Interp.swingOut.apply(Mathf.curve(e.fin(), 0, 0.7f)) * (Mathf.absin(0.8f, 0.12f) + 1) * (1f + e.fin(Interp.circleOut) * 0.2f),
+                ang + i * 90);
+            }
+
+            color(bottomColor);
+            z(bottomLayer);
+            for (int i : Mathf.signs) {
+                Drawn.tri(e.x, e.y, (len * 0.7f) / 12f * fout * (Mathf.absin(0.8f, 0.07f) + 1),
+                len * 2 * 0.7f * Interp.swingOut.apply(Mathf.curve(e.fin(), 0, 0.7f)) * (Mathf.absin(0.8f, 0.12f) + 1) * (1f + e.fin(Interp.circleOut) * 0.5f),
+                ang + i * 90);
+            }
+
+            z(bottomLayer);
+                for (int i : Mathf.signs) {
+                Drawn.tri(e.x, e.y, (len * 0.7f) / 12f * fout * (Mathf.absin(0.8f, 0.07f) + 1),
+                len * 2 * 0.7f * Interp.swingOut.apply(Mathf.curve(e.fin(), 0, 0.7f)) * (Mathf.absin(0.8f, 0.12f) + 1) * (1f + e.fin(Interp.circleOut) * 0.5f),
+                ang + i * 90);
+            }
+            
         }).layer(Layer.effect - 1f);
     }
 
@@ -386,6 +425,16 @@ public class LPFx {
         }
 
         Drawf.light(e.x, e.y, circleRad * 1.6f, Pal.heal, e.fout());
+    }),
+
+    FFstarHit = new Effect(40f, e -> {
+        color(LPPal.aureusDark);
+        stroke(1f * e.fout(Interp.circleOut));
+        Lines.circle(e.x, e.y, 12f * e.fin(Interp.circleOut));
+
+        for(int i = 0; i < 4; i++){
+            Drawf.tri(e.x, e.y, 6f * e.fout(Interp.pow3In), 28f * e.fout(Interp.pow3In), 45f + i * 90);
+        }
     }),
 
     posLightning = (new Effect(PositionLightning.lifetime, 1500, e -> {
