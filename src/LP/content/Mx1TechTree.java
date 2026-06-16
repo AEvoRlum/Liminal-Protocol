@@ -13,6 +13,7 @@ import static LP.content.LPBlocks.*;
 import static LP.content.Mx1Sectors.*;
 import static LP.content.LPItems.*;
 import static LP.content.LPUnits.*;
+import static LP.content.LPEnemyUnits.*;
 
 public class Mx1TechTree {
     public static void load(){
@@ -231,7 +232,25 @@ public class Mx1TechTree {
             nodeProduce(slag, Seq.with(new OnSector(不容拒绝)), () -> {});
 
             /** 敌方 */
-            node(ttfWall, Seq.with(new SectorComplete(不容拒绝)), () -> {});
+            node(ttfWall, Seq.with(new SectorComplete(不容拒绝)), () -> {
+                node(riptide, Seq.with(new SectorComplete(不容拒绝)), () -> {
+                    node(stormpole, Seq.with(new SectorComplete(Rift)), () -> {});
+                });
+                node(rupture, Seq.with(new SectorComplete(Rift)), () -> {
+                    node(starmeter, Seq.with(new SectorComplete(Rift)), () -> {});
+                });
+                node(crystalburst, Seq.with(new SectorComplete(repulse)), () -> {
+                    node(ravager, Seq.with(new SectorComplete(instead)), () -> {
+                        node(annihicore, Seq.with(new SectorComplete(Rift)), () -> {});
+                    });
+                });
+                node(eradicator, Seq.with(new SectorComplete(Rift)), () -> {});
+                node(rusher, Seq.with(new SectorComplete(why)), () -> {
+                    node(vectruptor, Seq.with(new SectorComplete(Rift)), () -> {
+                        node(sustainer, Seq.with(new SectorComplete(Rift)), () -> {});
+                    });
+                });
+            });
         });
     }
 }

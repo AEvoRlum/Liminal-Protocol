@@ -274,6 +274,37 @@ public class LPFx {
         });
     }
 
+    public static Effect sharpHitRotateBlast(float lifetime, Color color, int num, float range, float rotSpeed) {
+        return new Effect(lifetime, range * 2, e -> {
+            color(color);
+            
+            rand.setSeed(e.id);
+            
+            float prog = e.fin(Interp.circleIn);
+            float width = range / 12f * (1f - prog);
+            float baseLength = range * 0.6f * (1f - prog * 0.5f);
+            
+            for(int i = 0; i < num; i++){
+                float randomDist = rand.random(baseLength, range - baseLength);
+                
+                float sizeScale = rand.random(0.5f, 1f);
+                float actualLength = baseLength * sizeScale;
+                float smallLength = actualLength * 0.3f;
+                
+                float angle = Time.time * rand.random(rotSpeed, rotSpeed * 2f) + rand.random(360f);
+                
+                float px = e.x + Angles.trnsx(angle, randomDist);
+                float py = e.y + Angles.trnsy(angle, randomDist);
+                
+                float pointRot = Angles.angle(px, py, e.x, e.y);
+                
+                Drawf.tri(px, py, width, actualLength, pointRot + 180f);
+                Drawf.tri(px, py, width, smallLength, pointRot);
+            }
+        });
+    }
+
+    /** 我为什么要写这个石 */
     public static Effect railShoot(float lifetime, Color color, float size, Interp interp) {
         return new Effect(lifetime, size * 2, (e) -> {
             color(color);
@@ -385,6 +416,73 @@ public class LPFx {
             }
             
         }).layer(Layer.effect - 1f);
+    }
+
+    public static Effect annihilation(float lifetime, Color color, float length, int num) {
+        return new Effect(lifetime, length * 20, e -> {
+            color(color);
+            float baseLen = length * 10f;
+            float range = baseLen * 2f;
+
+            Draw.z(110.001f);
+            Draw.color(Color.black);
+            float circleProg = e.fin(Interp.pow10In);
+            float circleRadius;
+            if(circleProg < 0.3f){
+                float innerProg = circleProg / 0.3f;
+                circleRadius = Mathf.lerp(length * 2f, length * 2.4f, innerProg);
+            }else if(circleProg < 1f){
+                float innerProg = (circleProg - 0.3f) / 0.3f;
+                circleRadius = Mathf.lerp(length * 2.4f, 0f, innerProg);
+            }else{
+                circleRadius = 0f;
+            }
+            if(circleRadius > 0.001f){
+                Fill.circle(e.x, e.y, circleRadius);
+            }
+
+            Draw.z(110f);
+            rand.setSeed(e.id);
+            for (int i = 0; i < num; i++) {
+                float angle = e.rotation + rand.random(360f);
+                float lenProg = e.fin();
+                float triLen;
+
+                if(lenProg < 0.8f){
+                    triLen = baseLen * (1f + 0.5f * lenProg / 0.8f) * 0.8f;
+                }else{
+                    float innerProg = (lenProg - 0.8f) / 0.2f;
+                    triLen = baseLen * 1.5f * (1f - innerProg) * 0.8f;
+                }
+
+                float triWidth = baseLen / 6f;
+                if(lenProg >= 0.8f){
+                    float innerProg = (lenProg - 0.8f) / 0.2f;
+                    triWidth *= (1f - innerProg);
+                }
+                
+                Draw.color(color);
+                Drawf.tri(e.x, e.y, triWidth, triLen, angle);
+                
+                Draw.color(Color.black);
+                Drawf.tri(e.x, e.y, triWidth * 0.5f, triLen * 0.5f, angle);
+            }
+            Draw.color(color.cpy().lerp(Color.white, 0.8f), color, e.fin(Interp.pow5Out));
+            float circleRad = e.fin(Interp.circleOut) * range * 0.55f;
+            stroke(Mathf.clamp(range / 24f, 3f, 20f) * e.fout());
+            circle(e.x, e.y, circleRad);
+            
+            int intensity = (int)Mathf.clamp(range / 12f, 9, 30);
+            for (int i = 0; i < intensity; ++i) {
+                Tmp.v1.set(1f, 0f).setToRandomDirection(rand).scl(circleRad);
+                Drawn.tri(e.x + Tmp.v1.x, e.y + Tmp.v1.y, 
+                    rand.random(circleRad / 12f, circleRad / 12f) * e.fout(),
+                    rand.random(circleRad / 4f, circleRad / 1.5f) * (1f + e.fin()) / 2f, 
+                    Tmp.v1.angle() - 180f);
+            }
+            
+            Draw.reset();
+        });
     }
 
     public static float fout(float fin, float margin) {
