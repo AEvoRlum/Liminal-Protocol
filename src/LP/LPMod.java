@@ -18,13 +18,13 @@ public class LPMod extends Mod {
         super.loadContent();
         LPContent.loadPriority();
         LPItems.load();
-        LPPlanets.load();
         LPSounds.load();
         LPFx.loadPriority();
         LPStatusEffect.load();
         LPUnits.load();
         LPEnemyUnits.load();
         LPBlocks.load();
+        LPPlanets.load();
         
         Mx1Sectors.load();
         Mx1TechTree.load();

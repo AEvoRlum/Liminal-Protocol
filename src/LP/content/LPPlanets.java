@@ -5,6 +5,8 @@ import mindustry.graphics.g3d.*;
 import mindustry.type.Planet;
 import mindustry.maps.planet.*;
 
+import LP.planet.Mx1PlanetGenerator;
+
 import static mindustry.content.Planets.sun;
 
 public class LPPlanets {
@@ -35,7 +37,7 @@ public class LPPlanets {
         }};
 
         mx1 = new Planet("mx1", mx, 0.62f, 2){{
-            generator = new ErekirPlanetGenerator();
+            generator = new Mx1PlanetGenerator();
             meshLoader = () -> new MultiMesh(
                 new NoiseMesh(this, 70, 5, 0.406f, 6, 0.35f, 12, 0.25f, Color.valueOf("8A5B5B"), Color.valueOf("B96F3D"), 4, 0.4f, 8, 0.3f),
                 new NoiseMesh(this, 66, 5, 0.611f, 6, 0.3f, 14, 0.28f, Color.valueOf("eba768"), Color.valueOf("715555"), 4, 0.4f, 3, 0.42f),
@@ -66,6 +68,7 @@ public class LPPlanets {
             allowSectorInvasion = true;
             bloom = false;
             allowLaunchSchematics = true;
+            defaultCore = LPBlocks.pioneers;
             ruleSetter = r -> {
                 r.loadout = null;
             };
@@ -87,7 +90,6 @@ public class LPPlanets {
             totalRadius += 3;
             startSector = 74;
             localizedName = "[#CD9D3C]MXrd-01";
-            defaultCore = LPBlocks.pioneers;
         }};
 
         mx2 = new Planet("mx2", mx, 3f, 1){{
