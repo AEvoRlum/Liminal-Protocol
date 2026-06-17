@@ -42,7 +42,7 @@ public class Mx1PlanetGenerator extends PlanetGenerator {
 
     private static final String PIONEERS_SCHEMATIC_PATH = "assets/schematics/pioneers.msch";
     private static final String PIONEERS_SCHEMATIC_PATH_FALLBACK = "schematics/pioneers.msch";
-    private static final String PIONEERS_DEFAULT_LOADOUT_BASE64 = "bXNjaAF4nE2MwQ6DIBBEh9UYC9/ip/QLjAeKeyChQIBTjf8uyaatc5mZzdvBgGHEGO2bMWefInOp0C7FxrE9bQYdJ8zO1RWfWwcATMG+OFTQuhEeLhVePv0TJuTltwFo/KXE6JaVBCVH+gJKjATo7QLdihpR";
+    private static final String PIONEERS_DEFAULT_LOADOUT_BASE64 = "bXNjaAF4nGNgZmBmYWDJS8xNZeAoyMzPS00tKmbgSs7PK0nNK/FNLGBgqq5l4E5JLU4uyiwoASpgYGBgy0lMSs0pZmCKjmVk4M4p0IVrZGBgBCEgAQA17RaZ";
 
     {
         baseSeed = 2;
@@ -235,15 +235,5 @@ public class Mx1PlanetGenerator extends PlanetGenerator {
                 }
             });
         }
-    }
-
-    @Override
-    public void postGenerate(mindustry.world.Tiles tiles){
-        super.postGenerate(tiles);
-        
-        mindustry.Vars.state.rules.env = sector.planet.defaultEnv;
-        mindustry.Vars.state.rules.placeRangeCheck = true;
-        mindustry.Vars.state.rules.waves = false;
-        mindustry.Vars.state.rules.showSpawns = true;
     }
 }
