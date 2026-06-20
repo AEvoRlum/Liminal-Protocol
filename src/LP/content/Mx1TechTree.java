@@ -85,6 +85,8 @@ public class Mx1TechTree {
                         node(highSpeedTranschimericFoundry, Seq.with(new Research(ionopolymerCrucibleLarge)), () -> {});
                     });
                 });
+                node(chipFabricator, Seq.with(new SectorComplete(Rift),
+                new Research(highSpeedTranschimericFoundry)), () -> {});
             });
 
             /** 热量 */
@@ -226,6 +228,7 @@ public class Mx1TechTree {
                         nodeProduce(transchimericsteel, () -> {});
                     });
                 });
+                nodeProduce(chipFabricator, () -> {});
             });
 
             /** 流体 */

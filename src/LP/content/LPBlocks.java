@@ -36,7 +36,8 @@ import mindustry.world.meta.*;
 import static mindustry.type.ItemStack.*;
 
 import LP.graphics.LPPal;
-import LP.entities.blocks.*;
+import LP.entities.blocks.turret.*;
+import LP.entities.blocks.craft.MultiCrafter;
 import LP.entities.bullets.*;
 
 public class LPBlocks {
@@ -65,6 +66,7 @@ public class LPBlocks {
     //craft
     public static Block masHeatRedirector, masHeatRedirectorSmall, masHeatRouter, masHeatRouterSmall, masSlagHeater;
     public static Block ionopolymerCrucible, ionopolymerCrucibleLarge, erocrysExtractory, transChimericFoundry, highSpeedTranschimericFoundry;
+    public static MultiCrafter chipFabricator;
 
     //unit
     //storage
@@ -3362,6 +3364,34 @@ public class LPBlocks {
             alwaysUnlocked = false;
             researchCostMultiplier = 0.1f;
             requirements(Category.crafting, with(LPItems.transchimericsteel, 180, LPItems.massisteel, 112, LPItems.jynsteel, 142, LPItems.crystalite, 40));
+        }};
+
+        chipFabricator = new MultiCrafter("chip-fabricator"){{
+            size = 3;
+            health = 75;
+            requirements(Category.crafting, with(LPItems.jynsteel, 60, LPItems.transchimericsteel, 40, LPItems.crystalite, 27));
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.1f;
+            canOverdrive = true;
+            hasPower = true;
+            itemCapacity = 24;
+            maxList = 2;
+            useBlockDrawer = true;
+            craftPlans = Seq.with(
+                new CraftPlan(){{
+                    craftTime = 120f;
+                    consumePower(2f);
+                    consumeItems(with(LPItems.jynsteel, 4, LPItems.crystalite, 2));
+                    outputItems = with(LPItems.bipolarchip, 1);
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 60f;
+                    consumePower(4f);
+                    consumeItems(with(LPItems.jynsteel, 4, LPItems.crystalite, 2));
+                    outputItems = with(LPItems.bipolarchip, 1);
+                }}
+            );
         }};
 
         //storage

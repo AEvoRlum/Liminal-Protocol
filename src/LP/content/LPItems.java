@@ -6,7 +6,7 @@ import mindustry.type.Item;
 import LP.graphics.LPPal;
 
 public class LPItems {
-    public static Item jynsteel, massisteel, litelnlay,  transchimericsteel, crystalite, erocrys, ionopolymer;
+    public static Item jynsteel, massisteel, litelnlay,  transchimericsteel, crystalite, erocrys, bipolarchip, ionopolymer;
 
     public static final Seq <Item> mx1Items = new Seq<>();
     private LPItems(){
@@ -98,6 +98,20 @@ public class LPItems {
             databaseTag = "chip-mat";
         }};
 
+        bipolarchip = new Item("bipolarchip", LPPal.orangeDark){{
+            hardness = 1;
+            radioactivity = 0f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0f;
+            cost = 0f;
+            healthScaling = 0f;
+            frames = 0;
+            buildable = true;
+            alwaysUnlocked = false;
+            databaseTag = "chip-mat";
+        }};
+
         ionopolymer = new Item("ionopolymer", Color.valueOf("E8D174")){{
             hardness = 2;
             radioactivity = 0.1f;
@@ -113,7 +127,7 @@ public class LPItems {
         }};
 
         mx1Items.addAll(
-            jynsteel, massisteel, litelnlay,  transchimericsteel, crystalite, erocrys, ionopolymer
+            jynsteel, massisteel, litelnlay,  transchimericsteel, crystalite, erocrys, bipolarchip, ionopolymer
         );
     }
 }
