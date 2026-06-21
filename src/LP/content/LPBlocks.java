@@ -64,7 +64,7 @@ public class LPBlocks {
     public static Block jynWall, jynWallLarge, masWall, masWallLarge, traWall, traWallLarge, ttfWall;
 
     //craft
-    public static Block masHeatRedirector, masHeatRedirectorSmall, masHeatRouter, masHeatRouterSmall, masSlagHeater;
+    public static Block masHeatRedirector, masHeatRedirectorSmall, masHeatRouter, masHeatRouterSmall, masSlagHeater, powerHeater;
     public static Block ionopolymerCrucible, ionopolymerCrucibleLarge, erocrysExtractory, transChimericFoundry, highSpeedTranschimericFoundry;
     public static MultiCrafter chipFabricator;
 
@@ -3113,6 +3113,21 @@ public class LPBlocks {
             alwaysUnlocked = false;
             researchCostMultiplier = 0.4f;
             requirements(Category.crafting, with(LPItems.massisteel, 40, LPItems.erocrys, 24));
+        }};
+
+        powerHeater = new HeatProducer("power-heater"){{
+            size = 2;
+            health = 53;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.crafting, with(LPItems.transchimericsteel, 24, LPItems.crystalite, 12));
+            hasItems = hasLiquids = false;
+            hasPower = conductivePower = true;
+            heatOutput = 12f;
+            warmupRate = 0.5f;
+            craftTime = 80f;
+            ambientSound = LPSounds.loopRegen;
+            consumePower(1.2f);
         }};
 
         ionopolymerCrucible = new HeatCrafter("ionopolymer-crucible"){{

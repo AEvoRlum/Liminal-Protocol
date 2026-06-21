@@ -99,7 +99,9 @@ public class Mx1TechTree {
                 });
                 node(masSlagHeater, Seq.with(new Research(masHeatRedirectorSmall),
                 new Research(masHeatRouter),
-                new Research(masHeatRouterSmall)), () -> {});
+                new Research(masHeatRouterSmall)), () -> {
+                    node(powerHeater, Seq.with(new OnSector(Rift)), () -> {});
+                });
             });
 
             /** 电力 */
