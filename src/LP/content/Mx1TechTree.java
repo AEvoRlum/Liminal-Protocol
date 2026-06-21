@@ -45,7 +45,9 @@ public class Mx1TechTree {
 
             
             /** 功能 */
-            node(jynVault, Seq.with(new Research(process1)), () -> {});
+            node(jynVault, Seq.with(new Research(process1)), () -> {
+                node(jynVaultLarge, () -> {});
+            });
 
             /** 流体 */
             node(masConduit, Seq.with(new OnSector(why)), () -> {

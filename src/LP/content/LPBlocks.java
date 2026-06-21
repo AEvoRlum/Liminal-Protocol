@@ -70,7 +70,7 @@ public class LPBlocks {
 
     //unit
     //storage
-    public static Block pioneers, jynVault;
+    public static Block pioneers, jynVault, jynVaultLarge;
 
     //logic
     //environment
@@ -3449,6 +3449,15 @@ public class LPBlocks {
             alwaysUnlocked = false;
             researchCostMultiplier = 0.4f;
             requirements(Category.effect, with(LPItems.jynsteel, 20, LPItems.erocrys, 8));
+        }};
+
+        jynVaultLarge = new StorageBlock("jyn-vault-large") {{
+            size = 3;
+            health = 144;
+            itemCapacity = 2000;
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            requirements(Category.effect, with(LPItems.jynsteel, 84, LPItems.crystalite, 18, LPItems.stockchip, 4));
         }};
 
         //environment
