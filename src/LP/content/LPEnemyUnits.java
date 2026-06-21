@@ -3599,6 +3599,31 @@ public class LPEnemyUnits {
                     stroke = strokeTo = 1.5f;
                     rotation = 0f;
                     layer = 110f;
+                }},
+
+                new HaloPart(){{
+                    tri = true;
+                    color = colorTo = LPPal.eyesLight;
+                    radius = 4f;
+                    radiusTo = 4f;
+                    triLength = 24f;
+                    triLengthTo = 24f;
+                    haloRadius = haloRadiusTo = 36f;
+                    haloRotateSpeed = 0.5f;
+                    layer = 110f;
+                }},
+
+                new HaloPart(){{
+                    tri = true;
+                    color = colorTo = LPPal.eyesLight;
+                    radius = 4f;
+                    radiusTo = 4f;
+                    triLength = 85f;
+                    triLengthTo = 8f;
+                    shapeRotation = 180f;
+                    haloRadius = haloRadiusTo = 36f;
+                    haloRotateSpeed = 0.5f;
+                    layer = 110f;
                 }}
             );
             abilities.add(new UnitSpawnAbility(this, 1500f, 0f, 0f){
