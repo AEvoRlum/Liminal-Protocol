@@ -3375,21 +3375,35 @@ public class LPBlocks {
             canOverdrive = true;
             hasPower = true;
             itemCapacity = 24;
-            maxList = 2;
+            maxList = 3;
             useBlockDrawer = true;
             craftPlans = Seq.with(
                 new CraftPlan(){{
                     craftTime = 120f;
                     consumePower(2f);
-                    consumeItems(with(LPItems.jynsteel, 4, LPItems.crystalite, 2));
+                    consumeItems(with(LPItems.jynsteel, 4, LPItems.crystalite, 4));
                     outputItems = with(LPItems.bipolarchip, 1);
                 }},
 
                 new CraftPlan(){{
                     craftTime = 60f;
                     consumePower(4f);
-                    consumeItems(with(LPItems.jynsteel, 4, LPItems.crystalite, 2));
+                    consumeItems(with(LPItems.jynsteel, 4, LPItems.crystalite, 4));
                     outputItems = with(LPItems.bipolarchip, 1);
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 120f;
+                    consumePower(2.5f);
+                    consumeItems(with(LPItems.massisteel, 4, LPItems.crystalite, 3, LPItems.erocrys, 2));
+                    outputItems = with(LPItems.converchip, 1);
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 80f;
+                    consumePower(4f);
+                    consumeItems(with(LPItems.massisteel, 4, LPItems.crystalite, 3, LPItems.erocrys, 2));
+                    outputItems = with(LPItems.converchip, 1);
                 }}
             );
         }};

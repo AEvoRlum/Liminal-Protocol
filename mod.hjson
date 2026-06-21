@@ -1,11 +1,11 @@
 name: "lp"
 displayName: "[orange[]]Liminal Protocol"
 author: "[red[]]AEvoRIum"
-subtitle: "[white]阈限协议！启动！"//来自彼方
+subtitle: "[white]Re: 从零开始成为赛博[red]疯子"//来自彼方
 description: '''
 [red[]]俺寻思之力
 '''
-version: "V.test.0.0.38.2-126.06.17"
+version: "V.test.0.0.38.326.06.21"
 minGameVersion: 157
 dependencies: []
 java: true

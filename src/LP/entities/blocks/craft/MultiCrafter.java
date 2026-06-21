@@ -241,7 +241,7 @@ public class MultiCrafter extends PayloadBlock{
     // Building
     // ------------------------------------------------------------------
 
-    /** {@link MultiCrafter} 的建筑实例。拥有独立的当前配方、进度、热量、Payload 缓冲 */
+    /** {@link MultiCrafter} 的建筑实例，拥有独立的当前配方、进度、热量、Payload 缓冲 */
     public class MultiCrafterBuild extends PayloadBlockBuild<Payload> implements HeatBlock, HeatConsumer{
         /** 当前选中的配方；null 表示禁用 */
         public CraftPlan craftPlan = craftPlans.any() ? craftPlans.get(0) : null;
@@ -249,9 +249,9 @@ public class MultiCrafter extends PayloadBlock{
         public float progress;
         /** 总进度（用于贴图动画） */
         public float totalProgress;
-        /** 预热，范围 0..1。每次 tick 朝 warmupTarget() 线性逼近 */
+        /** 预热，范围 0..1，每次 tick 朝 warmupTarget() 线性逼近 */
         public float warmup;
-        /** 当前配方的热量输入。由 {@link HeatBlock} 接口的邻居在每 tick 更新 */
+        /** 当前配方的热量输入，由 {@link HeatBlock} 接口的邻居在每 tick 更新 */
         public float heat;
         public float[] sideHeat = new float[4];
         public PayloadSeq payloads = new PayloadSeq();

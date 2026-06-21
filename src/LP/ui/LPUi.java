@@ -13,15 +13,15 @@ import LP.graphics.LPPal;
 import LP.entities.blocks.craft.MultiCrafter;
 
 /**
- * 多配方方块的 UI 辅助方法集中地。
- * 负责：stat 面板转换、配方选择配置面板、状态条面板、输入资源显示面板。
- * 游戏逻辑（生产、接受物品、效率计算、热量处理等）请见 {@link LP.entities.blocks.craft.MultiCrafter}。
+ * 多配方方块的 UI 辅助方法集中地
+ * 负责：stat 面板转换、配方选择配置面板、状态条面板、输入资源显示面板
+ * 游戏逻辑（生产、接受物品、效率计算、热量处理等）请见 {@link LP.entities.blocks.craft.MultiCrafter}
  */
 public final class LPUi{
 
     private LPUi(){}
 
-    /** 把 Stats 的条目依次写入 Table（无分类分组，扁平排列）。 */
+    /** 把 Stats 的条目依次写入 Table（无分类分组，扁平排列） */
     public static void statToTable(Stats stat, Table table){
         var cats = stat.toMap().keys().toSeq();
         for(int i = 0; i < cats.size; i++){
@@ -35,7 +35,7 @@ public final class LPUi{
         }
     }
 
-    /** 分类写入 Stats，带 "category.xxx" 标题行。 */
+    /** 分类写入 Stats，带 "category.xxx" 标题行 */
     public static void statTurnTable(Stats stat, Table table){
         for(StatCat cat : stat.toMap().keys()){
             var map = stat.toMap().get(cat);
@@ -61,7 +61,7 @@ public final class LPUi{
         }
     }
 
-    /** 构建配方选择配置面板（含可选的液体输出方向切换按钮）。 */
+    /** 构建配方选择配置面板（含可选的液体输出方向切换按钮） */
     public static void buildRecipeConfig(MultiCrafter owner, MultiCrafter.MultiCrafterBuild build, Table table){
         Table rot = new Table();
         rot.left().defaults().size(55);
@@ -135,7 +135,7 @@ public final class LPUi{
         table.top().add(main);
     }
 
-    /** 为 Building 渲染当前配方的所有状态条（方块公共条 + 配方私有条）。 */
+    /** 为 Building 渲染当前配方的所有状态条（方块公共条 + 配方私有条） */
     public static void buildRecipeBars(MultiCrafter owner, MultiCrafter.MultiCrafterBuild build, Table table){
         table.clear();
         for(Func<Building, Bar> bar : owner.listBars()){
@@ -154,7 +154,7 @@ public final class LPUi{
         }
     }
 
-    /** 显示当前配方所需要的输入资源（选中方块时的提示面板）。 */
+    /** 显示当前配方所需要的输入资源（选中方块时的提示面板） */
     public static void buildConsumption(MultiCrafter.MultiCrafterBuild build, Table table){
         if(build.craftPlan == null) return;
         table.left();
