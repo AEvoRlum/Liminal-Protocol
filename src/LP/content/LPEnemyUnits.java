@@ -3618,7 +3618,7 @@ public class LPEnemyUnits {
                     color = colorTo = LPPal.eyesLight;
                     radius = 4f;
                     radiusTo = 4f;
-                    triLength = 85f;
+                    triLength = 8f;
                     triLengthTo = 8f;
                     shapeRotation = 180f;
                     haloRadius = haloRadiusTo = 36f;
