@@ -3404,6 +3404,20 @@ public class LPBlocks {
                     consumePower(4f);
                     consumeItems(with(LPItems.massisteel, 4, LPItems.crystalite, 3, LPItems.erocrys, 2));
                     outputItems = with(LPItems.converchip, 1);
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 120f;
+                    consumePower(2f);
+                    consumeItems(with(LPItems.jynsteel, 4, LPItems.erocrys, 5));
+                    outputItems = with(LPItems.stockchip, 1);
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 60f;
+                    consumePower(4f);
+                    consumeItems(with(LPItems.jynsteel, 4, LPItems.erocrys, 5));
+                    outputItems = with(LPItems.stockchip, 1);
                 }}
             );
         }};

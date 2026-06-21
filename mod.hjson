@@ -6,7 +6,7 @@ description: '''
 [red[]]俺寻思之力
 '''
 version: "V.test.0.0.38.326.06.21"
-minGameVersion: 157
+minGameVersion: 158.1
 dependencies: []
 java: true
 main: "LP.LPMod"

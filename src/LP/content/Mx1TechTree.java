@@ -228,9 +228,9 @@ public class Mx1TechTree {
                         nodeProduce(transchimericsteel, () -> {});
                     });
                 });
-                nodeProduce(bipolarchip, () -> {
-                    nodeProduce(converchip, () -> {});
-                });
+                nodeProduce(bipolarchip, () -> {});
+                nodeProduce(converchip, () -> {});
+                nodeProduce(stockchip, () -> {});
             });
 
             /** 流体 */
