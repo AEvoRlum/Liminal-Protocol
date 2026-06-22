@@ -7,6 +7,7 @@ import LP.content.*;
 public class LPMod extends Mod {
     public LPMod() {
         super();
+        LPSettings.load();
     }
     public static String ModName = "lp";
     public static String name(String add){

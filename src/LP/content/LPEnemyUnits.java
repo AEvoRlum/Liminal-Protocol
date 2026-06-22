@@ -1365,7 +1365,7 @@ public class LPEnemyUnits {
                     hitEffect = new MultiEffect(
                         LPFx.cutting(30f, LPPal.aureusDark, LPPal.black, 40f, 60f, 111f),
                         LPFx.cutting(40f, LPPal.aureusDark, LPPal.black, 40f, 140f, 111f),
-                        LPFx.sharpHitSpark(60f, LPPal.aureusDark, 12, 100f, 30f, Interp.pow10Out, 40f)
+                        LPFx.sharpHitSpark(60f, LPPal.aureusDark, 12, 100f, 30f, Interp.pow5Out, 40f)
                     );
                     despawnEffect = new MultiEffect(
                         new ParticleEffect(){{

@@ -315,8 +315,8 @@ public class LPFx {
             float tw = size / 8f * fout;
             float tl = size;
             
-            Drawf.tri(e.x, e.y, 2f * fout, lightLen, e.rotation + 90f);
-            Drawf.tri(e.x, e.y, 2f * fout, lightLen, e.rotation - 90f);
+            Drawf.tri(e.x, e.y, tw * fout, lightLen, e.rotation + 90f);
+            Drawf.tri(e.x, e.y, tw * fout, lightLen, e.rotation - 90f);
 
             Drawf.tri(e.x, e.y, tw, tl * 1.4f, e.rotation);
             Drawf.tri(e.x, e.y, tw, tl * 1.2f, e.rotation + 180f);
@@ -327,8 +327,8 @@ public class LPFx {
             Drawf.tri(e.x, e.y, tw, tl * 0.8f, e.rotation - 20f + 180f);
 
             color(Color.white);
-            Drawf.tri(e.x, e.y, 2f * fout * 0.5f, lightLen * 0.5f, e.rotation + 90f);
-            Drawf.tri(e.x, e.y, 2f * fout * 0.5f, lightLen * 0.5f, e.rotation - 90f);
+            Drawf.tri(e.x, e.y, tw * fout * 0.5f, lightLen * 0.5f, e.rotation + 90f);
+            Drawf.tri(e.x, e.y, tw * fout * 0.5f, lightLen * 0.5f, e.rotation - 90f);
 
             Drawf.tri(e.x, e.y, tw * 0.5f, tl * 1.4f * 0.5f, e.rotation);
             Drawf.tri(e.x, e.y, tw * 0.5f, tl * 1f * 0.5f, e.rotation + 180f);

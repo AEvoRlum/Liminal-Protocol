@@ -11,6 +11,7 @@ import mindustry.content.Fx;
 import mindustry.entities.Effect;
 import mindustry.graphics.Layer;
 
+import LP.LPSettings;
 import LP.graphics.LPPal;
 
 public class AimLPPowerTurret extends LPPowerTurret {
@@ -61,14 +62,16 @@ public class AimLPPowerTurret extends LPPowerTurret {
         @Override
         public void draw(){
             super.draw();
-            aimRenderer.render(this);
+            if(LPSettings.aimTurretEnabled()){
+                aimRenderer.render(this);
+            }
         }
         
         @Override
         public void updateTile(){
             super.updateTile();
             
-            if(drawAimPoint && aimEffect != null){
+            if(LPSettings.aimTurretEnabled() && drawAimPoint && aimEffect != null){
                 float aimX = getAimX();
                 float aimY = getAimY();
                 
@@ -109,7 +112,7 @@ public class AimLPPowerTurret extends LPPowerTurret {
         public void render(AimLPPowerTurretBuild build){
             AimLPPowerTurret turret = (AimLPPowerTurret) build.block;
             
-            if(!enabled || !turret.drawAimPoint) return;
+            if(!LPSettings.aimTurretEnabled() || !enabled || !turret.drawAimPoint) return;
             
             float aimX = build.getAimX();
             float aimY = build.getAimY();

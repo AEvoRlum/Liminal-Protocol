@@ -6,7 +6,7 @@ import mindustry.type.Item;
 import LP.graphics.LPPal;
 
 public class LPItems {
-    public static Item jynsteel, massisteel, litelnlay,  transchimericsteel, crystalite, erocrys, bipolarchip, converchip, stockchip, ionopolymer;
+    public static Item jynsteel, massisteel, litelnlay,  transchimericsteel, photosolidAlloy, crystalite, erocrys, bipolarchip, converchip, stockchip, ionopolymer;
 
     public static final Seq <Item> mx1Items = new Seq<>();
     private LPItems(){
@@ -64,6 +64,20 @@ public class LPItems {
             charge = 0f;
             cost = 0.85f;
             healthScaling = 1.5f;
+            frames = 0;
+            buildable = true;
+            alwaysUnlocked = false;
+            databaseTag = "build-mat";
+        }};
+
+        photosolidAlloy = new Item("photosolid-alloy", Color.valueOf("666775")){{
+            hardness = 4;
+            radioactivity = 0f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0f;
+            cost = 1f;
+            healthScaling = 1.7f;
             frames = 0;
             buildable = true;
             alwaysUnlocked = false;

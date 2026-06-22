@@ -79,13 +79,12 @@ public class Mx1TechTree {
             /** 工厂 */
             node(ionopolymerCrucible, Seq.with(new OnSector(why)), () -> {
                 node(ionopolymerCrucibleLarge, Seq.with(new Research(impactDrill0)), () -> {});
-                node(erocrysExtractory, Seq.with(new SectorComplete(repulse)), () -> {
-                    node(transChimericFoundry, Seq.with(new Research(litConveyor),
-                    new Research(litBridgeConveyor),
-                    new Research(litJunction),
-                    new Research(litUnloader)), () -> {
-                        node(highSpeedTranschimericFoundry, Seq.with(new Research(ionopolymerCrucibleLarge)), () -> {});
-                    });
+                node(erocrysExtractory, Seq.with(new SectorComplete(repulse)), () -> {});
+                node(transChimericFoundry, Seq.with(new Research(litConveyor),
+                new Research(litBridgeConveyor),
+                new Research(litJunction),
+                new Research(litUnloader)), () -> {
+                    node(highSpeedTranschimericFoundry, Seq.with(new Research(ionopolymerCrucibleLarge)), () -> {});
                 });
                 node(chipFabricator, Seq.with(new SectorComplete(Rift),
                 new Research(highSpeedTranschimericFoundry)), () -> {});
@@ -232,6 +231,8 @@ public class Mx1TechTree {
                         nodeProduce(transchimericsteel, () -> {});
                     });
                 });
+                nodeProduce(photosolidAlloy, () -> {});
+
                 nodeProduce(bipolarchip, () -> {});
                 nodeProduce(converchip, () -> {});
                 nodeProduce(stockchip, () -> {});
