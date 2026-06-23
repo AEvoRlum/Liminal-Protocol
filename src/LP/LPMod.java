@@ -19,6 +19,7 @@ public class LPMod extends Mod {
         super.loadContent();
         LPContent.loadPriority();
         LPItems.load();
+        LPLiquids.load();
         LPSounds.load();
         LPFx.loadPriority();
         LPStatusEffect.load();
