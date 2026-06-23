@@ -3390,7 +3390,7 @@ public class LPBlocks {
             canOverdrive = true;
             hasPower = true;
             itemCapacity = 24;
-            maxList = 3;
+            maxList = 7;
             useBlockDrawer = true;
             craftPlans = Seq.with(
                 new CraftPlan(){{
