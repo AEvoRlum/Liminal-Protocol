@@ -66,7 +66,7 @@ public class LPBlocks {
     //craft
     public static Block masHeatRedirector, masHeatRedirectorSmall, masHeatRouter, masHeatRouterSmall, masSlagHeater, powerHeater;
     public static Block ionopolymerCrucible, ionopolymerCrucibleLarge, erocrysExtractory, transChimericFoundry, highSpeedTranschimericFoundry;
-    public static MultiCrafter chipFabricator;
+    public static MultiCrafter chipFabricator, integratedAlloyCmeltingCuringRefinery;
 
     //unit
     //storage
@@ -3398,6 +3398,8 @@ public class LPBlocks {
                     consumePower(2f);
                     consumeItems(with(LPItems.jynsteel, 4, LPItems.crystalite, 4));
                     outputItems = with(LPItems.bipolarchip, 1);
+                    ambientSound = Sounds.loopCircuit;
+                    ambientSoundVolume = 0.5f;
                 }},
 
                 new CraftPlan(){{
@@ -3405,6 +3407,8 @@ public class LPBlocks {
                     consumePower(4f);
                     consumeItems(with(LPItems.jynsteel, 4, LPItems.crystalite, 4));
                     outputItems = with(LPItems.bipolarchip, 1);
+                    ambientSound = Sounds.loopCircuit;
+                    ambientSoundVolume = 0.8f;
                 }},
 
                 new CraftPlan(){{
@@ -3412,6 +3416,8 @@ public class LPBlocks {
                     consumePower(2.5f);
                     consumeItems(with(LPItems.massisteel, 4, LPItems.crystalite, 3, LPItems.erocrys, 2));
                     outputItems = with(LPItems.converchip, 1);
+                    ambientSound = Sounds.loopMachine;
+                    ambientSoundVolume = 0.1f;
                 }},
 
                 new CraftPlan(){{
@@ -3419,6 +3425,8 @@ public class LPBlocks {
                     consumePower(4f);
                     consumeItems(with(LPItems.massisteel, 4, LPItems.crystalite, 3, LPItems.erocrys, 2));
                     outputItems = with(LPItems.converchip, 1);
+                    ambientSound = Sounds.loopMachine;
+                    ambientSoundVolume = 0.4f;
                 }},
 
                 new CraftPlan(){{
@@ -3426,6 +3434,8 @@ public class LPBlocks {
                     consumePower(2f);
                     consumeItems(with(LPItems.jynsteel, 4, LPItems.erocrys, 5));
                     outputItems = with(LPItems.stockchip, 1);
+                    ambientSound = Sounds.loopExtract;
+                    ambientSoundVolume = 0.3f;
                 }},
 
                 new CraftPlan(){{
@@ -3433,6 +3443,89 @@ public class LPBlocks {
                     consumePower(4f);
                     consumeItems(with(LPItems.jynsteel, 4, LPItems.erocrys, 5));
                     outputItems = with(LPItems.stockchip, 1);
+                    ambientSound = Sounds.loopExtract;
+                    ambientSoundVolume = 0.6f;
+                }}
+            );
+        }};
+
+        integratedAlloyCmeltingCuringRefinery = new MultiCrafter("integrated-alloy-cmelting-curing-refinery"){{
+            size = 4;
+            health = 145;
+            requirements(Category.crafting, with(LPItems.transchimericsteel, 100, LPItems.jynsteel, 82, LPItems.crystalite, 44, LPItems.bipolarchip, 8));
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            canOverdrive = true;
+            hasPower = hasItems = true;
+            conductivePower = true;
+            itemCapacity = 36;
+            maxList = 2;
+            useBlockDrawer = true;
+            drawer = new DrawMulti(new DrawDefault(), new DrawGlowRegion("-glow"){{
+                alpha = 1f; color = Color.valueOf("F7E97E");
+            }}, new DrawBlockParts(){{parts.addAll(
+                new ShapePart(){{
+                    circle = false;
+                    hollow = true;
+                    color = Color.valueOf("F7E97E00");
+                    colorTo = Color.valueOf("F7E97E");
+                    sides = 4;
+                    radius = 0f;
+                    radiusTo = 12f;
+                    stroke = 0f;
+                    strokeTo = 2f;
+                    layer = 110f;
+                    progress = PartProgress.warmup.curve(Interp.circleIn);
+                }},
+                
+                new HaloPart(){{
+                    color = colorTo = Color.valueOf("F7E97E");
+                    sides = 256;
+                    shapes = 1;
+                    radius = triLength = 0f;
+                    radiusTo = triLengthTo = 4.5f;
+                    haloRadius = 0f;
+                    layer = 110f;
+                    progress = PartProgress.warmup.curve(Interp.circleIn);
+                }},
+            
+                new HaloPart(){{
+                    tri = true;
+                    color = colorTo = Color.valueOf("F7E97E");
+                    shapes = 2;
+                    radius = 0f;
+                    radiusTo = 3f;
+                    triLength = 7f;
+                    triLengthTo = 14f;
+                    haloRadius = 0f;
+                    haloRotateSpeed = -0.3f;
+                    layer = 110f;
+                    progress = PartProgress.warmup.curve(Interp.circleIn);
+                }},
+            
+                new HaloPart(){{
+                    tri = true;
+                    color = colorTo = Color.valueOf("F7E97E");
+                    shapes = 2;
+                    radius = 0f;
+                    radiusTo = 3f;
+                    triLength = 12f;
+                    triLengthTo = 24f;
+                    haloRadius = 0f;
+                    haloRotation = 45f;
+                    haloRotateSpeed = 0.5f;
+                    layer = 110f;
+                    progress = PartProgress.warmup.curve(Interp.circleIn);
+                }});
+            }});
+            craftPlans = Seq.with(
+                new CraftPlan(){{
+                    craftTime = 240f;
+                    consumePower(3.5f);
+                    consumeItems(with(LPItems.massisteel, 4, LPItems.jynsteel, 4, LPItems.litelnlay, 2, LPItems.crystalite, 1));
+                    outputItems = with(LPItems.photosolidAlloy, 2);
+                    ambientSound = Sounds.loopGlow;
+                    ambientSoundVolume = 0.8f;
                 }}
             );
         }};
