@@ -12,6 +12,7 @@ import static mindustry.content.Liquids.slag;
 import static LP.content.LPBlocks.*;
 import static LP.content.Mx1Sectors.*;
 import static LP.content.LPItems.*;
+import static LP.content.LPLiquids.*;
 import static LP.content.LPUnits.*;
 import static LP.content.LPEnemyUnits.*;
 
@@ -233,8 +234,6 @@ public class Mx1TechTree {
                     nodeProduce(crystalite, () -> {});
                 });
 
-                nodeProduce(ionopolymer, () -> {});
-
                 nodeProduce(massisteel, () -> {
                     nodeProduce(litelnlay, () -> {
                         nodeProduce(transchimericsteel, () -> {});
@@ -242,13 +241,18 @@ public class Mx1TechTree {
                 });
                 nodeProduce(photosolidAlloy, () -> {});
 
+                nodeProduce(ionopolymer, () -> {});
+                nodeProduce(heterosoligen, () -> {});
+
                 nodeProduce(bipolarchip, () -> {});
                 nodeProduce(converchip, () -> {});
                 nodeProduce(stockchip, () -> {});
             });
 
             /** 流体 */
-            nodeProduce(slag, Seq.with(new OnSector(不容拒绝)), () -> {});
+            nodeProduce(slag, Seq.with(new OnSector(不容拒绝)), () -> {
+                nodeProduce(heterohydrogen, () -> {});
+            });
 
             /** 敌方 */
             node(ttfWall, Seq.with(new SectorComplete(不容拒绝)), () -> {

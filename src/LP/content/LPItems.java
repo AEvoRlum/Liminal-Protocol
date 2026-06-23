@@ -6,7 +6,7 @@ import mindustry.type.Item;
 import LP.graphics.LPPal;
 
 public class LPItems {
-    public static Item jynsteel, massisteel, litelnlay,  transchimericsteel, photosolidAlloy, crystalite, erocrys, bipolarchip, converchip, stockchip, ionopolymer;
+    public static Item jynsteel, massisteel, litelnlay,  transchimericsteel, photosolidAlloy, crystalite, erocrys, bipolarchip, converchip, stockchip, ionopolymer, heterosoligen;
 
     public static final Seq <Item> mx1Items = new Seq<>();
     private LPItems(){
@@ -171,6 +171,21 @@ public class LPItems {
             explosiveness = 0.3f;
             flammability = 0f;
             charge = 1f;
+            cost = 1f;
+            healthScaling = 0f;
+            frames = 0;
+            buildable = false;
+            alwaysUnlocked = false;
+            databaseTag = "cons-mat";
+        }};
+
+        /** 固态异氢 */
+        heterosoligen = new Item("heterosoligen", Color.valueOf("8497B5")){{
+            hardness = 0;
+            radioactivity = 0.5f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0f;
             cost = 1f;
             healthScaling = 0f;
             frames = 0;
