@@ -65,7 +65,8 @@ public class LPBlocks {
 
     //craft
     public static Block masHeatRedirector, masHeatRedirectorSmall, masHeatRouter, masHeatRouterSmall, masSlagHeater, powerHeater;
-    public static Block ionopolymerCrucible, ionopolymerCrucibleLarge, erocrysExtractory, transChimericFoundry, highSpeedTranschimericFoundry;
+    public static Block ionopolymerCrucible, ionopolymerCrucibleLarge, erocrysExtractory, transChimericFoundry, highSpeedTranschimericFoundry,
+    heterohydrogenCollector, heterohydrogenLiquefier;
     public static MultiCrafter chipFabricator, integratedAlloyCmeltingCuringRefinery;
 
     //unit
@@ -2359,6 +2360,7 @@ public class LPBlocks {
             itemCapacity = 24;
             liquidCapacity = 16f;
             liquidBoostIntensity = 1.2f;
+            consumeLiquid(LPLiquids.heterohydrogen, 1f / 60f).boost();
             drawRim = false;
             canOverdrive = true;
             outlineColor = LPPal.outline;
@@ -2381,6 +2383,7 @@ public class LPBlocks {
             itemCapacity = 24;
             liquidCapacity = 24f;
             liquidBoostIntensity = 1.2f;
+            consumeLiquid(LPLiquids.heterohydrogen, 2f / 60f).boost();
             drawRim = false;
             canOverdrive = true;
             outlineColor = LPPal.outline;
@@ -2410,6 +2413,7 @@ public class LPBlocks {
             glowColor = LPPal.orange;
             fogRadius = 4;
             liquidBoostIntensity = 1.1f;
+            consumeLiquid(LPLiquids.heterohydrogen, 4f / 60f).boost();
             outlineColor = LPPal.outline;
             hasPower = true;
             squareSprite = true;
@@ -3381,6 +3385,97 @@ public class LPBlocks {
             requirements(Category.crafting, with(LPItems.transchimericsteel, 180, LPItems.massisteel, 112, LPItems.jynsteel, 142, LPItems.crystalite, 40));
         }};
 
+        heterohydrogenCollector = new GenericCrafter("heterohydrogen-collector"){{
+            size = 3;
+            health = 67;
+            requirements(Category.crafting, with(LPItems.transchimericsteel, 55, LPItems.jynsteel, 47, LPItems.crystalite, 25,
+            LPItems.bipolarchip, 4));
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            canOverdrive = true;
+            conductivePower = true;
+            hasPower = hasItems = true;
+            itemCapacity = 30;
+            craftTime = 180f;
+            consumePower(1.6f);
+            outputItems = with(LPItems.heterosoligen, 1);
+            ambientSound = Sounds.loopSpray;
+            ambientSoundVolume = 0.05f;
+            drawer = new DrawMulti(new DrawDefault(), new DrawGlowRegion("-glow"){{color = LPPal.orangeDark; glowIntensity = 0.8f;}});
+            updateEffect = new MultiEffect(
+                new ParticleEffect(){{
+                    particles = 1;
+                    length = -32f;
+                    baseLength = 32f;
+                    lifetime = 180f;
+                    interp = Interp.circleIn;
+                    sizeInterp = Interp.pow5In;
+                    sizeFrom = 6f;
+                    sizeTo = 0f;
+                    colorFrom = Color.valueOf("8497B500");
+                    colorTo = Color.valueOf("8497B555");
+                }},
+
+                new ParticleEffect(){{
+                    particles = 1;
+                    length = -32f;
+                    baseLength = 32f;
+                    lifetime = 180f;
+                    interp = Interp.circleIn;
+                    sizeInterp = Interp.pow5In;
+                    sizeFrom = 3f;
+                    sizeTo = 0f;
+                    colorFrom = Color.valueOf("8497B500");
+                    colorTo = Color.valueOf("8497B555");
+                }}
+            );
+        }};
+
+        heterohydrogenLiquefier = new MultiCrafter("heterohydrogen-liquefier"){{
+            size = 3;
+            health = 62;
+            requirements(Category.crafting, with(LPItems.transchimericsteel, 50, LPItems.jynsteel, 58, LPItems.crystalite, 21,
+            LPItems.bipolarchip, 4));
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            canOverdrive = false;
+            conductivePower = true;
+            hasPower = hasItems = hasLiquids = true;
+            outputsLiquid = true;
+            itemCapacity = 12;
+            liquidCapacity = 40f;
+            maxList = 3;
+            useBlockDrawer = true;
+            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidRegion(LPLiquids.heterohydrogen),
+            new DrawCircles(Color.valueOf("C7DFED")){{
+                amount = 4;
+                sides = 4;
+                strokeMax = 1f;
+                timeScl = 90f;
+                radius = 10f;
+                strokeInterp = Interp.circleIn;
+            }}, new DrawDefault());
+            craftPlans = Seq.with(
+                new CraftPlan(){{
+                    craftTime = 90f;
+                    consumePower(2.2f);
+                    consumeItem(LPItems.heterosoligen, 1);
+                    outputLiquids = LiquidStack.with(LPLiquids.heterohydrogen, 4f / 60f);
+                    ambientSound = Sounds.loopDifferential;
+                    ambientSoundVolume = 0.4f;
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 45f;
+                    consumePower(4f);
+                    consumeItem(LPItems.heterosoligen, 1);
+                    outputLiquids = LiquidStack.with(LPLiquids.heterohydrogen, 6f / 60f);
+                    ambientSound = Sounds.loopDifferential;
+                    ambientSoundVolume = 0.8f;
+                }}
+            );
+        }};
+
         chipFabricator = new MultiCrafter("chip-fabricator"){{
             size = 3;
             health = 75;
@@ -3452,15 +3547,18 @@ public class LPBlocks {
         integratedAlloyCmeltingCuringRefinery = new MultiCrafter("integrated-alloy-cmelting-curing-refinery"){{
             size = 4;
             health = 145;
-            requirements(Category.crafting, with(LPItems.transchimericsteel, 100, LPItems.jynsteel, 82, LPItems.crystalite, 44, LPItems.bipolarchip, 8));
+            requirements(Category.crafting, with(LPItems.transchimericsteel, 100, LPItems.jynsteel, 82, LPItems.crystalite, 44,
+            LPItems.bipolarchip, 8));
             alwaysUnlocked = false;
             researchCostMultiplier = 0.4f;
             canOverdrive = true;
-            hasPower = hasItems = true;
+            hasPower = hasItems = hasLiquids = true;
             conductivePower = true;
             itemCapacity = 36;
-            maxList = 2;
+            liquidCapacity = 20f;
+            maxList = 3;
             useBlockDrawer = true;
+            progressColor = LPPal.orangeRed;
             drawer = new DrawMulti(new DrawDefault(), new DrawGlowRegion("-glow"){{
                 alpha = 1f; color = Color.valueOf("F7E97E");
             }}, new DrawBlockParts(){{parts.addAll(
@@ -3522,6 +3620,16 @@ public class LPBlocks {
                 new CraftPlan(){{
                     craftTime = 240f;
                     consumePower(3.5f);
+                    consumeItems(with(LPItems.massisteel, 4, LPItems.jynsteel, 4, LPItems.litelnlay, 2, LPItems.crystalite, 1));
+                    outputItems = with(LPItems.photosolidAlloy, 2);
+                    ambientSound = Sounds.loopGlow;
+                    ambientSoundVolume = 0.8f;
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 60f;
+                    consumePower(10f);
+                    consumeLiquid(LPLiquids.heterohydrogen, 0.2f);
                     consumeItems(with(LPItems.massisteel, 4, LPItems.jynsteel, 4, LPItems.litelnlay, 2, LPItems.crystalite, 1));
                     outputItems = with(LPItems.photosolidAlloy, 2);
                     ambientSound = Sounds.loopGlow;

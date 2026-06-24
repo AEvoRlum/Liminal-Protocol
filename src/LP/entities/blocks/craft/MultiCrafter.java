@@ -60,6 +60,12 @@ public class MultiCrafter extends PayloadBlock{
 
     /** 配方的 {@link CraftPlan#init()} 中会自动把输入/输出液体注册为状态条 */
     public boolean autoAddBar = true;
+    
+    /** 生产进度条的颜色 */
+    public Color progressColor = Pal.accent;
+
+    /** 是否在配方的状态条面板中显示生产进度条（每个配方独立显示自己的进度） */
+    public boolean showProgressBar = true;
 
     /** 是否在“选中方块”时在方块脚下绘制一张液体悬浮表 */
     public boolean useLiquidTable = true;
@@ -783,6 +789,10 @@ public class MultiCrafter extends PayloadBlock{
                 }
                 for(LiquidStack l : outputLiquids) addLiquidBar(l.liquid);
             }
+            
+            if(owner.showProgressBar){
+                addProgressBar();
+            }
         }
 
         public void setApply(UnlockableContent content){
@@ -801,6 +811,17 @@ public class MultiCrafter extends PayloadBlock{
                 () -> liquid.localizedName,
                 liquid::barColor,
                 () -> build.liquids.get(liquid) / owner.liquidCapacity));
+        }
+
+        public void addProgressBar(){
+            addBar("progress", build -> {
+                MultiCrafter.MultiCrafterBuild b = (MultiCrafter.MultiCrafterBuild) build;
+                return new Bar(
+                    () -> Core.bundle.get("bar.progress"),
+                    () -> owner.progressColor,
+                    () -> b.progress
+                );
+            });
         }
 
         public MultiCrafter owner(){ return owner; }

@@ -98,6 +98,10 @@ public class Mx1TechTree {
 
                 node(chipFabricator, Seq.with(new SectorComplete(Rift),
                 new Research(highSpeedTranschimericFoundry)), () -> {});
+
+                node(heterohydrogenCollector, Seq.with(new Research(integratedAlloyCmeltingCuringRefinery)), () -> {
+                    node(heterohydrogenLiquefier, () -> {});
+                });
             });
 
             /** 热量 */
