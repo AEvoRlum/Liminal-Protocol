@@ -107,9 +107,11 @@ public class Mx1TechTree {
             /** 热量 */
             node(masHeatRedirector, Seq.with(new OnSector(why)), () -> {
                 node(masHeatRedirectorSmall, () -> {});
+
                 node(masHeatRouter, () -> {
                     node(masHeatRouterSmall, () -> {});
                 });
+
                 node(masSlagHeater, Seq.with(new Research(masHeatRedirectorSmall),
                 new Research(masHeatRouter),
                 new Research(masHeatRouterSmall)), () -> {
@@ -120,19 +122,28 @@ public class Mx1TechTree {
             /** 电力 */
             node(jynPowerNode, Seq.with(new SectorComplete(不容拒绝)), () -> {
                 node(jynPowerNodeLarge, () -> {});
+
                 node(jynBattery, () -> {});
-                node(heavyIonChamber, () -> {});
+
+                node(heavyIonChamber, () -> {
+                    node(annihilationReactor, Seq.with(new Research(heterohydrogenLiquefier),
+                    new Research(autoBuildTower)), () -> {});
+                });
             });
 
             /** 防御/墙 */
             node(jynWall, Seq.with(new OnSector(不容拒绝)), () -> {
                 node(jynWallLarge, () -> {});
+
                 node(masWall, () -> {
                     node(masWallLarge, () -> {});
                 });
+
                 node(traWall, () -> {
                     node(traWallLarge, () -> {});
                 });
+
+                node(autoBuildTower, Seq.with(new Research(heterohydrogen)), () -> {});
             });
 
             /** 炮塔 */
@@ -251,6 +262,7 @@ public class Mx1TechTree {
                 nodeProduce(bipolarchip, () -> {});
                 nodeProduce(converchip, () -> {});
                 nodeProduce(stockchip, () -> {});
+                nodeProduce(buildchip, () -> {});
             });
 
             /** 流体 */

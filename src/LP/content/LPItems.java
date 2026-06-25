@@ -1,14 +1,13 @@
 package LP.content;
 
 import arc.graphics.Color;
-import arc.struct.Seq;
 import mindustry.type.Item;
 import LP.graphics.LPPal;
 
 public class LPItems {
-    public static Item jynsteel, massisteel, litelnlay,  transchimericsteel, photosolidAlloy, crystalite, erocrys, bipolarchip, converchip, stockchip, ionopolymer, heterosoligen;
+    public static Item jynsteel, massisteel, litelnlay,  transchimericsteel, photosolidAlloy,
+    crystalite, erocrys, bipolarchip, converchip, stockchip, buildchip, ionopolymer, heterosoligen;
 
-    public static final Seq <Item> mx1Items = new Seq<>();
     private LPItems(){
         
     }
@@ -151,6 +150,21 @@ public class LPItems {
 
         /** 物管芯片 */
         stockchip = new Item("stockchip", LPPal.orange){{
+            hardness = 1;
+            radioactivity = 0f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0f;
+            cost = 0f;
+            healthScaling = 0f;
+            frames = 0;
+            buildable = true;
+            alwaysUnlocked = false;
+            databaseTag = "chip-mat";
+        }};
+
+        /** 构建芯片 */
+        buildchip = new Item("buildchip", LPPal.orangeMid){{
             hardness = 1;
             radioactivity = 0f;
             explosiveness = 0f;

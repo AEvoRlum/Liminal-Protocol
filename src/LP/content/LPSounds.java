@@ -23,7 +23,7 @@ public class LPSounds {
         explosionAfflict, explosionArtilleryShockBig, explosionbig, explosionCleroi, explosionCrawler, 
         explosionDull, explosionHit, explosionMortar, explosionNavanax, explosionNuke, explosionQuad, 
         helicopterCrush, hitDefence, hitRepelback, largeBeam, laser2, laser3, laser4, laser5, laserLargeCharge, 
-        laserLargeShot1, laserLargeShot2, laserShot, launch, loopBio, loopDifferential, loopElixir, loopNecroplasm, 
+        laserLargeShot1, laserLargeShot2, laserShot, launch, loopAnnihilation, loopBio, loopDifferential, loopElixir, loopNecroplasm, 
         loopPressureGenerator, loopRadarPulse, loopRegen, loopThoriumReactor, loopThruster, loudlyBlasterShot1, 
         martianCrash, mechDestroyed, mechLargeFootsteps, mechMediumFootsteps, mechStepHeavy, mgsvExplosion, 
         plasmaShoot, plasmaShot1, plasmaShot2, railGunBlast, railShot1, railShot2, ramielblast, shield, 
@@ -35,7 +35,7 @@ public class LPSounds {
         shootMissiles, shootMortar, shootNavanax, shootNecroplasm, shootOmura, shootPierce, shootPlasma, shootPulse1, 
         shootPulse2, shootPulse3, shootPulse4, shootRailgun1, shootRailgun2, shootRailgun3, shootRancor, shootRepelback, 
         shootRipple, shootScepterSecondary, shootSegment, shootSmite, shootSnowWhite, shootSubsonic, shootSupernova, 
-        shootToxopidShotgun, shootVulcanPlasma, sinusblast, sinusblast2, strawberrydeath, tankDestroyed, tankDestroyed2, 
+        shootToxopidShotgun, shootVulcanPlasma, sinusblast2, strawberrydeath, tankDestroyed, tankDestroyed2, 
         termignisPierceArmor, termignisShoot, weirdblast, writeIn
     ;
 

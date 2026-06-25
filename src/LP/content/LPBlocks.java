@@ -38,6 +38,7 @@ import static mindustry.type.ItemStack.*;
 import LP.graphics.LPPal;
 import LP.entities.blocks.turret.*;
 import LP.entities.blocks.craft.MultiCrafter;
+import LP.entities.blocks.power.AnnihilationReactor;
 import LP.entities.bullets.*;
 
 public class LPBlocks {
@@ -59,6 +60,10 @@ public class LPBlocks {
 
     //power
     public static Block jynPowerNode, jynPowerNodeLarge, jynBattery, heavyIonChamber;
+    public static AnnihilationReactor annihilationReactor;
+
+    //defense
+    public static Block autoBuildTower;
 
     //wall
     public static Block jynWall, jynWallLarge, masWall, masWallLarge, traWall, traWallLarge, ttfWall;
@@ -2940,6 +2945,85 @@ public class LPBlocks {
             requirements(Category.power, with(LPItems.jynsteel, 240, LPItems.massisteel, 160, LPItems.erocrys, 160));
         }};
 
+        annihilationReactor = new AnnihilationReactor("annihilation-reactor"){{
+            size = 8;
+            health = 1664;
+            requirements(Category.power, with(LPItems.photosolidAlloy, 427, LPItems.jynsteel, 434, LPItems.massisteel, 112, LPItems.transchimericsteel, 95, LPItems.crystalite, 95,
+            LPItems.bipolarchip, 16, LPItems.converchip, 24));
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            priority = 4f;
+            hasLiquids = true;
+            itemCapacity = 96;
+            liquidCapacity = 124;
+            consumeItem(LPItems.photosolidAlloy, 12);
+            consumeLiquid(LPLiquids.heterohydrogen, 12f / 60f);
+            Color c = LPPal.redMid;
+            updateSplashEffect = new MultiEffect(
+                LPFx.annihilation(30f, c, 12f, 5),
+                LPFx.smoothCircleOut(30f, c, 132f, 40, true),
+                LPFx.sharpHitSpark(30f, c, 10, 132, 40f, Interp.pow4Out),
+                LPFx.sharpHitSpark(30f, c, 4, 132, 60f, Interp.pow3Out)
+            );
+            updateEffect = new MultiEffect(
+                LPFx.trailHitSpark(32f, c, 3, 120, 0.8f, 8f),
+                LPFx.trailHitSpark(32f, c, 3, 120,1f, 12f),
+                LPFx.trailHitSpark(27f, c, 4, 120, 0.9f, 6f),
+                LPFx.trailHitSpark(22f, c, 3, 120, 0.8f, 4f)
+            );
+            destroySound = LPSounds.blockExplodeElectricBig;
+            destroySoundVolume = 1.2f;
+            destroyEffect = new MultiEffect(
+                LPFx.circleOut(90f, c, 160f),
+                LPFx.smoothCircleOut(90f, c, 160f, 40, true),
+                LPFx.energyExplosion(c, 90f, 120f, 12),
+                LPFx.sharpHitSpark(90f, c, 16, 140, 40f, Interp.circleIn)
+            );
+            
+            destroyed = new EffectBulletType(0f){
+                {
+                    damage = 0f;
+                    hitSound = despawnSound = LPSounds.airCrushLarge2;
+                    hitEffect = despawnEffect = new MultiEffect(
+                        LPFx.circleOut(120f, c, 160f),
+                        LPFx.smoothCircleOut(120f, c, 160f, 44, true),
+                        LPFx.energyExplosion(c, 120f, 80f, 10),
+                        LPFx.energyExplosion(c, 120f, 120f, 4),
+                        LPFx.trailHitSpark(120f, c, 24, 160, 1f, 12f),
+                        LPFx.cutting(120f, c, c, 80f, 40f, Layer.effect),
+                        LPFx.cutting(120f, c, c, 80f, 130f, Layer.effect),
+                        LPFx.sharpHitSpark(120f, c, 18, 160, 40f, Interp.pow2Out)
+                    );
+                }
+                @Override
+                public void update(Bullet b) {
+                    super.update(b);
+                    if (b.timer(1, 3)) {
+                        for (int l = 0; l < 5; l++) {
+                            LP.graphics.Drawn.randFadeLightningEffect(b.x, b.y, Mathf.random(160), Mathf.random(3, 12), hitColor, Mathf.chance(0.5));
+                        }
+                    }
+                }
+            };
+        }};
+
+        //defense
+        autoBuildTower = new BuildTurret("auto-build-tower"){{
+            size = 2;
+            health = 46;
+            requirements(Category.defense, with(LPItems.transchimericsteel, 24, LPItems.jynsteel, 18, LPItems.crystalite, 5,
+            LPItems.buildchip, 4));
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            unitType = LPUnits.pioneersUnit;
+            hasPower = hasLiquids = true;
+            outlineColor = LPPal.outline;
+            range = 160f;
+            buildSpeed = 1f;
+            consumePower(2.5f);
+            consumeLiquid(LPLiquids.heterohydrogen, 2f / 60f);
+        }};
+
         //wall
         jynWall = new Wall("jyn-wall"){{
             size = 1;
@@ -3483,9 +3567,10 @@ public class LPBlocks {
             alwaysUnlocked = false;
             researchCostMultiplier = 0.1f;
             canOverdrive = true;
-            hasPower = true;
+            hasPower = hasItems = hasLiquids = true;
             itemCapacity = 24;
-            maxList = 7;
+            liquidCapacity = 10f;
+            maxList = 9;
             useBlockDrawer = true;
             craftPlans = Seq.with(
                 new CraftPlan(){{
@@ -3539,6 +3624,25 @@ public class LPBlocks {
                     consumeItems(with(LPItems.jynsteel, 4, LPItems.erocrys, 5));
                     outputItems = with(LPItems.stockchip, 1);
                     ambientSound = Sounds.loopExtract;
+                    ambientSoundVolume = 0.6f;
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 160f;
+                    consumePower(2f);
+                    consumeItems(with(LPItems.jynsteel, 4, LPItems.crystalite, 7));
+                    outputItems = with(LPItems.buildchip, 1);
+                    ambientSound = Sounds.loopMachine2;
+                    ambientSoundVolume = 0.3f;
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 60f;
+                    consumePower(4f);
+                    consumeLiquid(LPLiquids.heterohydrogen, 1.2f / 60f);
+                    consumeItems(with(LPItems.jynsteel, 4, LPItems.crystalite, 7));
+                    outputItems = with(LPItems.buildchip, 1);
+                    ambientSound = Sounds.loopMachine2;
                     ambientSoundVolume = 0.6f;
                 }}
             );

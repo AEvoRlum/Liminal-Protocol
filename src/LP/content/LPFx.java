@@ -431,7 +431,7 @@ public class LPFx {
             if(circleProg < 0.3f){
                 float innerProg = circleProg / 0.3f;
                 circleRadius = Mathf.lerp(length * 2f, length * 2.4f, innerProg);
-            }else if(circleProg < 1f){
+            }else if(circleProg < 0.6f){
                 float innerProg = (circleProg - 0.3f) / 0.3f;
                 circleRadius = Mathf.lerp(length * 2.4f, 0f, innerProg);
             }else{
