@@ -10,6 +10,7 @@ import arc.graphics.g2d.TextureRegion;
 import arc.math.*;
 import arc.util.*;
 import arc.util.io.*;
+import mindustry.Vars;
 import mindustry.content.*;
 import mindustry.entities.*;
 import mindustry.entities.bullet.BulletType;
@@ -84,7 +85,7 @@ public class AnnihilationReactor extends PowerDistributor{
     /** 触发范围伤害时特效 */
     public Effect updateSplashEffect = Fx.none;
     /** 触发范围伤害时音效 */
-    public Sound updateSplashSound = LPSounds.loopAnnihilation;
+    public Sound updateSplashSound = LPSounds.explosionArtilleryShockBig;
     /** 触发范围伤害时音效音量 */
     public float updateSplashSoundVolume = 1f;
 
@@ -94,9 +95,9 @@ public class AnnihilationReactor extends PowerDistributor{
     public float updateEffectInterval = 10f;
     /** 随机触发运行时特效间隔± */
     public float randUpdateEffectInterval = 10f;
-    /** 触发运行时特效音效 */
-    public Sound updateSound = LPSounds.explosionArtilleryShockBig;
-    /** 触发运行时特效音效音量 */
+    /** 运行时音效 */
+    public Sound updateSound = LPSounds.loopAnnihilation;
+    /** 运行时音效音量 */
     public float updateSoundVolume = 1f;
 
     /** 方块绘制 */
@@ -161,6 +162,13 @@ public class AnnihilationReactor extends PowerDistributor{
     }
 
     @Override
+    public void drawPlace(int x, int y, int rotation, boolean valid){
+        super.drawPlace(x, y, rotation, valid);
+
+        Drawf.dashCircle(x * tilesize + offset, y * tilesize + offset, updateSplashRadius, LPPal.redDark);
+    }
+
+    @Override
     public boolean outputsItems(){
         return false;
     }
@@ -206,6 +214,8 @@ public class AnnihilationReactor extends PowerDistributor{
         public float nextEffectInterval;
         public float healTimer;
         public float liquidTimer;
+
+        /** public float updateSoundTimer; */
 
         @Override
         public void created() {
@@ -275,11 +285,6 @@ public class AnnihilationReactor extends PowerDistributor{
                             updateEffect.at(x, y);
                         }
                     }
-                    if(updateSound != Sounds.none && warmup > 0f){
-                        updateSound.at(x, y, 1f, updateSoundVolume * warmup);
-                    } else {
-                        updateSound.at(x, y, 0f, 0f);
-                    }
                 }
             }
 
@@ -298,6 +303,12 @@ public class AnnihilationReactor extends PowerDistributor{
                         Drawn.randFadeLightningEffect(lx, ly, len * 20, len, updateLightningColor, Mathf.chance(0.5f));
                     }
                 }
+            }
+
+           if(updateSound != Sounds.none && warmup > 0f){
+                Vars.control.sound.loop(updateSound, this, updateSoundVolume * warmup, 1f);
+            } else {
+                updateSound.stop();
             }
 
             if(warmup >= 0.325f && updateSplashDamage > 0f){
@@ -410,8 +421,20 @@ public class AnnihilationReactor extends PowerDistributor{
         }
 
         @Override
+        public void remove(){
+            super.remove();
+            if(updateSound != Sounds.none){
+                updateSound.stop();
+            }
+        }
+
+        @Override
         public void onDestroyed() {
             super.onDestroyed();
+
+            if (updateSound != Sounds.none){
+                updateSound.stop();
+            }
             
             if (warmup <= 0f) return;
 
