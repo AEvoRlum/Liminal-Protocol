@@ -96,11 +96,10 @@ public class MultiCrafter extends PayloadBlock{
 
         configurable = true;
         saveConfig = true;
-
-        // 统一的配置格式：int[] { 旋转角度索引, 配方索引 }
+        /** 统一的配置格式：int[] { 旋转角度索引, 配方索引 } */
         config(int[].class, (MultiCrafterBuild tile, int[] in) -> tile.applyConfig(in));
 
-        // 便捷入口：只传入配方索引，旋转保持不变
+        /** 便捷入口：只传入配方索引，旋转保持不变 */
         config(Integer.class, (MultiCrafterBuild tile, Integer in) ->
             tile.applyConfig(new int[]{tile.rotation, in}));
     }

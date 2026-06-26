@@ -26,6 +26,9 @@ import mindustry.world.meta.*;
 
 import static mindustry.Vars.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import LP.graphics.LPPal;
 import LP.graphics.Drawn;
 import LP.content.LPLiquids;
@@ -81,20 +84,20 @@ public class AnnihilationReactor extends PowerDistributor{
     /** 触发范围伤害时特效 */
     public Effect updateSplashEffect = Fx.none;
     /** 触发范围伤害时音效 */
-    public Sound updateSplashSound = LPSounds.explosionArtilleryShockBig;
+    public Sound updateSplashSound = LPSounds.loopAnnihilation;
     /** 触发范围伤害时音效音量 */
     public float updateSplashSoundVolume = 1f;
 
     /** 运行时触发特效 */
     public Effect updateEffect = Fx.none;
-    /** 触发运行时特效音效 */
-    public Sound updateSound = LPSounds.loopAnnihilation;
-    /** 触发运行时特效音效音量 */
-    public float updateSoundVolume = 0.8f;
     /** 触发运行时特效间隔(tick) */
     public float updateEffectInterval = 10f;
     /** 随机触发运行时特效间隔± */
     public float randUpdateEffectInterval = 10f;
+    /** 触发运行时特效音效 */
+    public Sound updateSound = LPSounds.explosionArtilleryShockBig;
+    /** 触发运行时特效音效音量 */
+    public float updateSoundVolume = 1f;
 
     /** 方块绘制 */
     public DrawBlock drawer = new DrawDefault();
@@ -114,11 +117,18 @@ public class AnnihilationReactor extends PowerDistributor{
     /** 自爆伤害范围倍率 */
     public float destroyedSplashDamageMultiplier = 1f;
 
+    /** 单流体消耗处理 */
+    protected ConsumeLiquid liquidConsume;
+    /** 多流体消耗处理 */
+    protected ConsumeLiquids liquidConsumes;
+    /** 统流体处理 */
+    protected List<ConsumeLiquid> allLiquidConsumes = new ArrayList<>();
+
     public AnnihilationReactor(String name) {
         super(name);
         this.hasItems = true;
         this.hasPower = true;
-        this.outputsPower = true;
+        this.outputsPower = conductivePower = true;
         this.consumesPower = true;
         this.canOverdrive = false;
         drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(LPLiquids.heterohydrogen), new DrawDefault(), new DrawGlowRegion(){{
@@ -195,6 +205,23 @@ public class AnnihilationReactor extends PowerDistributor{
         public float effectTimer;
         public float nextEffectInterval;
         public float healTimer;
+        public float liquidTimer;
+
+        @Override
+        public void created() {
+            super.created();
+
+             for (Consume cons : block.consumers) {
+                if (cons instanceof ConsumeLiquid) {
+                    allLiquidConsumes.add((ConsumeLiquid) cons);
+                } else if (cons instanceof ConsumeLiquids) {
+                    LiquidStack[] stacks = ((ConsumeLiquids) cons).liquids;
+                    for (LiquidStack stack : stacks) {
+                        allLiquidConsumes.add(new ConsumeLiquid(stack.liquid, stack.amount));
+                    }
+                }
+            }
+        }
 
         @Override
         public void onProximityAdded(){
@@ -211,7 +238,7 @@ public class AnnihilationReactor extends PowerDistributor{
             if(canRun && enabled){
                 warmup = Mathf.approachDelta(warmup, 1f, 1f / warmupTime);
             }else{
-                // 当外部电力输入为0时，在300 tick内降至0
+                /** 当外部电力输入为0时，在300 tick内降至0 */
                 float cooldownTime = inputPower <= 0f ? 300f : warmupTime;
                 warmup = Mathf.approachDelta(warmup, 0f, 1f / cooldownTime);
             }
@@ -227,6 +254,18 @@ public class AnnihilationReactor extends PowerDistributor{
                     }
                 }
 
+                liquidTimer += Time.delta;
+                if (liquidConsume != null && liquidTimer >= 1.5f/** 浮点值补偿 */){
+                    liquidTimer = 0f;
+                    float amount = liquidConsume.amount;
+                    Liquid liquid = liquidConsume.liquid;
+                    if (liquids.get(liquid) >= amount){
+                        liquids.remove(liquid, amount);
+                    } else {
+                        warmup = Mathf.lerpDelta(warmup, 0f, 0.001f);
+                    }
+                }
+
                 effectTimer += Time.delta;
                 if(effectTimer >= nextEffectInterval){
                     effectTimer = 0f;
@@ -238,6 +277,8 @@ public class AnnihilationReactor extends PowerDistributor{
                     }
                     if(updateSound != Sounds.none && warmup > 0f){
                         updateSound.at(x, y, 1f, updateSoundVolume * warmup);
+                    } else {
+                        updateSound.at(x, y, 0f, 0f);
                     }
                 }
             }
@@ -259,11 +300,11 @@ public class AnnihilationReactor extends PowerDistributor{
                 }
             }
 
-            if(warmup >= 0.999f && updateSplashDamage > 0f){
+            if(warmup >= 0.325f && updateSplashDamage > 0f){
                 splashTimer += Time.delta;
                 if(splashTimer >= nextSplashInterval){
                     splashTimer = 0f;
-                    nextSplashInterval = updateSplashInterval + Mathf.random(0f, randUpdateSplashInterval) - Mathf.random(randUpdateSplashInterval);
+                    nextSplashInterval = (updateSplashInterval + Mathf.random(0f, randUpdateSplashInterval) - Mathf.random(randUpdateSplashInterval)) / warmup;
                     doSplashDamage();
                     if(updateSplashEffect != Fx.none){
                         updateSplashEffect.at(x, y);
@@ -274,7 +315,19 @@ public class AnnihilationReactor extends PowerDistributor{
                 }
             }
 
-            // 回血：检查是否有 ConsumeItems 物品消耗定义
+            /** 检查是否有 ConsumeLiquid 流体消耗定义 */
+            for (Consume cons : block.consumers) {
+                if (cons instanceof ConsumeLiquid) {
+                    liquidConsume = (ConsumeLiquid) cons;
+                    break;
+                }
+                
+                if (cons instanceof ConsumeLiquids) {
+                    liquidConsumes = (ConsumeLiquids) cons;
+                }
+            }
+
+            /** 回血：检查是否有 ConsumeItems 物品消耗定义 */
             ItemStack[] healStacks = null;
             for(Consume cons : block.consumers){
                 if(cons instanceof ConsumeItems){
@@ -306,13 +359,29 @@ public class AnnihilationReactor extends PowerDistributor{
             return true;
         }
 
+        protected boolean tryConsumeLiquid() {
+            if (allLiquidConsumes.isEmpty()) return true;
+            
+            /** 先检查所有液体是否充足 */
+            for (ConsumeLiquid cons : allLiquidConsumes) {
+                if (liquids.get(cons.liquid) < cons.amount) {
+                    return false;
+                }
+            }
+            /** 全部充足，执行扣除 */
+            for (ConsumeLiquid cons : allLiquidConsumes) {
+                liquids.remove(cons.liquid, cons.amount);
+            }
+            return true;
+        }
+
         public void tryHeal(ItemStack[] healStacks){
-            // 检查是否有足够的物品
+            /** 检查是否有足够的物品 */
             for(ItemStack stack : healStacks){
                 if(items.get(stack.item) < stack.amount) return;
             }
 
-            // 消耗物品
+            /** 消耗物品 */
             for(ItemStack stack : healStacks){
                 items.remove(stack.item, stack.amount);
             }
@@ -325,14 +394,14 @@ public class AnnihilationReactor extends PowerDistributor{
             float radius = updateSplashRadius;
             float damage = updateSplashDamage;
 
-            // 对所有单位造成伤害
+            /** 对所有单位造成伤害 */
             Units.nearby(null, x, y, radius, unit -> {
                 float dst = unit.dst(x, y);
                 float falloff = 1f - dst / radius;
                 unit.damagePierce(damage * falloff);
             });
 
-            // 对所有方块造成伤害
+            /** 对所有方块造成伤害 */
             indexer.eachBlock(null, x, y, radius, bool -> true, build -> {
                 float dst = build.dst(x, y);
                 float falloff = 1f - dst / radius;
@@ -359,14 +428,14 @@ public class AnnihilationReactor extends PowerDistributor{
         public void draw(){
             drawer.draw(this);
 
-            float effectSize = (effectRadius + Mathf.absin(effectRadius * 1.2f, effectRadius) * warmup) * warmup;
-            float len = (effectRadius * 12f * (Mathf.absin(0.8f, 0.07f) + 1) + Mathf.absin(effectRadius * 1.2f, effectRadius)) * warmup;
+            float effectSize = (effectRadius + Mathf.absin(effectRadius, effectRadius * 0.7f) * warmup) * warmup;
+            float len = (effectRadius * 12f * (Mathf.absin(0.8f, 0.07f) + 1) + Mathf.absin(effectRadius, effectRadius * 0.7f)) * warmup;
             float lightLen = 0.8f * warmup;
 
             Draw.z(Layer.effect);
 
             Draw.color(LPPal.orangeRed);
-            Fill.circle(this.x, this.y, (effectRadius + Mathf.absin(effectRadius * 1.2f, effectRadius) * warmup) * warmup * 0.8f);
+            Fill.circle(this.x, this.y, (effectRadius + Mathf.absin(effectRadius, effectRadius * 0.7f) * warmup) * warmup * 0.8f);
             Drawf.tri(this.x, this.y, lightLen, len, 0f);
             Drawf.tri(this.x, this.y, lightLen, len, 180f);
 
@@ -376,7 +445,7 @@ public class AnnihilationReactor extends PowerDistributor{
             circlePercentFlip(this.x, this.y, effectSize * 5f, Time.time, 18f);
 
             Draw.color(LPPal.redLight);
-            Fill.circle(this.x, this.y, (effectRadius + Mathf.absin(effectRadius * 1.2f, effectRadius) * warmup) * warmup * 0.4f);
+            Fill.circle(this.x, this.y, (effectRadius + Mathf.absin(effectRadius, effectRadius * 0.7f) * warmup) * warmup * 0.4f);
 
             Draw.z(Layer.effect - 0.001f);
 
@@ -408,7 +477,7 @@ public class AnnihilationReactor extends PowerDistributor{
 
         @Override
         public boolean acceptItem(Building source, Item item){
-            // 检查是否有 ConsumeItems 物品消耗定义
+            /** 检查是否有 ConsumeItems 物品消耗定义 */
             for(Consume cons : block.consumers){
                 if(cons instanceof ConsumeItems){
                     for(ItemStack stack : ((ConsumeItems)cons).items){

@@ -2957,7 +2957,7 @@ public class LPBlocks {
             itemCapacity = 96;
             liquidCapacity = 124;
             consumeItem(LPItems.photosolidAlloy, 12);
-            consumeLiquid(LPLiquids.heterohydrogen, 12f / 60f);
+            consumeLiquid(LPLiquids.heterohydrogen, 15f / 60f);
             Color c = LPPal.redMid;
             updateSplashEffect = new MultiEffect(
                 LPFx.annihilation(30f, c, 12f, 5),
@@ -2984,6 +2984,7 @@ public class LPBlocks {
                 {
                     damage = 0f;
                     hitSound = despawnSound = LPSounds.airCrushLarge2;
+                    hitSoundVolume = 1.5f;
                     hitEffect = despawnEffect = new MultiEffect(
                         LPFx.circleOut(120f, c, 160f),
                         LPFx.smoothCircleOut(120f, c, 160f, 44, true),
@@ -3733,7 +3734,7 @@ public class LPBlocks {
                 new CraftPlan(){{
                     craftTime = 60f;
                     consumePower(10f);
-                    consumeLiquid(LPLiquids.heterohydrogen, 0.2f);
+                    consumeLiquid(LPLiquids.heterohydrogen, 4f / 60f);
                     consumeItems(with(LPItems.massisteel, 4, LPItems.jynsteel, 4, LPItems.litelnlay, 2, LPItems.crystalite, 1));
                     outputItems = with(LPItems.photosolidAlloy, 2);
                     ambientSound = Sounds.loopGlow;

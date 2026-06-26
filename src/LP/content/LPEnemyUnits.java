@@ -2440,7 +2440,7 @@ public class LPEnemyUnits {
                             pierceBuilding = true;
                             pierceCap = 3;
                             hitSound = LPSounds.shootBeamPlasma;
-                            hitSoundVolume = 1.1f;
+                            hitSoundVolume = 0.9f;
                             hitShake = 6;
                             hitEffect = despawnEffect = Fx.none;
                         }};
@@ -2807,7 +2807,7 @@ public class LPEnemyUnits {
                 shootY = 6f;
                 shootCone = 20f;
                 shootSound = LPSounds.shootFlak1;
-                shootSoundVolume = 3f;
+                shootSoundVolume = 2.5f;
                 rotationLimit = 30f;
                 rotateSpeed = 1f;
                 reload = 240f;
@@ -2835,7 +2835,7 @@ public class LPEnemyUnits {
                     armorMultiplier = 0.7f;
                     hitShake = 10f;
                     hitSound = LPSounds.launch;
-                    hitSoundVolume = 3f;
+                    hitSoundVolume = 2.5f;
                     hitEffect = new MultiEffect(
                         new ParticleEffect(){{
                             particles = 12;
@@ -2934,7 +2934,6 @@ public class LPEnemyUnits {
                         hitShake = 4f;
                         hitEffect = LPFx.cutting(40f, hitColor, hitColor, false, 24f, -1f);
                         hitSound = LPSounds.shootSmite;
-                        hitSoundVolume = 1.4f;
                         despawnEffect = new MultiEffect(
                             new ParticleEffect(){{
                                 particles = 8;
@@ -2999,7 +2998,7 @@ public class LPEnemyUnits {
                 shootY = 1f;
                 shootCone = 8f;
                 shootSound = LPSounds.shootGauss3;
-                shootSoundVolume = 2.2f;
+                shootSoundVolume = 2f;
                 rotateSpeed = 4f;
                 reload = 100f;
                 recoil = 2f;
@@ -3024,7 +3023,7 @@ public class LPEnemyUnits {
                         damage = 12f;
                         hitShake = despawnShake = 4f;
                         hitSound = despawnSound = LPSounds.shootFlak3;
-                        hitSoundVolume = 2.5f;
+                        hitSoundVolume = 2f;
                         hitEffect = despawnEffect = new ParticleEffect(){{
                             particles = 5;
                             region = "lp-square";
@@ -3053,7 +3052,7 @@ public class LPEnemyUnits {
                         damage = 12f;
                         hitShake = despawnShake = 4f;
                         hitSound = despawnSound = LPSounds.shootFlak3;
-                        hitSoundVolume = 2.5f;
+                        hitSoundVolume = 2f;
                         hitEffect = despawnEffect = new ParticleEffect(){{
                             particles = 5;
                             region = "lp-square";
@@ -3082,7 +3081,7 @@ public class LPEnemyUnits {
                         damage = 12f;
                         hitShake = despawnShake = 4f;
                         hitSound = despawnSound = LPSounds.shootFlak3;
-                        hitSoundVolume = 2.5f;
+                        hitSoundVolume = 2f;
                         hitEffect = despawnEffect = new ParticleEffect(){{
                             particles = 5;
                             region = "lp-square";

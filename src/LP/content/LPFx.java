@@ -426,20 +426,8 @@ public class LPFx {
 
             Draw.z(110.001f);
             Draw.color(Color.black);
-            float circleProg = e.fin(Interp.pow10In);
-            float circleRadius;
-            if(circleProg < 0.3f){
-                float innerProg = circleProg / 0.3f;
-                circleRadius = Mathf.lerp(length * 2f, length * 2.4f, innerProg);
-            }else if(circleProg < 0.6f){
-                float innerProg = (circleProg - 0.3f) / 0.3f;
-                circleRadius = Mathf.lerp(length * 2.4f, 0f, innerProg);
-            }else{
-                circleRadius = 0f;
-            }
-            if(circleRadius > 0.001f){
-                Fill.circle(e.x, e.y, circleRadius);
-            }
+            float circleRadius = length * (1 + 1.4f * (e.fin(Interp.circleOut) * 0.5f)) * e.fout(Interp.circleOut);
+            Fill.circle(e.x, e.y, circleRadius);
 
             Draw.z(110f);
             rand.setSeed(e.id);
@@ -465,7 +453,7 @@ public class LPFx {
                 Drawf.tri(e.x, e.y, triWidth, triLen, angle);
                 
                 Draw.color(Color.black);
-                Drawf.tri(e.x, e.y, triWidth * 0.5f, triLen * 0.5f, angle);
+                Drawf.tri(e.x, e.y, triWidth * 0.4f, triLen * 0.6f, angle);
             }
             Draw.color(color.cpy().lerp(Color.white, 0.8f), color, e.fin(Interp.pow5Out));
             float circleRad = e.fin(Interp.circleOut) * range * 0.55f;
