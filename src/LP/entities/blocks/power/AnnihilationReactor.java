@@ -161,6 +161,7 @@ public class AnnihilationReactor extends PowerDistributor{
         drawer.drawPlan(this, plan, list);
     }
 
+    /** 建造时溅射伤害范围绘制 */
     @Override
     public void drawPlace(int x, int y, int rotation, boolean valid){
         super.drawPlace(x, y, rotation, valid);
@@ -429,7 +430,7 @@ public class AnnihilationReactor extends PowerDistributor{
         }
 
         @Override
-        public void onDestroyed() {
+        public void onDestroyed(){
             super.onDestroyed();
 
             if (updateSound != Sounds.none){
@@ -447,6 +448,7 @@ public class AnnihilationReactor extends PowerDistributor{
             return enabled ? (outputPower / 60f) * warmup : 0f;
         }
 
+        /** 方块运行绘制 */
         @Override
         public void draw(){
             drawer.draw(this);
@@ -458,17 +460,18 @@ public class AnnihilationReactor extends PowerDistributor{
             Draw.z(Layer.effect);
 
             Draw.color(LPPal.orangeRed);
-            Fill.circle(this.x, this.y, (effectRadius + Mathf.absin(effectRadius, effectRadius * 0.7f) * warmup) * warmup * 0.8f);
+            Fill.circle(this.x, this.y, effectRadius * warmup * 0.8f);
             Drawf.tri(this.x, this.y, lightLen, len, 0f);
             Drawf.tri(this.x, this.y, lightLen, len, 180f);
 
             Lines.stroke(effectRadius / 8f * warmup);
+            Lines.square(this.x, this.y, effectSize * 1.2f, 45f);
             circlePercentFlip(this.x, this.y, effectSize * 1.6f, Time.time * 0.5f, 12f);
-            circlePercentFlip(this.x, this.y, effectSize * 3.25f, Time.time * 0.8f, 15f);
-            circlePercentFlip(this.x, this.y, effectSize * 5f, Time.time, 18f);
+            circlePercentFlip(this.x, this.y, effectSize * 3.25f, Time.time * 0.8f, 24f);
+            circlePercentFlip(this.x, this.y, effectSize * 5f, Time.time, 36f);
 
             Draw.color(LPPal.redLight);
-            Fill.circle(this.x, this.y, (effectRadius + Mathf.absin(effectRadius, effectRadius * 0.7f) * warmup) * warmup * 0.4f);
+            Fill.circle(this.x, this.y, effectRadius * warmup);
 
             Draw.z(Layer.effect - 0.001f);
 
