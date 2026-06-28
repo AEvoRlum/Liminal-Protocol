@@ -42,12 +42,10 @@ public class LPLaserTurret extends LPPowerTurret{
 
         @Override
         protected void updateCooling(){
-            //do nothing, cooling is irrelevant here
         }
 
         @Override
         public boolean shouldConsume(){
-            //still consumes power when bullet is around
             return bullets.any() || isActive() || isShooting();
         }
 
@@ -107,7 +105,6 @@ public class LPLaserTurret extends LPPowerTurret{
 
         @Override
         protected void updateReload(){
-            //updated in updateTile() depending on coolant
         }
 
         @Override

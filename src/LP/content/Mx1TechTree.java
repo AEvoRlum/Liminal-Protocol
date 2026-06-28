@@ -121,13 +121,19 @@ public class Mx1TechTree {
 
             /** 电力 */
             node(jynPowerNode, Seq.with(new SectorComplete(不容拒绝)), () -> {
-                node(jynPowerNodeLarge, () -> {});
+                node(jynPowerNodeLarge, () -> {
+                    node(traPowerNode, () -> {
+                        node(traPowerTower, () -> {});
+                    });
+                });
 
                 node(jynBattery, () -> {});
 
                 node(heavyIonChamber, () -> {
                     node(annihilationReactor, Seq.with(new Research(heterohydrogenLiquefier),
-                    new Research(autoBuildTower)), () -> {});
+                    new Research(autoBuildTower),
+                    new Research(traPowerNode),
+                    new Research(traPowerTower)), () -> {});
                 });
             });
 

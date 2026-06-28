@@ -39,6 +39,7 @@ import LP.graphics.LPPal;
 import LP.entities.blocks.turret.*;
 import LP.entities.blocks.craft.MultiCrafter;
 import LP.entities.blocks.power.AnnihilationReactor;
+import LP.entities.blocks.power.SquareRangePowerNode;
 import LP.entities.bullets.*;
 
 public class LPBlocks {
@@ -59,7 +60,7 @@ public class LPBlocks {
     public static Block massisteelLiquidStorage , massisteelLiquidStorageLarge;
 
     //power
-    public static Block jynPowerNode, jynPowerNodeLarge, jynBattery, heavyIonChamber;
+    public static Block jynPowerNode, jynPowerNodeLarge, jynBattery, heavyIonChamber, traPowerNode, traPowerTower;
     public static AnnihilationReactor annihilationReactor;
 
     //defense
@@ -2816,6 +2817,7 @@ public class LPBlocks {
             laserColor1 = Color.valueOf("FCB570");
             laserColor2 = Color.valueOf("EB564B");
             priority = -1f;
+            squareSprite = false;
             alwaysUnlocked = false;
             researchCostMultiplier = 0.4f;
             requirements(Category.power, with(LPItems.jynsteel, 5, LPItems.erocrys, 2));
@@ -2829,6 +2831,7 @@ public class LPBlocks {
             laserColor1 = LPPal.orange;
             laserColor2 = LPPal.orangeDark;
             priority = -1f;
+            squareSprite = false;
             alwaysUnlocked = false;
             researchCostMultiplier = 0.4f;
             requirements(Category.power, with(LPItems.jynsteel, 16, LPItems.erocrys, 6));
@@ -2945,6 +2948,30 @@ public class LPBlocks {
             requirements(Category.power, with(LPItems.jynsteel, 240, LPItems.massisteel, 160, LPItems.erocrys, 160));
         }};
 
+        traPowerNode = new PowerNode("tra-power-node"){{
+            size = 2;
+            health = 44;
+            requirements(Category.power, with(LPItems.transchimericsteel, 18, LPItems.crystalite, 8));
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            priority = -1f;
+            laserRange = 25f;
+            maxNodes = 16;
+            laserColor1 = LPPal.orangeDark;
+            laserColor2 = LPPal.orangeDark.cpy().lerp(LPPal.black, 0.5f);
+            squareSprite = false;
+        }};
+
+        traPowerTower = new SquareRangePowerNode("tra-power-tower"){{
+            size = 3;
+            health = 73;
+            requirements(Category.power, with(LPItems.transchimericsteel, 42, LPItems.crystalite, 17, LPItems.bipolarchip, 3));
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            priority = -1f;
+            squareSprite = false;
+        }};
+
         annihilationReactor = new AnnihilationReactor("annihilation-reactor"){{
             size = 8;
             health = 1664;
@@ -2974,9 +3001,9 @@ public class LPBlocks {
             destroySound = LPSounds.blockExplodeElectricBig;
             destroySoundVolume = 1.2f;
             destroyEffect = new MultiEffect(
-                LPFx.circleOut(90f, c, 160f),
-                LPFx.smoothCircleOut(90f, c, 160f, 40, true),
-                LPFx.energyExplosion(c, 90f, 120f, 12),
+                LPFx.circleOut(90f, c, 140f),
+                LPFx.smoothCircleOut(90f, c, 140f, 40, true),
+                LPFx.energyExplosion(c, 90f, 150f, 12),
                 LPFx.sharpHitSpark(90f, c, 16, 140, 40f, Interp.circleIn)
             );
             
@@ -2988,8 +3015,8 @@ public class LPBlocks {
                     hitEffect = despawnEffect = new MultiEffect(
                         LPFx.circleOut(120f, c, 160f),
                         LPFx.smoothCircleOut(120f, c, 160f, 44, true),
-                        LPFx.energyExplosion(c, 120f, 80f, 10),
-                        LPFx.energyExplosion(c, 120f, 120f, 4),
+                        LPFx.energyExplosion(c, 120f, 80f, 12),
+                        LPFx.energyExplosion(c, 120f, 160f, 6),
                         LPFx.trailHitSpark(120f, c, 24, 160, 1f, 12f),
                         LPFx.cutting(120f, c, c, 80f, 40f, Layer.effect),
                         LPFx.cutting(120f, c, c, 80f, 130f, Layer.effect),

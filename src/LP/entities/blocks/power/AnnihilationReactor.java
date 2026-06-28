@@ -35,6 +35,7 @@ import LP.graphics.Drawn;
 import LP.content.LPLiquids;
 import LP.content.LPStats;
 import LP.content.LPSounds;
+import LP.LPSettings;
 
 import static LP.graphics.Drawn.circlePercentFlip;
 
@@ -137,6 +138,7 @@ public class AnnihilationReactor extends PowerDistributor{
             glowIntensity = 0.2f;
             color = LPPal.orangeRed;
         }});
+        destructible = true;
     }
 
     @Override
@@ -166,6 +168,8 @@ public class AnnihilationReactor extends PowerDistributor{
     public void drawPlace(int x, int y, int rotation, boolean valid){
         super.drawPlace(x, y, rotation, valid);
 
+        if(updateSplashRadius <= 0f) return;
+
         Drawf.dashCircle(x * tilesize + offset, y * tilesize + offset, updateSplashRadius, LPPal.redDark);
     }
 
@@ -186,14 +190,14 @@ public class AnnihilationReactor extends PowerDistributor{
     public void setBars(){
         super.setBars();
 
-        // 电力输出条
+        /** 电力输出条 */
         addBar("power", (AnnihilationReactorBuild entity) -> new Bar(() ->
         Core.bundle.format("bar.lp-poweroutput",
         Strings.fixed(entity.getPowerProduction() * 60f - inputPower, 1)),
         () -> Pal.powerBar,
         () -> Mathf.clamp(entity.warmup * entity.timeScale())));
 
-        // 外部电力输入条
+        /** 外部电力输入条 */
         if(consPower != null){
             addBar("power-input",  (AnnihilationReactorBuild entity) -> new Bar(
                 () -> Core.bundle.format("bar.lp-powerinput", Strings.fixed(entity.power.status * inputPower, 1)),
@@ -280,7 +284,7 @@ public class AnnihilationReactor extends PowerDistributor{
                 effectTimer += Time.delta;
                 if(effectTimer >= nextEffectInterval){
                     effectTimer = 0f;
-                    nextEffectInterval = updateEffectInterval + Mathf.random(0f, randUpdateEffectInterval) - Mathf.random(randUpdateEffectInterval);
+                    nextEffectInterval = (updateEffectInterval + Mathf.random(0f, randUpdateEffectInterval) - Mathf.random(randUpdateEffectInterval)) / warmup;
                     if (warmup > 0.5f){
                         if(updateEffect != Fx.none){
                             updateEffect.at(x, y);
@@ -290,18 +294,20 @@ public class AnnihilationReactor extends PowerDistributor{
             }
 
             if(updateLightning && warmup > 0.45f){
-                lightningTimer += Time.delta;
-                if(lightningTimer >= nextLightningInterval){
-                    lightningTimer = 0f;
-                    nextLightningInterval = updateLightningInterval + Mathf.random(0f, randUpdateLightningInterval) - Mathf.random(randUpdateLightningInterval);
-                    int count = updateLightningCount + (int)(Mathf.random(randUpdateLightningCount + 1));
-                    for(int i = 0; i < count; i++){
-                        float len = updateLightningLength + Mathf.random(randUpdateLightningLength);
-                        float angle = Mathf.random(360f);
-                        float dist = Mathf.random(updateLightningRange);
-                        float lx = x + Angles.trnsx(angle, dist);
-                        float ly = y + Angles.trnsy(angle, dist);
-                        Drawn.randFadeLightningEffect(lx, ly, len * 20, len, updateLightningColor, Mathf.chance(0.5f));
+                if(LPSettings.annihilationReactorLightningEnabled() && enabled){
+                    lightningTimer += Time.delta;
+                    if(lightningTimer >= nextLightningInterval){
+                        lightningTimer = 0f;
+                        nextLightningInterval = updateLightningInterval + Mathf.random(0f, randUpdateLightningInterval) - Mathf.random(randUpdateLightningInterval);
+                        int count = updateLightningCount + (int)(Mathf.random(randUpdateLightningCount + 1));
+                        for(int i = 0; i < count; i++){
+                            float len = updateLightningLength + Mathf.random(randUpdateLightningLength);
+                            float angle = Mathf.random(360f);
+                            float dist = Mathf.random(updateLightningRange);
+                            float lx = x + Angles.trnsx(angle, dist);
+                            float ly = y + Angles.trnsy(angle, dist);
+                            Drawn.randFadeLightningEffect(lx, ly, len * 20, len, updateLightningColor, Mathf.chance(0.5f));
+                        }
                     }
                 }
             }
@@ -409,14 +415,14 @@ public class AnnihilationReactor extends PowerDistributor{
             /** 对所有单位造成伤害 */
             Units.nearby(null, x, y, radius, unit -> {
                 float dst = unit.dst(x, y);
-                float falloff = 1f - dst / radius;
+                float falloff = Math.max(0f, 1f - dst / radius);
                 unit.damagePierce(damage * falloff);
             });
 
             /** 对所有方块造成伤害 */
             indexer.eachBlock(null, x, y, radius, bool -> true, build -> {
                 float dst = build.dst(x, y);
-                float falloff = 1f - dst / radius;
+                float falloff = Math.max(0f, 1f - dst / radius);
                 build.damagePierce(damage * falloff);
             });
         }
@@ -460,18 +466,18 @@ public class AnnihilationReactor extends PowerDistributor{
             Draw.z(Layer.effect);
 
             Draw.color(LPPal.orangeRed);
-            Fill.circle(this.x, this.y, effectRadius * warmup * 0.8f);
+            Fill.circle(this.x, this.y, effectRadius * warmup * 0.6f);
             Drawf.tri(this.x, this.y, lightLen, len, 0f);
             Drawf.tri(this.x, this.y, lightLen, len, 180f);
 
             Lines.stroke(effectRadius / 8f * warmup);
-            Lines.square(this.x, this.y, effectSize * 1.2f, 45f);
+            Lines.square(this.x, this.y, effectSize * 1.325f, 45f);
             circlePercentFlip(this.x, this.y, effectSize * 1.6f, Time.time * 0.5f, 12f);
             circlePercentFlip(this.x, this.y, effectSize * 3.25f, Time.time * 0.8f, 24f);
             circlePercentFlip(this.x, this.y, effectSize * 5f, Time.time, 36f);
 
             Draw.color(LPPal.redLight);
-            Fill.circle(this.x, this.y, effectRadius * warmup);
+            Fill.circle(this.x, this.y, effectRadius * warmup * 0.3f);
 
             Draw.z(Layer.effect - 0.001f);
 
@@ -484,6 +490,18 @@ public class AnnihilationReactor extends PowerDistributor{
         public void drawLight(){
             super.drawLight();
             Drawf.light(x, y, (lightRadius + Mathf.absin(10f, 5f)) * size, lightColor, 0.5f * warmup);
+        }
+
+        /** 选中时溅射伤害范围绘制 */
+        @Override
+        public void drawSelect(){
+            super.drawSelect();
+
+            if(updateSplashRadius <= 0f) return;
+
+            Drawf.dashCircle(this.x, this.y, updateSplashRadius, LPPal.redDark);
+
+            Draw.reset();
         }
 
         @Override

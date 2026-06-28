@@ -1334,7 +1334,7 @@ public class LPEnemyUnits {
                 shootX = -2f;
                 shootCone = 10f;
                 shootSound = LPSounds.shootRailgun1;
-                shootSoundVolume = 3.2f;
+                shootSoundVolume = 2.8f;
                 reload = 160f;
                 recoil = 2f;
                 recoilTime = 60f;
@@ -1361,11 +1361,11 @@ public class LPEnemyUnits {
                     armorMultiplier = 0.4f;
                     hitShake = 12f;
                     hitSound = LPSounds.laser4;
-                    hitSoundVolume = 1.8f;
+                    hitSoundVolume = 1.5f;
                     hitEffect = new MultiEffect(
                         LPFx.cutting(30f, LPPal.aureusDark, LPPal.black, 40f, 60f, 111f),
                         LPFx.cutting(40f, LPPal.aureusDark, LPPal.black, 40f, 140f, 111f),
-                        LPFx.sharpHitSpark(60f, LPPal.aureusDark, 12, 100f, 30f, Interp.pow5Out, 40f)
+                        LPFx.sharpHitSpark(60f, LPPal.aureusDark, 12, 100f, 30f, Interp.pow2Out, 40f)
                     );
                     despawnEffect = new MultiEffect(
                         new ParticleEffect(){{
