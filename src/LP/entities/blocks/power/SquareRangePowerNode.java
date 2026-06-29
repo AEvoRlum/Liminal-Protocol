@@ -195,15 +195,21 @@ public class SquareRangePowerNode extends PowerBlock {
         final Seq<Building> candidates = new Seq<>();
         final ObjectSet<PowerGraph> graphs = new ObjectSet<>();
 
+        // 候选筛选
         Boolf<Building> valid = other -> {
             if (other == null || other.tile == entity.tile) return false;
             if (!other.block.connectedPower || other.power == null) return false;
+            if (!(other.block.outputsPower || other.block.consumesPower || other.block instanceof PowerNode)) return false;
+
             boolean rangeCheck = overlaps(entity.x, entity.y, other.tile, range * tilesize) ||
                 (other.block instanceof PowerNode && overlaps(other.x, other.y, entity.tile, ((PowerNode) other.block).laserRange * tilesize));
             if (!rangeCheck) return false;
+
             if (other.team != entity.team) return false;
-            if (graphs.contains(other.power.graph)) return false;
+            // 只有非输出者才检查 graphs，输出者允许通过
+            if (!other.block.outputsPower && graphs.contains(other.power.graph)) return false;
             if (PowerNode.insulated(entity.tile, other.tile)) return false;
+
             if (other.block instanceof SquareRangePowerNode) {
                 SquareRangePowerNode node = (SquareRangePowerNode) other.block;
                 if (other.power.links.size >= node.maxConnections) return false;
@@ -212,14 +218,16 @@ public class SquareRangePowerNode extends PowerBlock {
                 PowerNode node = (PowerNode) other.block;
                 if (other.power.links.size >= node.maxNodes) return false;
             }
+
             if (Structs.contains(Edges.getEdges(size), p -> {
                 Tile t = world.tile(entity.tileX() + p.x, entity.tileY() + p.y);
                 return t != null && t.build == other;
             })) return false;
+
             return true;
         };
 
-        /** 收集已联网的图 */
+        // 收集已联网的图
         for (var p : Edges.getEdges(size)) {
             Tile other = entity.tile.nearby(p);
             if (other != null && other.team() == entity.team && other.build != null && other.build.power != null) {
@@ -240,15 +248,14 @@ public class SquareRangePowerNode extends PowerBlock {
 
         if (candidates.isEmpty()) return;
 
-        /** 按距离排序 */
         candidates.sort((a, b) -> Float.compare(a.dst2(entity), b.dst2(entity)));
 
-        /** 分类 */
-        Seq<Building> needConsumers = new Seq<>();        // 未联网消耗者
-        Seq<Building> existingConsumers = new Seq<>();     // 已联网消耗者
-        Seq<Building> unlinkedBuffered = new Seq<>();      // 未联网存储
-        Seq<Building> linkedBuffered = new Seq<>();        // 已联网存储
-        Seq<Building> powerProducers = new Seq<>();        // 输出者
+        // 分类
+        Seq<Building> needConsumers = new Seq<>();
+        Seq<Building> unlinkedBuffered = new Seq<>();
+        Seq<Building> powerProducers = new Seq<>();
+        Seq<Building> linkedBuffered = new Seq<>();
+        Seq<Building> existingConsumers = new Seq<>();
         Seq<Building> others = new Seq<>();
 
         for (Building b : candidates) {
@@ -265,19 +272,19 @@ public class SquareRangePowerNode extends PowerBlock {
             }
         }
 
-        /** 各类按距离排序 */
+        // 各类按距离排序
         needConsumers.sort((a, b) -> Float.compare(a.dst2(entity), b.dst2(entity)));
-        existingConsumers.sort((a, b) -> Float.compare(a.dst2(entity), b.dst2(entity)));
         unlinkedBuffered.sort((a, b) -> Float.compare(a.dst2(entity), b.dst2(entity)));
-        linkedBuffered.sort((a, b) -> Float.compare(a.dst2(entity), b.dst2(entity)));
         powerProducers.sort((a, b) -> Float.compare(a.dst2(entity), b.dst2(entity)));
+        linkedBuffered.sort((a, b) -> Float.compare(a.dst2(entity), b.dst2(entity)));
+        existingConsumers.sort((a, b) -> Float.compare(a.dst2(entity), b.dst2(entity)));
         others.sort((a, b) -> Float.compare(a.dst2(entity), b.dst2(entity)));
 
         int usedLinks = 0;
 
-        /** 1. 连接所有未联网消耗者 */
-        for (Building target : needConsumers) {
-            if (usedLinks >= maxConnections) break;
+        // 强制优先：只要存在输出者，就优先连接一个输出者
+        if (!powerProducers.isEmpty()) {
+            Building target = powerProducers.first(); // 最近的一个输出者
             if (!entity.power.links.contains(target.pos())) {
                 entity.configure(target.pos());
                 graphs.add(target.power.graph);
@@ -285,43 +292,32 @@ public class SquareRangePowerNode extends PowerBlock {
             }
         }
 
-        /** 2. 连接所有未联网存储设备 */
-        for (Building target : unlinkedBuffered) {
-            if (usedLinks >= maxConnections) break;
-            if (!entity.power.links.contains(target.pos())) {
-                entity.configure(target.pos());
-                graphs.add(target.power.graph);
-                usedLinks++;
-            }
-        }
+        // 然后处理其他连接
+        boolean hasNeed = !needConsumers.isEmpty() || !unlinkedBuffered.isEmpty();
 
-        /** 3. 如果还有剩余连接位，且当前没有连接任何电源，
-        则按优先级连接一个电源：输出者 > 已联网存储 > 已联网消耗者 */
-        if (usedLinks < maxConnections) {
-            /** 构建电源候选列表 */
-            Seq<Building> powerCandidates = new Seq<>();
-            powerCandidates.addAll(powerProducers);
-            powerCandidates.addAll(linkedBuffered);
-            powerCandidates.sort((a, b) -> {
-                int pa = getPowerPriority(a);
-                int pb = getPowerPriority(b);
-                if (pa != pb) return Integer.compare(pa, pb);
-                return Float.compare(a.dst2(entity), b.dst2(entity));
-            });
-
-            /** 检查是否已经连接了电源 */
-            boolean hasPowerConnected = false;
-            for (int j = 0; j < entity.power.links.size; j++) {
-                int id = entity.power.links.get(j);
-                Building b = world.build(id);
-                if (b != null && isPowerSource(b)) {
-                    hasPowerConnected = true;
-                    break;
+        // 辅助分组函数
+        java.util.function.Function<Seq<Building>, Seq<Building>> groupByGraph = (list) -> {
+            ObjectMap<PowerGraph, Building> nearest = new ObjectMap<>();
+            for (Building b : list) {
+                PowerGraph graph = b.power.graph;
+                Building existing = nearest.get(graph);
+                if (existing == null || b.dst2(entity) < existing.dst2(entity)) {
+                    nearest.put(graph, b);
                 }
             }
+            Seq<Building> result = new Seq<>();
+            for (Building b : nearest.values()) {
+                result.add(b);
+            }
+            result.sort((a, b) -> Float.compare(a.dst2(entity), b.dst2(entity)));
+            return result;
+        };
 
-            if (!hasPowerConnected && !powerCandidates.isEmpty()) {
-                Building target = powerCandidates.first();
+        if (hasNeed) {
+            // 连接未联网消耗者
+            Seq<Building> groupedNeed = groupByGraph.apply(needConsumers);
+            for (Building target : groupedNeed) {
+                if (usedLinks >= maxConnections) break;
                 if (!entity.power.links.contains(target.pos())) {
                     entity.configure(target.pos());
                     graphs.add(target.power.graph);
@@ -329,9 +325,55 @@ public class SquareRangePowerNode extends PowerBlock {
                 }
             }
 
-                /** 如果仍然没有连接任何电源，且已联网消耗者存在，则连接一个已联网消耗者作为最后的尝试 */
-            if (usedLinks < maxConnections && !hasPowerConnected && !existingConsumers.isEmpty()) {
-                Building target = existingConsumers.first();
+            // 连接未联网存储
+            if (usedLinks < maxConnections) {
+                Seq<Building> groupedBuffered = groupByGraph.apply(unlinkedBuffered);
+                for (Building target : groupedBuffered) {
+                    if (usedLinks >= maxConnections) break;
+                    if (!entity.power.links.contains(target.pos())) {
+                        entity.configure(target.pos());
+                        graphs.add(target.power.graph);
+                        usedLinks++;
+                    }
+                }
+            }
+
+            // 如果还有剩余连接数，且之前没有连接任何电源，可以连接已联网存储或消耗者
+            if (usedLinks < maxConnections) {
+                Seq<Building> extra = new Seq<>();
+                extra.addAll(linkedBuffered);
+                extra.addAll(existingConsumers);
+                extra.addAll(others);
+                extra.sort((a, b) -> Float.compare(a.dst2(entity), b.dst2(entity)));
+                for (Building target : extra) {
+                    if (usedLinks >= maxConnections) break;
+                    if (!entity.power.links.contains(target.pos())) {
+                        entity.configure(target.pos());
+                        graphs.add(target.power.graph);
+                        usedLinks++;
+                    }
+                }
+            }
+        } else {
+            // 没有未联网消耗者和存储，连接已联网存储、已联网消耗者、其他
+            for (Building target : linkedBuffered) {
+                if (usedLinks >= maxConnections) break;
+                if (!entity.power.links.contains(target.pos())) {
+                    entity.configure(target.pos());
+                    graphs.add(target.power.graph);
+                    usedLinks++;
+                }
+            }
+            for (Building target : existingConsumers) {
+                if (usedLinks >= maxConnections) break;
+                if (!entity.power.links.contains(target.pos())) {
+                    entity.configure(target.pos());
+                    graphs.add(target.power.graph);
+                    usedLinks++;
+                }
+            }
+            for (Building target : others) {
+                if (usedLinks >= maxConnections) break;
                 if (!entity.power.links.contains(target.pos())) {
                     entity.configure(target.pos());
                     graphs.add(target.power.graph);
@@ -340,8 +382,7 @@ public class SquareRangePowerNode extends PowerBlock {
             }
         }
 
-        /** 4. 如果still没有任何连接，
-        则尝试连接一个其他候选 */
+        // 如果仍然没有连接任何建筑，尝试连接一个其他节点
         if (usedLinks == 0 && !others.isEmpty()) {
             Building target = others.first();
             if (!entity.power.links.contains(target.pos())) {
@@ -350,54 +391,46 @@ public class SquareRangePowerNode extends PowerBlock {
         }
     }
 
-    /**  判断是否为电源 */
-    private boolean isPowerSource(Building b) {
-        if (b.block.outputsPower) return true;
-        if (!b.block.consumesPower && !b.block.outputsPower && b.block.hasPower && !b.power.links.isEmpty()) return true;
-        return false;
-    }
-
-    /**  获取电源优先级 */
-    private int getPowerPriority(Building b) {
-        if (b.block.outputsPower) return 0; // 输出者最高
-        if (!b.block.consumesPower && !b.block.outputsPower && b.block.hasPower && !b.power.links.isEmpty()) return 1; // 已联网存储
-        if (b.block.consumesPower && !b.block.outputsPower && !b.power.links.isEmpty()) return 2; // 已联网消耗者最低
-        return 3;
-    }
-
     /** 获取潜在连接 */
     protected void getPotentialLinks(Tile tile, Team team, Cons<Building> links) {
-
         final ObjectSet<PowerGraph> graphs = new ObjectSet<>();
         final Seq<Building> tempBuilds = new Seq<>();
 
         /** 复现autoLink的筛选条件 */
-        Boolf<Building> valid = link -> {
-            if (link == null || link.tile == tile) return false;
-            if (!link.block.connectedPower || link.power == null) return false;
-            boolean rangeCheck = overlaps(tile.worldx(), tile.worldy(), link.tile, range * tilesize) ||
-                (link.block instanceof PowerNode && overlaps(link.x, link.y, tile, ((PowerNode) link.block).laserRange * tilesize));
+        Boolf<Building> valid = other -> {
+            if (other == null || other.tile == tile) return false;
+            if (!other.block.connectedPower || other.power == null) return false;
+            if (!(other.block.outputsPower || other.block.consumesPower || other.block instanceof PowerNode)) return false;
+
+            float pixelRange = range * tilesize;
+            boolean rangeCheck = overlaps(tile.worldx(), tile.worldy(), other.tile, pixelRange) ||
+                (other.block instanceof PowerNode && overlaps(other.x, other.y, tile, ((PowerNode) other.block).laserRange * tilesize));
             if (!rangeCheck) return false;
-            if (link.team != team) return false;
-            if (graphs.contains(link.power.graph)) return false;
-            if (PowerNode.insulated(tile, link.tile)) return false;
-            if (link.block instanceof SquareRangePowerNode) {
-                SquareRangePowerNode node = (SquareRangePowerNode) link.block;
-                if (link.power.links.size >= node.maxConnections) return false;
+
+            if (other.team != team) return false;
+            // 只有非输出者才检查graphs，输出者允许通过
+            if (!other.block.outputsPower && graphs.contains(other.power.graph)) return false;
+            if (PowerNode.insulated(tile, other.tile)) return false;
+
+            if (other.block instanceof SquareRangePowerNode) {
+                SquareRangePowerNode node = (SquareRangePowerNode) other.block;
+                if (other.power.links.size >= node.maxConnections) return false;
             }
-            if (link.block instanceof PowerNode) {
-                PowerNode node = (PowerNode) link.block;
-                if (link.power.links.size >= node.maxNodes) return false;
+            if (other.block instanceof PowerNode) {
+                PowerNode node = (PowerNode) other.block;
+                if (other.power.links.size >= node.maxNodes) return false;
             }
+
             if (Structs.contains(Edges.getEdges(size), p -> {
                 Tile t = world.tile(tile.x + p.x, tile.y + p.y);
-                return t != null && t.build == link;
+                return t != null && t.build == other;
             })) return false;
+
             return true;
         };
 
         /** 收集相邻已连接的图 */
-        for (Point2 p : Edges.getEdges(size)) {
+        for (var p : Edges.getEdges(size)) {
             Tile other = tile.nearby(p);
             if (other != null && other.team() == team && other.build != null && other.build.power != null) {
                 graphs.add(other.build.power.graph);
@@ -417,14 +450,16 @@ public class SquareRangePowerNode extends PowerBlock {
             });
         }
 
+        if (tempBuilds.isEmpty()) return;
+
         tempBuilds.sort((a, b) -> Float.compare(a.dst2(tile), b.dst2(tile)));
 
-        /** 分类潜在连接 */
+        /** 分类 */
         Seq<Building> needConsumers = new Seq<>();
-        Seq<Building> existingConsumers = new Seq<>();
         Seq<Building> unlinkedBuffered = new Seq<>();
-        Seq<Building> linkedBuffered = new Seq<>();
         Seq<Building> powerProducers = new Seq<>();
+        Seq<Building> linkedBuffered = new Seq<>();
+        Seq<Building> existingConsumers = new Seq<>();
         Seq<Building> others = new Seq<>();
 
         for (Building b : tempBuilds) {
@@ -441,73 +476,113 @@ public class SquareRangePowerNode extends PowerBlock {
             }
         }
 
+        /** 各类按距离排序 */
         needConsumers.sort((a, b) -> Float.compare(a.dst2(tile), b.dst2(tile)));
-        existingConsumers.sort((a, b) -> Float.compare(a.dst2(tile), b.dst2(tile)));
         unlinkedBuffered.sort((a, b) -> Float.compare(a.dst2(tile), b.dst2(tile)));
-        linkedBuffered.sort((a, b) -> Float.compare(a.dst2(tile), b.dst2(tile)));
         powerProducers.sort((a, b) -> Float.compare(a.dst2(tile), b.dst2(tile)));
+        linkedBuffered.sort((a, b) -> Float.compare(a.dst2(tile), b.dst2(tile)));
+        existingConsumers.sort((a, b) -> Float.compare(a.dst2(tile), b.dst2(tile)));
         others.sort((a, b) -> Float.compare(a.dst2(tile), b.dst2(tile)));
 
-        /** 构建最终候选集合 */
+        /** 构建最终候选 */
         Seq<Building> finalCandidates = new Seq<>();
-        int available = maxConnections;
+        int usedLinks = 0;
+        int maxConn = maxConnections;
 
-        /** 1. 添加所有未联网消耗者 */
-        int addCount = Math.min(needConsumers.size, available);
-        for (int i = 0; i < addCount; i++) {
-            finalCandidates.add(needConsumers.get(i));
-        }
-        available -= addCount;
-
-        /** 2. 添加所有未联网存储 */
-        if (available > 0) {
-            addCount = Math.min(unlinkedBuffered.size, available);
-            for (int i = 0; i < addCount; i++) {
-                finalCandidates.add(unlinkedBuffered.get(i));
+        /** ---- 1. 强制优先：只要存在输出者，就添加一个输出者 ---- */
+        if (!powerProducers.isEmpty()) {
+            Building target = powerProducers.first(); // 最近的一个输出者
+            if (!finalCandidates.contains(target)) {
+                finalCandidates.add(target);
+                usedLinks++;
             }
-            available -= addCount;
         }
 
-        /** 3. 如果还有剩余连接位，且当前没有添加任何电源，则添加一个电源 */
-        if (available > 0) {
-            /** 检查finalCandidates中是否已有电源 */
-            boolean hasPowerInCandidates = false;
-            for (Building b : finalCandidates) {
-                if (b.block.outputsPower || (!b.block.consumesPower && !b.block.outputsPower && b.block.hasPower && !b.power.links.isEmpty())) {
-                    hasPowerInCandidates = true;
-                    break;
+        /** ---- 2. 处理其他连接 ---- */
+        boolean hasNeed = !needConsumers.isEmpty() || !unlinkedBuffered.isEmpty();
+
+        /** 辅助分组函数 */
+        java.util.function.Function<Seq<Building>, Seq<Building>> groupByGraph = (list) -> {
+            ObjectMap<PowerGraph, Building> nearest = new ObjectMap<>();
+            for (Building b : list) {
+                PowerGraph graph = b.power.graph;
+                Building existing = nearest.get(graph);
+                if (existing == null || b.dst2(tile) < existing.dst2(tile)) {
+                    nearest.put(graph, b);
                 }
             }
-            if (!hasPowerInCandidates) {
-                /** 构建电源候选列表 */
-                Seq<Building> powerCandidates = new Seq<>();
-                powerCandidates.addAll(powerProducers);
-                powerCandidates.addAll(linkedBuffered);
-                powerCandidates.sort((a, b) -> {
-                    int pa = getPowerPriority(a);
-                    int pb = getPowerPriority(b);
-                    if (pa != pb) return Integer.compare(pa, pb);
-                    return Float.compare(a.dst2(tile), b.dst2(tile));
-                });
-                if (!powerCandidates.isEmpty()) {
-                    finalCandidates.add(powerCandidates.first());
-                    available--;
+            Seq<Building> result = new Seq<>();
+            for (Building b : nearest.values()) {
+                result.add(b);
+            }
+            result.sort((a, b) -> Float.compare(a.dst2(tile), b.dst2(tile)));
+            return result;
+        };
+
+        if (hasNeed) {
+            /** 2.1 添加未联网消耗者 */
+            Seq<Building> groupedNeed = groupByGraph.apply(needConsumers);
+            for (Building target : groupedNeed) {
+                if (usedLinks >= maxConn) break;
+                if (!finalCandidates.contains(target)) {
+                    finalCandidates.add(target);
+                    usedLinks++;
                 }
             }
 
-            /** 如果还没有电源，且已联网消耗者存在，则添加一个已联网消耗者作为后备 */
-            if (available > 0 && !hasPowerInCandidates && !existingConsumers.isEmpty()) {
-                finalCandidates.add(existingConsumers.first());
-                available--;
+            /** 2.2 添加未联网存储 */
+            if (usedLinks < maxConn) {
+                Seq<Building> groupedBuffered = groupByGraph.apply(unlinkedBuffered);
+                for (Building target : groupedBuffered) {
+                    if (usedLinks >= maxConn) break;
+                    if (!finalCandidates.contains(target)) {
+                        finalCandidates.add(target);
+                        usedLinks++;
+                    }
+                }
+            }
+
+            /** 2.3 如果还有剩余连接数，添加其他节点 */
+            if (usedLinks < maxConn) {
+                Seq<Building> extra = new Seq<>();
+                extra.addAll(linkedBuffered);
+                extra.addAll(existingConsumers);
+                extra.addAll(others);
+                extra.sort((a, b) -> Float.compare(a.dst2(tile), b.dst2(tile)));
+                for (Building target : extra) {
+                    if (usedLinks >= maxConn) break;
+                    if (!finalCandidates.contains(target)) {
+                        finalCandidates.add(target);
+                        usedLinks++;
+                    }
+                }
+            }
+        } else {
+            /** 2.4 没有未联网消耗者和存储：添加已联网存储、已联网消耗者、其他 */
+            for (Building target : linkedBuffered) {
+                if (usedLinks >= maxConn) break;
+                if (!finalCandidates.contains(target)) {
+                    finalCandidates.add(target);
+                    usedLinks++;
+                }
+            }
+            for (Building target : existingConsumers) {
+                if (usedLinks >= maxConn) break;
+                if (!finalCandidates.contains(target)) {
+                    finalCandidates.add(target);
+                    usedLinks++;
+                }
+            }
+            for (Building target : others) {
+                if (usedLinks >= maxConn) break;
+                if (!finalCandidates.contains(target)) {
+                    finalCandidates.add(target);
+                    usedLinks++;
+                }
             }
         }
 
-        /** 4. 如果finalCandidates 为空，则添加一个其他 */
-        if (finalCandidates.isEmpty() && !others.isEmpty()) {
-            finalCandidates.add(others.first());
-        }
-
-        /** 回调所有最终候选 */
+        // 回调所有最终候选
         for (Building link : finalCandidates) {
             if (link != null) links.get(link);
         }
