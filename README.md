@@ -4,7 +4,7 @@
 
 + **I hope to make this good enough in the midst of a failing life (personal sentiment)**
 
-+ **This [Mindustry](https://github.com/Anuken/Mindustry) Mod runs on Android and PC**
++ **This [Mindustry](https://github.com/Anuken/Mindustry) Mod runs on Android and Windows**
 
 # Future Update Plans
 
@@ -38,7 +38,7 @@
 
 + **我希望我能在失败的生活中将其做的足够优秀(个人情感)**
 
-+ **该[Mindustry](https://github.com/Anuken/Mindustry) Mod运行于Android和PC**
++ **该[Mindustry](https://github.com/Anuken/Mindustry) Mod运行于Android和Window**
 
 # 未来更新规划
 
