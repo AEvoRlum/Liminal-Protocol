@@ -5,8 +5,15 @@ import mindustry.type.Item;
 import LP.graphics.LPPal;
 
 public class LPItems {
-    public static Item jynsteel, massisteel, litelnlay,  transchimericsteel, photosolidAlloy,
-    crystalite, erocrys, bipolarchip, converchip, stockchip, buildchip, ionopolymer, heterosoligen;
+    public static Item
+    /** 建筑材料 */
+    jynsteel, massisteel, litelnlay,  transchimericsteel, photosolidAlloy,
+    /** 芯片材料 */
+    crystalite, erocrys, bipolarchip, converchip, stockchip, buildchip,
+    /** 消耗材料 */
+    ionopolymer, heterosoligen,
+    /** 模块材料 */
+    energyStorageModule, powerSupplyModule, chargeModule;
 
     private LPItems(){
         
@@ -206,6 +213,51 @@ public class LPItems {
             buildable = false;
             alwaysUnlocked = false;
             databaseTag = "cons-mat";
+        }};
+
+        /** 储能模块 */
+        energyStorageModule = new Item("energy-storage-module", LPPal.orangeMid){{
+            hardness = 3;
+            radioactivity = 0f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0f;
+            cost = 1f;
+            healthScaling = 0.8f;
+            frames = 0;
+            buildable = true;
+            alwaysUnlocked = false;
+            databaseTag = "module-mat";
+        }};
+
+        /** 供能模块 */
+        powerSupplyModule = new Item("power-supply-module", LPPal.aureusDarkMid){{
+            hardness = 4;
+            radioactivity = 0f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0f;
+            cost = 1f;
+            healthScaling = 0.8f;
+            frames = 0;
+            buildable = true;
+            alwaysUnlocked = false;
+            databaseTag = "module-mat";
+        }};
+
+        /** 蓄能模块 */
+        chargeModule = new Item("charge-module", LPPal.orangeRed){{
+            hardness = 4;
+            radioactivity = 0f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0f;
+            cost = 1f;
+            healthScaling = 0.8f;
+            frames = 0;
+            buildable = true;
+            alwaysUnlocked = false;
+            databaseTag = "module-mat";
         }};
     }
 }

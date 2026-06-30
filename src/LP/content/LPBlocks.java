@@ -60,7 +60,7 @@ public class LPBlocks {
     public static Block massisteelLiquidStorage , massisteelLiquidStorageLarge;
 
     //power
-    public static Block jynPowerNode, jynPowerNodeLarge, jynBattery, heavyIonChamber, traPowerNode, traPowerTower;
+    public static Block jynPowerNode, jynPowerNodeLarge, jynBattery, heavyIonChamber, traPowerNode, traPowerTower, traBattery;
     public static AnnihilationReactor annihilationReactor;
 
     //defense
@@ -73,7 +73,7 @@ public class LPBlocks {
     public static Block masHeatRedirector, masHeatRedirectorSmall, masHeatRouter, masHeatRouterSmall, masSlagHeater, powerHeater;
     public static Block ionopolymerCrucible, ionopolymerCrucibleLarge, erocrysExtractory, transChimericFoundry, highSpeedTranschimericFoundry,
     heterohydrogenCollector, heterohydrogenLiquefier;
-    public static MultiCrafter chipFabricator, integratedAlloyCmeltingCuringRefinery;
+    public static MultiCrafter chipFabricator, integratedAlloyCmeltingCuringRefinery, moduleFabricator;
 
     //unit
     //storage
@@ -2849,7 +2849,7 @@ public class LPBlocks {
             priority = -1f;
             alwaysUnlocked = false;
             researchCostMultiplier = 0.4f;
-            requirements(Category.power, with(LPItems.jynsteel, 54,LPItems.crystalite, 54, LPItems.erocrys, 24));
+            requirements(Category.power, with(LPItems.jynsteel, 54, LPItems.crystalite, 54, LPItems.erocrys, 24));
         }};
         
         heavyIonChamber = new ConsumeGenerator("heavy-ion-chamber"){{
@@ -2970,6 +2970,21 @@ public class LPBlocks {
             researchCostMultiplier = 0.4f;
             priority = -1f;
             squareSprite = false;
+        }};
+
+        traBattery = new Battery("tra-battery"){{
+            size = 4;
+            health = 83;
+            requirements(Category.power, with(LPItems.transchimericsteel, 107, LPItems.crystalite, 60, LPItems.converchip, 12, LPItems.bipolarchip, 4));
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            emptyLightColor = Color.valueOf("C99363");
+            fullLightColor = LPPal.orangeMid;
+            conductivePower = true;
+            solid = true;
+            hasPower = true;
+            consumePowerBuffered(9600);
+            priority = -1f;
         }};
 
         annihilationReactor = new AnnihilationReactor("annihilation-reactor"){{
@@ -3598,7 +3613,7 @@ public class LPBlocks {
             hasPower = hasItems = hasLiquids = true;
             itemCapacity = 24;
             liquidCapacity = 10f;
-            maxList = 9;
+            maxList = 3;
             useBlockDrawer = true;
             craftPlans = Seq.with(
                 new CraftPlan(){{
@@ -3680,7 +3695,7 @@ public class LPBlocks {
             size = 4;
             health = 145;
             requirements(Category.crafting, with(LPItems.transchimericsteel, 100, LPItems.jynsteel, 82, LPItems.crystalite, 44,
-            LPItems.bipolarchip, 8));
+                LPItems.bipolarchip, 8));
             alwaysUnlocked = false;
             researchCostMultiplier = 0.4f;
             canOverdrive = true;
@@ -3766,6 +3781,114 @@ public class LPBlocks {
                     outputItems = with(LPItems.photosolidAlloy, 2);
                     ambientSound = Sounds.loopGlow;
                     ambientSoundVolume = 0.8f;
+                }}
+            );
+        }};
+
+        moduleFabricator = new MultiCrafter("module-fabricator"){{
+            size = 4;
+            health = 145;
+            requirements(Category.crafting, with(LPItems.transchimericsteel, 114, LPItems.jynsteel, 75, LPItems.crystalite, 36,
+                LPItems.buildchip, 24));
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            canOverdrive = false;
+            hasPower = hasItems = hasLiquids = true;
+            itemCapacity = 32;
+            liquidCapacity = 48f;
+            maxList = 3;
+            useBlockDrawer = true;
+            progressColor = LPPal.orangeMid;
+            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(LPLiquids.heterohydrogen), new DrawDefault(),
+            new DrawGlowRegion("-glow"){{color = Color.valueOf("F7E97E");}}, new DrawBlockParts(){{parts.addAll(
+                new ShapePart(){{
+                    circle = false;
+                    hollow = true;
+                    color = Color.valueOf("F7E97E00");
+                    colorTo = Color.valueOf("F7E97E");
+                    sides = 4;
+                    radius = 0f;
+                    radiusTo = 12f;
+                    stroke = 0f;
+                    strokeTo = 2f;
+                    layer = 110f;
+                    progress = PartProgress.warmup.curve(Interp.circleIn);
+                }});
+            }});
+            craftPlans = Seq.with(
+                new CraftPlan(){{
+                    craftTime = 240f;
+                    consumePower(4f);
+                    consumeLiquid(LPLiquids.heterohydrogen, 2f / 60f);
+                    consumeItems(with(LPItems.transchimericsteel, 12, LPItems.jynsteel, 4, LPItems.converchip, 8));
+                    outputItems = with(LPItems.energyStorageModule, 1);
+                    ambientSound = Sounds.loopBuild;
+                    ambientSoundVolume = 1f;
+                    updateEffect = LPFx.moduleFabricatorUpdate;
+                    craftEffect = LPFx.moduleFabricatorCraft;
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 140f;
+                    consumePower(8f);
+                    consumeLiquid(LPLiquids.heterohydrogen, 5f / 60f);
+                    consumeItems(with(LPItems.transchimericsteel, 12, LPItems.jynsteel, 4, LPItems.converchip, 8));
+                    outputItems = with(LPItems.energyStorageModule, 1);
+                    ambientSound = Sounds.loopBuild;
+                    ambientSoundVolume = 1.2f;
+                    updateEffect = LPFx.moduleFabricatorUpdate;
+                    updateEffectChance = 0.1f;
+                    craftEffect = LPFx.moduleFabricatorCraftBig;
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 240f;
+                    consumePower(4.5f);
+                    consumeLiquid(LPLiquids.heterohydrogen, 2f / 60f);
+                    consumeItems(with(LPItems.photosolidAlloy, 8, LPItems.jynsteel, 4, LPItems.bipolarchip, 6));
+                    outputItems = with(LPItems.powerSupplyModule, 1);
+                    ambientSound = Sounds.loopBuild;
+                    ambientSoundVolume = 1f;
+                    updateEffect = LPFx.moduleFabricatorUpdate;
+                    craftEffect = LPFx.moduleFabricatorCraft;
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 120f;
+                    consumePower(9f);
+                    consumeLiquid(LPLiquids.heterohydrogen, 6f / 60f);
+                    consumeItems(with(LPItems.photosolidAlloy, 8, LPItems.jynsteel, 4, LPItems.bipolarchip, 6));
+                    outputItems = with(LPItems.powerSupplyModule, 1);
+                    ambientSound = Sounds.loopBuild;
+                    ambientSoundVolume = 1.2f;
+                    updateEffect = LPFx.moduleFabricatorUpdate;
+                    updateEffectChance = 0.1f;
+                    craftEffect = LPFx.moduleFabricatorCraftBig;
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 240f;
+                    consumePower(5f);
+                    consumeLiquid(LPLiquids.heterohydrogen, 2f / 60f);
+                    consumeItems(with(LPItems.photosolidAlloy, 12, LPItems.massisteel, 6, LPItems.bipolarchip, 8, LPItems.converchip, 6));
+                    outputItems = with(LPItems.chargeModule, 1);
+                    ambientSound = Sounds.loopBuild;
+                    ambientSoundVolume = 1f;
+                    updateEffect = LPFx.moduleFabricatorUpdate;
+                    craftEffect = LPFx.moduleFabricatorCraft;
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 160f;
+                    consumePower(10f);
+                    consumeLiquid(LPLiquids.heterohydrogen, 6f / 60f);
+                    consumeItems(with(LPItems.photosolidAlloy, 12, LPItems.massisteel, 6, LPItems.bipolarchip, 8, LPItems.converchip, 6));
+                    outputItems = with(LPItems.chargeModule, 1);
+                    ambientSound = Sounds.loopBuild;
+                    ambientSoundVolume = 1.2f;
+                    updateEffect = LPFx.moduleFabricatorUpdate;
+                    updateEffectChance = 0.1f;
+                    craftEffect = LPFx.moduleFabricatorCraftBig;
                 }}
             );
         }};

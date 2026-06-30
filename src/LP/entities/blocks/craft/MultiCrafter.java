@@ -70,16 +70,16 @@ public class MultiCrafter extends PayloadBlock{
     /** 是否在“选中方块”时在方块脚下绘制一张液体悬浮表 */
     public boolean useLiquidTable = true;
 
-    /** 滚动列表中最多同时展示的配方数；用于配置面板 ScrollPane 的高度 */
+    /** 滚动列表中最多同时展示的配方数；用于配置面板ScrollPane的高度 */
     public int maxList = 4;
 
-    /** Payload 最大尺寸（单条边的 tile 数） */
+    /** Payload 最大尺寸（单条边的tile数） */
     public float maxPayloadSize = 4f;
 
     /** 每个配方对应的缓存 PayloadSeq 中的最大条目数（防止单条缓存过大） */
     public int payloadCapacity = 20;
 
-    /** 配置面板的滚动位置（由 UI 中写入） */
+    /** 配置面板的滚动位置（由UI中写入） */
     public float selectScroll;
 
     public MultiCrafter(String name){

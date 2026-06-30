@@ -16,6 +16,7 @@ import static arc.math.Angles.*;
 import LP.graphics.LPPal;
 import LP.graphics.PositionLightning;
 import LP.graphics.TrailEffect;
+import LP.graphics.TrailEffect.CTrail;
 import LP.util.struct.Vec2Seq;
 import LP.graphics.Drawn;
 
@@ -212,13 +213,18 @@ public class LPFx {
         int intensity = num;
         return new TrailEffect(lifetime, range * 2, color, color, intensity, (int) length, stroke)
             .trailUpdater((e, trail, x, y, width, len, index) -> {
-            long id = e.id + index * 45L;
-            rand.setSeed(e.id + id);
-            randLenVectors(e.id + id, 1, e.fin(Interp.pow3Out) * range, e.rotation, 360, (x1, y1) -> {
-                trail.length = (int) (len * LPFx.fout(e.fin(), 0.06f));
-                trail.update(x + x1, y + y1, width * e.fout());
-            });
-        }).drawTri(true);
+                long id = e.id + index * 45L;
+                rand.setSeed(e.id + id);
+                randLenVectors(e.id + id, 1, e.fin(Interp.pow3Out) * range, e.rotation, 360, (x1, y1) -> {
+                    float newX = x + x1;
+                    float newY = y + y1;
+                    trail.length = (int) (len * LPFx.fout(e.fin(), 0.06f));
+                    trail.update(newX, newY, width * e.fout());
+                    if (trail instanceof CTrail) {
+                        ((CTrail) trail).updateLastPos(newX, newY);
+                    }
+                });
+            }).drawTri(true);
     }
 
     /** 插值要反着填pow10In -> pow10Out */
@@ -1227,6 +1233,63 @@ public class LPFx {
             interp = Interp.pow3Out;
         }}
     ),
+
+    moduleFabricatorUpdate = new MultiEffect(
+        new ParticleEffect(){{
+            particles = 1;
+            region = "lp-triangle";
+            lifetime = 30f;
+            length = 0f;
+            baseLength = 0f;
+            baseRotation = 0f;
+            interp = Interp.pow3Out;
+            sizeInterp = Interp.pow3In;
+            spin = Mathf.random(-2, 2);
+            sizeFrom = 2.5f;
+            sizeTo = 0f;
+            colorFrom = Color.valueOf("F7E97E");
+            colorTo = Color.valueOf("F7E97E");
+        }},
+
+        new ParticleEffect(){{
+            particles = 1;
+            region = "lp-triangle";
+            lifetime = 30f;
+            length = 30f;
+            baseLength = 2f;
+            interp = Interp.pow4Out;
+            sizeInterp = Interp.pow3In;
+            spin = Mathf.random(-3, 3);
+            sizeFrom = 3f;
+            sizeTo = 0f;
+            colorFrom = Color.valueOf("F7E97E");
+            colorTo = Color.valueOf("F7E97E");
+        }}
+    ),
+
+    moduleFabricatorCraft = new WaveEffect(){{
+        lifetime = 40f;
+        colorFrom = Color.valueOf("F7E97E");
+        colorTo = Color.valueOf("F7E97E");
+        sizeFrom = 12f;
+        sizeTo = 24f;
+        sides = 4;
+        strokeFrom = 2f;
+        strokeTo = 0f;
+        interp = Interp.pow2Out;
+    }},
+
+    moduleFabricatorCraftBig = new WaveEffect(){{
+        lifetime = 40f;
+        colorFrom = Color.valueOf("F7E97E");
+        colorTo = Color.valueOf("F7E97E");
+        sizeFrom = 12f;
+        sizeTo = 36f;
+        sides = 4;
+        strokeFrom = 2f;
+        strokeTo = 0f;
+        interp = Interp.pow3Out;
+    }},
 
     //turret
     lucenserDestroy = new MultiEffect(

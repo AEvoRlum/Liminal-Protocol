@@ -195,7 +195,7 @@ public class SquareRangePowerNode extends PowerBlock {
         final Seq<Building> candidates = new Seq<>();
         final ObjectSet<PowerGraph> graphs = new ObjectSet<>();
 
-        // 候选筛选
+        /** 候选筛选 */
         Boolf<Building> valid = other -> {
             if (other == null || other.tile == entity.tile) return false;
             if (!other.block.connectedPower || other.power == null) return false;
@@ -206,7 +206,7 @@ public class SquareRangePowerNode extends PowerBlock {
             if (!rangeCheck) return false;
 
             if (other.team != entity.team) return false;
-            // 只有非输出者才检查 graphs，输出者允许通过
+            // 只有非输出者才检查graphs，输出者允许通过
             if (!other.block.outputsPower && graphs.contains(other.power.graph)) return false;
             if (PowerNode.insulated(entity.tile, other.tile)) return false;
 

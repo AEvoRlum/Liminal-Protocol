@@ -99,6 +99,11 @@ public class Mx1TechTree {
                 node(chipFabricator, Seq.with(new SectorComplete(Rift),
                 new Research(highSpeedTranschimericFoundry)), () -> {});
 
+                node(moduleFabricator, Seq.with(new Research(chipFabricator),
+                new Research(photosolidAlloy),
+                new Research(bipolarchip),
+                new Research(converchip)), () -> {});
+
                 node(heterohydrogenCollector, Seq.with(new Research(integratedAlloyCmeltingCuringRefinery)), () -> {
                     node(heterohydrogenLiquefier, () -> {});
                 });
@@ -127,13 +132,16 @@ public class Mx1TechTree {
                     });
                 });
 
-                node(jynBattery, () -> {});
+                node(jynBattery, () -> {
+                    node(traBattery, () -> {});
+                });
 
                 node(heavyIonChamber, () -> {
                     node(annihilationReactor, Seq.with(new Research(heterohydrogenLiquefier),
                     new Research(autoBuildTower),
                     new Research(traPowerNode),
-                    new Research(traPowerTower)), () -> {});
+                    new Research(traPowerTower),
+                    new Research(traBattery)), () -> {});
                 });
             });
 
@@ -269,6 +277,10 @@ public class Mx1TechTree {
                 nodeProduce(converchip, () -> {});
                 nodeProduce(stockchip, () -> {});
                 nodeProduce(buildchip, () -> {});
+
+                nodeProduce(energyStorageModule, () -> {});
+                nodeProduce(powerSupplyModule, () -> {});
+                nodeProduce(chargeModule, () -> {});
             });
 
             /** 流体 */

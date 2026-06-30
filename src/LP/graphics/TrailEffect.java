@@ -248,8 +248,17 @@ public class TrailEffect extends Effect{
     }
 
     public class CTrail extends Trail{
+        public float lastX, lastY;
+
         public CTrail(int length){
             super(length);
+            this.lastX = 0;
+            this.lastY = 0;
+        }
+
+        public void updateLastPos(float x, float y){
+            this.lastX = x;
+            this.lastY = y;
         }
 
         @Override
@@ -258,11 +267,14 @@ public class TrailEffect extends Effect{
                 Draw.color(color);
                 float[] items = points.items;
                 int i = points.size - 3;
-                float x1 = items[i], y1 = items[i + 1], w1 = items[i + 2], w = w1 * width / ((float)points.size / 3) * i / 3f * 2f;
+                float w1 = items[i + 2];
+                float x1 = (lastX != 0 || lastY != 0) ? lastX : items[i];
+                float y1 = (lastX != 0 || lastY != 0) ? lastY : items[i + 1];
+                float w = w1 * width / ((float)points.size / 3) * i / 3f * 2f;
                 if(w1 <= 0.001f) return;
                 Draw.rect("circle-bullet", x1, y1, w, w, -Mathf.radDeg * lastAngle + 180f);
-                if(drawTri) Drawn.tri(x1, y1, w / 1.7f, w * 2.1f, -Mathf.radDeg * lastAngle + 180f);
-                if(drawTri) Drawn.tri(x1, y1, w / 1.7f, w * 0.5f, -Mathf.radDeg * lastAngle);
+                if(drawTri) Drawn.tri(x1, y1, w / 1.7f, w * 2f, -Mathf.radDeg * lastAngle + 180f);
+                if(drawTri) Drawn.tri(x1, y1, w / 1.7f, w, -Mathf.radDeg * lastAngle);
                 Draw.reset();
             }
         }
