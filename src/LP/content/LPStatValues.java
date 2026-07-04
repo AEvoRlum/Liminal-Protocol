@@ -179,6 +179,15 @@ public class LPStatValues {
                         sep(bt, Core.bundle.format("bullet.lp-lightningLinkDamage", damageStr, String.valueOf((int)b.maxHit), rangeStr, freqStr));
                     }
 
+                    if(type instanceof GravitationLightningLinkBulletType b && b.lightningLinkDamage > 0){
+                        float range = b.linkRange / tilesize;
+                        float freq = 60 / b.hitSpacing;
+                        String damageStr = b.lightningLinkDamage == (int)b.lightningLinkDamage ? String.valueOf((int)b.lightningLinkDamage) : String.valueOf(b.lightningLinkDamage);
+                        String rangeStr = range == (int)range ? String.valueOf((int)range) : Strings.fixed(range, 2);
+                        String freqStr = freq == (int)freq ? String.valueOf((int)freq) : Strings.fixed(freq, 3);
+                        sep(bt, Core.bundle.format("bullet.lp-lightningLinkDamage", damageStr, String.valueOf((int)b.maxHit), rangeStr, freqStr));
+                    }
+
                     if(type instanceof EnergyBulletType b && b.energyDamage > 0){
                         sep(bt, Core.bundle.format("bullet.lp-energyDamage", b.energyDamage, Strings.fixed(b.shieldEnergyDamageMultiplier * 100, 1)));
                     }

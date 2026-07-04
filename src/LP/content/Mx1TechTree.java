@@ -177,7 +177,9 @@ public class Mx1TechTree {
                         node(cloudpiercer, Seq.with(new Research(meteor),
                         new SectorComplete(repulse)), () -> {
                             node(crimsondwarf, Seq.with(new Research(hushstrike),
-                            new Research(highSpeedTranschimericFoundry)), () -> {});
+                            new Research(highSpeedTranschimericFoundry)), () -> {
+                                node(eclipsion, Seq.with(new Research(annihilationReactor)), () -> {});
+                            });
                         });
                         node(hushstrike, Seq.with(new Research(repelback)), () -> {});
                     });

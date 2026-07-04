@@ -19,7 +19,7 @@ public class LPSounds {
         blockExplodeExplosive, blockExplodeExplosiveAlt, blockExplodeFlammable, blockExplodeWall, 
         bombEmpHit, bombHit, bombPlasmaHit, cannonLargeHit, cannonLargeShot, champbump, chargeCorvus, 
         chargeEmp, chargeLancer, chargePlasma, chargeRail1, chargeRail2, chargeSubsonic, chargeVela,
-        electricBlockerBreak, electricBlockerBreakLoud, energyExplosion, energyHit, everspace2, 
+        eclipsionShoot, electricBlockerBreak, electricBlockerBreakLoud, energyExplosion, energyHit, everspace2,
         explosionAfflict, explosionArtilleryShockBig, explosionbig, explosionCleroi, explosionCrawler, 
         explosionDull, explosionHit, explosionMortar, explosionNavanax, explosionNuke, explosionQuad, 
         helicopterCrush, hitDefence, hitRepelback, largeBeam, laser2, laser3, laser4, laser5, laserLargeCharge, 
