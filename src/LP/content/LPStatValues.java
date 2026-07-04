@@ -186,6 +186,21 @@ public class LPStatValues {
                         String rangeStr = range == (int)range ? String.valueOf((int)range) : Strings.fixed(range, 2);
                         String freqStr = freq == (int)freq ? String.valueOf((int)freq) : Strings.fixed(freq, 3);
                         sep(bt, Core.bundle.format("bullet.lp-lightningLinkDamage", damageStr, String.valueOf((int)b.maxHit), rangeStr, freqStr));
+                        if (!b.reverse) {
+                            if (b.gravitation > 0f) {
+                            sep(bt, Core.bundle.format("bullet.lp-gravitation", b.gravitation, Strings.fixed(b.gravitationRange, 1)));
+                            }
+                            if (b.hitGravitation > 0f) {
+                                sep(bt, Core.bundle.format("bullet.lp-hitGravitation", b.hitGravitation, Strings.fixed(b.hitGravitationRange, 1)));
+                            }
+                        } else {
+                            if (b.gravitation > 0f) {
+                                sep(bt, Core.bundle.format("bullet.lp-reverse-gravitation", b.gravitation, Strings.fixed(b.gravitationRange, 1)));
+                            }
+                            if (b.hitGravitation > 0f) {
+                                sep(bt, Core.bundle.format("bullet.lp-reverse-hitGravitation", b.hitGravitation, Strings.fixed(b.hitGravitationRange, 1)));
+                            }
+                        }
                     }
 
                     if(type instanceof EnergyBulletType b && b.energyDamage > 0){
