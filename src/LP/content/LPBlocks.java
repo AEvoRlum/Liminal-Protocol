@@ -49,7 +49,7 @@ public class LPBlocks {
     //turret
     public static Block lucenser, disflux, impactor, repulstar, radiance, meteor, cloudpiercer;
     public static Block fallenstar, repelback, hushstrike, crimsondwarf, infernoblade, recursion;
-    public static Block eclipsion;
+    public static Block eclipsion, defence;
 
     //production
     public static Block jynDrill, shearDrill, impactDrill0;
@@ -2632,7 +2632,7 @@ public class LPBlocks {
                 lifetime = 70f * tilesize / speed - 2f;
                 rangeOverride = maxRange = 70f * tilesize;
                 shootEffect = new MultiEffect(
-                    LPFx.triHitSpark(40f, LPPal.redMid, 7, 120f),
+                    LPFx.triHitSpark(30f, LPPal.redMid, 7, 120f, Interp.pow2),
                     LPFx.XSharpShoot(40f, LPPal.redMid, 80f)
                 );
                 smokeEffect = Fx.none;
@@ -2715,6 +2715,107 @@ public class LPBlocks {
                     );
                 }};
             }};
+        }};
+
+        defence = new ItemAmmoTurret("defence"){{
+            size = 6;
+            health = 1222;
+            armor = 17;
+            requirements(Category.turret, with(LPItems.photosolidAlloy, 401, LPItems.transchimericsteel, 157, LPItems.jynsteel, 114, LPItems.massisteel, 75, LPItems.crystalite, 95,
+                LPItems.energyStorageModule, 24, LPItems.powerSupplyModule, 24, LPItems.bipolarchip, 4
+            ));
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            rotateSpeed = 1.8f;
+            reload = 600f;
+            interval = 180f;
+            range = 75f * tilesize;
+            trackingRange = range * 1.2f;
+            recoil = 6f;
+            recoilTime = 90f;
+            shake = 14f;
+            cooldownTime = 160f;
+            heatColor = LPPal.redDark;
+            canOverdrive = false;
+            maxAmmo = 40;
+            ammoPerShot = 10;
+            databaseTag = "ps";
+            buildTime = 240f;
+            shootCone = 2f;
+            shootSound = LPSounds.shootDefence;
+            shootSoundVolume = 2.1f;
+            destroySound = LPSounds.blockExplodeExplosiveAlt;
+            destroySoundVolume = 2.5f;
+            destroyEffect = LPFx.defenceDestroy;
+            consumePower(900 / 60f);
+            outlineColor = LPPal.outline;
+            drawer = new DrawTurret(){{parts.addAll(
+                new RegionPart("-glow"){{
+                    heatColor = LPPal.redDark;
+                    blending = Blending.additive;
+                    heatProgress = PartProgress.heat;
+                    progress = PartProgress.reload;
+                    color = heatColor;
+                    colorTo = Color.valueOf("00000000");
+                    outline = false;
+                }},
+
+                new RegionPart("-glow"){{
+                    heatColor = LPPal.redDark;
+                    blending = Blending.additive;
+                    heatProgress = PartProgress.heat;
+                    progress = PartProgress.heat;
+                    color = Color.valueOf("00000000");
+                    colorTo = heatColor;
+                    outline = false;
+                }}
+            );}};
+            ammo(
+                LPItems.powerSupplyModule, new EnergyBulletType(){{
+                    sprite = "lp-energy-bullet";
+                    hitColor = lightColor = frontColor = backColor = trailColor = LPPal.redMidDark;
+                    width = 24f;
+                    height = 42f;
+                    shrinkY = 0f;
+                    trailWidth = 3f;
+                    trailLength = 5;
+                    speed = 40f;
+                    lifetime = 75f * tilesize / speed - 0.5f;
+                    rangeOverride = maxRange = 75f * tilesize;
+                    scaleLife = true;
+                    damage = energyDamage = 0f;
+                    rangeEnergyDamage = 500f;
+                    rangeEnergyDamageRadius = 12f * tilesize;
+                    rangeHeal = 120f;
+                    rangeHealRadius = 12f * tilesize;
+                    delayRangeHeal = 30f;
+                    hitShake = 16f;
+                    hitSound = LPSounds.hitDefence;
+                    hitSoundVolume = 2.1f;
+                    hitEffect = new MultiEffect(
+                        LPFx.smoothColorCircle(hitColor, 12 * tilesize, 30f),
+                        LPFx.cutting(30f, hitColor, hitColor, 7 * tilesize, 32f, 110f),
+                        LPFx.cutting(30f, hitColor, hitColor, 7 * tilesize, 122f, 110f),
+                        LPFx.cutting(30f, Color.white, Color.white, 2 * tilesize, 32f, 110f),
+                        LPFx.cutting(30f, Color.white, Color.white, 2 * tilesize, 122f, 110f),
+                        LPFx.sharpHitRotateBlast(30f, LPPal.redDark, 12, 13.5f * tilesize, 2f),
+                        LPFx.sharpHitRotateBlast(30f, LPPal.redDark, 12, 13.5f * tilesize, -2f),
+                        LPFx.sharpHitSpark(30f, LPPal.redDark, 8, 10f * tilesize, 28f, Interp.pow3Out),
+                        LPFx.sharpHitSpark(30f, LPPal.redDark, 5, 10f * tilesize, 32f, Interp.pow3Out),
+                        LPFx.trailHitSpark(30f, LPPal.redDark, 25, 12 * tilesize, 1.2f, 16f)
+                    );
+                    rangeHealSound = LPSounds.shootPulse4;
+                    rangeHealSoundVolume = 1.6f;
+                    rangeHealEffect = new MultiEffect(
+                        LPFx.smoothColorCircle(LPPal.heal, 12 * tilesize, 30f, 0.7f),
+                        LPFx.cutting(30f, LPPal.heal, LPPal.heal.cpy().lerp(Color.white, 0.5f), 5 * tilesize, 40f, 110.001f),
+                        LPFx.cutting(30f, LPPal.heal, LPPal.heal.cpy().lerp(Color.white, 0.5f), 3 * tilesize, 130f, 110.001f)
+                    );
+                    despawnHit = true;
+                    shootEffect = LPFx.triHitSpark(30f, LPPal.redDark, 9, 60f, 35f, Interp.pow2);
+                    smokeEffect = Fx.none;
+                }}
+            );
         }};
 
         //production
@@ -4299,6 +4400,7 @@ public class LPBlocks {
             variants = 0;
             drawEdgeIn = false;
             drawEdgeOut = false;
+            allowCorePlacement = true;
         }};
 
         darkStone = new Floor("darkstone"){{

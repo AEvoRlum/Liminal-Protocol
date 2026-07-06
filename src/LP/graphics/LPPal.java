@@ -36,7 +36,7 @@ public class LPPal extends Pal {
         orangeRed = Color.valueOf("FF5845");
         redDark = Color.valueOf("FF4040");
         redMid = Color.valueOf("FF6464");
-        redMidDark = redDark.cpy().lerp(redDark, 0.9f);
+        redMidDark = Color.valueOf("FF4848");
         redLight = Color.valueOf("FF9492");
         purple = Color.valueOf("D1A4FF");
         eyesLight = Color.valueOf("F3E6E6");

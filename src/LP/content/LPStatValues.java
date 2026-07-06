@@ -162,6 +162,12 @@ public class LPStatValues {
                         "[lightgray] ~ [stat]" + Core.bundle.format("bullet.damage", type.continuousDamage()) + StatUnit.perSecond.localized() : ""));
                     }
 
+                    if(type.splashDamage > 0){
+                        float splashDamageRadius = type.splashDamageRadius / tilesize;
+                        String radiusStr = splashDamageRadius == (int)splashDamageRadius ? String.valueOf((int)splashDamageRadius) : Strings.fixed(splashDamageRadius, 1);
+                        sep(bt, Core.bundle.format("bullet.lp-splashdamage", (int)type.splashDamage, radiusStr));
+                    }
+
                     if(type instanceof HellbladeBulletType b && b.splashRange > 0){
                         float range = b.splashRange / tilesize;
                         float multiplier = b.maxDamageMultiplier * 100;
@@ -186,8 +192,10 @@ public class LPStatValues {
                         String rangeStr = range == (int)range ? String.valueOf((int)range) : Strings.fixed(range, 2);
                         String freqStr = freq == (int)freq ? String.valueOf((int)freq) : Strings.fixed(freq, 3);
                         sep(bt, Core.bundle.format("bullet.lp-lightningLinkDamage", damageStr, String.valueOf((int)b.maxHit), rangeStr, freqStr));
-                        String gravRangeStr = b.gravitationRange == (int)b.gravitationRange ? String.valueOf((int)b.gravitationRange) : Strings.fixed(b.gravitationRange, 1);
-                        String hitGravRangeStr = b.hitGravitationRange == (int)b.hitGravitationRange ? String.valueOf((int)b.hitGravitationRange) : Strings.fixed(b.hitGravitationRange, 1);
+                        float gravitationRange = b.gravitationRange / tilesize;
+                        String gravRangeStr = gravitationRange == (int)gravitationRange ? String.valueOf((int)gravitationRange) : Strings.fixed(gravitationRange, 1);
+                        float hitGravitationRange = b.hitGravitationRange / tilesize;
+                        String hitGravRangeStr = hitGravitationRange == (int)hitGravitationRange ? String.valueOf((int)hitGravitationRange) : Strings.fixed(hitGravitationRange, 1);
                         if (!b.reverse) {
                             if (b.gravitation > 0f) {
                             sep(bt, Core.bundle.format("bullet.lp-gravitation", b.gravitation, gravRangeStr));
@@ -205,10 +213,22 @@ public class LPStatValues {
                         }
                     }
 
-                    if(type instanceof EnergyBulletType b && b.energyDamage > 0){
-                        float multiplier = b.shieldEnergyDamageMultiplier * 100;
-                        String multiplierStr = multiplier == (int)multiplier ? String.valueOf((int)multiplier) : Strings.fixed(multiplier, 1);
-                        sep(bt, Core.bundle.format("bullet.lp-energyDamage", b.energyDamage, multiplierStr));
+                    if(type instanceof EnergyBulletType b && (b.energyDamage > 0 || b.rangeEnergyDamage > 0f || b.rangeHeal > 0f)){
+                        if(b.energyDamage > 0){
+                            float multiplier = b.shieldEnergyDamageMultiplier * 100;
+                            String multiplierStr = multiplier == (int)multiplier ? String.valueOf((int)multiplier) : Strings.fixed(multiplier, 1);
+                            sep(bt, Core.bundle.format("bullet.lp-energyDamage", b.energyDamage, multiplierStr));
+                        }
+                        
+                        if (b.rangeEnergyDamage > 0f) {
+                            sep(bt, Core.bundle.format("bullet.lp-rangeEnergyDamage", b.rangeEnergyDamage, (int)(b.rangeEnergyDamageRadius / tilesize)));
+                        }
+                        
+                        if (b.rangeHeal > 0f && b.delayRangeHeal > 0f) {
+                            sep(bt, Core.bundle.format("bullet.lp-delayRangeHeal", b.rangeHeal, (int)(b.rangeHealRadius / tilesize), b.delayRangeHeal / 60f));
+                        } else if (b.rangeHeal > 0f) {
+                            sep(bt, Core.bundle.format("bullet.lp-rangeHeal", b.rangeHeal, (int)(b.rangeHealRadius / tilesize)));
+                        }
                     }
 
                     if(type instanceof ChainBulletType b && b.maxHit > 0){
@@ -227,10 +247,6 @@ public class LPStatValues {
                         sep(bt, Core.bundle.format("bullet.shielddamage", ammoStat((int)(type.shieldDamageMultiplier * 100 - 100))));
                     }
 
-                    if(type.splashDamage > 0){
-                        sep(bt, Core.bundle.format("bullet.lp-splashdamage", (int)type.splashDamage, Strings.fixed(type.splashDamageRadius / tilesize, 1)));
-                    }
-
                     if(type.statLiquidConsumed <= 0f && !compact && !Mathf.equal(type.ammoMultiplier, 1f) && type.displayAmmoMultiplier && (!(t instanceof Turret turret) || turret.displayAmmoMultiplier)){
                         sep(bt, Core.bundle.format("bullet.multiplier", (int)type.ammoMultiplier));
                     }
@@ -245,7 +261,9 @@ public class LPStatValues {
                     }
 
                     if(type instanceof SplashKnockbackBulletType b && b.splashKnockback > 0){
-                        sep(bt, Core.bundle.format("bullet.lp-splashknockback", b.splashKnockback, Strings.fixed(b.splashKnockbackRadius / tilesize, 1)));
+                        float splashKnockbackRadius = b.splashKnockbackRadius * 100;
+                        String radiusStr = splashKnockbackRadius == (int)splashKnockbackRadius ? String.valueOf((int)splashKnockbackRadius) : Strings.fixed(splashKnockbackRadius, 1);
+                        sep(bt, Core.bundle.format("bullet.lp-splashknockback", b.splashKnockback, radiusStr));
                     }
 
                     if(type.healPercent > 0f){
@@ -330,7 +348,9 @@ public class LPStatValues {
                     }
 
                     if(type.suppressionRange > 0){
-                        sep(bt, Core.bundle.format("bullet.suppression", Strings.autoFixed(type.suppressionDuration / 60f, 2), Strings.fixed(type.suppressionRange / tilesize, 1)));
+                        float suppressionRange = type.suppressionRange * 100;
+                        String rangeStr = suppressionRange == (int)suppressionRange ? String.valueOf((int)suppressionRange) : Strings.fixed(suppressionRange, 1);
+                        sep(bt, Core.bundle.format("bullet.suppression", Strings.autoFixed(type.suppressionDuration / 60f, 2), rangeStr));
                     }
 
                     if(type.status != StatusEffects.none){

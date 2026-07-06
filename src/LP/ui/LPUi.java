@@ -1,7 +1,9 @@
 package LP.ui;
 
+import arc.Core;
 import arc.func.*;
 import arc.graphics.*;
+import arc.graphics.g2d.TextureRegion;
 import arc.scene.ui.*;
 import arc.scene.ui.layout.*;
 import arc.struct.*;
@@ -10,7 +12,11 @@ import mindustry.ui.*;
 import mindustry.world.meta.*;
 
 import LP.graphics.LPPal;
+
+import static mindustry.Vars.tilesize;
+
 import LP.entities.blocks.craft.MultiCrafter;
+import LP.entities.blocks.turret.ItemAmmoTurret;
 
 /**
  * 多配方方块的 UI 辅助方法集中地
@@ -18,6 +24,8 @@ import LP.entities.blocks.craft.MultiCrafter;
  * 游戏逻辑（生产、接受物品、效率计算、热量处理等）请见 {@link LP.entities.blocks.craft.MultiCrafter}
  */
 public final class LPUi{
+
+    public static TextureRegion ammoTurretReloadIcon = Core.atlas.find("lp-ammo-turret-reload");
 
     private LPUi(){}
 
@@ -177,5 +185,37 @@ public final class LPUi{
                 cons.build(build, table);
             }
         }
+    }
+
+    /** ItemAmmoTurret手动重新装填按钮 */
+    public static void buildReloadButton(ItemAmmoTurret.ItemAmmoTurretBuild build, Table table){
+        if(build == null || table == null) return;
+
+        float size = build.block.size * tilesize;
+        float buttonSize = Math.max(size, 64f);
+
+        ImageButton button = new ImageButton(Styles.clearTogglei);
+        button.setSize(buttonSize, buttonSize);
+
+        Image icon = button.image(ammoTurretReloadIcon).size(buttonSize).color(Color.white).get();
+
+        button.update(() -> {
+            boolean enabled = build.totalAmmoUnits > 0;
+            button.setDisabled(!enabled);
+            if(!enabled){
+                icon.setColor(Color.gray);
+            } else {
+                icon.setColor(Color.white);
+            }
+        });
+
+        button.clicked(() -> {
+            if(build.totalAmmoUnits > 0){
+                build.manualReload();
+                button.setChecked(false);
+            }
+        });
+
+        table.add(button).size(buttonSize).pad(0f);
     }
 }

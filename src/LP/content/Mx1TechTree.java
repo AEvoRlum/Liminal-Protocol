@@ -178,7 +178,10 @@ public class Mx1TechTree {
                         new SectorComplete(repulse)), () -> {
                             node(crimsondwarf, Seq.with(new Research(hushstrike),
                             new Research(highSpeedTranschimericFoundry)), () -> {
-                                node(eclipsion, Seq.with(new Research(annihilationReactor)), () -> {});
+                                node(eclipsion, Seq.with(new Research(annihilationReactor),
+                                new Research(chargeModule),
+                                new Research(energyStorageModule),
+                                new Research(powerSupplyModule)), () -> {});
                             });
                         });
                         node(hushstrike, Seq.with(new Research(repelback)), () -> {});
@@ -191,7 +194,9 @@ public class Mx1TechTree {
                     node(fallenstar, Seq.with(new Research(process4),
                     new OnSector(Rift),
                     new Research(transChimericFoundry),
-                    new Research(traWallLarge)), () -> {});
+                    new Research(traWallLarge)), () -> {
+                        node(defence, Seq.with(new Research(eclipsion)), () -> {});
+                    });
                 });
                 node(recursion, Seq.with(new Research(infernoblade)), () -> {});
             });
