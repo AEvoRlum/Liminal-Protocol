@@ -63,9 +63,9 @@ public class ItemAmmoTurret extends LPItemTurret {
 
         addBar("shotinterval", (ItemAmmoTurretBuild entity) -> {
             return new Bar(
-                () -> Core.bundle.format("bar.lp-shotinterval", (int)(entity.shotIntervalRemaining / 60f)),
+                () -> Core.bundle.format("bar.lp-shotinterval", (int)(entity.shotIntervalRemainingBar)),
                 () -> Pal.lightOrange,
-                () -> entity.totalAmmoUnits > 0 ? Mathf.clamp(entity.shotCounter / ((ItemAmmoTurret)entity.block).interval) : 0f
+                () -> entity.shotIntervalBar
             );
         });
     }
@@ -110,8 +110,10 @@ public class ItemAmmoTurret extends LPItemTurret {
         public int ammoUnitCost;
         public int totalAmmoUnits;
         public BulletType currentAmmoType;
-        public float shotIntervalRemaining;
         public float shotCounter;
+        public float shotIntervalRemaining;
+        public float shotIntervalRemainingBar;
+        public float shotIntervalBar;
 
         @Override
         public void onProximityAdded(){
@@ -138,9 +140,19 @@ public class ItemAmmoTurret extends LPItemTurret {
                 shotCounter += delta() * ammoReloadMultiplier() * baseReloadSpeed();
                 shotCounter = Math.min(shotCounter, interval);
                 shotIntervalRemaining = Math.max(0, (interval - shotCounter));
+                shotIntervalBar = totalAmmoUnits > 0 ? Mathf.clamp(shotCounter / interval) : 0f;
             } else {
                 shotCounter = 0f;
                 shotIntervalRemaining = 0f;
+                shotIntervalBar = 0f;
+            }
+
+            if (shotIntervalRemaining > 0){
+                shotIntervalRemainingBar = shotIntervalRemaining / 60f;
+            } else if (shotIntervalBar == 1f){
+                shotIntervalRemainingBar = 0f;
+            } else {
+                shotIntervalRemainingBar = interval / 60f;
             }
         }
 
@@ -306,6 +318,7 @@ public class ItemAmmoTurret extends LPItemTurret {
             totalAmmoUnits = 0;
             shotCounter = 0f;
             shotIntervalRemaining = 0f;
+            shotIntervalBar = 0f;
             reloadCounter = 0f;
             Events.fire(Trigger.resupplyTurret);
         }

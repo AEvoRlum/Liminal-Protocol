@@ -2632,7 +2632,7 @@ public class LPBlocks {
                 lifetime = 70f * tilesize / speed - 2f;
                 rangeOverride = maxRange = 70f * tilesize;
                 shootEffect = new MultiEffect(
-                    LPFx.triHitSpark(30f, LPPal.redMid, 7, 120f, Interp.pow2),
+                    LPFx.triHitSpark(25f, LPPal.redMid, 7, 120f, Interp.pow2),
                     LPFx.XSharpShoot(40f, LPPal.redMid, 80f)
                 );
                 smokeEffect = Fx.none;
@@ -2749,17 +2749,7 @@ public class LPBlocks {
             destroyEffect = LPFx.defenceDestroy;
             consumePower(900 / 60f);
             outlineColor = LPPal.outline;
-            drawer = new DrawTurret(){{parts.addAll(
-                new RegionPart("-glow"){{
-                    heatColor = LPPal.redDark;
-                    blending = Blending.additive;
-                    heatProgress = PartProgress.heat;
-                    progress = PartProgress.reload;
-                    color = heatColor;
-                    colorTo = Color.valueOf("00000000");
-                    outline = false;
-                }},
-
+            drawer = new DrawTurret(){{parts.add(
                 new RegionPart("-glow"){{
                     heatColor = LPPal.redDark;
                     blending = Blending.additive;
@@ -2773,7 +2763,8 @@ public class LPBlocks {
             ammo(
                 LPItems.powerSupplyModule, new EnergyBulletType(){{
                     sprite = "lp-energy-bullet";
-                    hitColor = lightColor = frontColor = backColor = trailColor = LPPal.redMidDark;
+                    hitColor = backColor = trailColor = LPPal.redMidDark;
+                    lightColor = frontColor = LPPal.redMid;
                     width = 24f;
                     height = 42f;
                     shrinkY = 0f;
@@ -2812,7 +2803,7 @@ public class LPBlocks {
                         LPFx.cutting(30f, LPPal.heal, LPPal.heal.cpy().lerp(Color.white, 0.5f), 3 * tilesize, 130f, 110.001f)
                     );
                     despawnHit = true;
-                    shootEffect = LPFx.triHitSpark(30f, LPPal.redDark, 9, 60f, 35f, Interp.pow2);
+                    shootEffect = LPFx.triHitSpark(25f, LPPal.redDark, 9, 60f, 35f, Interp.pow2);
                     smokeEffect = Fx.none;
                 }}
             );

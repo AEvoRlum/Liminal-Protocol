@@ -48,10 +48,11 @@ public class EnergyBulletType extends BasicBulletType {
     public void rangeHeal(Bullet b, float x, float y) {
         if (rangeHeal <= 0f || rangeHealRadius <= 0f) return;
 
+        Team team = b.owner instanceof Teamc owner ? owner.team() : b.team;
         if (delayRangeHeal > 0f) {
-            Time.run(delayRangeHeal, () -> doRangeHeal(b.team, x, y));
+            Time.run(delayRangeHeal, () -> doRangeHeal(team, x, y));
         } else {
-            doRangeHeal(b.team, x, y);
+            doRangeHeal(team, x, y);
         }
     }
 
