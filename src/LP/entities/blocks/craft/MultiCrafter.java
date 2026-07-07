@@ -79,7 +79,7 @@ public class MultiCrafter extends PayloadBlock{
     /** 每个配方对应的缓存 PayloadSeq 中的最大条目数（防止单条缓存过大） */
     public int payloadCapacity = 20;
 
-    /** 配置面板的滚动位置（由UI中写入） */
+    /** 配置面板的滚动位置 */
     public float selectScroll;
 
     public MultiCrafter(String name){
@@ -263,6 +263,7 @@ public class MultiCrafter extends PayloadBlock{
 
         public int[] configs = {0, 0};
         public int lastRotation = -1;
+        public float selectScroll;
 
         // ------------------------------------------------------------------
         // 配置切换
@@ -677,7 +678,9 @@ public class MultiCrafter extends PayloadBlock{
         }
 
         @Override
-        public byte version(){ return 1; }
+        public byte version(){ 
+            return 2; 
+        }
 
         @Override
         public void write(Writes write){
@@ -687,6 +690,7 @@ public class MultiCrafter extends PayloadBlock{
             write.i(lastRotation);
             write.i(craftPlanIndex());
             payloads.write(write);
+            write.f(selectScroll);
         }
 
         @Override
@@ -697,6 +701,7 @@ public class MultiCrafter extends PayloadBlock{
             lastRotation = read.i();
             setCraftPlanIndex(read.i());
             configs[0] = rotation;
+            selectScroll = read.f();
             if(revision >= 1){
                 payloads.read(read);
             }else{
