@@ -16,6 +16,7 @@ import mindustry.entities.bullet.BasicBulletType;
 import mindustry.game.EventType.UnitBulletDestroyEvent;
 import mindustry.game.EventType.UnitDamageEvent;
 import mindustry.content.Fx;
+import mindustry.content.StatusEffects;
 
 public class EnergyBulletType extends BasicBulletType {
     static final UnitDamageEvent bulletDamageEvent = new UnitDamageEvent();
@@ -82,6 +83,9 @@ public class EnergyBulletType extends BasicBulletType {
 
         Units.nearbyEnemies(b.team, x, y, rangeEnergyDamageRadius, unit -> {
             unit.damagePierce(rangeEnergyDamage);
+            if (status != StatusEffects.none) {
+                unit.apply(status, statusDuration);
+            }
         });
 
         Vars.indexer.eachBlock(null, x, y, rangeEnergyDamageRadius, build -> build.team != b.team, build -> {

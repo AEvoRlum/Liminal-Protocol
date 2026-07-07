@@ -1,10 +1,7 @@
 package LP.content;
 
-import arc.Core;
-import arc.assets.AssetDescriptor;
-import arc.assets.loaders.SoundLoader;
 import arc.audio.Sound;
-import arc.util.Log;
+import arc.files.Fi;
 import mindustry.Vars;
 
 import java.lang.reflect.Field;
@@ -40,27 +37,30 @@ public class LPSounds {
     ;
 
     public static void load() {
-            try {
-                for (Field field : LPSounds.class.getFields()) {
-                    if (field.getType().equals(Sound.class)) {
-                        field.set(null, loadSound(field.getName()));
-                    }
+        try {
+            for (Field field : LPSounds.class.getFields()) {
+                if (field.getType().equals(Sound.class)) {
+                    field.set(null, loadSound(field.getName()));
                 }
-            } catch (IllegalAccessException e) {
-                Log.err(e);
             }
+        } catch (IllegalAccessException ignored) {
         }
+    }
 
-        private static Sound loadSound(String soundName) {
-            if (Vars.headless) {
-                return new Sound();
-            }
-            String path = "sounds/" + soundName;
-            String filePath = Vars.tree.get(path + ".ogg").exists() ? path + ".ogg" : path + ".mp3";
-
-            Sound sound = new Sound();
-            AssetDescriptor<?> desc = Core.assets.load(filePath, Sound.class, new SoundLoader.SoundParameter(sound));
-            desc.errored = Throwable::printStackTrace;
-            return sound;
+    private static Sound loadSound(String soundName) {
+        if (Vars.headless) {
+            return new Sound();
         }
+        String path = "sounds/" + soundName;
+        Fi file = Vars.tree.get(path + ".ogg");
+        if (!file.exists()) {
+            file = Vars.tree.get(path + ".mp3");
+        }
+        if (!file.exists()) {
+            return new Sound();
+        }
+        Sound sound = new Sound();
+        sound.loadLazy(file);
+        return sound;
+    }
 }

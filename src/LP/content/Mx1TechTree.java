@@ -163,14 +163,6 @@ public class Mx1TechTree {
             /** 炮塔 */
             node(lucenser, Seq.with(new OnSector(不容拒绝)), () -> {
                 node(disflux, () -> {
-                    node(impactor, Seq.with(new Research(process1),
-                    new OnSector(why),
-                    new Research(heavyIonChamber)), () -> {
-                        node(repulstar, () -> {
-                            node(repelback, Seq.with(new Research(fallenstar),
-                            new Research(ionopolymerCrucibleLarge)), () -> {});
-                        });
-                    });
                     node(radiance, Seq.with(new Research(process2),
                     new SectorComplete(why),
                     new OnSector(repulse)), () -> {
@@ -187,6 +179,14 @@ public class Mx1TechTree {
                         node(hushstrike, Seq.with(new Research(repelback)), () -> {});
                     });
                     node(infernoblade, Seq.with(new Research(crimsondwarf)), () -> {});
+                });
+                node(impactor, Seq.with(new Research(process1),
+                new OnSector(why),
+                new Research(heavyIonChamber)), () -> {
+                    node(repulstar, () -> {
+                        node(repelback, Seq.with(new Research(fallenstar),
+                        new Research(ionopolymerCrucibleLarge)), () -> {});
+                    });
                 });
                 node(meteor, Seq.with(new Research(repulstar),
                 new Research(process2),

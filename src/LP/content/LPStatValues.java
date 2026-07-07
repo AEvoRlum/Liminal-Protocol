@@ -215,13 +215,17 @@ public class LPStatValues {
 
                     if(type instanceof EnergyBulletType b && (b.energyDamage > 0 || b.rangeEnergyDamage > 0f || b.rangeHeal > 0f)){
                         if(b.energyDamage > 0){
-                            float multiplier = b.shieldEnergyDamageMultiplier * 100;
-                            String multiplierStr = multiplier == (int)multiplier ? String.valueOf((int)multiplier) : Strings.fixed(multiplier, 1);
-                            sep(bt, Core.bundle.format("bullet.lp-energyDamage", b.energyDamage, multiplierStr));
+                            sep(bt, Core.bundle.format("bullet.lp-energyDamage", b.energyDamage));
                         }
                         
                         if (b.rangeEnergyDamage > 0f) {
                             sep(bt, Core.bundle.format("bullet.lp-rangeEnergyDamage", b.rangeEnergyDamage, (int)(b.rangeEnergyDamageRadius / tilesize)));
+                        }
+
+                        if (b.shieldEnergyDamageMultiplier != 1) {
+                            float multiplier = b.shieldEnergyDamageMultiplier * 100;
+                            String multiplierStr = multiplier == (int)multiplier ? String.valueOf((int)multiplier) : Strings.fixed(multiplier, 0);
+                            sep(bt, Core.bundle.format("bullet.lp-shieldEnergyDamageMultiplier", multiplierStr));
                         }
                         
                         if (b.rangeHeal > 0f && b.delayRangeHeal > 0f) {

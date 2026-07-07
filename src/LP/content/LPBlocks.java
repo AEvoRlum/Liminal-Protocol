@@ -2243,7 +2243,7 @@ public class LPBlocks {
                     );
                     smokeEffect = Fx.none;
                     hitSound = LPSounds.cannonLargeHit;
-                    hitSoundVolume = 2.8f;
+                    hitSoundVolume = 2.5f;
                     hitShake = 8;
                     lineEffect = LPFx.chainLightningFadeReversed;
                     pointEffect = endEffect = new ParticleEffect(){{
@@ -2737,6 +2737,7 @@ public class LPBlocks {
             cooldownTime = 160f;
             heatColor = LPPal.redDark;
             canOverdrive = false;
+            targetHealing = true;
             maxAmmo = 40;
             ammoPerShot = 10;
             databaseTag = "ps";
@@ -2782,7 +2783,7 @@ public class LPBlocks {
                     delayRangeHeal = 30f;
                     hitShake = 16f;
                     hitSound = LPSounds.hitDefence;
-                    hitSoundVolume = 2.1f;
+                    hitSoundVolume = 2.3f;
                     hitEffect = new MultiEffect(
                         LPFx.smoothColorCircle(hitColor, 12 * tilesize, 30f),
                         LPFx.cutting(30f, hitColor, hitColor, 7 * tilesize, 32f, 110f),
@@ -2796,7 +2797,7 @@ public class LPBlocks {
                         LPFx.trailHitSpark(30f, LPPal.redDark, 25, 12 * tilesize, 1.2f, 16f)
                     );
                     rangeHealSound = LPSounds.shootPulse4;
-                    rangeHealSoundVolume = 1.6f;
+                    rangeHealSoundVolume = 1.8f;
                     rangeHealEffect = new MultiEffect(
                         LPFx.smoothColorCircle(LPPal.heal, 12 * tilesize, 30f, 0.7f),
                         LPFx.cutting(30f, LPPal.heal, LPPal.heal.cpy().lerp(Color.white, 0.5f), 5 * tilesize, 40f, 110.001f),

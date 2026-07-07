@@ -8,10 +8,12 @@ import arc.math.Mathf;
 import mindustry.game.EventType.Trigger;
 import mindustry.gen.Building;
 import mindustry.gen.Teamc;
+import mindustry.gen.Unit;
 import mindustry.graphics.Pal;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.consumers.ConsumeItemFilter;
 import mindustry.world.consumers.ConsumeLiquidFilter;
+import mindustry.entities.Units;
 import mindustry.entities.bullet.BulletType;
 import mindustry.type.*;
 import mindustry.world.meta.*;
@@ -75,11 +77,9 @@ public class ItemAmmoTurret extends LPItemTurret {
         super.setStats();
         
         stats.remove(Stat.reload);
-        stats.remove(Stat.ammoCapacity);
-
-        stats.add(Stat.ammoCapacity, (maxAmmo / Math.max(ammoPerShot, 1)) * maxAmmoUnits, StatUnit.shots);
         stats.add(Stat.reload, 60f / (interval + (!reloadWhileCharging ? shoot.firstShotDelay : 0f)) * shoot.shots, StatUnit.perSecond);
         
+        stats.add(LPStats.itemAmmoTurretReload, reload / 60f, StatUnit.seconds);
         stats.add(LPStats.itemAmmoTurretShotInterval, interval / 60f, StatUnit.seconds);
         stats.add(LPStats.itemAmmoTurretMaxAmount, maxAmmoUnits, StatUnit.shots);
         stats.add(LPStats.itemAmmoTurretAmmoUnitCost, ammoUnitCost, StatUnit.shots);
@@ -132,12 +132,30 @@ public class ItemAmmoTurret extends LPItemTurret {
         }
 
         @Override
+        protected boolean canHeal(){
+            return targetHealing && hasAmmo() && (peekAmmo().collidesTeam || peekAmmo().scaleLife) && peekAmmo().heals();
+        }
+
+        @Override
+        protected void findTarget(){
+            super.findTarget();
+            
+            if(target == null && canHeal()){
+                float Range = range();
+                Unit allyUnit = Units.closest(team, x, y, Range, u -> u != null && u != unit && u.damaged());
+                if(allyUnit != null){
+                    target = allyUnit;
+                }
+            }
+        }
+
+        @Override
         public void updateTile(){
             super.updateTile();
             float interval = ((ItemAmmoTurret)block).interval;
 
             if(totalAmmoUnits > 0){
-                shotCounter += delta() * ammoReloadMultiplier() * baseReloadSpeed();
+                shotCounter += delta() * ammoReloadMultiplier() * Math.max(baseReloadSpeed(), potentialEfficiency);
                 shotCounter = Math.min(shotCounter, interval);
                 shotIntervalRemaining = Math.max(0, (interval - shotCounter));
                 shotIntervalBar = totalAmmoUnits > 0 ? Mathf.clamp(shotCounter / interval) : 0f;
@@ -193,11 +211,12 @@ public class ItemAmmoTurret extends LPItemTurret {
 
         @Override
         public boolean shouldConsume(){
-            return isShooting() || reloadCounter < reload;
+            return isShooting() || (totalAmmoUnits <= 0 && reloadCounter < reload);
         }
 
         @Override
         protected void updateReload(){
+
             if(totalAmmoUnits <= 0){
                 reloadCounter += delta() * ammoReloadMultiplier() * baseReloadSpeed();
                 reloadCounter = Math.min(reloadCounter, reload);
