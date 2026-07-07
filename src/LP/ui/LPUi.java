@@ -137,6 +137,7 @@ public final class LPUi{
 
         ScrollPane pane = new ScrollPane(cont, Styles.smallPane);
         pane.setScrollingDisabled(true, false);
+        pane.setScrollYForce(owner.selectScroll);
         pane.update(() -> owner.selectScroll = pane.getScrollY());
         pane.setOverscroll(false, false);
         main.add(pane).maxHeight(100 * owner.maxList);
