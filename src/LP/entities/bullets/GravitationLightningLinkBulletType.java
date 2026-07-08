@@ -6,6 +6,7 @@ import arc.util.Tmp;
 import mindustry.entities.Effect;
 import mindustry.entities.Units;
 import mindustry.entities.bullet.BasicBulletType;
+import mindustry.Vars;
 import mindustry.content.Fx;
 import mindustry.gen.Bullet;
 
@@ -15,8 +16,8 @@ import LP.graphics.PositionLightning;
 import LP.graphics.LPPal;
 
 public class GravitationLightningLinkBulletType extends BasicBulletType {
-    /** 飞行过程中向(子弹)吸力力度(每帧) */
-    public float gravitation = 2f;
+    /** 飞行过程中向(子弹)吸力力度 */
+    public float gravitation = 4f;
     /** 飞行过程中向(子弹)吸力范围 */
     public float gravitationRange = 20f * tilesize;
     /** 命中时向(子弹)吸力力度(单次) */
@@ -25,7 +26,9 @@ public class GravitationLightningLinkBulletType extends BasicBulletType {
     public float hitGravitationRange = 20f * tilesize * 1.5f;
     /** 相反力(以上全应用) */
     public boolean reverse = false;
-
+    /** 飞行过程中向(子弹)吸力触发间隔(帧) */
+    public int gravitationInterval = 3;
+    
     /** 飞行过程中屏震 */
     public float effectShake = 0f;
     /** 伤害间隔 */
@@ -96,7 +99,10 @@ public class GravitationLightningLinkBulletType extends BasicBulletType {
         }
 
         if(gravitation > 0f && gravitationRange > 0f){
-            applyGravitation(b, b.x, b.y, gravitationRange, gravitation, true);
+            if (Vars.state.isPaused()) return;
+            if(b.timer(1, gravitationInterval)){
+                applyGravitation(b, b.x, b.y, gravitationRange, gravitation, true);
+            }
         }
 
         if (b.timer(4, hitSpacing)) {

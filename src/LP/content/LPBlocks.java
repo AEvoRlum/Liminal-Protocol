@@ -2744,7 +2744,7 @@ public class LPBlocks {
             buildTime = 240f;
             shootCone = 2f;
             shootSound = LPSounds.shootDefence;
-            shootSoundVolume = 2.1f;
+            shootSoundVolume = 2.2f;
             destroySound = LPSounds.blockExplodeExplosiveAlt;
             destroySoundVolume = 2.5f;
             destroyEffect = LPFx.defenceDestroy;
@@ -2783,7 +2783,7 @@ public class LPBlocks {
                     delayRangeHeal = 30f;
                     hitShake = 16f;
                     hitSound = LPSounds.hitDefence;
-                    hitSoundVolume = 2.3f;
+                    hitSoundVolume = 2.5f;
                     hitEffect = new MultiEffect(
                         LPFx.smoothColorCircle(hitColor, 12 * tilesize, 30f),
                         LPFx.cutting(30f, hitColor, hitColor, 7 * tilesize, 32f, 110f),
@@ -2797,7 +2797,7 @@ public class LPBlocks {
                         LPFx.trailHitSpark(30f, LPPal.redDark, 25, 12 * tilesize, 1.2f, 16f)
                     );
                     rangeHealSound = LPSounds.shootPulse4;
-                    rangeHealSoundVolume = 1.8f;
+                    rangeHealSoundVolume = 2f;
                     rangeHealEffect = new MultiEffect(
                         LPFx.smoothColorCircle(LPPal.heal, 12 * tilesize, 30f, 0.7f),
                         LPFx.cutting(30f, LPPal.heal, LPPal.heal.cpy().lerp(Color.white, 0.5f), 5 * tilesize, 40f, 110.001f),
