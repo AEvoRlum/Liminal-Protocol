@@ -60,6 +60,10 @@ public class Vec2Seq implements Iterable<Vec2>, Eachable<Vec2> {
         return size() > 0;
     }
 
+    public void clear() {
+        coordinates.clear();
+    }
+
     public void add(float x, float y) {
         coordinates.add(x, y);
     }

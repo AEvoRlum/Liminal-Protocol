@@ -49,7 +49,7 @@ public class LPBlocks {
     //turret
     public static Block lucenser, disflux, impactor, repulstar, radiance, meteor, cloudpiercer;
     public static Block fallenstar, repelback, hushstrike, crimsondwarf, infernoblade, recursion;
-    public static Block eclipsion, defence;
+    public static Block eclipsion, defence, threshold;
 
     //production
     public static Block jynDrill, shearDrill, impactDrill0;
@@ -2778,7 +2778,7 @@ public class LPBlocks {
                     damage = energyDamage = 0f;
                     rangeEnergyDamage = 500f;
                     rangeEnergyDamageRadius = 12f * tilesize;
-                    rangeHeal = 120f;
+                    rangeHeal = 300f;
                     rangeHealRadius = 12f * tilesize;
                     delayRangeHeal = 30f;
                     hitShake = 16f;
@@ -2808,6 +2808,90 @@ public class LPBlocks {
                     smokeEffect = Fx.none;
                 }}
             );
+        }};
+
+        threshold = new LPItemTurret("threshold"){{
+            size = 6;
+            health = 1145;//完全胜利！
+            armor = 16f;
+            requirements(Category.turret, with(LPItems.photosolidAlloy, 425, LPItems.transchimericsteel, 126, LPItems.jynsteel, 84, LPItems.massisteel, 76, LPItems.crystalite, 92,
+                LPItems.energyStorageModule, 12, LPItems.powerSupplyModule, 16, LPItems.buildchip, 4
+            ));
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            rotateSpeed = 1.85f;
+            reload = 300f;
+            range = 65f * tilesize;
+            trackingRange = range * 1.2f;
+            recoil = 7f;
+            recoilTime = 120f;
+            shake = 12f;
+            cooldownTime = 300f;
+            heatColor = LPPal.redDark;
+            canOverdrive = false;
+            targetHealing = true;
+            maxAmmo = 20;
+            ammoPerShot = 4;
+            databaseTag = "jg";
+            buildTime = 240f;
+            shootCone = 2f;
+            shootSound = LPSounds.laserShot;
+            destroySound = LPSounds.blockExplodeExplosive;
+            destroySoundVolume = 2.5f;
+            destroyEffect = LPFx.thresholdDestroy;
+            consumePower(924 / 60f);
+            consumeLiquid(LPLiquids.heterohydrogen, 6f / 60f);
+            outlineColor = LPPal.outline;
+            minWarmup = 0.999f;
+            shootWarmupSpeed = 0.12f;
+            warmupMaintainTime = 180f;
+            predictTarget = false;
+            drawer = new DrawTurret(){{parts.add(
+                new RegionPart("-glow"){{
+                    heatColor = LPPal.redDark.cpy().a(0.5f);
+                    blending = Blending.additive;
+                    heatProgress = PartProgress.heat;
+                    progress = PartProgress.warmup.compress(0f, 0.25f);
+                    color = Color.valueOf("00000000");
+                    colorTo = heatColor;
+                    outline = false;
+                }},
+
+                new RegionPart("-glow1"){{
+                    heatColor = LPPal.redDark.cpy().a(0.5f);
+                    blending = Blending.additive;
+                    heatProgress = PartProgress.heat;
+                    progress = PartProgress.warmup.compress(0.25f, 0.5f);
+                    color = Color.valueOf("00000000");
+                    colorTo = heatColor;
+                    outline = false;
+                }},
+
+                new RegionPart("-glow2"){{
+                    heatColor = LPPal.redDark.cpy().a(0.5f);
+                    blending = Blending.additive;
+                    heatProgress = PartProgress.heat;
+                    progress = PartProgress.warmup.compress(0.5f, 0.75f);
+                    color = Color.valueOf("00000000");
+                    colorTo = heatColor;
+                    outline = false;
+                }},
+
+                new RegionPart("-glow3"){{
+                    heatColor = LPPal.redDark.cpy().a(0.5f);
+                    blending = Blending.additive;
+                    heatProgress = PartProgress.heat;
+                    progress = PartProgress.warmup.compress(0.75f, 1f);
+                    color = Color.valueOf("00000000");
+                    colorTo = heatColor;
+                    outline = false;
+                }}
+            );}};
+            shootY = 5f;
+            ammo(LPItems.powerSupplyModule, new LightningPierceLaserBulletType(455f){{
+                shootEffect = LPFx.XSharpShoot(40f, LPPal.redMid, 80f);
+                laserEffect = hitEffect = Fx.none;
+            }});
         }};
 
         //production

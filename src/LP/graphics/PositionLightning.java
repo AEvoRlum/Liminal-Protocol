@@ -43,6 +43,7 @@ public final class PositionLightning{
     private static final Vec2 tmp1;
     private static final Vec2 tmp2;
     private static final Vec2 tmp3;
+    private static final Seq<Healthc> entityBuffer = new Seq<>();
 
     private PositionLightning(){
     }
@@ -68,12 +69,12 @@ public final class PositionLightning{
     }
 
     public static void createRange(Bullet owner, boolean hitAir, boolean hitGround, Position from, Team team, float range, int maxHit, Color color, boolean createSubLightning, float damage, int subLightningLength, float width, int lightningNum, Cons<Position> hitPointMovement){
-        Seq<Healthc> entities = new Seq<>();
-        whetherAdd(entities, team, rect.setSize(range * 2f).setCenter(from.getX(), from.getY()), maxHit, hitGround, hitAir);
+        entityBuffer.clear();
+        whetherAdd(entityBuffer, team, rect.setSize(range * 2f).setCenter(from.getX(), from.getY()), maxHit, hitGround, hitAir);
         float armorMultiplier = owner != null ? owner.type.armorMultiplier : 1f;
         float shieldDamageMultiplier = owner != null ? owner.type.shieldDamageMultiplier : 1f;
         float buildingDamageMultiplier = owner != null ? owner.type.buildingDamageMultiplier : 1f;
-        for(Healthc p : entities)
+        for(Healthc p : entityBuffer)
             create(owner, team, from, p, color, createSubLightning, damage, subLightningLength, width, lightningNum, hitPointMovement, armorMultiplier, shieldDamageMultiplier, buildingDamageMultiplier);
     }
 
@@ -233,12 +234,12 @@ public final class PositionLightning{
     }
 
     public static void createRangeForLink(Bullet owner, boolean hitAir, boolean hitGround, Position from, Team team, float range, int maxHit, Color color, boolean createSubLightning, float damage, int subLightningLength, float width, int lightningNum, Cons<Position> hitPointMovement){
-        Seq<Healthc> entities = new Seq<>();
-        whetherAdd(entities, team, rect.setSize(range * 2f).setCenter(from.getX(), from.getY()), maxHit, hitGround, hitAir);
+        entityBuffer.clear();
+        whetherAdd(entityBuffer, team, rect.setSize(range * 2f).setCenter(from.getX(), from.getY()), maxHit, hitGround, hitAir);
         float armorMultiplier = owner != null ? owner.type.armorMultiplier : 1f;
         float shieldDamageMultiplier = owner != null ? owner.type.shieldDamageMultiplier : 1f;
         float buildingDamageMultiplier = owner != null ? owner.type.buildingDamageMultiplier : 1f;
-        for(Healthc p : entities)
+        for(Healthc p : entityBuffer)
             createForLink(owner, team, from, p, color, createSubLightning, damage, subLightningLength, width, lightningNum, hitPointMovement, armorMultiplier, shieldDamageMultiplier, buildingDamageMultiplier);
     }
 
@@ -278,28 +279,40 @@ public final class PositionLightning{
         if(headless) return;
 
         float dst = from.dst(to);
+        int maxSegments = Mathf.clamp((int)(dst / (ROT_DST * 3f)) + 1, 5, 60);
 
         for(int i = 0; i < lightningNum; i++){
             float len = getBoltRandomRange();
             float randRange = len * RANGE_RAND;
 
             floatSeq.clear();
-            FloatSeq randomArray = floatSeq;
-            for(int num = 0; num < dst / (ROT_DST * len) + 1; num++){
-                randomArray.add(Mathf.range(randRange) / (num * 0.025f + 1));
+            int segments = Math.min((int)(dst / (ROT_DST * len)) + 1, maxSegments);
+            for(int num = 0; num < segments; num++){
+                floatSeq.add(Mathf.range(randRange) / (num * 0.025f + 1));
             }
-            createBoltEffect(color, width, computeVectors(randomArray, from, to));
+            createBoltEffect(color, width, computeVectors(floatSeq, from, to));
         }
     }
 
     private static void whetherAdd(Seq<Healthc> points, Team team, Rect selectRect, int maxHit, boolean targetGround, boolean targetAir) {
-        Units.nearbyEnemies(team, selectRect, unit -> {
-            if (unit.checkTarget(targetAir, targetGround)) points.add(unit);
-        });
+        points.clear();
+
+        float cx = selectRect.getX() + selectRect.getWidth() / 2f;
+        float cy = selectRect.getY() + selectRect.getHeight() / 2f;
+        float range = selectRect.getWidth() / 2f;
+
+        if (targetAir) {
+            Units.nearbyEnemies(team, cx, cy, range, unit -> {
+                if (unit.isFlying() && unit.checkTarget(targetAir, targetGround)) points.add(unit);
+            });
+        }
 
         if (targetGround) {
-            selectRect.getCenter(tmp3);
-            Units.nearbyBuildings(tmp3.x, tmp3.y, selectRect.getHeight() / 2, b -> {
+            Units.nearbyEnemies(team, cx, cy, range, unit -> {
+                if (!unit.isFlying() && unit.checkTarget(targetAir, targetGround)) points.add(unit);
+            });
+
+            Units.nearbyBuildings(cx, cy, range, b -> {
                 if (b.team != team && b.isValid()) points.add(b);
             });
         }

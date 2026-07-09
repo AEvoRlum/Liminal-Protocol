@@ -239,6 +239,10 @@ public class LPStatValues {
                         sep(bt, Core.bundle.format("bullet.lp-maxHit", (int)b.maxHit));
                     }
 
+                    if(type instanceof LightningPierceLaserBulletType b && b.lightningDamage > 0){
+                        sep(bt, Core.bundle.format("bullet.lp-randLightningDamage", b.lightningDamage, (int)(b.lightningRandSpacing / tilesize)));
+                    }
+
                     if(type.buildingDamageMultiplier != 1){
                         sep(bt, Core.bundle.format("bullet.buildingdamage", ammoStat((int)(type.buildingDamageMultiplier * 100 - 100))));
                     }

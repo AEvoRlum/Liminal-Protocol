@@ -178,7 +178,9 @@ public class Mx1TechTree {
                         });
                         node(hushstrike, Seq.with(new Research(repelback)), () -> {});
                     });
-                    node(infernoblade, Seq.with(new Research(crimsondwarf)), () -> {});
+                    node(infernoblade, Seq.with(new Research(crimsondwarf)), () -> {
+                        node(threshold, Seq.with(new Research(defence)),() -> {});
+                    });
                 });
                 node(impactor, Seq.with(new Research(process1),
                 new OnSector(why),

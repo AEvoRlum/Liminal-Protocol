@@ -119,8 +119,8 @@ public class LPFx {
 
             color(Color.white);
             for (int i : Mathf.signs) {
-                Drawn.tri(e.x, e.y, tw * 0.5f, size * e.fin(Interp.circleIn) * 0.5f, e.rotation + 90 * i);
-                Drawn.tri(e.x, e.y, tw * 0.5f, size * e.fin(Interp.circleIn) * 0.7f * 0.5f, e.rotation + 55f + 90 * i);
+                Drawn.tri(e.x, e.y, tw * 0.2f, size * (1f + 0.2f * e.fin(Interp.circleIn)) * 0.5f, e.rotation + 90 * i);
+                Drawn.tri(e.x, e.y, tw * 0.2f, size * (1f + 0.2f * e.fin(Interp.circleIn) * 0.7f) * 0.5f, e.rotation + 55f + 90 * i);
             }
         }).followParent(true);
     }
@@ -3209,6 +3209,86 @@ public class LPFx {
             strokeTo = 0f;
             colorFrom = LPPal.orange;
             colorTo = LPPal.aureusDark;
+        }}
+    ),
+
+    thresholdDestroy = new MultiEffect(
+        new ParticleEffect(){{
+            particles = 12;
+            line = true;
+            length = 54f;
+            baseLength = 1.7f;
+            lifetime = 60f;
+            interp = Interp.pow5Out;
+            sizeInterp = Interp.pow2In;
+            lenFrom = 27f;
+            lenTo = 0f;
+            strokeFrom = 1.7f;
+            strokeTo = 0f;
+            colorFrom = LPPal.orange;
+            colorTo = LPPal.orange;
+        }},
+        new ParticleEffect(){{
+            particles = 14;
+            line = true;
+            length = 54f;
+            baseLength = 1.7f;
+            lifetime = 60f;
+            interp = Interp.pow3Out;
+            sizeInterp = Interp.pow2In;
+            lenFrom = 20f;
+            lenTo = 0f;
+            strokeFrom = 1.7f;
+            strokeTo = 0f;
+            colorFrom = LPPal.orange;
+            colorTo = LPPal.orange;
+        }},
+        new ParticleEffect(){{
+            particles = 12;
+            length = 76f;
+            baseLength = 4.2f;
+            lifetime = 60f;
+            interp = Interp.pow3Out;
+            sizeInterp = Interp.pow2In;
+            sizeFrom = 6f;
+            sizeTo = 0f;
+            colorFrom = Color.valueOf("545454");
+            colorTo = Color.valueOf("54545400");
+        }},
+        new ParticleEffect(){{
+            particles = 12;
+            length = 54f;
+            baseLength = 1.7f;
+            lifetime = 60f;
+            interp = Interp.pow4Out;
+            sizeInterp = Interp.pow5In;
+            sizeFrom = 10f;
+            sizeTo = 0f;
+            colorFrom = Color.valueOf("454545");
+            colorTo = Color.valueOf("47474700");
+        }},
+        new WaveEffect(){{
+            lifetime = 60f;
+            interp = Interp.pow3Out;
+            sizeFrom = 0f;
+            sizeTo = 112f;
+            strokeFrom = 1.7f;
+            strokeTo = 0f;
+            colorFrom = LPPal.orange;
+            colorTo = LPPal.orange;
+        }},
+        new ParticleEffect(){{
+            particles = 8;
+            line = false;
+            length = 30f;
+            baseLength = 0f;
+            lifetime = 40f;
+            interp = Interp.pow2Out;
+            sizeInterp = Interp.pow2In;
+            sizeFrom = 4f;
+            sizeTo = 0f;
+            colorFrom = LPPal.orange;
+            colorTo = LPPal.orange;
         }}
     );
 }

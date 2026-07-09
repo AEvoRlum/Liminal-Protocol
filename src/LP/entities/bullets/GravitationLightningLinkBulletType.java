@@ -27,7 +27,7 @@ public class GravitationLightningLinkBulletType extends BasicBulletType {
     /** 相反力(以上全应用) */
     public boolean reverse = false;
     /** 飞行过程中向(子弹)吸力触发间隔(帧) */
-    public int gravitationInterval = 3;
+    public int gravitationInterval = 4;
     
     /** 飞行过程中屏震 */
     public float effectShake = 0f;
@@ -42,7 +42,7 @@ public class GravitationLightningLinkBulletType extends BasicBulletType {
     /** 随机闪电长度 */
     public int lightningLength = 12;
     /** 闪电链伤害 */
-    public float lightningLinkDamage = 20f;
+    public float lightningLinkDamage = 24f;
     /** 闪电链宽度 */
     public float boltWidth = PositionLightning.WIDTH;
     /** 闪电链数量 */
