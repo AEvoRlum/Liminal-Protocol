@@ -1,7 +1,8 @@
 package LP.planet;
 
+import arc.util.*;
 import arc.math.*;
-import arc.math.geom.Vec3;
+import arc.math.geom.*;
 import arc.graphics.Color;
 import arc.util.noise.*;
 import arc.files.Fi;
@@ -13,6 +14,7 @@ import mindustry.maps.generators.*;
 import mindustry.world.*;
 import mindustry.Vars;
 import mindustry.mod.Mods;
+import mindustry.ai.*;
 
 import LP.content.LPBlocks;
 import LP.LPMod;
@@ -20,15 +22,7 @@ import LP.LPMod;
 public class Mx1PlanetGenerator extends PlanetGenerator {
     public float heightScl = 0.9f, octaves = 8, persistence = 0.7f, heightPow = 3f, heightMult = 1.6f;
 
-    public static float arkThresh = 0.28f, arkScl = 0.83f;
-    public static int arkSeed = 7, arkOct = 2;
-    public static float liqThresh = 0.64f, liqScl = 87f, redThresh = 3.1f, noArkThresh = 0.3f;
-    public static int crystalSeed = 8, crystalOct = 2;
-    public static float crystalScl = 0.9f, crystalMag = 0.3f;
     public static float airThresh = 0.13f, airScl = 14;
-    
-    public static float relicChance = 0.02f;
-    public static float slagChance = 0.03f;
 
     Block[] terrain = {
         LPBlocks.darkStone, 
@@ -37,7 +31,10 @@ public class Mx1PlanetGenerator extends PlanetGenerator {
         LPBlocks.rhyoliticLimestone,
         LPBlocks.rhyoliticLimestone,
         LPBlocks.rhyoliticRubble,
-        LPBlocks.darkStoneRubble
+        LPBlocks.darkStoneRubble,
+        Blocks.rhyolite,
+        Blocks.rhyolite,
+        Blocks.roughRhyolite
     };
 
     private static final String PIONEERS_SCHEMATIC_PATH = "assets/schematics/pioneers.msch";
@@ -107,48 +104,16 @@ public class Mx1PlanetGenerator extends PlanetGenerator {
     }
 
     Block getBlock(Vec3 position){
-        float px = position.x, py = position.y, pz = position.z;
-
         float height = rawHeight(position);
         height *= 1.2f;
         height = Mathf.clamp(height);
 
-        Block result = terrain[Mathf.clamp((int)(height * terrain.length), 0, terrain.length - 1)];
-
-        if(Ridged.noise3d(seed + crystalSeed, px + 4f, py + 8f, pz + 1f, crystalOct, crystalScl) > arkThresh){
-            if(rand.chance(0.5f)){
-                return LPBlocks.darkStoneCrystal;
-            }else{
-                return LPBlocks.erocrysCrystal;
-            }
-        }
-
-        if(Ridged.noise3d(seed + arkSeed, px + 2f, py + 8f, pz + 1f, arkOct, arkScl) > arkThresh){
-            result = LPBlocks.relicfloor;
-        }
-
-        if(rand.chance(relicChance)){
-            int relicType = rand.random(5);
-            switch(relicType){
-                case 0: result = LPBlocks.relicfloor2; break;
-                case 1: result = LPBlocks.relicfloor3; break;
-                case 2: result = LPBlocks.relicfloor4; break;
-                case 3: result = LPBlocks.relicfloor5; break;
-                case 4: result = LPBlocks.relicfloor6; break;
-                default: result = LPBlocks.relicfloor; break;
-            }
-        }
-
-        return result;
+        return terrain[Mathf.clamp((int)(height * terrain.length), 0, terrain.length - 1)];
     }
 
     @Override
     public void genTile(Vec3 position, TileGen tile){
         tile.floor = getBlock(position);
-
-        if(tile.floor == LPBlocks.rhyoliticLimestone && rand.chance(0.01)){
-            tile.floor = LPBlocks.darkStoneRock;
-        }
 
         tile.block = tile.floor.asFloor().wall;
 
@@ -157,16 +122,12 @@ public class Mx1PlanetGenerator extends PlanetGenerator {
         }
 
         if(Ridged.noise3d(seed + 2, position.x, position.y + 4f, position.z, 3, 6f) > 0.6){
-            if(rand.chance(slagChance)){
-                tile.floor = Blocks.slag;
-                tile.block = Blocks.air;
-            }
+            tile.floor = Blocks.slag;
         }
     }
 
     @Override
     protected void generate(){
-
         float temp = rawTemp(sector.tile.v);
 
         if(temp > 0.7){
@@ -180,10 +141,6 @@ public class Mx1PlanetGenerator extends PlanetGenerator {
                             floor = LPBlocks.darkStone;
                         }
                         ore = Blocks.air;
-                    }
-
-                    if(noise > 0.55f && floor == LPBlocks.relicfloor){
-                        floor = LPBlocks.darkStone;
                     }
                 }
             });
@@ -204,21 +161,19 @@ public class Mx1PlanetGenerator extends PlanetGenerator {
         });
 
         pass((x, y) -> {
-            if(floor == LPBlocks.relicfloor && noise(x, y, 2, 0.3f, 10f, 1f) > 0.6f){
-                block = LPBlocks.relicWall;
+            if(floor == LPBlocks.rhyoliticLimestone && block == Blocks.air && rand.chance(0.01f)){
+                block = LPBlocks.darkStoneRock;
             }
         });
 
         pass((x, y) -> {
-            if(floor == LPBlocks.relicfloor2 && noise(x, y, 2, 0.3f, 10f, 1f) > 0.6f){
-                block = LPBlocks.relicWall2;
+            if(floor == Blocks.rhyolite && noise(x, y, 3, 0.4f, 13f, 1f) > 0.59f){
+                block = Blocks.rhyoliteWall;
             }
         });
 
-        ore(LPBlocks.darkStone, LPBlocks.jynSteelOre, 0.08f, 15f);
-        ore(LPBlocks.darkStone, LPBlocks.massisteelOre, 0.06f, 12f);
-        ore(LPBlocks.rhyoliticLimestone, LPBlocks.erocrysOre, 0.04f, 10f);
-        ore(LPBlocks.rhyoliticLimestone, LPBlocks.litelnlayOre, 0.03f, 8f);
+        distort(10f, 12f);
+        distort(5f, 7f);
 
         if(temp > 0.7){
             pass((x, y) -> {
@@ -228,12 +183,88 @@ public class Mx1PlanetGenerator extends PlanetGenerator {
             });
         }
 
-        if(temp < 0.5){
-            pass((x, y) -> {
-                if(floor == LPBlocks.darkStone && noise(x, y, 4, 0.5f, 80f, 1f) > 0.55f){
-                    floor = LPBlocks.reliclines;
+        
+
+        float length = width/2.6f;
+        Vec2 trns = Tmp.v1.trns(rand.random(360f), length);
+        int
+        spawnX = (int)(trns.x + width/2f), spawnY = (int)(trns.y + height/2f),
+        endX = (int)(-trns.x + width/2f), endY = (int)(-trns.y + height/2f);
+        float maxd = Mathf.dst(width/2f, height/2f);
+
+        erase(spawnX, spawnY, 15);
+        brush(pathfind(spawnX, spawnY, endX, endY, tile -> (tile.solid() ? 300f : 0f) + maxd - tile.dst(width/2f, height/2f)/10f, Astar.manhattan), 9);
+        erase(endX, endY, 15);
+
+        blend(Blocks.slag, LPBlocks.darkStone, 4);
+
+        median(3, 0.6, Blocks.slag);
+
+        pass((x, y) -> {
+            if(floor == Blocks.slag && Mathf.within(x, y, spawnX, spawnY, 30f + noise(x, y, 2, 0.8f, 9f, 15f))){
+                floor = LPBlocks.darkStone;
+            }
+        });
+
+        inverseFloodFill(tiles.getn(spawnX, spawnY));
+
+        pass((x, y) -> {
+            if(block != Blocks.air) return;
+
+            boolean hasWall = false;
+            for(Point2 p : Geometry.d4){
+                Tile other = tiles.get(x + p.x, y + p.y);
+                if(other != null && other.block().solid){
+                    hasWall = true;
+                    break;
                 }
-            });
+            }
+
+            if(!hasWall) return;
+
+            if(floor == LPBlocks.darkStone && rand.chance(0.07f) && !near(x, y, 4, LPBlocks.darkStoneCrystal)){
+                block = LPBlocks.darkStoneCrystal;
+            }else if(floor == LPBlocks.rhyoliticLimestone && rand.chance(0.07f) && !near(x, y, 4, LPBlocks.erocrysCrystal)){
+                block = LPBlocks.erocrysCrystal;
+            }
+        });
+
+        pass((x, y) -> {
+            if(!floor.asFloor().hasSurface()) return;
+
+            if(noise(x + 150, y + x*2 + 100, 4, 0.8f, 55f, 1f) > 0.76f){
+                ore = LPBlocks.jynSteelOre;
+            }
+
+            if(noise(x + 999, y + 600 - x, 4, 0.8f, 50f, 1f) > 0.78f){
+                ore = LPBlocks.massisteelOre;
+            }
+
+            if(noise(x + 782, y - x*1.5f + 300, 4, 0.75f, 48f, 1f) > 0.77f){
+                ore = LPBlocks.erocrysOre;
+            }
+
+            if(noise(x + 555, y + x*1.3f + 800, 4, 0.85f, 52f, 1f) > 0.80f){
+                ore = LPBlocks.litelnlayOre;
+            }
+        });
+
+        pass((x, y) -> {
+            if(block != Blocks.air){
+                ore = Blocks.air;
+            }
+        });
+
+        for(Tile tile : tiles){
+            if(tile.overlay().needsSurface && !tile.floor().hasSurface()){
+                tile.setOverlay(Blocks.air);
+            }
         }
+
+        trimDark();
+
+        tiles.getn(endX, endY).setOverlay(Blocks.spawn);
+
+        Schematics.placeLaunchLoadout(spawnX, spawnY);
     }
 }

@@ -3286,7 +3286,6 @@ public class LPEnemyUnits {
                                 intervalBullets = 2;
                                 intervalBullet = new BasicBulletType(){{
                                     width = height = shrinkY = 0f;
-                                    ignoreSpawnAngle = true;
                                     collides = absorbable = hittable = keepVelocity = false;
                                     speed = damage = lifetime = 0f;
                                     hitSound = despawnSound = Sounds.none;
@@ -3300,7 +3299,6 @@ public class LPEnemyUnits {
                                     fragLifeMax = 1f;
                                     fragBullet = new BasicBulletType(){{
                                         width = height = shrinkY = 0f;
-                                        ignoreSpawnAngle = true;
                                         collides = absorbable = hittable = keepVelocity = false;
                                         speed = damage = 0f;
                                         lifetime = 15f;

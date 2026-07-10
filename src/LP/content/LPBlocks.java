@@ -2699,7 +2699,7 @@ public class LPBlocks {
                     lifetime = 20f * tilesize / speed;
                     rangeOverride = maxRange = 20f * tilesize;
                     damage = 0f;
-                    energyDamage = 120f;
+                    energyDamage = 160f;
                     splashDamage = 80f;
                     splashDamageRadius = 8f * tilesize;
                     shieldEnergyDamageMultiplier = 2f;
@@ -2836,6 +2836,7 @@ public class LPBlocks {
             buildTime = 240f;
             shootCone = 2f;
             shootSound = LPSounds.laserShot;
+            shootSoundVolume = 1.1f;
             destroySound = LPSounds.blockExplodeExplosive;
             destroySoundVolume = 2.5f;
             destroyEffect = LPFx.thresholdDestroy;
@@ -2888,9 +2889,10 @@ public class LPBlocks {
                 }}
             );}};
             shootY = 5f;
-            ammo(LPItems.powerSupplyModule, new LightningPierceLaserBulletType(455f){{
+            ammo(LPItems.powerSupplyModule, new LightningPierceLaserBulletType(900f){{
                 shootEffect = LPFx.XSharpShoot(40f, LPPal.redMid, 80f);
                 laserEffect = hitEffect = Fx.none;
+                hitSound = LPSounds.termignisPierceArmor;
             }});
         }};
 
