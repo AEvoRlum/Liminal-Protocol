@@ -96,7 +96,7 @@ public class LPBlocks {
     public static Block darkStoneWall, rhyoliticLimestoneWall, relicWall, relicWall2, reliclinesWall, reliclinesWall2, darkStoneCrystal, erocrysCrystal;
 
     //Process
-    public static Block process1, process2, process3, process4;
+    public static Block process1, process2, process3, process4, process41;
 
     public static void load(){
         //turret
@@ -4691,6 +4691,13 @@ public class LPBlocks {
         }};
         
         process4 = new MessageBlock("process4"){{
+            alwaysUnlocked = false;
+            placeablePlayer = false;
+            displayFlow = false;
+            databaseTag = "proc";
+        }};
+        
+        process41 = new MessageBlock("process4-1"){{
             alwaysUnlocked = false;
             placeablePlayer = false;
             displayFlow = false;

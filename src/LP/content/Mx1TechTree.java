@@ -252,14 +252,31 @@ public class Mx1TechTree {
                             new Research(cloudpiercer),
                             new Research(erocrysExtractory),
                             new Research(jynBattery)), () -> {
-                                node(process4, Seq.with(new SectorComplete(instead)), () -> {});
+                                node(process4, Seq.with(new SectorComplete(instead)), () -> {
+                                    node(process41, Seq.with(new SectorComplete(Rift),
+                                    new Research(bipolarchip),
+                                    new Research(converchip),
+                                    new Research(stockchip),
+                                    new Research(buildchip),
+                                    new Research(energyStorageModule),
+                                    new Research(powerSupplyModule),
+                                    new Research(chargeModule),
+                                    new Research(photosolidAlloy),
+                                    new Research(heterohydrogen),
+                                    new Research(eclipsion),
+                                    new Research(defence),
+                                    new Research(threshold)
+                                    ), () -> {});
+                                });
                             });
                         });
                     });
                 node(why, Seq.with(new Research(process1)), () -> {
                     node(repulse, Seq.with(new Research(process2)), () -> {
                         node(instead, Seq.with(new Research(process3)), () -> {
-                            node(Rift, Seq.with(new Research(process4)), () -> {});
+                            node(Rift, Seq.with(new Research(process4)), () -> {
+                                node(Outcry, Seq.with(new Research(process41)), () -> {});
+                            });
                         });
                     });
                 });

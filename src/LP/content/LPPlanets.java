@@ -68,6 +68,7 @@ public class LPPlanets {
             allowSectorInvasion = true;
             bloom = false;
             allowLaunchSchematics = true;
+            launchCapacityMultiplier = 1f;
 
             defaultCore = LPBlocks.pioneers;
             lightSrcTo = 0.5f;

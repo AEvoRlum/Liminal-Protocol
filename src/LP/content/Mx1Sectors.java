@@ -5,7 +5,7 @@ import mindustry.type.*;
 import static LP.content.LPPlanets.*;
 
 public class Mx1Sectors {
-    public static SectorPreset 不容拒绝, why, repulse, instead, Rift;
+    public static SectorPreset 不容拒绝, why, repulse, instead, Rift, Outcry;
 
     public static void load(){
 
@@ -37,6 +37,12 @@ public class Mx1Sectors {
             alwaysUnlocked = false;
             captureWave = 2;
             difficulty = 5;
+        }};
+
+        Outcry = new SectorPreset("Outcry", mx1, 1){{
+            alwaysUnlocked = false;
+            captureWave = 55;
+            difficulty = 3;
         }};
     }
 }

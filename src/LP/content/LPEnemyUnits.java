@@ -1892,7 +1892,7 @@ public class LPEnemyUnits {
                 speed = 0f;
                 lifetime = 0f;
                 hitSound = despawnSound = LPSounds.shootRipple;
-                hitSoundVolume = 2f;
+                hitSoundVolume = 1.2f;
                 hitShake = despawnShake = 6f;
                 hitEffect = despawnEffect = new MultiEffect(
                     LPFx.sharpHitSpark(30f, Color.valueOf("FEB380"), 12, 60f, 22f, Interp.pow10Out),
@@ -3649,7 +3649,7 @@ public class LPEnemyUnits {
                 splashDamagePierce = true;
                 armorMultiplier = 0.25f;
                 hitSound = LPSounds.blastShockwave;
-                hitSoundVolume = 2.6f;
+                hitSoundVolume = 2.2f;
                 hitShake = 5f;
                 hitEffect = LPFx.sharpHitRotateBlast(90f, LPPal.eyesLight, 20, 120f, Mathf.random(1f));
                 fragBullets = 1;
@@ -4065,7 +4065,6 @@ public class LPEnemyUnits {
                 splashDamage = 240f;
                 splashDamageRadius = 240f;
                 hitSound = despawnSound = LPSounds.shootRailgun2;
-                hitSoundVolume = 0.3f;
                 hitShake = despawnShake = 12f;
                 hitEffect = despawnEffect = new MultiEffect(
                     LPFx.annihilation(160f, LPPal.orangeRed, 24f, 12),
