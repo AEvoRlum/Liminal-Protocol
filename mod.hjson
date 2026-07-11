@@ -5,7 +5,7 @@ subtitle: "[white]Re: 从零开始成为自己"//来自彼方
 description: '''
 [red[]]俺寻思之力
 '''
-version: "V.test.0.0.38.326.07.09"
+version: "V.test.0.0.38.3-1-26.07.10"
 minGameVersion: 159
 dependencies: []
 java: true
