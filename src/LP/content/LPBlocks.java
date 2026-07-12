@@ -77,7 +77,7 @@ public class LPBlocks {
     public static Block masHeatRedirector, masHeatRedirectorSmall, masHeatRouter, masHeatRouterSmall, masSlagHeater, powerHeater;
     public static Block ionopolymerCrucible, ionopolymerCrucibleLarge, erocrysExtractory, transChimericFoundry, highSpeedTranschimericFoundry,
     heterohydrogenCollector, heterohydrogenLiquefier;
-    public static MultiCrafter chipFabricator, integratedAlloyCmeltingCuringRefinery, moduleFabricator;
+    public static MultiCrafter chipFabricator, integratedAlloyCmeltingCuringRefinery, moduleFabricator, chipAssemble;
 
     //unit
     //storage
@@ -4431,6 +4431,130 @@ public class LPBlocks {
                     updateEffect = LPFx.moduleFabricatorUpdate;
                     updateEffectChance = 0.1f;
                     craftEffect = LPFx.moduleFabricatorCraftBig;
+                }}
+            );
+        }};
+
+        chipAssemble = new MultiCrafter("chip-assemble"){{
+            size = 3;
+            health = 82;
+            requirements(Category.crafting, with(LPItems.jynsteel, 64, LPItems.transchimericsteel, 44, LPItems.crystalite, 30,
+                LPItems.buildchip, 4));
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            canOverdrive = false;
+            hasPower = hasItems = hasLiquids = true;
+            itemCapacity = 24;
+            liquidCapacity = 12f;
+            maxList = 3;
+            useBlockDrawer = true;
+            drawer = new DrawMulti(new DrawDefault(), new DrawGlowRegion(){{color = LPPal.orangeDark;}}, new DrawBlockParts(){{parts.add(new ShapePart(){{
+                hollow = true;
+                color = colorTo = Color.valueOf("F7E97E");
+                sides = 4;
+                radius = 17;
+                radiusTo = 0f;
+                stroke = 0f;
+                strokeTo = 2f;
+                rotation = 45f;
+                layer = 110f;
+                progress = PartProgress.reload.curve(Interp.circleIn);
+            }});}});
+            craftPlans = Seq.with(
+                new CraftPlan(){{
+                    craftTime = 120f;
+                    consumePower(2.5f);
+                    consumeLiquid(LPLiquids.heterohydrogen, 2f / 60f);
+                    consumeItems(with(LPItems.bipolarchip, 4));
+                    outputItems = with(LPItems.bipolarchipset, 1);
+                    ambientSound = Sounds.loopCultivator;
+                    ambientSoundVolume = 0.3f;
+                    updateEffect = LPFx.chipAssembleUpdate;
+                    updateEffectChance = 0.1f;
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 60f;
+                    consumePower(4f);
+                    consumeLiquid(LPLiquids.heterohydrogen, 4f / 60f);
+                    consumeItems(with(LPItems.bipolarchip, 4));
+                    outputItems = with(LPItems.bipolarchipset, 1);
+                    ambientSound = Sounds.loopCultivator;
+                    ambientSoundVolume = 0.5f;
+                    updateEffect = LPFx.chipAssembleUpdate;
+                    updateEffectChance = 0.2f;
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 120f;
+                    consumePower(2.5f);
+                    consumeLiquid(LPLiquids.heterohydrogen, 2f / 60f);
+                    consumeItems(with(LPItems.converchip, 4));
+                    outputItems = with(LPItems.converchipset, 1);
+                    ambientSound = Sounds.loopCultivator;
+                    ambientSoundVolume = 0.3f;
+                    updateEffect = LPFx.chipAssembleUpdate;
+                    updateEffectChance = 0.1f;
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 60f;
+                    consumePower(4f);
+                    consumeLiquid(LPLiquids.heterohydrogen, 4f / 60f);
+                    consumeItems(with(LPItems.converchip, 4));
+                    outputItems = with(LPItems.converchipset, 1);
+                    ambientSound = Sounds.loopCultivator;
+                    ambientSoundVolume = 0.5f;
+                    updateEffect = LPFx.chipAssembleUpdate;
+                    updateEffectChance = 0.2f;
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 120f;
+                    consumePower(2.5f);
+                    consumeLiquid(LPLiquids.heterohydrogen, 2f / 60f);
+                    consumeItems(with(LPItems.stockchip, 4));
+                    outputItems = with(LPItems.stockchipset, 1);
+                    ambientSound = Sounds.loopCultivator;
+                    ambientSoundVolume = 0.3f;
+                    updateEffect = LPFx.chipAssembleUpdate;
+                    updateEffectChance = 0.1f;
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 60f;
+                    consumePower(4f);
+                    consumeLiquid(LPLiquids.heterohydrogen, 4f / 60f);
+                    consumeItems(with(LPItems.stockchip, 4));
+                    outputItems = with(LPItems.stockchipset, 1);
+                    ambientSound = Sounds.loopCultivator;
+                    ambientSoundVolume = 0.5f;
+                    updateEffect = LPFx.chipAssembleUpdate;
+                    updateEffectChance = 0.2f;
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 120f;
+                    consumePower(2.5f);
+                    consumeLiquid(LPLiquids.heterohydrogen, 2f / 60f);
+                    consumeItems(with(LPItems.buildchip, 4));
+                    outputItems = with(LPItems.buildchipset, 1);
+                    ambientSound = Sounds.loopCultivator;
+                    ambientSoundVolume = 0.3f;
+                    updateEffect = LPFx.chipAssembleUpdate;
+                    updateEffectChance = 0.1f;
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 60f;
+                    consumePower(4f);
+                    consumeLiquid(LPLiquids.heterohydrogen, 4f / 60f);
+                    consumeItems(with(LPItems.buildchip, 4));
+                    outputItems = with(LPItems.buildchipset, 1);
+                    ambientSound = Sounds.loopCultivator;
+                    ambientSoundVolume = 0.5f;
+                    updateEffect = LPFx.chipAssembleUpdate;
+                    updateEffectChance = 0.2f;
                 }}
             );
         }};
