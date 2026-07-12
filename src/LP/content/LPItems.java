@@ -10,6 +10,7 @@ public class LPItems {
     jynsteel, massisteel, litelnlay,  transchimericsteel, photosolidAlloy,
     /** 芯片材料 */
     crystalite, erocrys, bipolarchip, converchip, stockchip, buildchip,
+    bipolarchipset, converchipset, stockchipset, buildchipset,
     /** 消耗材料 */
     ionopolymer, heterosoligen,
     /** 模块材料 */
@@ -172,6 +173,66 @@ public class LPItems {
 
         /** 构建芯片 */
         buildchip = new Item("buildchip", LPPal.orangeMid){{
+            hardness = 1;
+            radioactivity = 0f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0f;
+            cost = 0f;
+            healthScaling = 0f;
+            frames = 0;
+            buildable = true;
+            alwaysUnlocked = false;
+            databaseTag = "chip-mat";
+        }};
+
+        /** 双极芯片组 */
+        bipolarchipset = new Item("bipolarchipset", LPPal.orangeDark.cpy().lerp(Color.gold, 0.35f)){{
+            hardness = 1;
+            radioactivity = 0f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0f;
+            cost = 0f;
+            healthScaling = 0f;
+            frames = 0;
+            buildable = true;
+            alwaysUnlocked = false;
+            databaseTag = "chip-mat";
+        }};
+
+        /** 聚能芯片组 */
+        converchipset = new Item("converchipset", LPPal.aureusMid.cpy().lerp(Color.gold, 0.35f)){{
+            hardness = 2;
+            radioactivity = 0f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0f;
+            cost = 0f;
+            healthScaling = 0f;
+            frames = 0;
+            buildable = true;
+            alwaysUnlocked = false;
+            databaseTag = "chip-mat";
+        }};
+
+        /** 物管芯片组 */
+        stockchipset = new Item("stockchipset", LPPal.orange.cpy().lerp(Color.gold, 0.35f)){{
+            hardness = 1;
+            radioactivity = 0f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0f;
+            cost = 0f;
+            healthScaling = 0f;
+            frames = 0;
+            buildable = true;
+            alwaysUnlocked = false;
+            databaseTag = "chip-mat";
+        }};
+
+        /** 构建芯片组 */
+        buildchipset = new Item("buildchipset", LPPal.orangeMid.cpy().lerp(Color.gold, 0.35f)){{
             hardness = 1;
             radioactivity = 0f;
             explosiveness = 0f;

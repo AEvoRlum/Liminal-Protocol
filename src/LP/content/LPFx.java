@@ -110,7 +110,7 @@ public class LPFx {
     public static Effect XSharpShoot(float lifetime, Color color, float size) {
         return new Effect(lifetime, size * 1.5f, (e) -> {
             color(color);
-            float tw = size / 6f * e.fout(Interp.circleIn);
+            float tw = size / 8f * e.fout(Interp.circleIn);
 
             for (int i : Mathf.signs) {
                 Drawn.tri(e.x, e.y, tw, size * (1 + 0.2f * e.fin(Interp.circleIn)), e.rotation + 90 * i);

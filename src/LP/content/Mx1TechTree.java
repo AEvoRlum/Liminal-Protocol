@@ -299,10 +299,18 @@ public class Mx1TechTree {
                 nodeProduce(ionopolymer, () -> {});
                 nodeProduce(heterosoligen, () -> {});
 
-                nodeProduce(bipolarchip, () -> {});
-                nodeProduce(converchip, () -> {});
-                nodeProduce(stockchip, () -> {});
-                nodeProduce(buildchip, () -> {});
+                nodeProduce(bipolarchip, () -> {
+                    nodeProduce(bipolarchipset, () -> {});
+                });
+                nodeProduce(converchip, () -> {
+                    nodeProduce(converchipset, () -> {});
+                });
+                nodeProduce(stockchip, () -> {
+                    nodeProduce(stockchipset, () -> {});
+                });
+                nodeProduce(buildchip, () -> {
+                    nodeProduce(buildchipset, () -> {});
+                });
 
                 nodeProduce(energyStorageModule, () -> {});
                 nodeProduce(powerSupplyModule, () -> {});

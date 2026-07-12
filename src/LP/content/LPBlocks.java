@@ -2836,7 +2836,7 @@ public class LPBlocks {
             buildTime = 240f;
             shootCone = 2f;
             shootSound = LPSounds.laserShot;
-            shootSoundVolume = 1.1f;
+            shootSoundVolume = 1.15f;
             destroySound = LPSounds.blockExplodeExplosive;
             destroySoundVolume = 2.5f;
             destroyEffect = LPFx.thresholdDestroy;
@@ -4309,7 +4309,7 @@ public class LPBlocks {
                 new CraftPlan(){{
                     craftTime = 240f;
                     consumePower(3.5f);
-                    consumeItems(with(LPItems.massisteel, 4, LPItems.jynsteel, 4, LPItems.litelnlay, 2, LPItems.crystalite, 1));
+                    consumeItems(with(LPItems.massisteel, 4, LPItems.jynsteel, 4, LPItems.litelnlay, 2));
                     outputItems = with(LPItems.photosolidAlloy, 2);
                     ambientSound = Sounds.loopGlow;
                     ambientSoundVolume = 0.8f;
@@ -4319,7 +4319,7 @@ public class LPBlocks {
                     craftTime = 60f;
                     consumePower(10f);
                     consumeLiquid(LPLiquids.heterohydrogen, 4f / 60f);
-                    consumeItems(with(LPItems.massisteel, 4, LPItems.jynsteel, 4, LPItems.litelnlay, 2, LPItems.crystalite, 1));
+                    consumeItems(with(LPItems.massisteel, 4, LPItems.jynsteel, 4, LPItems.litelnlay, 2));
                     outputItems = with(LPItems.photosolidAlloy, 2);
                     ambientSound = Sounds.loopGlow;
                     ambientSoundVolume = 0.8f;
