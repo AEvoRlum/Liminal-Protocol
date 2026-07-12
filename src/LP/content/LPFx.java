@@ -1390,6 +1390,21 @@ public class LPFx {
         interp = Interp.pow3Out;
     }},
 
+    chipAssembleUpdate = new ParticleEffect(){{
+        particles = 1;
+        region = "lp-triangle";
+        lifetime = 30f;
+        length = 0f;
+        baseLength = 0f;
+        baseRotation = 0f;
+        interp = Interp.pow3Out;
+        sizeInterp = Interp.pow3In;
+        sizeFrom = 2.5f;
+        sizeTo = 0f;
+        colorFrom = Color.valueOf("F7E97E");
+        colorTo = Color.valueOf("F7E97E");
+    }},
+
     //turret
     lucenserDestroy = new MultiEffect(
         new ParticleEffect(){{
