@@ -97,7 +97,9 @@ public class Mx1TechTree {
                 new Research(stockchip)), () -> {});
 
                 node(chipFabricator, Seq.with(new SectorComplete(Rift),
-                new Research(highSpeedTranschimericFoundry)), () -> {});
+                new Research(highSpeedTranschimericFoundry)), () -> {
+                    node(chipAssemble, Seq.with(new SectorComplete(Outcry)), () -> {});
+                });
 
                 node(moduleFabricator, Seq.with(new Research(chipFabricator),
                 new Research(photosolidAlloy),
