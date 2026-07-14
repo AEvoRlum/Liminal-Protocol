@@ -104,7 +104,12 @@ public class Mx1TechTree {
                 node(moduleFabricator, Seq.with(new Research(chipFabricator),
                 new Research(photosolidAlloy),
                 new Research(bipolarchip),
-                new Research(converchip)), () -> {});
+                new Research(converchip)), () -> {
+                    node(moduleEnhancer, Seq.with(new SectorComplete(Outcry),
+                    new Research(energyStorageModule),
+                    new Research(powerSupplyModule),
+                    new Research(chargeModule)), () -> {});
+                });
 
                 node(heterohydrogenCollector, Seq.with(new Research(integratedAlloyCmeltingCuringRefinery)), () -> {
                     node(heterohydrogenLiquefier, () -> {});
@@ -314,9 +319,15 @@ public class Mx1TechTree {
                     nodeProduce(buildchipset, () -> {});
                 });
 
-                nodeProduce(energyStorageModule, () -> {});
-                nodeProduce(powerSupplyModule, () -> {});
-                nodeProduce(chargeModule, () -> {});
+                nodeProduce(energyStorageModule, () -> {
+                    nodeProduce(tier2EnergyStorageModule, () -> {});
+                });
+                nodeProduce(powerSupplyModule, () -> {
+                    nodeProduce(tier2PowerSupplyModule, () -> {});
+                });
+                nodeProduce(chargeModule, () -> {
+                    nodeProduce(tier2ChargeModule, () -> {});
+                });
             });
 
             /** 流体 */
