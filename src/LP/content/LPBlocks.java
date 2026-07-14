@@ -77,7 +77,7 @@ public class LPBlocks {
     public static Block masHeatRedirector, masHeatRedirectorSmall, masHeatRouter, masHeatRouterSmall, masSlagHeater, powerHeater;
     public static Block ionopolymerCrucible, ionopolymerCrucibleLarge, erocrysExtractory, transChimericFoundry, highSpeedTranschimericFoundry,
     heterohydrogenCollector, heterohydrogenLiquefier;
-    public static MultiCrafter chipFabricator, integratedAlloyCmeltingCuringRefinery, moduleFabricator, chipAssemble;
+    public static MultiCrafter chipFabricator, integratedAlloyCmeltingCuringRefinery, moduleFabricator, chipAssemble, moduleEnhancer;
 
     //unit
     //storage
@@ -4442,7 +4442,6 @@ public class LPBlocks {
                 LPItems.buildchip, 4));
             alwaysUnlocked = false;
             researchCostMultiplier = 0.4f;
-            canOverdrive = false;
             hasPower = hasItems = hasLiquids = true;
             itemCapacity = 24;
             liquidCapacity = 12f;
@@ -4450,7 +4449,8 @@ public class LPBlocks {
             useBlockDrawer = true;
             drawer = new DrawMulti(new DrawDefault(), new DrawGlowRegion(){{color = LPPal.orangeDark;}}, new DrawBlockParts(){{parts.add(new ShapePart(){{
                 hollow = true;
-                color = colorTo = Color.valueOf("F7E97E");
+                color = Color.valueOf("F7E97E");
+                colorTo = Color.valueOf("F7E97E00");
                 sides = 4;
                 radius = 17;
                 radiusTo = 0f;
@@ -4555,6 +4555,59 @@ public class LPBlocks {
                     ambientSoundVolume = 0.5f;
                     updateEffect = LPFx.chipAssembleUpdate;
                     updateEffectChance = 0.2f;
+                }}
+            );
+        }};
+
+        moduleEnhancer = new MultiCrafter("module-enhancer"){{
+            size = 5;
+            health = 492;
+            requirements(Category.crafting, with(LPItems.transchimericsteel, 175, LPItems.jynsteel, 125, LPItems.crystalite, 42,
+                LPItems.buildchip, 28));
+            alwaysUnlocked = false;
+            researchCostMultiplier = 0.4f;
+            hasPower = hasItems = hasLiquids = true;
+            itemCapacity = 32;
+            liquidCapacity = 48f;
+            maxList = 4;
+            useBlockDrawer = true;
+            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(LPLiquids.heterohydrogen), new DrawDefault(),
+            new DrawGlowRegion(){{color = LPPal.orangeDark; glowIntensity = 0.3f;}}, new DrawGlowRegion("-glow1"){{color = LPPal.orangeDark; glowIntensity = 0.6f;}});
+            craftPlans = Seq.with(
+                new CraftPlan(){{
+                    craftTime = 120f;
+                    consumePower(5f);
+                    consumeLiquid(LPLiquids.heterohydrogen, 6f / 60f);
+                    consumeItems(with(LPItems.energyStorageModule, 2, LPItems.converchip, 8, LPItems.transchimericsteel, 8));
+                    outputItems = with(LPItems.tier2EnergyStorageModule, 2);
+                    ambientSound = Sounds.loopBio;
+                    ambientSoundVolume = 0.3f;
+                    updateEffect = LPFx.moduleEnhancerUpdate;
+                    updateEffectChance = 0.05f;
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 120f;
+                    consumePower(5f);
+                    consumeLiquid(LPLiquids.heterohydrogen, 6f / 60f);
+                    consumeItems(with(LPItems.powerSupplyModule, 2, LPItems.bipolarchip, 6, LPItems.photosolidAlloy, 4));
+                    outputItems = with(LPItems.tier2PowerSupplyModule, 2);
+                    ambientSound = Sounds.loopBio;
+                    ambientSoundVolume = 0.3f;
+                    updateEffect = LPFx.moduleEnhancerUpdate;
+                    updateEffectChance = 0.05f;
+                }},
+
+                new CraftPlan(){{
+                    craftTime = 120f;
+                    consumePower(5f);
+                    consumeLiquid(LPLiquids.heterohydrogen, 6f / 60f);
+                    consumeItems(with(LPItems.chargeModule, 2, LPItems.bipolarchip, 4, LPItems.converchip, 4, LPItems.photosolidAlloy, 6));
+                    outputItems = with(LPItems.tier2ChargeModule, 2);
+                    ambientSound = Sounds.loopBio;
+                    ambientSoundVolume = 0.3f;
+                    updateEffect = LPFx.moduleEnhancerUpdate;
+                    updateEffectChance = 0.05f;
                 }}
             );
         }};
