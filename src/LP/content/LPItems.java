@@ -14,7 +14,8 @@ public class LPItems {
     /** 消耗材料 */
     ionopolymer, heterosoligen,
     /** 模块材料 */
-    energyStorageModule, powerSupplyModule, chargeModule;
+    energyStorageModule, powerSupplyModule, chargeModule,
+    tier2EnergyStorageModule, tier2PowerSupplyModule, tier2ChargeModule;
 
     private LPItems(){
         
@@ -308,6 +309,51 @@ public class LPItems {
 
         /** 蓄能模块 */
         chargeModule = new Item("charge-module", LPPal.orangeRed){{
+            hardness = 4;
+            radioactivity = 0f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0f;
+            cost = 1f;
+            healthScaling = 0.8f;
+            frames = 0;
+            buildable = true;
+            alwaysUnlocked = false;
+            databaseTag = "module-mat";
+        }};
+
+        /** 二级储能模块 */
+        tier2EnergyStorageModule = new Item("tier-2-energy-storage-module", LPPal.orangeMid.cpy().lerp(Color.red, 0.35f)){{
+            hardness = 3;
+            radioactivity = 0f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0f;
+            cost = 1f;
+            healthScaling = 0.8f;
+            frames = 0;
+            buildable = true;
+            alwaysUnlocked = false;
+            databaseTag = "module-mat";
+        }};
+
+        /** 二级供能模块 */
+        tier2PowerSupplyModule = new Item("tier-2-power-supply-module", LPPal.aureusDarkMid.cpy().lerp(Color.red, 0.35f)){{
+            hardness = 4;
+            radioactivity = 0f;
+            explosiveness = 0f;
+            flammability = 0f;
+            charge = 0f;
+            cost = 1f;
+            healthScaling = 0.8f;
+            frames = 0;
+            buildable = true;
+            alwaysUnlocked = false;
+            databaseTag = "module-mat";
+        }};
+
+        /** 二级蓄能模块 */
+        tier2ChargeModule = new Item("tier-2-charge-module", LPPal.orangeRed.cpy().lerp(Color.red, 0.35f)){{
             hardness = 4;
             radioactivity = 0f;
             explosiveness = 0f;
