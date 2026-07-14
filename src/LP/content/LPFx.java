@@ -1405,6 +1405,35 @@ public class LPFx {
         colorTo = Color.valueOf("F7E97E");
     }},
 
+    moduleEnhancerUpdate = new MultiEffect(
+        new WaveEffect(){{
+            lifetime = 40f;
+            colorFrom = LPPal.orangeDark;
+            colorTo = LPPal.orangeDark;
+            sizeFrom = 0f;
+            sizeTo = 16f;
+            strokeFrom = 1.2f;
+            strokeTo = 0f;
+            interp = Interp.pow3Out;
+        }},
+
+        new ParticleEffect(){{
+            particles = 4;
+            region = "lp-triangle";
+            lifetime = 30f;
+            length = -16f;
+            baseLength = 16f;
+            baseRotation = 0f;
+            interp = Interp.pow3Out;
+            sizeInterp = Interp.pow2In;
+            spin = Mathf.random(-2, 2);
+            sizeFrom = 2.5f;
+            sizeTo = 0f;
+            colorFrom = LPPal.orangeDark;
+            colorTo = LPPal.orangeDark;
+        }}
+    ),
+
     //turret
     lucenserDestroy = new MultiEffect(
         new ParticleEffect(){{
