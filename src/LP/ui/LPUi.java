@@ -27,6 +27,9 @@ public final class LPUi{
 
     public static TextureRegion ammoTurretReloadIcon = Core.atlas.find("lp-ammo-turret-reload");
 
+    /** 配方配置面板中消耗/输出显示的字体大小缩放 */
+    public static float recipeFontScale = 1.2f;
+
     private LPUi(){}
 
     /** 把 Stats 的条目依次写入 Table（无分类分组，扁平排列） */
@@ -97,31 +100,59 @@ public final class LPUi{
                 button.table(info -> {
                     info.left();
                     info.table(from -> {
-                        Stats s = new Stats();
-                        s.timePeriod = plan.craftTime;
-                        if(plan.hasConsumers) for(var c : plan.consumers) c.display(s);
-                        if(plan.heatRequirement > 0f){
-                            s.add(Stat.input, plan.heatRequirement, StatUnit.heatUnits);
-                            s.add(Stat.maxEfficiency, (int)(plan.maxHeatEfficiency * 100f), StatUnit.percent);
+                        from.left().defaults().left();
+
+                        boolean first = true;
+                        if(plan.hasConsumers){
+                            for(var c : plan.consumers){
+                                if(!c.optional || !c.booster){
+                                    if(!first) from.add(" / ").size(24).pad(4).color(Color.gray).fontScale(recipeFontScale);
+                                    Stats s = new Stats();
+                                    s.timePeriod = plan.craftTime;
+                                    c.display(s);
+                                    LPUi.statToTable(s, from);
+                                    first = false;
+                                }
+                            }
                         }
-                        LPUi.statToTable(s, from);
-                    }).left().pad(6);
+
+                        if(plan.heatRequirement > 0f){
+                            if(!first) from.add(" / ").size(24).pad(4).color(Color.gray).fontScale(recipeFontScale);
+                            StatValues.number(plan.heatRequirement, StatUnit.heatUnits).display(from);
+                            first = false;
+                        }
+
+                        if(!first && plan.craftTime > 0f){
+                            from.add("|").size(20).pad(3.5f).color(Color.gray).fontScale(recipeFontScale * 0.9f);
+                            Stats s = new Stats();
+                            s.timePeriod = plan.craftTime;
+                            s.add(Stat.productionTime, plan.craftTime / 60f, StatUnit.seconds);
+                            LPUi.statToTable(s, from);
+                        }
+                    }).left().pad(4);
+
                     info.row();
+
                     info.table(to -> {
+                        to.left().defaults().left();
+
                         if(plan.heatOutput > 0f){
                             StatValues.number(plan.heatOutput, StatUnit.heatUnits).display(to);
+                            to.add();
                         }
                         if(plan.powerProduction > 0f){
                             StatValues.number(plan.powerProduction * 60f, StatUnit.powerSecond).display(to);
+                            to.add();
                         }
                         if(plan.outputItems.length > 0){
                             StatValues.items(plan.craftTime, plan.outputItems).display(to);
+                            to.add();
                         }
                         if(plan.outputLiquids.length > 0){
                             StatValues.liquids(1f, plan.outputLiquids).display(to);
                         }
-                    }).left().pad(6);
-                }).grow().left().pad(5);
+                    }).left().pad(4);
+                }).grow().left().pad(3);
                 button.setStyle(Styles.clearNoneTogglei);
                 button.changed(() -> build.configure(new int[]{build.rotation, owner.craftPlans.indexOf(plan)}));
                 button.update(() -> button.setChecked(build.craftPlan == plan));
