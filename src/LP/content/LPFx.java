@@ -229,29 +229,7 @@ public class LPFx {
 
     /** 插值要反着填pow10In -> pow10Out */
     public static Effect sharpHitSpark(float lifetime, Color color, int num, float range, float length, Interp interp) {
-        return new Effect(lifetime, length * 2, e -> {
-            color(color);
-
-            for (int i = 0; i < num; i++) {
-                rand.setSeed(e.id + i);
-                
-                float tw = rand.random(length / 6f, length / 6f * 1.5f) * e.fout(interp);
-                float tl = length * (1f - 0.4f * e.fin(Interp.circleIn));
-                float tl1 = tl * 0.4f;
-                float rad = range - length;
-                float minRad = tl1 * 1.3f;
-                
-                float angle = rand.random(360f);
-                float randomRad = rand.random(minRad, rad);
-                float px = e.x + Angles.trnsx(angle, randomRad);
-                float py = e.y + Angles.trnsy(angle, randomRad);
-                
-                float triAngle = Angles.angle(px, py, e.x, e.y);
-                
-                Drawf.tri(px, py, tw, tl, triAngle + 180f);
-                Drawf.tri(px, py, tw, tl1, triAngle);
-            }
-        });
+        return sharpHitSpark(lifetime, color, num, range, length, interp, 360f);
     }
 
     public static Effect sharpHitSpark(float lifetime, Color color, int num, float range, float length, Interp interp, float cone) {
