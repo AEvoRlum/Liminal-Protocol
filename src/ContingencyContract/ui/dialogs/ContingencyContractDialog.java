@@ -9,6 +9,7 @@ import arc.scene.ui.Image;
 import arc.scene.ui.ImageButton;
 import arc.scene.ui.layout.Table;
 import arc.util.Log;
+import arc.graphics.Color;
 import mindustry.ui.Styles;
 import mindustry.ui.dialogs.BaseDialog;
 import mindustry.gen.Icon;
@@ -26,7 +27,7 @@ public class ContingencyContractDialog extends BaseDialog{
     /** 合约图标 */
     public static TextureRegion contractIconRegion = Core.atlas.find("lp-#0");
     /** 合约图标大小 */
-    public static float contractIconSize = 200f;
+    public static float contractIconSize = 180;
 
     /** 主场地图标 */
     public static TextureRegion mainContractIconRegion = Core.atlas.find("lp-#0mainContract");
@@ -34,13 +35,10 @@ public class ContingencyContractDialog extends BaseDialog{
     public static float mainContractButtonWidth = 900;
     public static float mainContractButtonHeight = 430;
     /** 主场地标题 */
-    public static String mainContractTitle = "@MainContract0";
-    /** 主场地标题字体大小 */
-    public static float mainContractTitleFontSize = 1.5f;
-    /** 主场地地点 */
-    public static String mainContractLocation = "@MainContractLocation0";
-    /** 主场地地点字体大小 */
-    public static float mainContractLocationFontSize = 1f;
+    public static TextureRegion mainContractTitleRegion = Core.atlas.find("lp-#0mainContractTitle");
+    /** 主场地标题宽高 */
+    public static float mainContractTitleWidth = 247;
+    public static float mainContractTitleHeight = 100;
 
     /** 副场地图标 */
     public static TextureRegion subContractIconRegion0 = Core.atlas.find("ranai");
@@ -56,7 +54,7 @@ public class ContingencyContractDialog extends BaseDialog{
     public static String subContractTitle2 = "@SubContract2";
     public static String subContractTitle3 = "@SubContract3";
     /** 副场地标题字体大小 */
-    public static float subContractTitleFontSize = 1.2f;
+    public static float subContractTitleFontSize = 2f;
 
     /** 作战回顾图标 */
     public static TextureRegion operationsReviewIconRegion = Core.atlas.find("lp-#0operationsReviewIcon");
@@ -66,7 +64,7 @@ public class ContingencyContractDialog extends BaseDialog{
     /** 作战回顾标题 */
     public static String operationsReviewTitle = "@OperationsReview";
     /** 作战回顾标题字体大小 */
-    public static float operationsReviewTitleFontSize = 1.2f;
+    public static float operationsReviewTitleFontSize = 2f;
 
     /** 往期作战图标 */
     public static TextureRegion pastOperationsIconRegion = Core.atlas.find("lp-#0pastOperationsIcon");
@@ -76,16 +74,16 @@ public class ContingencyContractDialog extends BaseDialog{
     /** 往期作战标题 */
     public static String pastOperationsTitle = "@PastOperations";
     /** 往期作战标题字体大小 */
-    public static float pastOperationsTitleFontSize = 1.2f;
+    public static float pastOperationsTitleFontSize = 2f;
 
     /** 合约标题 */
-    public static String contractTitle = "@ContractTitle0";
-    /** 合约标题字体大小 */
-    public static float contractTitleFontSize = 2f;
-    /** 合约标题En */
-    public static String contractTitleEn = "@ContractTitleEn0";
-    /** 合约标题En字体大小 */
-    public static float contractTitleEnFontSize = 1f;
+    public static TextureRegion contractTitleRegion = Core.atlas.find("lp-#0contractTitle");
+    /** 合约标题宽高 */
+    public static float contractTitleWidth = 562.5f;
+    public static float contractTitleHeight = 135;
+
+    /** 灰黑字体 */
+    public static Color darkGray = Color.valueOf("434041");
 
     public ContingencyContractDialog(){
         super("", Styles.fullDialog);
@@ -129,9 +127,7 @@ public class ContingencyContractDialog extends BaseDialog{
         mainContractButton.table(t -> {
             t.image(mainContractIconRegion).size(mainContractButtonWidth, mainContractButtonHeight);
             t.row();
-            t.add(mainContractTitle).style(CCStyles.FZYSGBKLabel).padTop(8f).fontScale(mainContractTitleFontSize);
-            t.row();
-            t.add(mainContractLocation).style(CCStyles.BenderLabel).padTop(8f).fontScale(mainContractLocationFontSize);
+            t.image(mainContractTitleRegion).size(mainContractTitleWidth, mainContractTitleHeight).color(darkGray);
         });
         mainContractButton.clicked(() -> {
             Vars.ui.planet.show();
@@ -146,7 +142,7 @@ public class ContingencyContractDialog extends BaseDialog{
         subContractButton0.table(t -> {
             t.image(subContractIconRegion0).size(subContractIconWidth, subContractIconHeight);
             t.row();
-            t.add(subContractTitle0).style(CCStyles.FZYSGBKLabel).right().padTop(8f).fontScale(subContractTitleFontSize);
+            t.add(subContractTitle0).style(CCStyles.DefaultLabel).right().fontScale(subContractTitleFontSize).color(darkGray);
         });
         subContractButton0.clicked(() -> {
         });
@@ -157,7 +153,7 @@ public class ContingencyContractDialog extends BaseDialog{
         subContractButton1.table(t -> {
             t.image(subContractIconRegion1).size(subContractIconWidth, subContractIconHeight);
             t.row();
-            t.add(subContractTitle1).style(CCStyles.FZYSGBKLabel).right().padTop(8f).fontScale(subContractTitleFontSize);
+            t.add(subContractTitle1).style(CCStyles.DefaultLabel).right().fontScale(subContractTitleFontSize).color(darkGray);
         });
         subContractButton1.clicked(() -> {
         });
@@ -168,7 +164,7 @@ public class ContingencyContractDialog extends BaseDialog{
         subContractButton2.table(t -> {
             t.image(subContractIconRegion2).size(subContractIconWidth, subContractIconHeight);
             t.row();
-            t.add(subContractTitle2).style(CCStyles.FZYSGBKLabel).right().padTop(8f).fontScale(subContractTitleFontSize);
+            t.add(subContractTitle2).style(CCStyles.DefaultLabel).right().fontScale(subContractTitleFontSize).color(darkGray);
         });
         subContractButton2.clicked(() -> {
         });
@@ -179,7 +175,7 @@ public class ContingencyContractDialog extends BaseDialog{
         subContractButton3.table(t -> {
             t.image(subContractIconRegion3).size(subContractIconWidth, subContractIconHeight);
             t.row();
-            t.add(subContractTitle3).style(CCStyles.FZYSGBKLabel).right().padTop(8f).fontScale(subContractTitleFontSize);
+            t.add(subContractTitle3).style(CCStyles.DefaultLabel).right().fontScale(subContractTitleFontSize).color(darkGray);
         });
         subContractButton3.clicked(() -> {
         });
@@ -194,7 +190,7 @@ public class ContingencyContractDialog extends BaseDialog{
         operationsReviewButton.table(t -> {
             t.image(operationsReviewIconRegion).size(operationsReviewIconWidth, operationsReviewIconHeight);
             t.row();
-            t.add(operationsReviewTitle).style(CCStyles.FZYSGBKLabel).left().padTop(8f).fontScale(operationsReviewTitleFontSize);
+            t.add(operationsReviewTitle).style(CCStyles.DefaultLabel).left().padTop(8f).fontScale(operationsReviewTitleFontSize).color(darkGray);
         });
         operationsReviewButton.clicked(() -> {});
         leftColumn.add(operationsReviewButton).size(operationsReviewIconWidth, operationsReviewIconHeight + 30f).padBottom(16f);
@@ -205,7 +201,7 @@ public class ContingencyContractDialog extends BaseDialog{
         pastOperationsButton.table(t -> {
             t.image(pastOperationsIconRegion).size(pastOperationsIconWidth, pastOperationsIconHeight);
             t.row();
-            t.add(pastOperationsTitle).style(CCStyles.FZYSGBKLabel).left().padTop(8f).fontScale(pastOperationsTitleFontSize);
+            t.add(pastOperationsTitle).style(CCStyles.DefaultLabel).left().padTop(8f).fontScale(pastOperationsTitleFontSize).color(darkGray);
         });
         pastOperationsButton.clicked(() -> {});
         leftColumn.add(pastOperationsButton).size(pastOperationsIconWidth, pastOperationsIconHeight + 30f);
@@ -227,9 +223,7 @@ public class ContingencyContractDialog extends BaseDialog{
         ImageButton contractTitleButton = new ImageButton(Styles.emptyi);
         contractTitleButton.setChecked(false);
         contractTitleButton.table(t -> {
-            t.add(contractTitle).style(CCStyles.FZYSGBKLabel).left().padTop(8f).fontScale(contractTitleFontSize);
-            t.row();
-            t.add(contractTitleEn).style(CCStyles.NovecentoWideLabel).left().padTop(8f).fontScale(contractTitleEnFontSize);
+            t.image(contractTitleRegion).size(contractTitleWidth, contractTitleHeight).color(darkGray);
         });
         contractTitleRow.add(contractTitleButton);
         contentTable.add(contractTitleRow).center().padTop(16f);
