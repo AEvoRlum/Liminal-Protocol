@@ -2,6 +2,7 @@ package LP;
 
 import arc.Core;
 import arc.Events;
+import arc.math.Mathf;
 import arc.scene.ui.Image;
 import mindustry.Vars;
 import mindustry.game.EventType.ClientLoadEvent;
@@ -13,6 +14,7 @@ public final class LPSettings {
     private static final String NAME = "setting.lp-Liminal-Protocol-Settings";
     public static final String AIMTURRETKEY = "lp-aimTurretSetting";
     public static final String ANNIHILATIONREACTOR_LIGHTNING = "lp-annihilationReactorLightningSetting";
+    private static final String CONTINGENCYCONTRACTUI_SIZE = "lp-contingencyContractUISize";
 
     private LPSettings(){}
 
@@ -29,6 +31,10 @@ public final class LPSettings {
   
             table.checkPref(AIMTURRETKEY, true);
             table.checkPref(ANNIHILATIONREACTOR_LIGHTNING, true);
+
+            table.pref(new TitleSetting("lp-title", "setting.lp-CCUI"));
+
+            table.sliderPref(CONTINGENCYCONTRACTUI_SIZE, 80, 20, 200, 5, i -> i + "%");
         });
     }
 
@@ -39,6 +45,9 @@ public final class LPSettings {
         if(!Core.settings.has(ANNIHILATIONREACTOR_LIGHTNING)){
             Core.settings.put(ANNIHILATIONREACTOR_LIGHTNING, true);
         }
+        if(!Core.settings.has(CONTINGENCYCONTRACTUI_SIZE)){
+            Core.settings.put(CONTINGENCYCONTRACTUI_SIZE, 80);
+        }
     }
 
     public static boolean aimTurretEnabled(){
@@ -47,6 +56,14 @@ public final class LPSettings {
 
     public static boolean annihilationReactorLightningEnabled(){
         return Core.settings.getBool(ANNIHILATIONREACTOR_LIGHTNING, true);
+    }
+
+    public static int contingencyContractUISizePercent(){
+        return Mathf.clamp(Core.settings.getInt(CONTINGENCYCONTRACTUI_SIZE, 80), 20, 100);
+    }
+
+    public static float contingencyContractUISize(){
+        return contingencyContractUISizePercent() / 100f;
     }
 
     public static class TitleSetting extends SettingsMenuDialog.SettingsTable.Setting {
@@ -64,7 +81,7 @@ public final class LPSettings {
 
             Image sep = new Image();
             sep.setColor(Pal.stat);
-            sep.setSize(100, 2);
+            sep.setSize(120, 2);
             table.add(sep).growX().pad(4f);
             table.row();
         }
