@@ -1,27 +1,42 @@
 package ContingencyContract.ui;
 
 import arc.graphics.Color;
+import arc.graphics.g2d.Font;
 import arc.scene.ui.Label.LabelStyle;
-import mindustry.ui.Styles;
+import arc.util.Log;
+import mindustry.ui.Fonts;
 
 public class CCStyles {
     public static LabelStyle
-    NovecentoWideLabel, BenderLabel, DefaultLabel;
+    NovecentoWideLabel, NovecentoWideLabelBig, BenderLabel, DefaultLabel;
+
+    private static boolean loaded = false;
 
     public static void loadStyles() {
+        if (loaded) return;
+        loaded = true;
 
-        if(CCFonts.NovecentoWide != null){
-            NovecentoWideLabel = new LabelStyle(CCFonts.NovecentoWide, Color.white);
-        }else{
-            NovecentoWideLabel = new LabelStyle(Styles.defaultLabel);
+        Font defaultFont = Fonts.def;
+        
+        NovecentoWideLabel = createLabelStyle(CCFonts.NovecentoWide, defaultFont);
+        NovecentoWideLabelBig = createLabelStyle(CCFonts.NovecentoWideBig, defaultFont);
+        BenderLabel = createLabelStyle(CCFonts.Bender, defaultFont);
+        DefaultLabel = createLabelStyle(CCFonts.STCN, defaultFont);
+    }
+
+    private static LabelStyle createLabelStyle(Font customFont, Font fallbackFont) {
+        Font font = (customFont != null) ? customFont : fallbackFont;
+        if (font == null) {
+            Log.err("CCStyles: both custom and fallback fonts are null!");
+            return new LabelStyle();
         }
+        return new LabelStyle(font, Color.white);
+    }
 
-        if(CCFonts.Bender != null){
-            BenderLabel = new LabelStyle(CCFonts.Bender, Color.white);
-        }else{
-            BenderLabel = new LabelStyle(Styles.defaultLabel);
-        }
-
-        DefaultLabel = new LabelStyle(CCFonts.STCN, Color.white);
+    public static void dispose() {
+        NovecentoWideLabel = null;
+        BenderLabel = null;
+        DefaultLabel = null;
+        loaded = false;
     }
 }
