@@ -22,25 +22,27 @@ import ContingencyContract.math.CCInterp;
 
 import ContingencyContract.music.CCBackgroundMusic;
 import static ContingencyContract.ui.dialogs.ContractTreeDialog.score;
+import static LP.LPSettings.contingencyContractUISize;
 
-public class ContingencyContractDialog extends BaseDialog{
+public class ContingencyContractDialog extends BaseDialog {
+    public static float size = contingencyContractUISize();
     /** 背景 */
     public static TextureRegion background = Core.atlas.find("lp-#0background");
     /** 合约图标 */
     public static TextureRegion contractIconRegion = Core.atlas.find("lp-#0");
     /** 合约图标大小 */
-    public static float contractIconSize = 180;
+    public static float contractIconSize = 180 * size;
 
     /** 主场地图标 */
     public static TextureRegion mainContractIconRegion = Core.atlas.find("lp-#0mainContract");
     /** 主场地图标宽高 */
-    public static float mainContractButtonWidth = 900;
-    public static float mainContractButtonHeight = 430;
+    public static float mainContractButtonWidth = 900 * size;
+    public static float mainContractButtonHeight = 430 * size;
     /** 主场地标题 */
     public static TextureRegion mainContractTitleRegion = Core.atlas.find("lp-#0mainContractTitle");
     /** 主场地标题宽高 */
-    public static float mainContractTitleWidth = 222.3f;
-    public static float mainContractTitleHeight = 90;
+    public static float mainContractTitleWidth = 222.3f * size;
+    public static float mainContractTitleHeight = 90 * size;
     /** 主场地合约分数 */
     public static String mainContractScore = "@MainContractScore";
     /** 主场地合约分数字体大小 */
@@ -52,7 +54,7 @@ public class ContingencyContractDialog extends BaseDialog{
     public static TextureRegion subContractIconRegion2 = Core.atlas.find("ranai");
     public static TextureRegion subContractIconRegion3 = Core.atlas.find("ranai");
     /** 副场地图标宽高 */
-    public static float subContractIconWidth = 256f;
+    public static float subContractIconWidth = 256f * size;
     public static float subContractIconHeight = subContractIconWidth / 3f;
     /** 副场地标题 */
     public static String subContractTitle0 = "@SubContract0";
@@ -85,8 +87,8 @@ public class ContingencyContractDialog extends BaseDialog{
     /** 合约标题 */
     public static TextureRegion contractTitleRegion = Core.atlas.find("lp-#0contractTitle");
     /** 合约标题宽高 */
-    public static float contractTitleWidth = 562.5f;
-    public static float contractTitleHeight = 135;
+    public static float contractTitleWidth = 562.5f * size;
+    public static float contractTitleHeight = 135 * size;
 
     /** 灰黑字体 */
     public static Color darkGray = Color.valueOf("434041");
